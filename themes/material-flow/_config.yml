@@ -18,14 +18,8 @@ search:
 
 # friends link
 links:
-  - name: ClassicOldSong
-    url: https://ccoooss.com
-  - name: Frantic1048
-    url: https://frantic1048.logdown.com/
-  - name: Hclmaster
-    url: https://hclmaster.github.io/
-  - name: WANG Hsü-Tung
-    url: https://whst.github.io/
+  - name: yixuan004
+    url: https://github.com/yixuan004
 
 # navigation menu
 menu:
@@ -56,7 +50,7 @@ less:
 # use url, not username
 social:
 - slug: github
-  url: https://github.com/stkevintan
+  url: https://github.com/yixuan004
 - slug: twitter
   url: https://twitter.com/kevinsfork
 - slug: rss
