@@ -10,10 +10,13 @@ categories:
 ---
 
 # MultiWOZ数据集学习
+
+主要记录了通过了解数据集作为对DST任务的入门，MultiWOZ数据集是适用于**任务型对话**系统的数据集，目前看了一遍这个简介后还是不太明白，感觉还需要各种渠道多了解下
+
 Reference：
 > 任务型对话系统数据集详解大全（MultiWOZ /DSTC） https://zhuanlan.zhihu.com/p/200747822 
 
-选择数据集作为对DST任务的入门，MultiWOZ数据集是适用于**任务型对话**系统的数据集
+<!--more-->
 
 ## 1. MultioWOZ的前世今生
 

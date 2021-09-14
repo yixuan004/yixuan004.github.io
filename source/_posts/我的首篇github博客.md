@@ -13,6 +13,9 @@ categories:
 
 **个人代码管理+笔记博客什么的都可以写在github这里了**
 
+主要写了hexo + github.io的双分支部署说明和步骤，以及本地运维和新建修改，切换主题等操作。
+<!--more-->
+
 References：
 > 简易部署相关：https://www.jianshu.com/p/390f202c5b0e
 > 多分支部署相关：https://blog.csdn.net/sherlockyb/article/details/94180548
