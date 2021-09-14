@@ -40,7 +40,7 @@ MultiWOZ的全称是Multi Domain Wizard-of-Oz，其中Wizard-of-Oz是Wizard-of-O
 
 ·Domain（域）：Attraction，Hospital，Police，Hotel，Restaurant，Taxi，Train，其中后四个域属于扩展域，包括子任务Booking。每段对话涉及1-5个领域，因此长度和复杂性差别很大。全部的act和slot如下：
 
-![](./markdown-pictures/2021-09-13-20-49-44.png)
+![](markdown-pictures/2021-09-13-20-49-44.png)
 
 ·数量及分布：10438个对话，其中3406个单领域对话，7032个多领域对话，多领域中，包含最少2-5个领域。70%的对话超过10个会和，其中单领域平均轮数为8.93，多领域为15.39。在数据里，对话的序号前面是SNG的就是单轮，MUL的就是多轮。
 
