@@ -119,5 +119,44 @@ SUMBT使用最近提出的BERT对系统和用户的话语（utterance）进行�
 
 ## Contextual Semantic Encoders
 
-对于句子编码器，我们采用了预训练的BERT模型，这是一个双向Transformer编码器的深层堆栈。
+对于句子编码器，我们采用了预训练的BERT模型，这是一个双向Transformer编码器的深层堆栈。与普通的词向量相比，这种方式提供了上下文带有语义化的词向量。更进一步的，它提供了词句和句子等词序列的聚合表示，因此我们可以获得由多个词组合的slot-types或slot-values。
 
+这里主要记录下：
+
+slot-values: [[area_slot1, area_slot2, area_slot3...], [food_slot1, ...], [price_range_1, ...]]
+
+slot-types: [area, food, price range]
+
+经过一系列操作处理后：
+
+y_vt label_token_ids根据v_t slot-values得到: [torch.Size([7, 32]), torch.Size([xx1, 32]), torch.Size([xx2, 32])]，这里xx1，xx2分别代表food和price range的标签数目
+
+q_s slot_token_ids根据s domain-slot-types得到: torch.Size([3, 32])，因为在WOZ这个数据集中只有3个label
+
+## Slot-Utterance Matching
+
+为了从话语中检索与domain-slot-type（area，food，price range）对应的相关信息，该模型使用注意力机制。把domain-slot-type经过encoder的encoded vector q^s作为一个query，将其与【每个each】单词位置的上下文语义向量u相匹配，然后计算注意力分数。
+
+这里，作者采用了multi-head attention的注意力机制。多头注意力机制将查询矩阵Q、key矩阵K和value矩阵V映射为不同的线性h投影，然后在这些矩阵上执行缩放点积注意力机制。slot s 和 t处的话语之间的有注意上下文向量hst是：
+
+![](/images/2021-09-28-17-32-41.png)
+
+<font color='red'>
+这里的注意力机制可能需要结合代码和原理详细的学习一下，感觉主要是计算用户每一个词是在哪个domain-slot-type做一个分类的感觉？
+</font>
+
+## Belief Tracker 对话状态跟踪器
+
+随着对话的进行，每个回合的belief state由之前的对话历史和当前的对话回合决定。这个对话流可以被RNN类的LSTM和GRU，或者Transformer decoders建模（例如：left-to-right uni-directional Transformers）
+
+在本项工作中，上下文向量h_t，还有RNN的上一个state被送入到RNN中，这是用来学习与目标的slot-values相接近的语义向量
+
+![](/images/2021-09-28-19-27-17.png)
+
+<font color='red'>
+等于说每次训练的时候，送入的是当前domain-slot-type和用户utterance的结合，在WOZ数据集上的反应就是，每次训练使用[area, food, price range]这个domain-slot-type结合用户的话术，通过注意力机制实现了用户话语更加关注哪个，然后将这个注意力机制结合之前状态等得到的hidden计算结果与slot-values匹配得到最小的
+</font>
+
+作者考虑到BERT是使用layer normalization进行nomal化的，RNN输出的d_t也被送入到一个layer normalizaiton层，来帮助训练训练收敛。
+
+![](/images/2021-09-28-19-46-31.png)
