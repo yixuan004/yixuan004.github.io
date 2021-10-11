@@ -7,8 +7,6 @@ categories:
 	- NLP
 ---
 
-# NLP代码学习笔记
-
 记录一些代码中常用的操作说明及bug解决记录
 
 <!--more-->

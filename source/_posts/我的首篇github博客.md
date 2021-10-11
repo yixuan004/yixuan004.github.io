@@ -7,8 +7,6 @@ categories:
 	- 编程开发
 ---
 
-# 我的首篇github博客！
-
 **何老版推荐的github.io+hexo好用啊**
 
 **个人代码管理+笔记博客什么的都可以写在github这里了**

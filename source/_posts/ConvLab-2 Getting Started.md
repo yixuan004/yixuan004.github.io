@@ -8,8 +8,6 @@ categories:
 	- NLP
 ---
 
-# ConvLab-2 Getting Started
-
 ConvLab-2.ipynb
 
 ConvLab-2是一个开源工具包，使研究人员能够使用最先进的模型构建面向任务的对话系统，执行端到端评估，并诊断系统的弱点。作为ConvLab的继承者，ConvLab-2继承了ConvLab的框架，但集成了更强大的对话模型并支持更多的数据集。此外，作者还开发了一个分析工具和一个交互式工具，以帮助研究人员诊断（diagnosing）对话系统。

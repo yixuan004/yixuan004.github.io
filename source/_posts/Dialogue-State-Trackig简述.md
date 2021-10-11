@@ -8,8 +8,7 @@ categories:
 	- NLP
 ---
 
-
-Dialogue State Tracking简述，学习一些中文论文来大概理解下这个任务：
+学习一些中文论文来大概理解下DST这个任务：
 
 Reference:
 > 郑正凯. 基于深度学习端到端的对话状态跟踪研究[D].山东大学,2021.

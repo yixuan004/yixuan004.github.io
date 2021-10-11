@@ -7,8 +7,6 @@ categories:
 	- Crsenal
 ---
 
-# macOS及Linux命令行工具diff
-
 需求：如果使用beyond compare等工具做diff还是有时候有些不方便的，或者说不够灵活。可以在macOS或者Linux系统中直接使用语句进行diff操作，并且在这里补充了一些关于zsh配置和colordiff的说明。
 
 <!--more-->

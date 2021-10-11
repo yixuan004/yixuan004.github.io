@@ -8,8 +8,6 @@ categories:
 	- NLP
 ---
 
-# Transformer积累阅读
-
 Transformer是Google的研究者在2017年《Attention Is All You Need》论文中提出的用于seq2seq任务的模型，它没有RNN的循环结构或CNN的卷积结构，在机器翻译等任务中取得了一定的提升。
 
 主要的motivation在于RNN、LSTM、GRU类的序列结构中的固有顺序属性阻碍了训练样本之间的并行化，对于长序列，内存限制将阻碍对训练样本的批量处理。
