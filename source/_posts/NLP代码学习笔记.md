@@ -71,3 +71,129 @@ print(x) # prints the truncated tensor
 
 # tensor = tensor[0, :, 0]
 这种操作可能代表着仅需要获取bert的cls token的embedding结果，也被认为是整句话的embedding
+
+# .contigous().view()
+
+```python
+.contigous().view()
+```
+有些tensor并不是占用一整块内存，而是由不同的数据块组成，而tensor的view()操作依赖于内存是整块的，这时只需要执行contigous()这个函数，把tensor变成在内存中连续分布的形式，再使用view。
+
+Pytorch0.4中，增加了一个reshape函数，就相当于contigous().view()的功能了！
+
+# pytorch常用的张量操作及归一化算法实现
+
+> https://zhuanlan.zhihu.com/p/76255917
+
+# .squeeze() 和 .unsqueeze()
+
+```python
+.squeeze()
+.unsqueeze()
+```
+squeeze()为压缩的意思，即去掉维度数为1的dim，默认是去掉所有为1的，但是也可以自己指定，但如果指定的维度不为1则不会发生任何改变。
+
+unsqueeze(dim)则与squeeze(dim)正好相反，为添加一个维度的作用。
+
+```python
+# print("hidden.shape: ", hidden.shape) # torch.Size([96, 1, 768]
+hidden = hidden.squeeze() # .squeeze()舍弃维度
+# print("after .squeeze(), hidden.shape: ", hidden.shape) # torch.Size([96, 768])
+```
+
+# nn.GRU 与 nn.LSTM
+
+循环神经网络是一种能够自适应的变长网络，能够对带有上下文的连续序列很好地进行编码
+
+> https://pytorch.org/docs/stable/torch.html
+
+## 基本文档说明
+
+**参数设置**
+```python
+input_size: 单个LSTM神经元的输入维度
+hidden_size: 单个LSTM神经元的隐含层输出维度
+num_layers: LSTM的层数，这里指的是叠起来的层数，而不是展开的层数，展开是自适应的。
+bias: 计算过程中是否需要偏置
+batch_first: batch是否位于第一个维度，很多时候容易混淆，将在之后进一步解释
+dropout: 其中每一层输出的dropout概率，默认为0即不进行dropout，需要注意的一点是最后一层的输出是不会加上dropout概率的。也就是说，当只用到一层LSTM的时候，这个参数是不起作用的。
+bidirectional: 是否双向，当设置为True的时候，输出会为将双向LSTM的输出进行拼接，输出的feature size会增加一倍
+proj_size: 很多博客中都没有解释，用到的时候可能需要参考 # https://pytorch.org/docs/stable/generated/torch.nn.LSTM.html#torch.nn.LSTM
+
+self.nbt = nn.LSTM(input_size=self.bert_output_dim,
+                              hidden_size=self.hidden_dim,
+                              num_layers=self.rnn_num_layers,
+                              dropout=self.hidden_dropout_prob,
+                              batch_first=True)
+
+self.nbt = nn.GRU(input_size=self.bert_output_dim,
+                              hidden_size=self.hidden_dim, # args.hidden_dim
+                              num_layers=self.rnn_num_layers,
+                              dropout=self.hidden_dropout_prob,
+                              batch_first=True)
+```
+
+**Inputs**
+```python
+input: input, (h_0, c_0)
+
+input: 当batch_first = False的时候(L, N, H_in)，当batch_first=True的时候(N, L, H_in)
+h_0: (D*num_layers, N, H_out)，containing the initial hidden state for each element in the batch. Defaults to zeros if (h_0, c_0) is not provided.
+c_0: (D*num_layers, N, H_cell)，containing the initial cell state for each element in the batch. Defaults to zeros if (h_0, c_0) is not provided.
+
+其中：
+    N是batch_size
+    L是每句话的长度
+    如果使用双向LSTM则D是2，否则是1
+    H_in是输入的hiddendim（例如是bert的输出768）
+    H_cell是LSTM内部的hidden_size
+    H_out和输入参数中的proj_size相关，但基本可以理解为就是hidden_size，
+```
+
+**Outputs**
+```python
+Outputs: output, (h_n, c_n)
+
+output: 当batch_first=False的时候是(L, N, D*H_out)，当batch_first=True的时候是(N, L, D*H_out)，其中包括了LSTM最后一层的输出h_t，对于每个t时刻。在PackedSequence相关上还有其他的操作，不过暂时就先不管了
+h_n: (D*num_layers, N, H_out)包含了每个batch中最后的一个hidden state的element
+c_n: (D*num_layersm N, H_cell)包含了最后一个cell的state，对于每个batch的最后一个element？
+```
+
+## 关于循环神经网络
+
+### 关于输入输出的三个维度
+
+自：维度在tensor的变化中始终是最关键的部分，怎么理解维度背后的含义？
+
+对于输入输出，我们首先需要注意是传给的网络输出必须是三维的
+其中每个维度代表的意思，我们习惯的方式是[batch_size, sequence_length, feature_size]
+具体来说，假如输入的是句子的话，每个维度的含义就是：
+
+[一次投入到网络中的句子的条数，句子的长度，句子中每个单词对应的向量维度]
+
+自：在SUMBT代码中，这里的输入该怎么一步步的理解
+
+### 关于batch first
+
+这个是一个非常有趣的参数，他能够将输入的形式变为我们习惯的[batch_size, seq_len, feature_size]
+
+也就是说原本输入参数的形式是[seq_len, batch_size, feature_size]可以视作原本为一列一句话，现在给我们改成了更习惯的一行一句话
+
+更通俗的来说，就是原本一行为一个句子，变成每一列为一个句子，其实设置了batch_first，也不过是在内部也是使用了第1维度和第2维度的转置操作来变成初始形式
+
+在SUMBT中怎么理解这个事情？......
+
+# DST任务中的slot_accuracy和joint_accuracy
+
+slot_accuracy:
+```python
+acc_slot = torch.sum(accuracy, 0).float() / torch.sum(labels.view(-1, slot_dim) > -1, 0).float()
+```
+个人总结：按照三个槽分别算，对的除以总的（需要去除padding）就是slot_accuracy
+
+
+joint_accuracy:
+```python
+acc = sum(torch.sum(accuracy, 1) / slot_dim).float() / torch.sum(labels[:, :, 0].view(-1) > -1, 0).float() # joint accuracy
+```
+个人总结：每轮对话的算成一个，例如在每轮对话中有3个槽，对了2个，该轮对话就是0.66，之后把所有轮对话的加在一起，除以对话的有效轮数就是joint_accuracy
