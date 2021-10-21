@@ -197,3 +197,93 @@ joint_accuracy:
 acc = sum(torch.sum(accuracy, 1) / slot_dim).float() / torch.sum(labels[:, :, 0].view(-1) > -1, 0).float() # joint accuracy
 ```
 个人总结：每轮对话的算成一个，例如在每轮对话中有3个槽，对了2个，该轮对话就是0.66，之后把所有轮对话的加在一起，除以对话的有效轮数就是joint_accuracy
+
+# tqdm中的desc参数
+
+这里desc参数是进度条的前缀名称
+```python
+tqdm(dev_dataloader, desc="Validation")
+```
+
+# tensorboard的使用
+
+看起来tensorboard和tensorboardX不是一个东西？ 所以需要使用pip install进行安装(venv环境下)
+```shell
+$ pip install tensorboard
+...
+(venvsumbt) lyx@h1:/hdd1/lyx$ tensorboard
+TensorFlow installation not found - running with reduced feature set.
+Error: A logdir or db must be specified. For example `tensorboard --logdir mylogdir` or `tensorboard --db sqlite:~/.tensorboard.db`. Run `tensorboard --helpfull` for details and examples.
+```
+
+使用方法如下（SUMBT-lyx为例）：
+```shell
+(venvsumbt) lyx@h1:/hdd1/lyx/SUMBT-lyx$ tensorboard --logdir='SUMBT-lyx/tensorboard/output'
+TensorFlow installation not found - running with reduced feature set.
+
+NOTE: Using experimental fast data loading logic. To disable, pass
+    "--load_fast=false" and report issues on GitHub. More details:
+    https://github.com/tensorflow/tensorboard/issues/4784
+
+Serving TensorBoard on localhost; to expose to the network, use a proxy or pass --bind_all
+TensorBoard 2.7.0 at http://localhost:6007/ (Press CTRL+C to quit)
+```
+
+此时还需要配合一条端口转发命令：
+```shell
+ssh lyx@xxx.xxx.xxx.xxx -L 6007:localhost:6007
+```
+
+注意要在训练前另开一个bash执行如下，然后再开启训练，否则可能会出现tensorboard没有显示的情况
+使用绝对路径！
+```shell
+tensorboard --logdir=/hdd1/lyx/SUMBT-lyx/tensorboard/ckpt-output
+
+tensorboard --logdir=/hdd1/lyx/SUMBT-lyx/tensorboard/20211020-1152-lyx测试
+```
+
+# TensorDataset，SequentialSampler，Dataloader相关
+
+Reference:
+> 
+> https://pytorch.org/docs/stable/data.html?highlight=sequentialsampler#torch.utils.data.SequentialSampler
+
+
+在代码中看到：
+```python
+xxx_sampler = SequentialSampler(xxx_data)  or RandomSampler(xxx_data)
+xxx_dataloader = DataLoader(xxx_data, sampler=xxx_sampler, batch_size=...)
+```
+
+自：一般来说在训练过程中使用RandomSampler，dev和test过程中使用SequentialSampler，
+
+在DST任务中因为和上下文一些状态有关，所以是不是只能顺序采样
+
+## CLASS torch.utils.data.SequentialSampler(data_source)
+按顺序采样元素，始终按相同顺序采样（构建一个迭代器）
+
+源代码是：
+```python
+class SequentialSampler(Sampler[int]):
+    r"""Samples elements sequentially, always in the same order.
+
+    Args:
+        data_source (Dataset): dataset to sample from
+    """
+    data_source: Sized
+
+    def __init__(self, data_source: Sized) -> None:
+        self.data_source = data_source
+
+    def __iter__(self) -> Iterator[int]:
+        return iter(range(len(self.data_source)))
+
+    def __len__(self) -> int:
+        return len(self.data_source)
+```
+
+## CLASS torch.utils.data.RandomSampler(data_source, replacement=False, num_samples=None, generator=None)
+随机抽取元素样本。如果没有替换，则从无序数据集中采样。如果使用替换，则用户可以指定要绘制的样本数
+
+源代码见：
+> https://pytorch.org/docs/stable/_modules/torch/utils/data/sampler.html#RandomSampler
