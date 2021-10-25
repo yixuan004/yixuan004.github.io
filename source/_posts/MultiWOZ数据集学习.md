@@ -16,6 +16,8 @@ Reference：
 
 <!--more-->
 
+# 2021.9.13 首次学习
+
 ## 1. MultioWOZ的前世今生
 
 ·New WOZ：2018年剑桥大学研究人员在提出一个新的multi-domain DST模型的同时，顺带提出了New WOZ数据集，被看作是1.0的最初版本，发表在ACL；
@@ -59,3 +61,109 @@ MultiWOZ作为新的benchmark，提供了三个子任务，分别是，dialogue 
 相关指标更新见：https://github.com/budzianowski/multiwoz
 
 感觉理解的还不是很清楚，还需要进一步看下对话相关的任务一类的来理解吧
+
+
+# 2021.10.24 笔记补充 MultiWOZ2.2以及MultiWOZ系列的前世今生
+
+## Overview
+MultiWOZ2.2数据集发表在ACL2020上，发布了MultiWOZ数据集的升级版，作者来自google和伊利诺伊大学芝加哥分校
+
+> https://aclanthology.org/2020.nlp4convai-1.13/
+
+## MultiWOZ发展史
+
+1. NewWOZ（ACL2018），但好像用的人不多？
+2. MultiWOZ2.0（EMNLP2018）
+3. MultiWOZ2.1 针对2.0中的一些错误进行修正，添加了对槽位的解释和对对话行为的标注，亚马逊研究人员。
+> Eric M, Goel R, Paul S, et al. MultiWOZ 2.1: A Consolidated Multi-Domain Dialogue Dataset with State Corrections and State Tracking Baselines[C]//Proceedings of the 12th Language Resources and Evaluation Conference. 2020: 422-428.
+4. MultiWOZ2.2（ACL 2020），是2.1的进一步升级版
+
+## 标注错误
+
+下面开始介绍2.2对2.1的改进，首先是标注错误。
+在了解标注错误之前，首先了解一下什么是**Wizard-of-Oz setup**。
+Wizard-of-Oz setup是由两个众包工人组成一队，一个扮演user，一个扮演agent。
+每组对话由一个特定的目标来驱动。
+在每轮user对话结束后，扮演agent的众包工会标注出更新后的对话状态，并依此生成一个回复。
+由于这种方法是完全靠人工去标注的，那么就会容易产生噪声。
+
+## Hallucinated Values（直译为“幻觉价值观”）
+
+作者将标注中错误的value分为4类。如下的4种
+
+1. Early Markup：未来会出现的槽值被agent标注为了当前的值，如图所示，User说了：Help me find a moderate price british food place please，此时系统回复了restaurant one seven is a nice place. Do you want to book? 此时应该意图还没有锁在r-name=one seven上
+![](/images/2021-10-24-22-05-41.png)
+
+2. Annotation from Database：这些值没有在对话中出现，而是被程序错误的从数据库中抽取出来的。
+![](/images/2021-10-24-22-12-29.png)
+
+3. Typo：一些印刷或者排版书写错误
+![](/images/2021-10-24-22-33-29.png)
+
+
+4. Implicit Time Processing：一些隐式的时间表示，有可能是根据前面的相对时间加减计算出来的时间，也有时候会四舍五入到最接近的时间。这样会家中模型学习的负担
+![](/images/2021-10-24-22-33-40.png)
+
+## 状态更新不一致
+
+状态更新不一致的主要原因有两种：
+
+1. value来源有多个：一个槽值在对话状态可能有各种来源：由用户提供、由系统提供、从对话状态中不同的domain下的值继承过来的、来源于本体中定义的。
+
+2. value的释义不规范：多个value其实含义是一样的。2.1在定义这些内容的时候缺乏一个显式的规则。这就使得模型训练的时候造成困惑，比如说同时有18：00和6pm，其实都是对的，但是训练过程中ground truth只有一个，那么就会错误的惩罚另一个
+![](/images/2021-10-25-00-00-53.png)
+
+3. 跟踪策略不一致：众包工人标注时的标准不一致，有的只标注了用户提到的value，有的将用户统一的agent提到的value也标了进来
+![](/images/2021-10-25-09-13-23.png)
+
+## 本体中的问题
+
+在MultiWOZ2.0中定义了一个本体，他声称美居乐所有slot的value。但是后来的研究人员发现这个本体其实是很不完整的，所以为了达到很好的效果，研究人员往往要自己再重新定义一个自己的本体。为了解决这个问题，2.1试图列出对话状态中的所有值来重建本体，但是仍然存在一些未解决的问题。
+
+比如说：
+
+1. 在同一槽位中具有相同语义的多个value
+- 8pm=20:00，a and b guesthouse = a and b guest house
+
+2. 本体中多个slot-value无法与数据库中的实体相关联**（这个地方不是很理解）**
+
+
+## 纠正程序
+
+**为了解决上面提到了这些问题，作者这里提到了一套纠正程序**
+
+首先，关于本体。在本体为slot枚举所有可能的value是一件很不现实的事情。比如餐馆的名称，订餐的时间。
+
+因此这里沿用了一种Schema的概念，也就是categorical和non-categorical的区别
+
+categorical：slot中value有限（数量小于50），value列举出所有可能的值
+non-categorical：具有大量possible values的slot，value从对话历史中提取出来
+
+schema将所有slot分成两类，一类叫做non-categorical，另一类叫做categorical
+
+non-categorical包括那些具有大量可能value的slot，schema中对这些slot不去预定义一个value的list，对于这类slot的value是从对话历史中提取出来的
+
+categorical包含了那些value有限的slot，以及在训练数据中具体value数量少于50个的slot。在schema里头对这类slot会列举出所有可能的value
+![](/images/2021-10-25-09-40-25.png)
+
+自：MWZ2.0数据集中的schema好像是比较明显的。
+
+## Categorical Slots
+
+对于分类槽位，所有可能的值都是由2.1的数据库构建的。
+
+其中有两个特殊的词，dont-care和unknown
+- don't care是用户在对某一个值没有偏好的时候使用的
+- unknown指的是那些在schema中的值无法满足用户特定的需求
+
+例如：
+![](/images/2021-10-25-09-43-09.png)
+
+## Non-categorical Slots
+
+对于非分类槽位。上面已经说过，它的value是从历史对话中提取出来的。作者这里使用一种字符串匹配的方式找到对话历史中语义最接近的值。如果有多个，就取最近提到的那个
+
+在2.2中，在标注中允许一个slot有多个value，模型预测出来任意一个都算对
+![](/images/2021-10-25-09-48-10.png)
+
+当多个slot对应的是同一个value的时候，作者这里采用链式存储的思想。后来的slot不标注span，而是标注这个value对应的原始的slot
