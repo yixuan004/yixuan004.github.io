@@ -167,3 +167,7 @@ categorical包含了那些value有限的slot，以及在训练数据中具体val
 ![](/images/2021-10-25-09-48-10.png)
 
 当多个slot对应的是同一个value的时候，作者这里采用链式存储的思想。后来的slot不标注span，而是标注这个value对应的原始的slot
+
+![](/images/2021-10-25-09-54-53.png)
+
+这个图也显示了有在categorical和non-categorical上分别计算JointAcc的习惯
