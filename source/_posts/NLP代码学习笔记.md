@@ -1,6 +1,6 @@
 ---
 title: NLP代码学习笔记
-date: 2021-10-09 11:52:19
+date: 2021-10-30 15:36:19
 tags:
     - NLP
 categories:
@@ -287,3 +287,88 @@ class SequentialSampler(Sampler[int]):
 
 源代码见：
 > https://pytorch.org/docs/stable/_modules/torch/utils/data/sampler.html#RandomSampler
+
+
+# np.prod()
+
+Reference: 
+> https://blog.csdn.net/weixin_40522801/article/details/106578775
+
+np.prod()用来计算所有元素的乘积，pro应该是product的简写，开始的时候不是很明白为什么在计算acc的时候会使用np.prod这个函数，后来发现这个是在计算jointacc上的很好用的函数，因为对于jointacc来说一轮中只要有一个错就算错了
+
+下边这个代码展示了一个JointGA的计算方式，注意在fuzz模式下，可能出现不是1的单轮jointacc值，但是还会有一种越乘越小的感觉
+```python
+# Joint goal accuracy.
+goal_acc[JOINT_GOAL_ACCURACY] = np.prod(list_acc) if list_acc else NAN_VAL
+```
+
+# fuzz.token_sort_ratio()
+
+在对于DST任务non-categorical槽进行评价的时候，很多方法中会使用fuzz这个模式匹配，代码如下，其中str_ref（erence）是真值字符串，str_hyp（othesis）是预测的那个字符串
+```python
+match_score = fuzz.token_sort_ratio(str_ref, str_hyp) / 100.0
+```
+
+解读下fuzz.token_sort_ratio这个函数，在源代码中调用顺序如下：
+```python
+def token_sort_ratio(s1, s2, force_ascii=True, full_process=True):
+    """Return a measure of the sequences' similarity between 0 and 100
+    but sorting the token before comparing.
+    """
+    return _token_sort(s1, s2, partial=False, force_ascii=force_ascii, full_process=full_process)
+
+@utils.check_for_none
+def _token_sort(s1, s2, partial=True, force_ascii=True, full_process=True):
+    """
+    自己注释：按照token进行排序
+    """
+    sorted1 = _process_and_sort(s1, force_ascii, full_process=full_process)
+    sorted2 = _process_and_sort(s2, force_ascii, full_process=full_process)
+
+    if partial:
+        return partial_ratio(sorted1, sorted2)
+    else:
+        return ratio(sorted1, sorted2)
+
+def _process_and_sort(s, force_ascii, full_process=True):
+    """Return a cleaned string with token sorted
+    返回一个按照token排序的干净的string，这里这个干净就是调用full_process
+    """
+    # pull tokens
+    ts = utils.full_process(s, force_ascii=force_ascii) if full_process else s
+    tokens = ts.split()
+
+    # sort tokens and join
+    sorted_string = u" ".join(sorted(tokens))
+    return sorted_string.strip()
+
+# utils.full_process
+def full_process(s, force_ascii=False):
+    """Process string by
+        -- removing all but letters and numbers
+        -- trim whitespace
+        -- force to lower case
+        if force_ascii == True, force convert to ascii
+    这里是几种字符过滤方式，    
+    """
+    if force_ascii:
+        s = asciidammit(s)
+    # Keep only Letters and Numbers (see Unicode docs).
+    string_out = StringProcessor.replace_non_letters_non_numbers_with_whitespace(s) # 用空格替代所有不是字母和数字的
+    # Force into lowercase.
+    string_out = StringProcessor.to_lower_case(string_out)
+    # Remove leading and trailing whitespaces.
+    string_out = StringProcessor.strip(string_out)
+    return string_out
+```
+
+首先把一个字符串不是字母、数字的字符都用空格替换并转化成小写，然后按照空格切分后进行排序，排序后按照字符级别计算编辑距离比。
+
+编辑距离比的计算方式是：(len(str1)+len(str2)-编辑距离) / (len(str1)+len(str2))
+
+例如：
+"Curious San Francisco"（字符含空格长度为21） 和 "San Francisco"（字符不含空格长度为13），编辑距离为8
+(21 + 13 - 8) / (21 + 13) = 0.7647
+
+"CuriousAAA San Francisco"（字符含空格长度为24） 和 "San Francisco"（字符不含空格长度为13），编辑距离为11
+(24 + 13 - 11) / (24 + 13) = 0.7027
