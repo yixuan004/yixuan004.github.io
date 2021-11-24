@@ -5,3 +5,8 @@ db.json
 node_modules/
 public/
 .deploy*/
+.gitignore
+
+Leetcode热门一百题.md
+再读transformer-李沐bilibili笔记.md
+2021-11-19-16-34-00.png
