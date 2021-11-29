@@ -10,7 +10,7 @@ categories:
 	- LeetCode-python
 ---
 
-700. 二叉树中的搜索（简单）
+700.二叉树中的搜索（简单）
 
 题目大意：给定二叉搜索树（BST）的根节点和一个值。 你需要在BST中找到节点值等于给定值的节点。 返回以该节点为根的子树。 如果节点不存在，则返回 NULL。
 
@@ -47,7 +47,7 @@ categories:
 
 # 分析和解答
 
-这个题需要明白，return type如果是有类型的，例如这里是TreeNode类型，在此函数内部的递归循环中，每个返回值也要是TreeNode类型的，类似于这题里边的```return self.searchBST(root.left, val)```
+这个题需要明白，return type如果是有类型的，例如这里是TreeNode类型，在此函数内部的递归循环中，每个返回值也要是TreeNode类型的，类似于这题里边的```return self.searchBST(root.left, val)```，调用的时候是return funct()
 
 
 TreeNode类，每次手写一下保持手感
