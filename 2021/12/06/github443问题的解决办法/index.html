@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Category: 编程开发 | Curious;的个人划水博客</title>
+  <title>github443问题的解决办法 | Curious;的个人划水博客</title>
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <meta name="HandheldFriendly" content="True" />
@@ -12,13 +12,20 @@
   <link rel="shortcut icon" href="/">
   <link rel="alternate" href="/atom.xml" title="Curious;的个人划水博客" type="application/atom+xml">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Curious;的个人划水博客">
-<meta property="og:url" content="http://example.com/categories/%E7%BC%96%E7%A8%8B%E5%BC%80%E5%8F%91/index.html">
+  <meta name="description" content="背景：github经常遇到443问题，例如Failed to connect to github.com port 443: Operation timed out，这种情况下需要一些解决办法； Reference：  https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;471aeba64724">
+<meta property="og:type" content="article">
+<meta property="og:title" content="github443问题的解决办法">
+<meta property="og:url" content="http://example.com/2021/12/06/github443%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/index.html">
 <meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="背景：github经常遇到443问题，例如Failed to connect to github.com port 443: Operation timed out，这种情况下需要一些解决办法； Reference：  https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;471aeba64724">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/2021-12-06-11-45-05.png">
+<meta property="article:published_time" content="2021-12-05T16:56:27.000Z">
+<meta property="article:modified_time" content="2021-12-06T03:46:25.088Z">
 <meta property="article:author" content="Curious;">
+<meta property="article:tag" content="macOS基础操作">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/2021-12-06-11-45-05.png">
     
   <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
@@ -131,57 +138,90 @@
   <div class="l_body">
     <div class='container clearfix'>
       <div class='l_main'>
-        
-  <script>
-    window.subData= { title:'Category : 编程开发'}
-  </script>
-
-<section class="post-list">
+        <article id="post-github443问题的解决办法"
+  class="post white-box article-type-post"
+  itemscope itemprop="blogPost">
+	<section class='meta'>
+	<h2 class="title">
+  	<a href="/2021/12/06/github443%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
+    	github443问题的解决办法
+    </a>
+  </h2>
+	<time>
+	  12月 6, 2021
+	</time>
 	
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2021/09/13/%E6%88%91%E7%9A%84%E9%A6%96%E7%AF%87github%E5%8D%9A%E5%AE%A2/">
-        我的首篇github博客!
-      </a>
-    </h2>
-    
-    <time>
-      9月 13, 2021
-    </time>
-		
     
     <div class='cats'>
-        <a href="/categories/%E7%BC%96%E7%A8%8B%E5%BC%80%E5%8F%91/">编程开发</a>
+        <a href="/categories/Crsenal/">Crsenal</a>
     </div>
 
-  </section>
-  <section class="article typo">
-	  <p><strong>何老版推荐的github.io+hexo好用啊</strong></p>
-<p><strong>个人代码管理+笔记博客什么的都可以写在github这里了</strong></p>
-<p>主要写了hexo + github.io的双分支部署说明和步骤，以及本地运维和新建修改，切换主题等操作。</p>
+	</section>
+	
+		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%88%E6%9A%82%E6%9C%AA%E5%B0%9D%E8%AF%95%EF%BC%8C%E4%BD%86%E6%98%AF%E4%BB%8E%E5%8E%9F%E7%90%86%E4%B8%8A%E6%9D%A5%E8%AF%B4%E5%BA%94%E8%AF%A5%E6%98%AF%E5%8F%AF%E4%BB%A5%E8%A7%A3%E5%86%B3%E7%9A%84%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">解决方法一（暂未尝试，但是从原理上来说应该是可以解决的）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%88%E5%B0%9D%E8%AF%95%E4%BA%86%E5%8F%AF%E4%BB%A5%EF%BC%8C%E9%9C%80%E8%A6%81%E6%A2%AF%E5%AD%90%E8%B5%84%E6%BA%90%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">解决方法二（尝试了可以，需要梯子资源）</span></a></li></ol></section>
+	
+	<section class="article typo">
+  	<div class="article-entry" itemprop="articleBody">
+    	<p>背景：github经常遇到443问题，例如Failed to connect to github.com port 443: Operation timed out，这种情况下需要一些解决办法；</p>
+<p>Reference：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/471aeba64724">https://www.jianshu.com/p/471aeba64724</a></p>
+</blockquote>
+<span id="more"></span>
 
-    
-	  <div class="readmore">
-      <a href="/2021/09/13/%E6%88%91%E7%9A%84%E9%A6%96%E7%AF%87github%E5%8D%9A%E5%AE%A2/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
+<h1 id="解决方法一（暂未尝试，但是从原理上来说应该是可以解决的）"><a href="#解决方法一（暂未尝试，但是从原理上来说应该是可以解决的）" class="headerlink" title="解决方法一（暂未尝试，但是从原理上来说应该是可以解决的）"></a>解决方法一（暂未尝试，但是从原理上来说应该是可以解决的）</h1><ol>
+<li>查询可以用的IP，在</li>
+</ol>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.ipaddress.com/">https://www.ipaddress.com/</a></p>
+</blockquote>
+<p>上分别搜索<code>github.com、github.global-ssl.fastly.net</code></p>
+<ol start="2">
+<li>修改host文件</li>
+</ol>
+<p>操作：<code>sudo vi /etc/hosts</code> 替换成以下ip即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">151.101.185.194 github.global-ssl.fastly.net</span><br><span class="line">192.30.253.112  github.com</span><br></pre></td></tr></table></figure>
+
+<p>之后就可以进行一些尝试了</p>
+<h1 id="解决方法二（尝试了可以，需要梯子资源）"><a href="#解决方法二（尝试了可以，需要梯子资源）" class="headerlink" title="解决方法二（尝试了可以，需要梯子资源）"></a>解决方法二（尝试了可以，需要梯子资源）</h1><ol>
+<li>设置代理的方法，首先查找梯子代理的端口：</li>
+</ol>
+<p><img src="/images/2021-12-06-11-45-05.png"></p>
+<p>通过git config命令来设置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy &quot;localhost:port&quot;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在使用完毕后可以改回来</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global --unset http.proxy</span><br></pre></td></tr></table></figure>
+  	</div>
+	  
+	  <div class="article-tags tags">
       
-        <a href="/tags/hexo%E7%9B%B8%E5%85%B3/">hexo相关</a>
+        <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">macOS基础操作</a>
       
 	  </div>
     
-  </section>
+		
+	
+		<div class="art-item-footer">
+				
+				
+					<span class="art-item-right">next：<a href="/2021/12/05/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E8%BF%87%E7%A8%8B/" rel="next"  title="记录一次hexo博客迁移过程">
+						记录一次hexo博客迁移过程
+					</a><i class="icon icon-chevron-thin-right"></i></span>
+				
+		</div>
+	
+	</section>
+	
 </article>
-    </div>
-  
-</section>
-
+<script>
+	window.subData = {
+		title: 'github443问题的解决办法',
+		tools: true
+	}
+</script>
 
       </div>
       <aside class='l_side'>

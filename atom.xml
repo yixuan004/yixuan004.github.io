@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-05T16:33:32.896Z</updated>
+  <updated>2021-12-06T03:46:25.088Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>github443问题的解决办法</title>
+    <link href="http://example.com/2021/12/06/github443%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
+    <id>http://example.com/2021/12/06/github443%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</id>
+    <published>2021-12-05T16:56:27.000Z</published>
+    <updated>2021-12-06T03:46:25.088Z</updated>
+    
+    <content type="html"><![CDATA[<p>背景：github经常遇到443问题，例如Failed to connect to github.com port 443: Operation timed out，这种情况下需要一些解决办法；</p><p>Reference：</p><blockquote><p><a href="https://www.jianshu.com/p/471aeba64724">https://www.jianshu.com/p/471aeba64724</a></p></blockquote><span id="more"></span><h1 id="解决方法一（暂未尝试，但是从原理上来说应该是可以解决的）"><a href="#解决方法一（暂未尝试，但是从原理上来说应该是可以解决的）" class="headerlink" title="解决方法一（暂未尝试，但是从原理上来说应该是可以解决的）"></a>解决方法一（暂未尝试，但是从原理上来说应该是可以解决的）</h1><ol><li>查询可以用的IP，在</li></ol><blockquote><p><a href="https://www.ipaddress.com/">https://www.ipaddress.com/</a></p></blockquote><p>上分别搜索<code>github.com、github.global-ssl.fastly.net</code></p><ol start="2"><li>修改host文件</li></ol><p>操作：<code>sudo vi /etc/hosts</code> 替换成以下ip即可</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">151.101.185.194 github.global-ssl.fastly.net</span><br><span class="line">192.30.253.112  github.com</span><br></pre></td></tr></table></figure><p>之后就可以进行一些尝试了</p><h1 id="解决方法二（尝试了可以，需要梯子资源）"><a href="#解决方法二（尝试了可以，需要梯子资源）" class="headerlink" title="解决方法二（尝试了可以，需要梯子资源）"></a>解决方法二（尝试了可以，需要梯子资源）</h1><ol><li>设置代理的方法，首先查找梯子代理的端口：</li></ol><p><img src="/images/2021-12-06-11-45-05.png"></p><p>通过git config命令来设置</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy &quot;localhost:port&quot;</span><br></pre></td></tr></table></figure><ol start="2"><li>在使用完毕后可以改回来</li></ol><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global --unset http.proxy</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;背景：github经常遇到443问题，例如Failed to connect to github.com port 443: Operation timed out，这种情况下需要一些解决办法；&lt;/p&gt;
+&lt;p&gt;Reference：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/471aeba64724&quot;&gt;https://www.jianshu.com/p/471aeba64724&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Crsenal" scheme="http://example.com/categories/Crsenal/"/>
+    
+    
+    <category term="macOS基础操作" scheme="http://example.com/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
+    
+  </entry>
   
   <entry>
     <title>记录一次hexo博客迁移过程</title>
@@ -57,13 +82,13 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
     <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
     <category term="字符串匹配" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/"/>
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
   </entry>
   
@@ -94,9 +119,9 @@
     <category term="暂未实现优化解法" scheme="http://example.com/categories/LeetCode-python/%E6%9A%82%E6%9C%AA%E5%AE%9E%E7%8E%B0%E4%BC%98%E5%8C%96%E8%A7%A3%E6%B3%95/"/>
     
     
-    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
-    
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
+    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="数学" scheme="http://example.com/tags/%E6%95%B0%E5%AD%A6/"/>
     
@@ -157,11 +182,11 @@
     <category term="暂未实现优化解法" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E6%9A%82%E6%9C%AA%E5%AE%9E%E7%8E%B0%E4%BC%98%E5%8C%96%E8%A7%A3%E6%B3%95/"/>
     
     
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
     <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
     <category term="二分查找" scheme="http://example.com/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
     
@@ -187,13 +212,13 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
-    
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
-    <category term="滑动窗口" scheme="http://example.com/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/"/>
-    
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
+    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    
+    <category term="滑动窗口" scheme="http://example.com/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/"/>
     
   </entry>
   
@@ -215,11 +240,11 @@
     <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
     
     
-    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
-    
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
+    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="数学" scheme="http://example.com/tags/%E6%95%B0%E5%AD%A6/"/>
     
@@ -433,9 +458,9 @@
     
     <category term="NLP" scheme="http://example.com/tags/NLP/"/>
     
-    <category term="论文笔记" scheme="http://example.com/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
     <category term="Dialogue State Tracking" scheme="http://example.com/tags/Dialogue-State-Tracking/"/>
+    
+    <category term="论文笔记" scheme="http://example.com/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -461,11 +486,11 @@
   </entry>
   
   <entry>
-    <title>Dialogue-State-Trackig简述</title>
-    <link href="http://example.com/2021/09/14/Dialogue-State-Trackig%E7%AE%80%E8%BF%B0/"/>
-    <id>http://example.com/2021/09/14/Dialogue-State-Trackig%E7%AE%80%E8%BF%B0/</id>
+    <title>Dialogue-State-Tracking简述</title>
+    <link href="http://example.com/2021/09/14/Dialogue-State-Tracking%E7%AE%80%E8%BF%B0/"/>
+    <id>http://example.com/2021/09/14/Dialogue-State-Tracking%E7%AE%80%E8%BF%B0/</id>
     <published>2021-09-14T13:13:21.000Z</published>
-    <updated>2021-12-05T15:49:33.654Z</updated>
+    <updated>2021-12-06T03:47:11.553Z</updated>
     
     <content type="html"><![CDATA[<p>学习一些中文论文来大概理解下DST这个任务：</p><p>Reference:</p><blockquote><p>郑正凯. 基于深度学习端到端的对话状态跟踪研究[D].山东大学,2021.</p></blockquote><span id="more"></span><h1 id="1-Dialogue-State-Tracking简述"><a href="#1-Dialogue-State-Tracking简述" class="headerlink" title="1. Dialogue State Tracking简述"></a>1. Dialogue State Tracking简述</h1><p>dst任务一般用在任务型对话中，是pipeline中的一个部分。组成对话系统的各模块按照①自然语言理解（NLU）、②对话状态跟踪（DST）、③策略学习（Policy Learning）、④自然语言生成（NLG）四部分组成。</p><p>其中NLU模块将输入文本转化为结构化的语义表示，提取出对用户当前话语中与任务相关的信息，主要使用意图识别和槽值填充的方法；</p><p>DST模块负责维护系统状态，即获取用户目标，对用户目标进行实时更新；</p><p>PL模块负责根据系统状态选择合适的信息对用户进行反馈；</p><p>NLG模块负责把系统反馈的信息转化为自然语言输出给用户。</p><h1 id="2-对话状态跟踪相关理论"><a href="#2-对话状态跟踪相关理论" class="headerlink" title="2. 对话状态跟踪相关理论"></a>2. 对话状态跟踪相关理论</h1><p>英文数据集MultiWOZ 2.0 2.1 2.2 2.3，其中2.3应该是非常新的版本</p><p>中文数据集CrossWOZ</p><h2 id="2-1-数据组成结构"><a href="#2-1-数据组成结构" class="headerlink" title="2.1 数据组成结构"></a>2.1 数据组成结构</h2><p>在对话状态跟踪任务中，数据由以下几方面组成：基于特定任务的槽值对、用户当前轮输入、上轮次的系统反馈（以前所有轮？）、上轮次的系统状态（以前所有轮？）</p><p>（1）槽值对（Slot-Value）<br>“槽”指系统向用户提供服务之前需要事先确定的信息，而“槽值”是指用户需要提供给系统的具体信息。槽值是具体信息，槽是槽值的统称，一个槽可以对应多个槽值，同一领域内一个槽值只能对应一个槽。</p><p>在跨领域对话系统中，槽的上类称为领域，比如餐馆、酒店、景点等；一个领域可以对应很多槽（酒店有价格、酒店有地理位置……），一个槽也可以对应很多领域（酒店有价格、餐厅有价格……）。<strong>所以我们将领域与槽拼接起来作为槽，这样使得槽变成了唯一</strong>，例如“酒店-名称”，“景点-价格”</p><p>在任务型系统中，一般都会有多个槽，每个槽有多个值，用户的意图是多样且不确定的，系统需要与用户通过多轮互动获取用户的真实意图，如在旅游咨询系统中，将“景点-名称”、“酒店-价格”，“餐馆-推荐菜”等用户需要提供信息的类定义为槽，而“餐馆-推荐菜”对应的“北京烤鸭”，“小笼包”等均为槽值。<strong>对话状态追踪的目的是在每一轮对话中能够准确识别出用户是否表达出某个槽</strong>通过对数据集中槽值对进行统计分析可以获得槽值对形式的知识库，这个知识库能够作为主体文件参与模型的训练与预测。</p><p>（2）用户当前轮输入<br>在多轮对话中，用户当前输入作为对话状态追踪的重要信息，当前轮输入可以是陈述需求或者有疑问推荐，也可以是对上一轮系统反馈的回答及提出新的要求。通过与系统的交互过程中，用户可以随时更新自己的需求，系统会根据用户输入的信息及时更新对话状态。</p><p>（3）上轮次的系统状态与系统反馈（<strong>系统角度</strong>）<br>在DST任务中，一般都会初始化系统状态为{Slot: None}，通过不断地更新状态使得系统获取相关信息。在DST过程中，上下文信息在一定程度上影响了后续的动作，由于上一轮系统反馈与当前轮用户输入有着密切联系，所以一般对话状态跟踪模型均会将上一轮系统状态及反馈作为输入。</p><p>而上一轮的系统反馈无外乎两种信息，一种是针对上一轮用户输入给出的问答式回复或推荐，另一种是由于用户给与的信息量不足或者意图不明确，需要用户增加信息，所以系统会主动向用户发送确认或者请求。</p><p>系统确认是对用户进行槽值确认，如“你喜欢面条吗？”，此时系统的状态为{food: noodle，request: None …}【需要用户增加信息】</p><p>系统请求是询问用户特定槽对应的值，如“不幸的是，价格便宜的已售罄，请选择其他价格范围的菜品”，此时系统状态变为{food: noodle, request: price range}【需要用户增加信息】</p><h2 id="2-2-对话状态追踪过程（DST）"><a href="#2-2-对话状态追踪过程（DST）" class="headerlink" title="2.2 对话状态追踪过程（DST）"></a>2.2 对话状态追踪过程（DST）</h2>]]></content>
     
@@ -513,35 +538,6 @@
     <category term="NLP" scheme="http://example.com/tags/NLP/"/>
     
     <category term="Dialogue" scheme="http://example.com/tags/Dialogue/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MultiWOZ数据集学习</title>
-    <link href="http://example.com/2021/09/13/MultiWOZ%E6%95%B0%E6%8D%AE%E9%9B%86%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://example.com/2021/09/13/MultiWOZ%E6%95%B0%E6%8D%AE%E9%9B%86%E5%AD%A6%E4%B9%A0/</id>
-    <published>2021-09-13T12:25:07.000Z</published>
-    <updated>2021-12-05T15:49:33.654Z</updated>
-    
-    <content type="html"><![CDATA[<p>主要记录了通过了解数据集作为对DST任务的入门，MultiWOZ数据集是适用于<strong>任务型对话</strong>系统的数据集，目前看了一遍这个简介后还是不太明白，感觉还需要各种渠道多了解下</p><p>Reference：</p><blockquote><p>任务型对话系统数据集详解大全（MultiWOZ /DSTC） <a href="https://zhuanlan.zhihu.com/p/200747822">https://zhuanlan.zhihu.com/p/200747822</a> </p></blockquote><span id="more"></span><h1 id="2021-9-13-首次学习"><a href="#2021-9-13-首次学习" class="headerlink" title="2021.9.13 首次学习"></a>2021.9.13 首次学习</h1><h2 id="1-MultioWOZ的前世今生"><a href="#1-MultioWOZ的前世今生" class="headerlink" title="1. MultioWOZ的前世今生"></a>1. MultioWOZ的前世今生</h2><p>·New WOZ：2018年剑桥大学研究人员在提出一个新的multi-domain DST模型的同时，顺带提出了New WOZ数据集，被看作是1.0的最初版本，发表在ACL；</p><p>·MultiWOZ 2.0：在1.0版本不错后，这些研究人员首次提出了MultiWOZ这个数据集，也就是一般所说的MultiWOZ 2.0，是当年EMNLP的Best Paper；</p><p>·MultiWOZ 2.1：2019年亚马逊的研究人员对MultiWOZ 2.0数据集中的一些错误进行修正，添加了对槽位的解释和对话行为的标注，代表MultiWOZ 2.1版本</p><p>·MultiWOZ 2.2：2020年google的研究人员在2.1的基础上提出升级版2.2；</p><h2 id="2-MultiWOZ这个名字的由来"><a href="#2-MultiWOZ这个名字的由来" class="headerlink" title="2. MultiWOZ这个名字的由来"></a>2. MultiWOZ这个名字的由来</h2><p>MultiWOZ的全称是Multi Domain Wizard-of-Oz，其中Wizard-of-Oz是Wizard-of-Oz Experiment或者Wizard-of-Oz Testing或者Wizard-of-Oz Method，是一种方法、技术。简单来说，你以为你在跟机器对话，实际上这个机器的背后是另一个人，是一种使还没有实现的技术先通过人工模拟系统的相应的技术手段。</p><p>因为用到了Wizard-of-Oz方法进行数据的制作和收集，所以采用这个名字。也提到了crowd-sourcing众包的方法，比较通俗的解释是“众包找人来干活，但不花钱，找社会上的志愿者，你一点我一点大家一起把这个事情完成”。关于这个方法作者还展示了他们做的GUI，专门用来让大众制作收集数据集。</p><h2 id="3-MultiWOZ-2-0数据集细节："><a href="#3-MultiWOZ-2-0数据集细节：" class="headerlink" title="3. MultiWOZ 2.0数据集细节："></a>3. MultiWOZ 2.0数据集细节：</h2><p>·主要目标：在旅游城市的信息中心获取旅游者查询的高度自然对话</p><p>·Domain（域）：Attraction，Hospital，Police，Hotel，Restaurant，Taxi，Train，其中后四个域属于扩展域，包括子任务Booking。每段对话涉及1-5个领域，因此长度和复杂性差别很大。全部的act和slot如下：</p><p><img src="/images/2021-09-13-20-49-44.png"></p><p>·数量及分布：10438个对话，其中3406个单领域对话，7032个多领域对话，多领域中，包含最少2-5个领域。70%的对话超过10个会和，其中单领域平均轮数为8.93，多领域为15.39。在数据里，对话的序号前面是SNG的就是单轮，MUL的就是多轮。</p><p>·数据结构：每个对话包含a goal，multiple user，system utterances(系统话语)，belief state（？信度状态），dialogue acts and slots（可能需要结合具体数据进一步理解下）</p><p>·Belief state：有三个部分，分别是semi，book，booked、其中semi是特定领域里的槽值；book在特定领域的booking slots；booked是book的一个子集，在book这个字典里，是booked entity</p><p>↑这段话不太好理解，感觉还得从具体数据内容来看</p><h2 id="4-MultiWOZ-as-a-New-Benchmark"><a href="#4-MultiWOZ-as-a-New-Benchmark" class="headerlink" title="4. MultiWOZ as a New Benchmark"></a>4. MultiWOZ as a New Benchmark</h2><p>MultiWOZ作为新的benchmark，提供了三个子任务，分别是，dialogue state tracking、dialogue-act-to-text generation，dialogue context-to-text generation</p><p>其中<br>·Dialogue state tracking：用在餐厅子领域的overall和joint goals的accuracy作为评价指标</p><p>相关指标更新见：<a href="https://github.com/budzianowski/multiwoz">https://github.com/budzianowski/multiwoz</a></p><p>感觉理解的还不是很清楚，还需要进一步看下对话相关的任务一类的来理解吧</p><h1 id="2021-10-24-笔记补充-MultiWOZ2-2以及MultiWOZ系列的前世今生"><a href="#2021-10-24-笔记补充-MultiWOZ2-2以及MultiWOZ系列的前世今生" class="headerlink" title="2021.10.24 笔记补充 MultiWOZ2.2以及MultiWOZ系列的前世今生"></a>2021.10.24 笔记补充 MultiWOZ2.2以及MultiWOZ系列的前世今生</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>MultiWOZ2.2数据集发表在ACL2020上，发布了MultiWOZ数据集的升级版，作者来自google和伊利诺伊大学芝加哥分校</p><blockquote><p><a href="https://aclanthology.org/2020.nlp4convai-1.13/">https://aclanthology.org/2020.nlp4convai-1.13/</a></p></blockquote><h2 id="MultiWOZ发展史"><a href="#MultiWOZ发展史" class="headerlink" title="MultiWOZ发展史"></a>MultiWOZ发展史</h2><ol><li>NewWOZ（ACL2018），但好像用的人不多？</li><li>MultiWOZ2.0（EMNLP2018）</li><li>MultiWOZ2.1 针对2.0中的一些错误进行修正，添加了对槽位的解释和对对话行为的标注，亚马逊研究人员。<blockquote><p>Eric M, Goel R, Paul S, et al. MultiWOZ 2.1: A Consolidated Multi-Domain Dialogue Dataset with State Corrections and State Tracking Baselines[C]//Proceedings of the 12th Language Resources and Evaluation Conference. 2020: 422-428.</p></blockquote></li><li>MultiWOZ2.2（ACL 2020），是2.1的进一步升级版</li></ol><h2 id="标注错误"><a href="#标注错误" class="headerlink" title="标注错误"></a>标注错误</h2><p>下面开始介绍2.2对2.1的改进，首先是标注错误。<br>在了解标注错误之前，首先了解一下什么是<strong>Wizard-of-Oz setup</strong>。<br>Wizard-of-Oz setup是由两个众包工人组成一队，一个扮演user，一个扮演agent。<br>每组对话由一个特定的目标来驱动。<br>在每轮user对话结束后，扮演agent的众包工会标注出更新后的对话状态，并依此生成一个回复。<br>由于这种方法是完全靠人工去标注的，那么就会容易产生噪声。</p><h2 id="Hallucinated-Values（直译为“幻觉价值观”）"><a href="#Hallucinated-Values（直译为“幻觉价值观”）" class="headerlink" title="Hallucinated Values（直译为“幻觉价值观”）"></a>Hallucinated Values（直译为“幻觉价值观”）</h2><p>作者将标注中错误的value分为4类。如下的4种</p><ol><li><p>Early Markup：未来会出现的槽值被agent标注为了当前的值，如图所示，User说了：Help me find a moderate price british food place please，此时系统回复了restaurant one seven is a nice place. Do you want to book? 此时应该意图还没有锁在r-name=one seven上<br><img src="/images/2021-10-24-22-05-41.png"></p></li><li><p>Annotation from Database：这些值没有在对话中出现，而是被程序错误的从数据库中抽取出来的。<br><img src="/images/2021-10-24-22-12-29.png"></p></li><li><p>Typo：一些印刷或者排版书写错误<br><img src="/images/2021-10-24-22-33-29.png"></p></li></ol><ol start="4"><li>Implicit Time Processing：一些隐式的时间表示，有可能是根据前面的相对时间加减计算出来的时间，也有时候会四舍五入到最接近的时间。这样会家中模型学习的负担<br><img src="/images/2021-10-24-22-33-40.png"></li></ol><h2 id="状态更新不一致"><a href="#状态更新不一致" class="headerlink" title="状态更新不一致"></a>状态更新不一致</h2><p>状态更新不一致的主要原因有两种：</p><ol><li><p>value来源有多个：一个槽值在对话状态可能有各种来源：由用户提供、由系统提供、从对话状态中不同的domain下的值继承过来的、来源于本体中定义的。</p></li><li><p>value的释义不规范：多个value其实含义是一样的。2.1在定义这些内容的时候缺乏一个显式的规则。这就使得模型训练的时候造成困惑，比如说同时有18：00和6pm，其实都是对的，但是训练过程中ground truth只有一个，那么就会错误的惩罚另一个<br><img src="/images/2021-10-25-00-00-53.png"></p></li><li><p>跟踪策略不一致：众包工人标注时的标准不一致，有的只标注了用户提到的value，有的将用户统一的agent提到的value也标了进来<br><img src="/images/2021-10-25-09-13-23.png"></p></li></ol><h2 id="本体中的问题"><a href="#本体中的问题" class="headerlink" title="本体中的问题"></a>本体中的问题</h2><p>在MultiWOZ2.0中定义了一个本体，他声称美居乐所有slot的value。但是后来的研究人员发现这个本体其实是很不完整的，所以为了达到很好的效果，研究人员往往要自己再重新定义一个自己的本体。为了解决这个问题，2.1试图列出对话状态中的所有值来重建本体，但是仍然存在一些未解决的问题。</p><p>比如说：</p><ol><li>在同一槽位中具有相同语义的多个value</li></ol><ul><li>8pm=20:00，a and b guesthouse = a and b guest house</li></ul><ol start="2"><li>本体中多个slot-value无法与数据库中的实体相关联<strong>（这个地方不是很理解）</strong></li></ol><h2 id="纠正程序"><a href="#纠正程序" class="headerlink" title="纠正程序"></a>纠正程序</h2><p><strong>为了解决上面提到了这些问题，作者这里提到了一套纠正程序</strong></p><p>首先，关于本体。在本体为slot枚举所有可能的value是一件很不现实的事情。比如餐馆的名称，订餐的时间。</p><p>因此这里沿用了一种Schema的概念，也就是categorical和non-categorical的区别</p><p>categorical：slot中value有限（数量小于50），value列举出所有可能的值<br>non-categorical：具有大量possible values的slot，value从对话历史中提取出来</p><p>schema将所有slot分成两类，一类叫做non-categorical，另一类叫做categorical</p><p>non-categorical包括那些具有大量可能value的slot，schema中对这些slot不去预定义一个value的list，对于这类slot的value是从对话历史中提取出来的</p><p>categorical包含了那些value有限的slot，以及在训练数据中具体value数量少于50个的slot。在schema里头对这类slot会列举出所有可能的value<br><img src="/images/2021-10-25-09-40-25.png"></p><p>自：MWZ2.0数据集中的schema好像是比较明显的。</p><h2 id="Categorical-Slots"><a href="#Categorical-Slots" class="headerlink" title="Categorical Slots"></a>Categorical Slots</h2><p>对于分类槽位，所有可能的值都是由2.1的数据库构建的。</p><p>其中有两个特殊的词，dont-care和unknown</p><ul><li>don’t care是用户在对某一个值没有偏好的时候使用的</li><li>unknown指的是那些在schema中的值无法满足用户特定的需求</li></ul><p>例如：<br><img src="/images/2021-10-25-09-43-09.png"></p><h2 id="Non-categorical-Slots"><a href="#Non-categorical-Slots" class="headerlink" title="Non-categorical Slots"></a>Non-categorical Slots</h2><p>对于非分类槽位。上面已经说过，它的value是从历史对话中提取出来的。作者这里使用一种字符串匹配的方式找到对话历史中语义最接近的值。如果有多个，就取最近提到的那个</p><p>在2.2中，在标注中允许一个slot有多个value，模型预测出来任意一个都算对<br><img src="/images/2021-10-25-09-48-10.png"></p><p>当多个slot对应的是同一个value的时候，作者这里采用链式存储的思想。后来的slot不标注span，而是标注这个value对应的原始的slot</p><p><img src="/images/2021-10-25-09-54-53.png"></p><p>这个图也显示了有在categorical和non-categorical上分别计算JointAcc的习惯</p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;主要记录了通过了解数据集作为对DST任务的入门，MultiWOZ数据集是适用于&lt;strong&gt;任务型对话&lt;/strong&gt;系统的数据集，目前看了一遍这个简介后还是不太明白，感觉还需要各种渠道多了解下&lt;/p&gt;
-&lt;p&gt;Reference：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;任务型对话系统数据集详解大全（MultiWOZ /DSTC） &lt;a href=&quot;https://zhuanlan.zhihu.com/p/200747822&quot;&gt;https://zhuanlan.zhihu.com/p/200747822&lt;/a&gt; &lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="NLP" scheme="http://example.com/categories/NLP/"/>
-    
-    
-    <category term="NLP" scheme="http://example.com/tags/NLP/"/>
-    
-    <category term="Dialogue State Tracking" scheme="http://example.com/tags/Dialogue-State-Tracking/"/>
-    
-    <category term="Dataset" scheme="http://example.com/tags/Dataset/"/>
     
   </entry>
   
