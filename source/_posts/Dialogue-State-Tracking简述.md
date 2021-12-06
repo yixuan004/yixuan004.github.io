@@ -1,5 +1,5 @@
 ---
-title: Dialogue-State-Trackig简述
+title: Dialogue-State-Tracking简述
 date: 2021-09-14 21:13:21
 tags:
     - NLP
