@@ -4,6 +4,50 @@
   
     
     <entry>
+      <title>iterm2+ohmyzsh安装及插件配置</title>
+      <link href="/2021/12/06/iterm2+ohmyzsh%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE/"/>
+      <url>/2021/12/06/iterm2+ohmyzsh%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE/</url>
+      
+        <content type="html"><![CDATA[<p>背景：iterm2可以替代macOS自带的terminal，而ohmyzsh是基于zsh命令行的一个扩展工具集，在其上可以安装插件来丰富命令行的功能（何老板推荐的syntax highlighting和auto suggestion）</p><span id="more"></span><h1 id="安装item2"><a href="#安装item2" class="headerlink" title="安装item2"></a>安装item2</h1><p>直接官网安装即可，安装后把其保留在程序坞中，手工替代terminal</p><blockquote><p><a href="https://iterm2.com/">https://iterm2.com/</a></p></blockquote><h1 id="安装ohmyzsh"><a href="#安装ohmyzsh" class="headerlink" title="安装ohmyzsh"></a>安装ohmyzsh</h1><p>直接执行官网的一句话命令安装：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c &quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;</span><br></pre></td></tr></table></figure><blockquote><p><a href="https://ohmyz.sh/#install">https://ohmyz.sh/#install</a></p></blockquote><h1 id="安装ohmyzsh的插件syntax-highlighting和auto-suggestion"><a href="#安装ohmyzsh的插件syntax-highlighting和auto-suggestion" class="headerlink" title="安装ohmyzsh的插件syntax highlighting和auto suggestion"></a>安装ohmyzsh的插件syntax highlighting和auto suggestion</h1><p>Reference:</p><blockquote><p><a href="https://www.jianshu.com/p/2f2c09ebfb7f">https://www.jianshu.com/p/2f2c09ebfb7f</a><br><a href="https://blog.csdn.net/qq_38839744/article/details/90247628">https://blog.csdn.net/qq_38839744/article/details/90247628</a></p></blockquote><h2 id="zsh-syntax-highlighting安装"><a href="#zsh-syntax-highlighting安装" class="headerlink" title="zsh-syntax-highlighting安装"></a>zsh-syntax-highlighting安装</h2><p>官网：</p><blockquote><p><a href="https://github.com/zsh-users/zsh-syntax-highlighting">https://github.com/zsh-users/zsh-syntax-highlighting</a></p></blockquote><p>安装：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git </span><br><span class="line">echo &quot;source $&#123;(q-)PWD&#125;/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh&quot; &gt;&gt; $&#123;ZDOTDIR:-$HOME&#125;/.zshrc</span><br></pre></td></tr></table></figure><p>生效：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure><h2 id="Auto-suggestion的安装"><a href="#Auto-suggestion的安装" class="headerlink" title="Auto suggestion的安装"></a>Auto suggestion的安装</h2><p>auto suggestion是ohmyzsh的一个插件，作用基本上是根据历史输入指令记录即使的提示，能够提高效率</p><ol><li>git clone项目，并与ZSH建立关联</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure><p>其中通过echo查看$ZSH_CUSTOM</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ echo $ZSH_CUSTOM</span><br><span class="line">/Users/curious/.oh-my-zsh/custom</span><br></pre></td></tr></table></figure><ol start="2"><li>编辑~/.zshrc文件</li></ol><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.zshrc</span><br></pre></td></tr></table></figure><p>按i 进入–INSERT–编辑模式，使用上下左右键找找到plugins=(git)这一行添加</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugins=(git zsh-autosuggestions)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Crsenal </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> macOS基础操作 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker-Learning</title>
+      <link href="/2021/12/06/docker-Learning/"/>
+      <url>/2021/12/06/docker-Learning/</url>
+      
+        <content type="html"><![CDATA[<p>背景：docker有一种更加轻量级虚拟机的感觉，正好在一个课程中需要使用HBase、Hadoop等，又不方便在本地安装，所以可以使用docker的方式，也借此机会学习docker</p><span id="more"></span><h1 id="docker的安装"><a href="#docker的安装" class="headerlink" title="docker的安装"></a>docker的安装</h1><p>macOS上可以安装docker destop，是个可视化的工具</p><blockquote><p><a href="https://www.docker.com/get-started">https://www.docker.com/get-started</a></p></blockquote><h1 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h1><ol><li>第一步，clone a repository</li></ol><p>Getting Started项目是一个简单的Github repository，包含了一切建立镜像（image）和运行为容器（container）的过程</p><p>通过在容器中运行git克隆存储库</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CuriousdeMacBook-Pro:~ curious$ docker run --name repo alpine git clone https://github.com/docker/getting-started.git</span><br></pre></td></tr></table></figure><ol start="2"><li>之后，构建image</li></ol><p>Docker映像是仅用于容器的私有文件系统。它提供容器所需的所有文件和代码。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CuriousdeMacBook-Pro:~ curious$ cd getting-started </span><br><span class="line">CuriousdeMacBook-Pro:getting-started curious$  docker build -t docker101tutorial .</span><br></pre></td></tr></table></figure><ol start="3"><li>运行第一个container</li></ol><p>基于上一步中生成的映像启动容器。运行容器会启动具有私有资源的应用程序，这些资源与计算机的其余部分安全隔离。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CuriousdeMacBook-Pro:getting-started curious$ docker run -d - p 80:80 --name docker-tutorial docker101tutorial cfd8702ce730feb351565711d7a44d147476d8faa18b03ae2d4815cc137d121b</span><br></pre></td></tr></table></figure><ol start="4"><li>保存并分享镜像</li></ol><p>在Docker Hub上保存和共享您的映像，以便其他用户可以轻松地在任何目标计算机上下载和运行映像。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>github443问题的解决办法</title>
       <link href="/2021/12/06/github443%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
       <url>/2021/12/06/github443%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
@@ -480,9 +524,9 @@
             
             <tag> NLP </tag>
             
-            <tag> Dialogue State Tracking </tag>
-            
             <tag> 论文笔记 </tag>
+            
+            <tag> Dialogue State Tracking </tag>
             
         </tags>
       
