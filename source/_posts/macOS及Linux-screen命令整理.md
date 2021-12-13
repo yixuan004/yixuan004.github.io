@@ -13,7 +13,7 @@ categories:
 
 # screen -ls
 
-```screen -ls```可以查看当前有哪些Attached/Detached的screen界面
+查看：```screen -ls```可以查看当前有哪些Attached/Detached的screen界面
 
 ```shell
 (base) lyx@h5:~$ screen -ls
@@ -24,15 +24,15 @@ There is a screen on:
 
 # screen -S [name]
 
-```screen -S [name]```可以打开一个新的名称为[name]的screen界面
+新建：```screen -S [name]```可以打开一个新的名称为[name]的screen界面
 
 # screen -r [name]
 
-```screen -r [name]```可以返回名称为[name]的screen界面（例如之前暂时退出了，可通过此命令返回），名称可通过```screen -ls```查看
+返回：```screen -r [name]```可以返回名称为[name]的screen界面（例如之前暂时退出了，可通过此命令返回），名称可通过```screen -ls```查看
 
 # screen -X -S [id]
 
-```screen -X -S [id]```可以关闭挂载的一些screen，这里只用输入id号即可
+删除：```screen -X -S [id]```可以关闭挂载的一些screen，这里只用输入id号即可
 
 
 
