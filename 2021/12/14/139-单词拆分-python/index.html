@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>121.买卖股票的最佳时机-python | Curious;的个人划水博客</title>
+  <title>139.单词拆分-python | Curious;的个人划水博客</title>
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <meta name="HandheldFriendly" content="True" />
@@ -12,19 +12,22 @@
   <link rel="shortcut icon" href="/">
   <link rel="alternate" href="/atom.xml" title="Curious;的个人划水博客" type="application/atom+xml">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="121.买卖股票的最佳时机（简单） 题目大意：给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润。返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。">
+  <meta name="description" content="139.单词拆分（中等） 题目大意：给你一个字符串 s 和一个字符串列表 wordDict 作为字典，判定 s 是否可以由空格拆分为一个或多个在字典中出现的单词。 说明：拆分时可以重复使用字典中的单词。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="121.买卖股票的最佳时机-python">
-<meta property="og:url" content="http://example.com/2021/12/03/121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-python/index.html">
+<meta property="og:title" content="139.单词拆分-python">
+<meta property="og:url" content="http://example.com/2021/12/14/139-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86-python/index.html">
 <meta property="og:site_name" content="Curious;的个人划水博客">
-<meta property="og:description" content="121.买卖股票的最佳时机（简单） 题目大意：给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润。返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。">
+<meta property="og:description" content="139.单词拆分（中等） 题目大意：给你一个字符串 s 和一个字符串列表 wordDict 作为字典，判定 s 是否可以由空格拆分为一个或多个在字典中出现的单词。 说明：拆分时可以重复使用字典中的单词。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-12-03T02:32:40.000Z">
-<meta property="article:modified_time" content="2021-12-05T15:49:33.653Z">
+<meta property="article:published_time" content="2021-12-13T16:12:45.000Z">
+<meta property="article:modified_time" content="2021-12-14T05:58:09.777Z">
 <meta property="article:author" content="Curious;">
+<meta property="article:tag" content="字典树">
+<meta property="article:tag" content="记忆化搜索">
+<meta property="article:tag" content="哈希表">
+<meta property="article:tag" content="字符串">
 <meta property="article:tag" content="动态规划">
-<meta property="article:tag" content="数组">
-<meta property="article:tag" content="EASY">
+<meta property="article:tag" content="MEDIUM">
 <meta name="twitter:card" content="summary">
     
   <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
@@ -138,17 +141,17 @@
   <div class="l_body">
     <div class='container clearfix'>
       <div class='l_main'>
-        <article id="post-121-买卖股票的最佳时机-python"
+        <article id="post-139-单词拆分-python"
   class="post white-box article-type-post"
   itemscope itemprop="blogPost">
 	<section class='meta'>
 	<h2 class="title">
-  	<a href="/2021/12/03/121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-python/">
-    	121.买卖股票的最佳时机-python
+  	<a href="/2021/12/14/139-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86-python/">
+    	139.单词拆分-python
     </a>
   </h2>
 	<time>
-	  12月 3, 2021
+	  12月 14, 2021
 	</time>
 	
     
@@ -162,37 +165,54 @@
 	
 	<section class="article typo">
   	<div class="article-entry" itemprop="articleBody">
-    	<p>121.买卖股票的最佳时机（简单）</p>
-<p>题目大意：给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润。返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。</p>
+    	<p>139.单词拆分（中等）</p>
+<p>题目大意：给你一个字符串 s 和一个字符串列表 wordDict 作为字典，判定 s 是否可以由空格拆分为一个或多个在字典中出现的单词。</p>
+<p>说明：拆分时可以重复使用字典中的单词。</p>
 <span id="more"></span>
 
-<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/">题目链接</a></p>
-<p>给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。</p>
-<p>你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。</p>
-<p>设计一个算法来计算你所能获取的最大利润。返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。</p>
-<p>示例 1：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：[7,1,5,3,6,4]</span><br><span class="line">输出：5</span><br><span class="line">解释：在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。</span><br><span class="line">     注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。</span><br></pre></td></tr></table></figure>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/word-break/">题目链接</a></p>
+<p>给你一个字符串 s 和一个字符串列表 wordDict 作为字典，判定 s 是否可以由空格拆分为一个或多个在字典中出现的单词。</p>
+<p>说明：拆分时可以重复使用字典中的单词。</p>
+<p>示例1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: s = &quot;leetcode&quot;, wordDict = [&quot;leet&quot;, &quot;code&quot;]</span><br><span class="line">输出: true</span><br><span class="line">解释: 返回 true 因为 &quot;leetcode&quot; 可以被拆分成 &quot;leet code&quot;。</span><br></pre></td></tr></table></figure>
 
-<p>示例 2：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：prices = [7,6,4,3,1]</span><br><span class="line">输出：0</span><br><span class="line">解释：在这种情况下, 没有交易完成, 所以最大利润为 0。</span><br></pre></td></tr></table></figure>
+<p>示例2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: s = &quot;applepenapple&quot;, wordDict = [&quot;apple&quot;, &quot;pen&quot;]</span><br><span class="line">输出: true</span><br><span class="line">解释: 返回 true 因为 &quot;applepenapple&quot; 可以被拆分成 &quot;apple pen apple&quot;。</span><br><span class="line">     注意你可以重复使用字典中的单词。</span><br></pre></td></tr></table></figure>
+
+<p>示例3：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: s = &quot;catsandog&quot;, wordDict = [&quot;cats&quot;, &quot;dog&quot;, &quot;sand&quot;, &quot;and&quot;, &quot;cat&quot;]</span><br><span class="line">输出: false</span><br></pre></td></tr></table></figure>
 
 <p>提示：</p>
 <ul>
-<li>1 &lt;= prices.length &lt;= 105</li>
-<li>0 &lt;= prices[i] &lt;= 104</li>
+<li>1 &lt;= s.length &lt;= 300</li>
+<li>1 &lt;= wordDict.length &lt;= 1000</li>
+<li>1 &lt;= wordDict[i].length &lt;= 20</li>
+<li>s 和 wordDict[i] 仅有小写英文字母组成</li>
+<li>wordDict 中的所有字符串 互不相同</li>
 </ul>
-<h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>这个题感觉比较简单，先设置now_min为arr[0]，然后从角标1开始遍历，每次判断现在的arr[i]-now_min是否最大值，如果是则更新最大值。之后更新now_min，如果当前位置小于now_min就更新；</p>
-<p>之前在一本算法书上应该看过这个题，想象一根从最低点到最高点的连线。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span>(<span class="params">self, prices</span>):</span></span><br><span class="line">        <span class="comment"># 异常处理</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(prices) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 逻辑处理</span></span><br><span class="line">        max_p = <span class="number">0</span></span><br><span class="line">        now_min = prices[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(prices)):</span><br><span class="line">            max_p = <span class="built_in">max</span>(max_p, prices[i] - now_min)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> prices[i] &lt; now_min:</span><br><span class="line">                now_min = prices[i]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> max_p</span><br></pre></td></tr></table></figure>
+<h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>这个题在没见过之前想到dp还是挺难的，这里使用的是一维dp数组，其数组的含义是，当前这个位置下，能否被拆分成多个字典中的词</p>
+<p>dp的状态转移方程想法是，从这个位置之前逐个遍历</p>
+<ul>
+<li>要么是0到这个位置能构成一个单词</li>
+<li>要么是之前一个能构成字典中单词的位置，到现在这个位置之间的词也在字典中</li>
+</ul>
+<p>重点也是要特殊处理如下j==0的情况，另外列表截取的左闭右开</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wordBreak</span>(<span class="params">self, s, wordDict</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :type wordDict: List[str]</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 这个题很难看出是dp的思路了，一眼看过去还以为是Trie树，KMP这样的</span></span><br><span class="line">        <span class="comment"># dp数组代表的含义是，当前这个位置下，[能否](bool)被拆分成多个字典词</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(s) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        dp = [<span class="literal">False</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s))]  <span class="comment"># 当前这个位置下，能否全部在词典中出现</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):    </span><br><span class="line">            <span class="comment"># 如果i为0的情况</span></span><br><span class="line">            <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">if</span> s[i] <span class="keyword">in</span> wordDict:</span><br><span class="line">                    dp[i] = <span class="literal">True</span>            </span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># 对于一个位置判断是否能全部在词典中出现，等于前一个能出现的位置 and 那个位置到这个位置之间能不能出现</span></span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i):</span><br><span class="line">                    <span class="keyword">if</span> j == <span class="number">0</span> <span class="keyword">and</span> s[: i+<span class="number">1</span>] <span class="keyword">in</span> wordDict:</span><br><span class="line">                        dp[i] = <span class="literal">True</span></span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                    <span class="comment"># j == 0没法走到这个情况</span></span><br><span class="line">                    <span class="keyword">if</span> dp[j] <span class="keyword">is</span> <span class="literal">True</span> <span class="keyword">and</span> s[j+<span class="number">1</span>: i+<span class="number">1</span>] <span class="keyword">in</span> wordDict:</span><br><span class="line">                        dp[i] = <span class="literal">True</span></span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">        <span class="comment"># print(dp)</span></span><br><span class="line">        <span class="keyword">return</span> dp[<span class="built_in">len</span>(s)-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
   	</div>
 	  
 	  <div class="article-tags tags">
       
+        <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">字典树</a>
+      
+        <a href="/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/">记忆化搜索</a>
+      
+        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+      
         <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
       
-        <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
-      
-        <a href="/tags/EASY/">EASY</a>
+        <a href="/tags/MEDIUM/">MEDIUM</a>
       
 	  </div>
     
@@ -200,13 +220,9 @@
 	
 		<div class="art-item-footer">
 				
-					<span class="art-item-left"><i class="icon icon-chevron-thin-left"></i>prev：<a href="/2021/12/03/519-%E9%9A%8F%E6%9C%BA%E7%BF%BB%E8%BD%AC%E7%9F%A9%E9%98%B5-python/" rel="prev"  title="519.随机翻转矩阵-python">
-						519.随机翻转矩阵-python 
-					</a></span>
 				
-				
-					<span class="art-item-right">next：<a href="/2021/12/01/300-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97-python/" rel="next"  title="300.最长递增子序列-python">
-						300.最长递增子序列-python
+					<span class="art-item-right">next：<a href="/2021/12/13/198-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D-python/" rel="next"  title="198.打家劫舍-python">
+						198.打家劫舍-python
 					</a><i class="icon icon-chevron-thin-right"></i></span>
 				
 		</div>
@@ -216,7 +232,7 @@
 </article>
 <script>
 	window.subData = {
-		title: '121.买卖股票的最佳时机-python',
+		title: '139.单词拆分-python',
 		tools: true
 	}
 </script>
