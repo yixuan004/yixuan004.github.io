@@ -4,6 +4,72 @@
   
     
     <entry>
+      <title>11.盛最多水的容器-python</title>
+      <link href="/2021/12/15/11-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8-python/"/>
+      <url>/2021/12/15/11-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8-python/</url>
+      
+        <content type="html"><![CDATA[<p>11.盛最多水的容器（中等）</p><p>题目大意：</p><p>给你 n 个非负整数 a1，a2，…，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0) 。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p><p>说明：你不能倾斜容器。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/container-with-most-water/">题目链接</a></p><p>给你 n 个非负整数 a1，a2，…，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0) 。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p><p>说明：你不能倾斜容器。</p><p>示例1：<br><img src="/images/2021-12-15-18-56-13.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：[1,8,6,2,5,4,8,3,7]</span><br><span class="line">输出：49 </span><br><span class="line">解释：图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：height = [1,1]</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：height = [4,3,2,1,4]</span><br><span class="line">输出：16</span><br></pre></td></tr></table></figure><p>示例4：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：height = [1,2,1]</span><br><span class="line">输出：2</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>n == height.length</li><li>2 &lt;= n &lt;= 105</li><li>0 &lt;= height[i] &lt;= 104</li></ul><h1 id="分析与解答"><a href="#分析与解答" class="headerlink" title="分析与解答"></a>分析与解答</h1><p>O(n^2)的方法很会超时</p><p>对上述方法采用双指针进行优化，整体性的思路如下：</p><p>在整体上一定存在一个长板和一个短板，初始化下的面积为 短板高度 * (j-i) <code>min(a[i], a[j]) * (j-i)</code></p><p>由于水桶的容量是收到短板影响的，所以怎么“往内”移动长板都是没用的，要么是还受到现在的短板作用，要么是只会找到一个比现在短板更短的短板，由于是往内移动的，所以只会进一步缩小</p><p>所以要把短板往内移动，每次移动的时候记录当前的值并进行比较，注意在移动的过程中要更新短板（贪心的思想应该隐含在这里了）</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxArea</span>(<span class="params">self, height</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type height: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># O(n^2) time limit了</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        max_water = 0</span></span><br><span class="line"><span class="string">        for i in range(len(height)):</span></span><br><span class="line"><span class="string">            for j in range(i, len(height)):</span></span><br><span class="line"><span class="string">                max_water = max(max_water, (j-i)*min(height[i], height[j]))</span></span><br><span class="line"><span class="string">        return max_water</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        对上述方法采用双指针进行优化，整体性的思路如下：</span></span><br><span class="line"><span class="string">            在整体上一定存在一个长板和一个短板，初始化下的面积为 短板高度 * (j-i)</span></span><br><span class="line"><span class="string">            由于水桶的容量是收到短板影响的，所以怎么“往内”移动长板都是没用的，要么是还受到现在的短板作用，要么是只会找到一个比现在短板更短的短板，由于是往内移动的，所以只会进一步缩小</span></span><br><span class="line"><span class="string">            所以要把短板往内移动，每次移动的时候记录当前的值并进行比较，注意在移动的过程中要更新短板</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(height) &lt; <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        j = <span class="built_in">len</span>(height) - <span class="number">1</span></span><br><span class="line">        max_water = (j-i) * <span class="built_in">min</span>(height[i], height[j])</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> i &lt; j:</span><br><span class="line">            <span class="keyword">if</span> height[i] &lt;= height[j]:  <span class="comment"># 等号随便给一边就可以了</span></span><br><span class="line">                <span class="keyword">while</span> i &lt; j <span class="keyword">and</span> height[i] &lt;= height[j]:</span><br><span class="line">                    max_water = <span class="built_in">max</span>(max_water, (j-i) * <span class="built_in">min</span>(height[i], height[j]))</span><br><span class="line">                    i += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">while</span> j &gt; i <span class="keyword">and</span> height[j] &lt;= height[i]:</span><br><span class="line">                    max_water = <span class="built_in">max</span>(max_water, (j-i) * <span class="built_in">min</span>(height[i], height[j]))</span><br><span class="line">                    j -= <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> max_water</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+          <category> LeetCode-热题 HOT 100 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 贪心 </tag>
+            
+            <tag> 数组 </tag>
+            
+            <tag> 双指针 </tag>
+            
+            <tag> MEDIUM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>15.三数之和-python</title>
+      <link href="/2021/12/15/15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C-python/"/>
+      <url>/2021/12/15/15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C-python/</url>
+      
+        <content type="html"><![CDATA[<p>15.三数之和（中等）</p><p>题目大意：</p><p>给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。</p><p>注意：答案中不可以包含重复的三元组。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/3sum/">题目链接</a></p><p>给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。</p><p>注意：答案中不可以包含重复的三元组。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [-1,0,1,2,-1,-4]</span><br><span class="line">输出：[[-1,-1,2],[-1,0,1]]</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = []</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [0]</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>0 &lt;= nums.length &lt;= 3000</li><li>-105 &lt;= nums[i] &lt;= 105</li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>O(n^3)是一种最容易想到的解法，但是会超时。</p><p>外层i，内层双指针+移动位置，移动位置主要是为去重的，每次ijk都要移动到下一个不一样的，指针的移动这里要模拟do-while循环，这个非常关键</p><p>既然是要求和为0，可以想到进行排序O(nlogn)，从小到大。之后的思路感觉是一种O(n^2)的思路，设立ijk</p><ul><li>i代表：一个基准的数字，可以看做jk位置处的数字加起来要等于-i位置处的数字</li><li>j，k代表：在i后边的数字序列中，j从头开始，k从尾开始，这样根据加了后的关系可以判断是j该往后移动还是k该往前移动</li></ul><p>由于题目中要求答案中不可以包含重复的三元组，这里就是题目里代码实现起来很容易出错的部分了，i，j，k在每次遍历的时候都要走到下一个不一样的地方去，这里感觉有一种do-while循环的感觉</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在如下的操作下，j最终会停在不相等的位置上</span></span><br><span class="line">j += <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> j &lt; k <span class="keyword">and</span> nums[j] == nums[j-<span class="number">1</span>]:</span><br><span class="line">    j += <span class="number">1</span></span><br></pre></td></tr></table></figure><p>要分加起来等于0，小于0，大于0三个讨论，其中等于0的情况jk一起移动</p><p>有剪枝操作，在排序了后如果i位置处都大于0了，那么就可以结束了</p><p>解答如下</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: List[List[int]]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        # O(n^3)，其中tuple这个操作用来去重用，tuple是可哈希化的，这种方法超时了</span></span><br><span class="line"><span class="string">        rlist = []</span></span><br><span class="line"><span class="string">        for i in range(len(nums)):</span></span><br><span class="line"><span class="string">            for j in range(i+1, len(nums)):</span></span><br><span class="line"><span class="string">                for k in range(j+1, len(nums)):</span></span><br><span class="line"><span class="string">                    if nums[i] + nums[j] + nums[k] == 0:</span></span><br><span class="line"><span class="string">                        tmplist = sorted([nums[i], nums[j], nums[k]])</span></span><br><span class="line"><span class="string">                        rlist.append(tuple(tmplist))</span></span><br><span class="line"><span class="string">        temp = list(set(rlist))</span></span><br><span class="line"><span class="string">        return [[x[0], x[1], x[2]] for x in temp]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 优化方法</span></span><br><span class="line">        <span class="comment"># O(nlogn)排序+ O(n^2)双指针，一前一后，跳过后</span></span><br><span class="line">        rlist = []</span><br><span class="line">        nums = <span class="built_in">sorted</span>(nums)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)-<span class="number">2</span>):</span><br><span class="line">            <span class="comment"># 学习题解中的剪枝操作</span></span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; <span class="number">0</span>: </span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> i &gt; <span class="number">0</span> <span class="keyword">and</span> nums[i] == nums[i-<span class="number">1</span>]: <span class="comment"># 三元组不能重复，注意python的-1问题</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">            j = i + <span class="number">1</span></span><br><span class="line">            k = <span class="built_in">len</span>(nums) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> j &lt; k:</span><br><span class="line">                <span class="keyword">if</span> nums[i] + nums[j] + nums[k] == <span class="number">0</span>:</span><br><span class="line">                    rlist.append([nums[i], nums[j], nums[k]])</span><br><span class="line">                    <span class="comment"># print(rlist)</span></span><br><span class="line">                    <span class="comment"># j移动到下一个不一样的</span></span><br><span class="line">                    j += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">while</span> j &lt; k <span class="keyword">and</span> nums[j] == nums[j-<span class="number">1</span>]:</span><br><span class="line">                        j += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">                    k -= <span class="number">1</span></span><br><span class="line">                    <span class="keyword">while</span> k &gt; j <span class="keyword">and</span> nums[k] == nums[k+<span class="number">1</span>]:</span><br><span class="line">                        k -= <span class="number">1</span></span><br><span class="line">                    </span><br><span class="line">                <span class="keyword">elif</span> nums[i] + nums[j] + nums[k] &gt; <span class="number">0</span>: <span class="comment"># 太大了，k往左移动到一个不一样的</span></span><br><span class="line">                    k -= <span class="number">1</span></span><br><span class="line">                    <span class="keyword">while</span> k &gt; j <span class="keyword">and</span> nums[k] == nums[k+<span class="number">1</span>]:</span><br><span class="line">                        k -= <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="comment"># 模拟do-while循环</span></span><br><span class="line">                    j += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">while</span> j &lt; k <span class="keyword">and</span> nums[j] == nums[j-<span class="number">1</span>]:</span><br><span class="line">                        j += <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">        <span class="keyword">return</span> rlist</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+          <category> LeetCode-热题 HOT 100 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数组 </tag>
+            
+            <tag> 双指针 </tag>
+            
+            <tag> MEDIUM </tag>
+            
+            <tag> 排序 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>146.LRU缓存机制-python</title>
       <link href="/2021/12/15/146-LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6-python/"/>
       <url>/2021/12/15/146-LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6-python/</url>
@@ -22,15 +88,15 @@
       
         <tags>
             
-            <tag> 设计 </tag>
+            <tag> MEDIUM </tag>
             
             <tag> 哈希表 </tag>
+            
+            <tag> 设计 </tag>
             
             <tag> 链表 </tag>
             
             <tag> 双向链表 </tag>
-            
-            <tag> MEDIUM </tag>
             
         </tags>
       
@@ -57,9 +123,9 @@
             
             <tag> EASY </tag>
             
-            <tag> 字符串 </tag>
-            
             <tag> 哈希表 </tag>
+            
+            <tag> 字符串 </tag>
             
             <tag> 计数 </tag>
             
@@ -88,17 +154,17 @@
       
         <tags>
             
-            <tag> 动态规划 </tag>
-            
-            <tag> 字符串 </tag>
-            
-            <tag> 哈希表 </tag>
-            
             <tag> MEDIUM </tag>
+            
+            <tag> 动态规划 </tag>
             
             <tag> 字典树 </tag>
             
             <tag> 记忆化搜索 </tag>
+            
+            <tag> 哈希表 </tag>
+            
+            <tag> 字符串 </tag>
             
         </tags>
       
@@ -127,9 +193,9 @@
             
             <tag> 数组 </tag>
             
-            <tag> 动态规划 </tag>
-            
             <tag> MEDIUM </tag>
+            
+            <tag> 动态规划 </tag>
             
         </tags>
       
@@ -183,15 +249,15 @@
       
         <tags>
             
-            <tag> 字符串 </tag>
-            
-            <tag> 设计 </tag>
-            
-            <tag> 哈希表 </tag>
-            
             <tag> MEDIUM </tag>
             
             <tag> 字典树 </tag>
+            
+            <tag> 哈希表 </tag>
+            
+            <tag> 字符串 </tag>
+            
+            <tag> 设计 </tag>
             
         </tags>
       
@@ -218,11 +284,11 @@
       
         <tags>
             
-            <tag> 字符串 </tag>
+            <tag> MEDIUM </tag>
             
             <tag> 哈希表 </tag>
             
-            <tag> MEDIUM </tag>
+            <tag> 字符串 </tag>
             
             <tag> 滑动窗口 </tag>
             
@@ -370,11 +436,11 @@
       
         <tags>
             
-            <tag> 字符串 </tag>
+            <tag> 双指针 </tag>
             
             <tag> MEDIUM </tag>
             
-            <tag> 双指针 </tag>
+            <tag> 字符串 </tag>
             
             <tag> 字符串匹配 </tag>
             
@@ -403,13 +469,13 @@
       
         <tags>
             
-            <tag> 哈希表 </tag>
-            
             <tag> MEDIUM </tag>
             
-            <tag> 数学 </tag>
+            <tag> 哈希表 </tag>
             
             <tag> 水塘抽样 </tag>
+            
+            <tag> 数学 </tag>
             
             <tag> 随机化 </tag>
             
@@ -473,9 +539,9 @@
             
             <tag> 数组 </tag>
             
-            <tag> 动态规划 </tag>
-            
             <tag> MEDIUM </tag>
+            
+            <tag> 动态规划 </tag>
             
             <tag> 二分查找 </tag>
             
@@ -504,11 +570,11 @@
       
         <tags>
             
-            <tag> 字符串 </tag>
+            <tag> MEDIUM </tag>
             
             <tag> 哈希表 </tag>
             
-            <tag> MEDIUM </tag>
+            <tag> 字符串 </tag>
             
             <tag> 滑动窗口 </tag>
             
@@ -535,11 +601,11 @@
       
         <tags>
             
-            <tag> 字符串 </tag>
+            <tag> MEDIUM </tag>
             
             <tag> 哈希表 </tag>
             
-            <tag> MEDIUM </tag>
+            <tag> 字符串 </tag>
             
             <tag> 数学 </tag>
             
@@ -778,9 +844,9 @@
             
             <tag> NLP </tag>
             
-            <tag> 论文笔记 </tag>
-            
             <tag> Dialogue State Tracking </tag>
+            
+            <tag> 论文笔记 </tag>
             
         </tags>
       
