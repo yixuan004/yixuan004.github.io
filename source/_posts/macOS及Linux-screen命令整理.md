@@ -30,9 +30,9 @@ There is a screen on:
 
 返回：```screen -r [name]```可以返回名称为[name]的screen界面（例如之前暂时退出了，可通过此命令返回），名称可通过```screen -ls```查看
 
-# screen -X -S [id]
+# screen -X -S [id] quit
 
-删除：```screen -X -S [id]```可以关闭挂载的一些screen，这里只用输入id号即可
+删除：```screen -X -S [id] quit```可以关闭挂载的一些screen，这里只用输入id号即可
 
 
 
