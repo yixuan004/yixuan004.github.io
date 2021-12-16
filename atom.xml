@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-15T11:05:53.258Z</updated>
+  <updated>2021-12-16T15:36:14.066Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,41 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>72.编辑距离-python</title>
+    <link href="http://example.com/2021/12/16/72-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB-python/"/>
+    <id>http://example.com/2021/12/16/72-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB-python/</id>
+    <published>2021-12-16T14:52:36.000Z</published>
+    <updated>2021-12-16T15:36:14.066Z</updated>
+    
+    <content type="html"><![CDATA[<p>72.编辑距离（困难）</p><p>题目大意：</p><p>给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 。</p><p>你可以对一个单词进行如下三种操作：</p><ul><li>插入一个字符</li><li>删除一个字符</li><li>替换一个字符</li></ul><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/edit-distance/">题目链接</a></p><p>给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 。</p><p>你可以对一个单词进行如下三种操作：</p><ul><li>插入一个字符</li><li>删除一个字符</li><li>替换一个字符</li></ul><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入：word1 = &quot;horse&quot;, word2 = &quot;ros&quot;</span><br><span class="line">输出：3</span><br><span class="line">解释：</span><br><span class="line">horse -&gt; rorse (将 &#x27;h&#x27; 替换为 &#x27;r&#x27;)</span><br><span class="line">rorse -&gt; rose (删除 &#x27;r&#x27;)</span><br><span class="line">rose -&gt; ros (删除 &#x27;e&#x27;)</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：word1 = &quot;intention&quot;, word2 = &quot;execution&quot;</span><br><span class="line">输出：5</span><br><span class="line">解释：</span><br><span class="line">intention -&gt; inention (删除 &#x27;t&#x27;)</span><br><span class="line">inention -&gt; enention (将 &#x27;i&#x27; 替换为 &#x27;e&#x27;)</span><br><span class="line">enention -&gt; exention (将 &#x27;n&#x27; 替换为 &#x27;x&#x27;)</span><br><span class="line">exention -&gt; exection (将 &#x27;n&#x27; 替换为 &#x27;c&#x27;)</span><br><span class="line">exection -&gt; execution (插入 &#x27;u&#x27;)</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>0 &lt;= word1.length, word2.length &lt;= 500</li><li>word1 和 word2 由小写英文字母组成</li></ul><h1 id="题目分析和解答"><a href="#题目分析和解答" class="headerlink" title="题目分析和解答"></a>题目分析和解答</h1><p>二维dp的题目，想象两个单词word1和word2，二维dp的每个位置上，代表word1的i位置处，和word2的j位置处情况下，多少次变换能达到是一样的情况；</p><p>个人习惯上把word1作为行来放置，把word2作为列来放置；</p><p>由于word1和word2都可能为空，所以在初始化二维dp数组的时候，行和列要分别是<code>len(word1)+1</code>和<code>len(word2)+1</code>，初始化dp数组的第一行第一列，想象i到j的这个顺序，第一列<code>dp[i][0]</code>代表word1在当前的情况下经过多少次操作能变成空，所以这个数值就等于i；第一行<code>dp[0][i]</code>就是代表空字符串经过多少次能变到word2的当前这个位置上。</p><p>现在初始化好了dp数组的第一行第一列，<strong>下边就来想状态转移这个方程</strong>，也是这个题目每次复习的时候需要想到的部分，<code>dp[i][j]</code>可以由<code>dp[i-1][j-1]，dp[i-1][j]，dp[i][j-1]</code>得到：</p><ul><li><code>dp[i-1][j-1]</code>到<code>dp[i][j]</code>的操作是修改，注意修改这个操作需要判断word1 i位置处的值和word2 j位置处的值是不是相等的，如果相等的话则不需要修改，如果是不相等的话则需要修改，也就是<code>dp[i-1][j-1]+1</code>；</li><li><code>dp[i][j-1]</code>到<code>dp[i][j]</code>的操作是删除，想象最左上角的三个块，ij代表word1变到word2的这一种感觉。执行删除的情况下，状态转移后必然是<code>dp[i][j]=dp[i][j-1]+1</code>；</li><li><code>dp[i-1][j]</code>到<code>dp[i][j]</code>的操作是新增，同样是想象最左上角的三个块。执行新增的情况下，状态转移后必然是<code>dp[i][j]=dp[i-1][j]+1</code></li></ul><p>经过如上分析后，在每次判断时先判断是不是相等，如果相等的话，可以走<code>dp[i][j]=dp[i-1][j-1]</code>，代表不需要修改。如果是不相等的话就需要对三种情况进行min判断，<code>dp[i][j]=min(dp[i-1][j-1], dp[i][j-1], dp[i-1][j]) + 1</code></p><p>经过上述循环后，因为在最开始前边补充的字符串为空的长度情况，所以<code>dp[len(word1)][len(word2)]</code>就可以了。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minDistance</span>(<span class="params">self, word1, word2</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type word1: str</span></span><br><span class="line"><span class="string">        :type word2: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        二维dp的题目，dp数组代表，word1的前i个字符，和word2的前j个字符，需要几次修改可以变成一样的</span></span><br><span class="line"><span class="string">        回想题解里给出的那张图，要分别想到word1，word2为空字符串的情况</span></span><br><span class="line"><span class="string">        空串情况下的初始化状态比较容易想，一个字符串变成空串，就是这个字符串的长度的次数</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 初始化dp数组状态，word1在行维度上，word2在列维度上</span></span><br><span class="line">        dp = [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(word2)+<span class="number">1</span>)] <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(word1)+<span class="number">1</span>)]  <span class="comment"># 注意深浅拷贝的问题，这个还挺坑的，只能这么初始化数组</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(word1)+<span class="number">1</span>):</span><br><span class="line">            dp[i][<span class="number">0</span>] = i</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(word2) + <span class="number">1</span>):</span><br><span class="line">            dp[<span class="number">0</span>][i] = i</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        <span class="comment"># 假设每个地方想象的是从竖着的word1变到横着的word2的状态，那么[i-1][j-1]代表替换，[i-1][j]代表插入，[i][j-1]代表删除（想初始状态即可）</span></span><br><span class="line">        <span class="comment"># 如果当前两个字符相等的情况下，保持不变（即不做修改[i-1][j-1]的状态）一定是最优的，因为无论增加或减少，则一定还需要1次操作</span></span><br><span class="line">        <span class="comment"># 而如果当前两个字符不等的情况，则由删除，增加，修改三种之最小的+1次操作得到</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(word1)+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(word2)+<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> word1[i-<span class="number">1</span>] == word2[j-<span class="number">1</span>]:</span><br><span class="line">                    dp[i][j] = dp[i-<span class="number">1</span>][j-<span class="number">1</span>]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    dp[i][j] = <span class="built_in">min</span>(dp[i-<span class="number">1</span>][j-<span class="number">1</span>], dp[i][j-<span class="number">1</span>], dp[i-<span class="number">1</span>][j]) +<span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dp[<span class="built_in">len</span>(word1)][<span class="built_in">len</span>(word2)]</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;72.编辑距离（困难）&lt;/p&gt;
+&lt;p&gt;题目大意：&lt;/p&gt;
+&lt;p&gt;给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 。&lt;/p&gt;
+&lt;p&gt;你可以对一个单词进行如下三种操作：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;插入一个字符&lt;/li&gt;
+&lt;li&gt;删除一个字符&lt;/li&gt;
+&lt;li&gt;替换一个字符&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
+    
+    <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
+    
+    
+    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="HARD" scheme="http://example.com/tags/HARD/"/>
+    
+  </entry>
   
   <entry>
     <title>11.盛最多水的容器-python</title>
@@ -38,13 +73,13 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="贪心" scheme="http://example.com/tags/%E8%B4%AA%E5%BF%83/"/>
-    
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
-    <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
+    <category term="贪心" scheme="http://example.com/tags/%E8%B4%AA%E5%BF%83/"/>
+    
+    <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
   </entry>
   
@@ -72,9 +107,9 @@
     
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
-    <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
+    <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
     <category term="排序" scheme="http://example.com/tags/%E6%8E%92%E5%BA%8F/"/>
     
@@ -107,9 +142,9 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
     <category term="设计" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1/"/>
     
@@ -171,8 +206,6 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
     <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     <category term="字典树" scheme="http://example.com/tags/%E5%AD%97%E5%85%B8%E6%A0%91/"/>
@@ -182,6 +215,8 @@
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
   </entry>
   
@@ -208,9 +243,9 @@
     
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
     <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
   </entry>
   
@@ -265,13 +300,13 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
     <category term="字典树" scheme="http://example.com/tags/%E5%AD%97%E5%85%B8%E6%A0%91/"/>
     
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
     <category term="设计" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1/"/>
     
@@ -298,11 +333,11 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
     <category term="滑动窗口" scheme="http://example.com/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/"/>
     
@@ -313,9 +348,9 @@
     <link href="http://example.com/2021/12/08/macOS%E5%8F%8ALinux-screen%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/"/>
     <id>http://example.com/2021/12/08/macOS%E5%8F%8ALinux-screen%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/</id>
     <published>2021-12-08T06:48:35.000Z</published>
-    <updated>2021-12-15T03:39:17.191Z</updated>
+    <updated>2021-12-15T11:49:19.394Z</updated>
     
-    <content type="html"><![CDATA[<p>需求：例如在跑深度学习等程序的时候，需要让程序挂载在后台执行，这时候就可以使用screen命令进行后台的挂载</p><span id="more"></span><h1 id="screen-ls"><a href="#screen-ls" class="headerlink" title="screen -ls"></a>screen -ls</h1><p>查看：<code>screen -ls</code>可以查看当前有哪些Attached/Detached的screen界面</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(base) lyx@h5:~$ screen -ls</span><br><span class="line">There is a screen on:</span><br><span class="line">        12442.xxxxxxx       (12/08/2021 02:12:53 PM)        (Detached)</span><br><span class="line">1 Socket in /var/run/screen/S-lyx.=</span><br></pre></td></tr></table></figure><h1 id="screen-S-name"><a href="#screen-S-name" class="headerlink" title="screen -S [name]"></a>screen -S [name]</h1><p>新建：<code>screen -S [name]</code>可以打开一个新的名称为[name]的screen界面</p><h1 id="screen-r-name"><a href="#screen-r-name" class="headerlink" title="screen -r [name]"></a>screen -r [name]</h1><p>返回：<code>screen -r [name]</code>可以返回名称为[name]的screen界面（例如之前暂时退出了，可通过此命令返回），名称可通过<code>screen -ls</code>查看</p><h1 id="screen-X-S-id-quit"><a href="#screen-X-S-id-quit" class="headerlink" title="screen -X -S [id] quit"></a>screen -X -S [id] quit</h1><p>删除：<code>screen -X -S [id] quit</code>可以关闭挂载的一些screen，这里只用输入id号即可</p>]]></content>
+    <content type="html"><![CDATA[<p>需求：例如在跑深度学习等程序的时候，需要让程序挂载在后台执行，这时候就可以使用screen命令进行后台的挂载</p><span id="more"></span><h1 id="screen-ls"><a href="#screen-ls" class="headerlink" title="screen -ls"></a>screen -ls</h1><p>查看：<code>screen -ls</code>可以查看当前有哪些Attached/Detached的screen界面</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(base) lyx@h5:~$ screen -ls</span><br><span class="line">There is a screen on:</span><br><span class="line">        12442.xxxxxxx       (12/08/2021 02:12:53 PM)        (Detached)</span><br><span class="line">1 Socket in /var/run/screen/S-lyx.=</span><br></pre></td></tr></table></figure><h1 id="screen-S-name"><a href="#screen-S-name" class="headerlink" title="screen -S [name]"></a>screen -S [name]</h1><p>新建：<code>screen -S [name]</code>可以打开一个新的名称为[name]的screen界面</p><h1 id="screen-r-name"><a href="#screen-r-name" class="headerlink" title="screen -r [name]"></a>screen -r [name]</h1><p>返回：<code>screen -r [name]</code>可以返回名称为[name]的screen界面（例如之前暂时退出了，可通过此命令返回），名称可通过<code>screen -ls</code>查看</p><h1 id="screen-X-S-id-quit"><a href="#screen-X-S-id-quit" class="headerlink" title="screen -X -S [id] quit"></a>screen -X -S [id] quit</h1><p>删除：<code>screen -X -S [id] quit</code>可以关闭挂载的一些screen，这里只用输入id号即可</p><h1 id="screen-D-name"><a href="#screen-D-name" class="headerlink" title="screen -D [name]"></a>screen -D [name]</h1><p>有些情况下，如果finalshell等ssh窗口已经关闭，但是还显示在Attached的状态，就需要先D掉再进去</p><p>```screen -D [name]``</p>]]></content>
     
     
     <summary type="html">&lt;p&gt;需求：例如在跑深度学习等程序的时候，需要让程序挂载在后台执行，这时候就可以使用screen命令进行后台的挂载&lt;/p&gt;</summary>
@@ -435,11 +470,11 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
-    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
     <category term="字符串匹配" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/"/>
     
@@ -472,13 +507,13 @@
     <category term="暂未实现优化解法" scheme="http://example.com/categories/LeetCode-python/%E6%9A%82%E6%9C%AA%E5%AE%9E%E7%8E%B0%E4%BC%98%E5%8C%96%E8%A7%A3%E6%B3%95/"/>
     
     
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
-    <category term="水塘抽样" scheme="http://example.com/tags/%E6%B0%B4%E5%A1%98%E6%8A%BD%E6%A0%B7/"/>
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
     <category term="数学" scheme="http://example.com/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+    <category term="水塘抽样" scheme="http://example.com/tags/%E6%B0%B4%E5%A1%98%E6%8A%BD%E6%A0%B7/"/>
     
     <category term="随机化" scheme="http://example.com/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/"/>
     
@@ -537,9 +572,9 @@
     
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
     <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
     <category term="二分查找" scheme="http://example.com/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
     
@@ -565,41 +600,13 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
     <category term="滑动窗口" scheme="http://example.com/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>423.从英文中重建数字-python</title>
-    <link href="http://example.com/2021/11/29/423-%E4%BB%8E%E8%8B%B1%E6%96%87%E4%B8%AD%E9%87%8D%E5%BB%BA%E6%95%B0%E5%AD%97-python/"/>
-    <id>http://example.com/2021/11/29/423-%E4%BB%8E%E8%8B%B1%E6%96%87%E4%B8%AD%E9%87%8D%E5%BB%BA%E6%95%B0%E5%AD%97-python/</id>
-    <published>2021-11-29T15:48:17.000Z</published>
-    <updated>2021-12-05T15:49:33.653Z</updated>
-    
-    <content type="html"><![CDATA[<p>423.从英文中重建数字（中等）</p><p>题目大意：给你一个字符串 s ，其中包含字母顺序打乱的用英文单词表示的若干数字（0-9）。按 升序 返回原始的数字。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/reconstruct-original-digits-from-english/">题目链接</a></p><p>给你一个字符串 s ，其中包含字母顺序打乱的用英文单词表示的若干数字（0-9）。按 升序 返回原始的数字。</p><p>示例1：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = <span class="string">&quot;owoztneoer&quot;</span></span><br><span class="line">输出：<span class="string">&quot;012&quot;</span></span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = <span class="string">&quot;fviefuro&quot;</span></span><br><span class="line">输出：<span class="string">&quot;45&quot;</span></span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>1 &lt;= s.length &lt;= 105</li><li>s[i] 为 [“e”,”g”,”f”,”i”,”h”,”o”,”n”,”s”,”r”,”u”,”t”,”w”,”v”,”x”,”z”] 这些字符之一</li><li>s 保证是一个符合题目要求的字符串</li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>这种题有一种脑筋急转弯的感觉，每个数字的英文中会有一些特点，这样可以统计出来每个英文字母在哪些数字中出现了，如下图所示。这样可以通过计数的方式来从“出现一次”的分析，例如“x”只在six中出现，之后可以像数独一样链着分析。</p><p>统计分析规律，列出每个字母在哪些数字的英文中出现了，然后有些字母实际上只在一个数字中出现了，统计这些字母的个数就是这个数字的个数。然后来有些字母在两个数字中出现的，贪心下</p><p><strong>需要注意，尽量避免使用一个字母在一个单词中出现两次的，例如nine中的n</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">zero</span><br><span class="line">one</span><br><span class="line">two</span><br><span class="line">three </span><br><span class="line">four</span><br><span class="line">five</span><br><span class="line">six</span><br><span class="line">seven</span><br><span class="line">eight</span><br><span class="line">nine</span><br></pre></td></tr></table></figure><p><img src="/images/2021-11-30-00-12-10.png"></p><p>解题：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">originalDigits</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        cnt_dict = &#123;&#125;</span><br><span class="line">        m = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)]</span><br><span class="line">        <span class="keyword">for</span> i, c <span class="keyword">in</span> <span class="built_in">enumerate</span>(s):</span><br><span class="line">            <span class="keyword">if</span> cnt_dict.get(c) <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                cnt_dict[c] = <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cnt_dict[c] += <span class="number">1</span></span><br><span class="line">        <span class="comment"># 单位的</span></span><br><span class="line">        m[<span class="number">8</span>] = cnt_dict.get(<span class="string">&#x27;g&#x27;</span>, <span class="number">0</span>)</span><br><span class="line">        m[<span class="number">4</span>] = cnt_dict.get(<span class="string">&#x27;u&#x27;</span>, <span class="number">0</span>)</span><br><span class="line">        m[<span class="number">2</span>] = cnt_dict.get(<span class="string">&#x27;w&#x27;</span>, <span class="number">0</span>)</span><br><span class="line">        m[<span class="number">6</span>] = cnt_dict.get(<span class="string">&#x27;x&#x27;</span>, <span class="number">0</span>)</span><br><span class="line">        m[<span class="number">0</span>] = cnt_dict.get(<span class="string">&#x27;z&#x27;</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 两位的</span></span><br><span class="line">        m[<span class="number">5</span>] = cnt_dict.get(<span class="string">&#x27;f&#x27;</span>, <span class="number">0</span>) - m[<span class="number">4</span>]</span><br><span class="line">        m[<span class="number">3</span>] = cnt_dict.get(<span class="string">&#x27;h&#x27;</span>, <span class="number">0</span>) - m[<span class="number">8</span>]</span><br><span class="line">        m[<span class="number">7</span>] = cnt_dict.get(<span class="string">&#x27;v&#x27;</span>, <span class="number">0</span>) - m[<span class="number">5</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 差0 1 和 9</span></span><br><span class="line">        m[<span class="number">0</span>] = cnt_dict.get(<span class="string">&#x27;r&#x27;</span>, <span class="number">0</span>) - m[<span class="number">3</span>] - m[<span class="number">4</span>]</span><br><span class="line">        m[<span class="number">1</span>] = cnt_dict.get(<span class="string">&#x27;o&#x27;</span>, <span class="number">0</span>) - m[<span class="number">0</span>] - m[<span class="number">2</span>] - m[<span class="number">4</span>]</span><br><span class="line">        <span class="comment"># m[9] = cnt_dict.get(&#x27;n&#x27;, 0) - m[1] - m[7] # 字母尽量选择出现1次的，所以n不行</span></span><br><span class="line">        m[<span class="number">9</span>] = cnt_dict.get(<span class="string">&#x27;i&#x27;</span>, <span class="number">0</span>) - m[<span class="number">5</span>] - m[<span class="number">6</span>] - m[<span class="number">8</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 可否优化</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>.join(<span class="built_in">str</span>(i) * m[i] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>))</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;423.从英文中重建数字（中等）&lt;/p&gt;
-&lt;p&gt;题目大意：给你一个字符串 s ，其中包含字母顺序打乱的用英文单词表示的若干数字（0-9）。按 升序 返回原始的数字。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
-    
-    
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
-    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
-    
-    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-    <category term="数学" scheme="http://example.com/tags/%E6%95%B0%E5%AD%A6/"/>
     
   </entry>
   
