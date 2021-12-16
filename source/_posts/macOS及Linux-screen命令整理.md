@@ -34,8 +34,11 @@ There is a screen on:
 
 删除：```screen -X -S [id] quit```可以关闭挂载的一些screen，这里只用输入id号即可
 
+# screen -D [name]
 
+有些情况下，如果finalshell等ssh窗口已经关闭，但是还显示在Attached的状态，就需要先D掉再进去
 
+```screen -D [name]``
 
 
 
