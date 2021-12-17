@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>312.戳气球-python</title>
+      <link href="/2021/12/16/312-%E6%88%B3%E6%B0%94%E7%90%83-python/"/>
+      <url>/2021/12/16/312-%E6%88%B3%E6%B0%94%E7%90%83-python/</url>
+      
+        <content type="html"><![CDATA[<p>312.戳气球（困难）</p><p>题目大意：</p><p>有<code>n</code>个气球，编号为<code>0</code>到<code>n - 1</code>，每个气球上都标有一个数字，这些数字存在数组<code>nums</code>中。</p><p>现在要求你戳破所有的气球。戳破第<code>i</code>个气球，你可以获得<code>nums[i - 1] * nums[i] * nums[i + 1]</code>枚硬币。 这里的<code>i - 1</code>和<code>i + 1</code>代表和<code>i</code>相邻的两个气球的序号。如果<code>i - 1</code>或<code>i + 1</code>超出了数组的边界，那么就当它是一个数字为<code>1</code>的气球。</p><p>求所能获得硬币的最大数量。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/burst-balloons/">题目链接</a></p><p>有<code>n</code>个气球，编号为<code>0</code>到<code>n - 1</code>，每个气球上都标有一个数字，这些数字存在数组<code>nums</code>中。</p><p>现在要求你戳破所有的气球。戳破第<code>i</code>个气球，你可以获得<code>nums[i - 1] * nums[i] * nums[i + 1]</code>枚硬币。 这里的<code>i - 1</code>和<code>i + 1</code>代表和<code>i</code>相邻的两个气球的序号。如果<code>i - 1</code>或<code>i + 1</code>超出了数组的边界，那么就当它是一个数字为<code>1</code>的气球。</p><p>求所能获得硬币的最大数量。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [3,1,5,8]</span><br><span class="line">输出：167</span><br><span class="line">解释：</span><br><span class="line">nums = [3,1,5,8] --&gt; [3,5,8] --&gt; [3,8] --&gt; [8] --&gt; []</span><br><span class="line">coins =  3*1*5    +   3*5*8   +  1*3*8  + 1*8*1 = 167</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [1,5]</span><br><span class="line">输出：10</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>n == nums.length</li><li>1 &lt;= n &lt;= 500</li><li>0 &lt;= nums[i] &lt;= 100</li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>这个题在没有见过之前几乎很难想到这个dp的思路，二维<code>dp[i][j]</code>数组代表的含义是，在开区间(i, j)之间所能获得的最大金币数。</p><p><strong>注意dp数组的初始化，避免深浅拷贝问题！</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp = [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums))] <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums))]  <span class="comment"># 避免深浅拷贝问题</span></span><br></pre></td></tr></table></figure><p>想到状态转移的递推关系，戳爆最后一个气球的时候，最后一个气球必然两边都是空的，也就是题目中说如果「如果<code>i - 1</code>或<code>i + 1</code>超出了数组的边界，那么就当它是一个数字为<code>1</code>的气球」，这个时候的状态，也就是<code>dp[0][len(nums)-1]</code>（注意这里的nums已经经过扩充，<code>nums.insert(0, 1)，nums.insert(len(nums), 1)</code>。</p><p>想在最后一个状态的状态转移方程，<code>dp[0][len(nums)-1] = dp[0][k] + dp[0]*dp[k]*dp[len(nums)-1] + dp[k][len(nums)-1]</code>，这里想法是要遍历k在整个区间上，找到一个最大的赋值给<code>dp[0][len(nums)-1]</code>。经过这个状态转移方程后，感觉可以慢慢想到是一种自底向上的动态规划策略，由于是开区间(i, j)，所以最小的窗口要从3开始，到len(nums)这个长度为止。然后用每个长度的窗口3、4 … len(nums)在上边滑动。循环整体结构如下所示</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 由于是自底向上的思想，要让这个开区间不断扩大，[2, len(nums))，注意是左闭右开区间</span></span><br><span class="line"><span class="keyword">for</span> window_size <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">len</span>(nums)):</span><br><span class="line">    <span class="comment"># 在当前的窗口大小下，把整个数组过一遍，自底向上来不断修改dp中的值</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(nums)-window_size):</span><br></pre></td></tr></table></figure><p>在每次的循环内部，需要计算<code>dp[i][i+window_size]</code>的值，这个就是上文中分析的开区间(i, j)之间能获得的最大金币数，遍历<code>for k in range(i+1, j)</code>，使用状态转移方程<code>dp[0][len(nums)-1] = dp[0][k] + dp[0]*dp[k]*dp[len(nums)-1] + dp[k][len(nums)-1]</code>，在不断的循环中窗口会扩大，也会自底向上。</p><p>完整解答如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxCoins</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        自底向上动态规划感觉可以算非常经典的题目了？</span></span><br><span class="line"><span class="string">        如果能想到dp数组的含义感觉还是可以理解的，但是感觉这个dp数组的含义实在不太好想</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        假设 dp[i][j] 表示【【【开区间】】】 (i,j) 内你能拿到的最多金币</span></span><br><span class="line"><span class="string">        想到这个递推的关系，删除【【【最后】】】一个气球k的时候，dp[i][k] + num[i]*num[j]*num[k] + dp[k][j]</span></span><br><span class="line"><span class="string">        再加上这个题说如果i-1，i+1超出了数组的时候，就当他是一个数字为1的气球</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        所以如果在开始和最后补充上两个1的话，在新的数组上开区间(0, len(nums)-1)所能拿到的最大值，就是最终的状态了</span></span><br><span class="line"><span class="string">        这个状态在递推下，就等于最后一个删除的气球k，dp[i][k] + num[i]*num[j]*num[k] + dp[k][j]，有一种分而治之的思想</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        由于是开区间，所以最小的长度为3才可以，也或许是先想出上边的递推公式后，再来看dp的思路，dp数组的含义是什么了，感觉还是得想状态转移</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        最后来看的话，这个题是一个自底向上的动态规划问题，要首先找到小区间的，例如对于一个长度为3的开区间，永远就是当前窗口中间的那个数字</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        解法的话按照答案的思路写了一遍，答案还是有很多内容需要注意到的</span></span><br><span class="line"><span class="string">            - 包括区间不要让角标超出限制</span></span><br><span class="line"><span class="string">            - 还有range_best中的ij参数是代表开区间，所以在遍历的时候for k in range(i+1, j)就可以这样的</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">get_range_best</span>(<span class="params">i, j</span>):</span></span><br><span class="line">            max_value = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>, j):</span><br><span class="line">                tmp_value = dp[i][k] + nums[i] * nums[k] * nums[j] + dp[k][j]</span><br><span class="line">                max_value = <span class="built_in">max</span>(max_value, tmp_value)</span><br><span class="line">            dp[i][j] = max_value</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        nums.insert(<span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line">        nums.insert(<span class="built_in">len</span>(nums), <span class="number">1</span>)</span><br><span class="line">        dp = [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums))] <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums))]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 由于是自底向上的思想，要让这个开区间不断扩大，[2, len(nums))，注意是左闭右开区间</span></span><br><span class="line">        <span class="keyword">for</span> window_size <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">len</span>(nums)):</span><br><span class="line">            <span class="comment"># 在当前的窗口大小下，把整个数组过一遍，自底向上来不断修改dp中的值</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(nums)-window_size):</span><br><span class="line">                get_range_best(i, i+window_size)  <span class="comment"># 这个函数的作用是，找到在i, i+window_size这个开区间中，最大的那一个值，窗口大小是3（window_size=2时，就是那个值）</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># print(dp)</span></span><br><span class="line">            <span class="comment"># assert False</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dp[<span class="number">0</span>][<span class="built_in">len</span>(nums)-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+          <category> LeetCode-热题 HOT 100 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数组 </tag>
+            
+            <tag> 动态规划 </tag>
+            
+            <tag> HARD </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>72.编辑距离-python</title>
       <link href="/2021/12/16/72-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB-python/"/>
       <url>/2021/12/16/72-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB-python/</url>
@@ -55,11 +86,11 @@
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 贪心 </tag>
             
             <tag> 双指针 </tag>
+            
+            <tag> MEDIUM </tag>
             
         </tags>
       
@@ -88,9 +119,9 @@
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 双指针 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 排序 </tag>
             
@@ -119,9 +150,9 @@
       
         <tags>
             
-            <tag> 哈希表 </tag>
-            
             <tag> MEDIUM </tag>
+            
+            <tag> 哈希表 </tag>
             
             <tag> 设计 </tag>
             
@@ -187,6 +218,8 @@
             
             <tag> 动态规划 </tag>
             
+            <tag> MEDIUM </tag>
+            
             <tag> 字典树 </tag>
             
             <tag> 记忆化搜索 </tag>
@@ -194,8 +227,6 @@
             <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
-            
-            <tag> MEDIUM </tag>
             
         </tags>
       
@@ -280,13 +311,13 @@
       
         <tags>
             
+            <tag> MEDIUM </tag>
+            
             <tag> 字典树 </tag>
             
             <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
-            
-            <tag> MEDIUM </tag>
             
             <tag> 设计 </tag>
             
@@ -315,11 +346,11 @@
       
         <tags>
             
+            <tag> MEDIUM </tag>
+            
             <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
-            
-            <tag> MEDIUM </tag>
             
             <tag> 滑动窗口 </tag>
             
@@ -467,11 +498,11 @@
       
         <tags>
             
-            <tag> 字符串 </tag>
+            <tag> 双指针 </tag>
             
             <tag> MEDIUM </tag>
             
-            <tag> 双指针 </tag>
+            <tag> 字符串 </tag>
             
             <tag> 字符串匹配 </tag>
             
@@ -500,9 +531,9 @@
       
         <tags>
             
-            <tag> 哈希表 </tag>
-            
             <tag> MEDIUM </tag>
+            
+            <tag> 哈希表 </tag>
             
             <tag> 数学 </tag>
             
@@ -601,11 +632,11 @@
       
         <tags>
             
+            <tag> MEDIUM </tag>
+            
             <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
-            
-            <tag> MEDIUM </tag>
             
             <tag> 滑动窗口 </tag>
             
@@ -632,11 +663,11 @@
       
         <tags>
             
+            <tag> MEDIUM </tag>
+            
             <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
-            
-            <tag> MEDIUM </tag>
             
             <tag> 数学 </tag>
             
