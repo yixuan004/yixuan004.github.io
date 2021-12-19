@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-17T02:01:41.833Z</updated>
+  <updated>2021-12-19T09:46:25.889Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>709.转换成小写字母-python</title>
+    <link href="http://example.com/2021/12/19/709-%E8%BD%AC%E6%8D%A2%E6%88%90%E5%B0%8F%E5%86%99%E5%AD%97%E6%AF%8D-python/"/>
+    <id>http://example.com/2021/12/19/709-%E8%BD%AC%E6%8D%A2%E6%88%90%E5%B0%8F%E5%86%99%E5%AD%97%E6%AF%8D-python/</id>
+    <published>2021-12-19T09:42:38.000Z</published>
+    <updated>2021-12-19T09:46:25.889Z</updated>
+    
+    <content type="html"><![CDATA[<p>709.转换成小写字母（简单）</p><p>题目大意：</p><p>给你一个字符串<code>s</code>，将该字符串中的大写字母转换成相同的小写字母，返回新的字符串。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/to-lower-case/">题目链接</a></p><p>给你一个字符串<code>s</code>，将该字符串中的大写字母转换成相同的小写字母，返回新的字符串。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;Hello&quot;</span><br><span class="line">输出：&quot;hello&quot;</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;here&quot;</span><br><span class="line">输出：&quot;here&quot;</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;LOVELY&quot;</span><br><span class="line">输出：&quot;lovely&quot;</span><br></pre></td></tr></table></figure><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>主要是python语言的转小写，<code>str.lower()</code></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">toLowerCase</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> s.lower()</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;709.转换成小写字母（简单）&lt;/p&gt;
+&lt;p&gt;题目大意：&lt;/p&gt;
+&lt;p&gt;给你一个字符串&lt;code&gt;s&lt;/code&gt;，将该字符串中的大写字母转换成相同的小写字母，返回新的字符串。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
+    
+    
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+  </entry>
   
   <entry>
     <title>200.岛屿数量-python</title>
@@ -584,34 +609,6 @@
     <category term="水塘抽样" scheme="http://example.com/tags/%E6%B0%B4%E5%A1%98%E6%8A%BD%E6%A0%B7/"/>
     
     <category term="随机化" scheme="http://example.com/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>121.买卖股票的最佳时机-python</title>
-    <link href="http://example.com/2021/12/03/121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-python/"/>
-    <id>http://example.com/2021/12/03/121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-python/</id>
-    <published>2021-12-03T02:32:40.000Z</published>
-    <updated>2021-12-05T15:49:33.653Z</updated>
-    
-    <content type="html"><![CDATA[<p>121.买卖股票的最佳时机（简单）</p><p>题目大意：给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润。返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/">题目链接</a></p><p>给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。</p><p>你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。</p><p>设计一个算法来计算你所能获取的最大利润。返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。</p><p>示例 1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：[7,1,5,3,6,4]</span><br><span class="line">输出：5</span><br><span class="line">解释：在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。</span><br><span class="line">     注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。</span><br></pre></td></tr></table></figure><p>示例 2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：prices = [7,6,4,3,1]</span><br><span class="line">输出：0</span><br><span class="line">解释：在这种情况下, 没有交易完成, 所以最大利润为 0。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>1 &lt;= prices.length &lt;= 105</li><li>0 &lt;= prices[i] &lt;= 104</li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>这个题感觉比较简单，先设置now_min为arr[0]，然后从角标1开始遍历，每次判断现在的arr[i]-now_min是否最大值，如果是则更新最大值。之后更新now_min，如果当前位置小于now_min就更新；</p><p>之前在一本算法书上应该看过这个题，想象一根从最低点到最高点的连线。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span>(<span class="params">self, prices</span>):</span></span><br><span class="line">        <span class="comment"># 异常处理</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(prices) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 逻辑处理</span></span><br><span class="line">        max_p = <span class="number">0</span></span><br><span class="line">        now_min = prices[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(prices)):</span><br><span class="line">            max_p = <span class="built_in">max</span>(max_p, prices[i] - now_min)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> prices[i] &lt; now_min:</span><br><span class="line">                now_min = prices[i]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> max_p</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;121.买卖股票的最佳时机（简单）&lt;/p&gt;
-&lt;p&gt;题目大意：给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润。返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
-    
-    <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
-    
-    
-    <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
-    
-    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
   </entry>
   

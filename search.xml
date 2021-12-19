@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>709.转换成小写字母-python</title>
+      <link href="/2021/12/19/709-%E8%BD%AC%E6%8D%A2%E6%88%90%E5%B0%8F%E5%86%99%E5%AD%97%E6%AF%8D-python/"/>
+      <url>/2021/12/19/709-%E8%BD%AC%E6%8D%A2%E6%88%90%E5%B0%8F%E5%86%99%E5%AD%97%E6%AF%8D-python/</url>
+      
+        <content type="html"><![CDATA[<p>709.转换成小写字母（简单）</p><p>题目大意：</p><p>给你一个字符串<code>s</code>，将该字符串中的大写字母转换成相同的小写字母，返回新的字符串。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/to-lower-case/">题目链接</a></p><p>给你一个字符串<code>s</code>，将该字符串中的大写字母转换成相同的小写字母，返回新的字符串。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;Hello&quot;</span><br><span class="line">输出：&quot;hello&quot;</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;here&quot;</span><br><span class="line">输出：&quot;here&quot;</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;LOVELY&quot;</span><br><span class="line">输出：&quot;lovely&quot;</span><br></pre></td></tr></table></figure><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>主要是python语言的转小写，<code>str.lower()</code></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">toLowerCase</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> s.lower()</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> EASY </tag>
+            
+            <tag> 字符串 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>200.岛屿数量-python</title>
       <link href="/2021/12/17/200-%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F-python/"/>
       <url>/2021/12/17/200-%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F-python/</url>

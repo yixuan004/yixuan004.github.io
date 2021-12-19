@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Category: Crsenal | Curious;的个人划水博客</title>
+  <title>709.转换成小写字母-python | Curious;的个人划水博客</title>
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <meta name="HandheldFriendly" content="True" />
@@ -12,12 +12,18 @@
   <link rel="shortcut icon" href="/">
   <link rel="alternate" href="/atom.xml" title="Curious;的个人划水博客" type="application/atom+xml">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Curious;的个人划水博客">
-<meta property="og:url" content="http://example.com/categories/Crsenal/index.html">
+  <meta name="description" content="709.转换成小写字母（简单） 题目大意： 给你一个字符串s，将该字符串中的大写字母转换成相同的小写字母，返回新的字符串。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="709.转换成小写字母-python">
+<meta property="og:url" content="http://example.com/2021/12/19/709-%E8%BD%AC%E6%8D%A2%E6%88%90%E5%B0%8F%E5%86%99%E5%AD%97%E6%AF%8D-python/index.html">
 <meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="709.转换成小写字母（简单） 题目大意： 给你一个字符串s，将该字符串中的大写字母转换成相同的小写字母，返回新的字符串。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-19T09:42:38.000Z">
+<meta property="article:modified_time" content="2021-12-19T09:46:25.889Z">
 <meta property="article:author" content="Curious;">
+<meta property="article:tag" content="EASY">
+<meta property="article:tag" content="字符串">
 <meta name="twitter:card" content="summary">
     
   <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
@@ -131,378 +137,78 @@
   <div class="l_body">
     <div class='container clearfix'>
       <div class='l_main'>
-        
-  <script>
-    window.subData= { title:'Category : Crsenal'}
-  </script>
-
-<section class="post-list">
+        <article id="post-709-转换成小写字母-python"
+  class="post white-box article-type-post"
+  itemscope itemprop="blogPost">
+	<section class='meta'>
+	<h2 class="title">
+  	<a href="/2021/12/19/709-%E8%BD%AC%E6%8D%A2%E6%88%90%E5%B0%8F%E5%86%99%E5%AD%97%E6%AF%8D-python/">
+    	709.转换成小写字母-python
+    </a>
+  </h2>
+	<time>
+	  12月 19, 2021
+	</time>
 	
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2021/12/08/macOS%E5%8F%8ALinux-screen%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/">
-        macOS及Linux-screen命令整理
-      </a>
-    </h2>
-    
-    <time>
-      12月 8, 2021
-    </time>
-		
     
     <div class='cats'>
-        <a href="/categories/Crsenal/">Crsenal</a>
+        <a href="/categories/LeetCode-python/">LeetCode-python</a>
     </div>
 
-  </section>
-  <section class="article typo">
-	  <p>需求：例如在跑深度学习等程序的时候，需要让程序挂载在后台执行，这时候就可以使用screen命令进行后台的挂载</p>
+	</section>
+	
+		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E5%92%8C%E8%A7%A3%E7%AD%94"><span class="toc-number">2.</span> <span class="toc-text">分析和解答</span></a></li></ol></section>
+	
+	<section class="article typo">
+  	<div class="article-entry" itemprop="articleBody">
+    	<p>709.转换成小写字母（简单）</p>
+<p>题目大意：</p>
+<p>给你一个字符串<code>s</code>，将该字符串中的大写字母转换成相同的小写字母，返回新的字符串。</p>
+<span id="more"></span>
 
-    
-	  <div class="readmore">
-      <a href="/2021/12/08/macOS%E5%8F%8ALinux-screen%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/to-lower-case/">题目链接</a></p>
+<p>给你一个字符串<code>s</code>，将该字符串中的大写字母转换成相同的小写字母，返回新的字符串。</p>
+<p>示例1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;Hello&quot;</span><br><span class="line">输出：&quot;hello&quot;</span><br></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;here&quot;</span><br><span class="line">输出：&quot;here&quot;</span><br></pre></td></tr></table></figure>
+
+<p>示例3：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;LOVELY&quot;</span><br><span class="line">输出：&quot;lovely&quot;</span><br></pre></td></tr></table></figure>
+
+<h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>主要是python语言的转小写，<code>str.lower()</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">toLowerCase</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> s.lower()</span><br></pre></td></tr></table></figure>
+  	</div>
+	  
+	  <div class="article-tags tags">
       
-        <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">macOS基础操作</a>
+        <a href="/tags/EASY/">EASY</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
       
 	  </div>
     
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2021/12/06/iterm2+ohmyzsh%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE/">
-        iterm2+ohmyzsh安装及插件配置
-      </a>
-    </h2>
-    
-    <time>
-      12月 6, 2021
-    </time>
 		
-    
-    <div class='cats'>
-        <a href="/categories/Crsenal/">Crsenal</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>背景：iterm2可以替代macOS自带的terminal，而ohmyzsh是基于zsh命令行的一个扩展工具集，在其上可以安装插件来丰富命令行的功能（何老板推荐的syntax highlighting和auto suggestion）</p>
-
-    
-	  <div class="readmore">
-      <a href="/2021/12/06/iterm2+ohmyzsh%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">macOS基础操作</a>
-      
-	  </div>
-    
-  </section>
+	
+		<div class="art-item-footer">
+				
+				
+					<span class="art-item-right">next：<a href="/2021/12/17/200-%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F-python/" rel="next"  title="200.岛屿数量-python">
+						200.岛屿数量-python
+					</a><i class="icon icon-chevron-thin-right"></i></span>
+				
+		</div>
+	
+	</section>
+	
 </article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2021/12/06/github443%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
-        github443问题的解决办法
-      </a>
-    </h2>
-    
-    <time>
-      12月 6, 2021
-    </time>
-		
-    
-    <div class='cats'>
-        <a href="/categories/Crsenal/">Crsenal</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>背景：github经常遇到443问题，例如Failed to connect to github.com port 443: Operation timed out，这种情况下需要一些解决办法；</p>
-<p>Reference：</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/471aeba64724">https://www.jianshu.com/p/471aeba64724</a></p>
-</blockquote>
-
-    
-	  <div class="readmore">
-      <a href="/2021/12/06/github443%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">macOS基础操作</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2021/12/05/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E8%BF%87%E7%A8%8B/">
-        记录一次hexo博客迁移过程
-      </a>
-    </h2>
-    
-    <time>
-      12月 5, 2021
-    </time>
-		
-    
-    <div class='cats'>
-        <a href="/categories/Crsenal/">Crsenal</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>背景：换了一个新电脑，需要把原来在github上配置的yixuan004.github.io博客环境重新在本地部署，中间涉及到一些软件的安装等</p>
-
-    
-	  <div class="readmore">
-      <a href="/2021/12/05/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E8%BF%87%E7%A8%8B/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/hexo%E7%9B%B8%E5%85%B3/">hexo相关</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2021/11/24/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1pycharm%E7%9A%84%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/">
-        记录一次pycharm的配置过程
-      </a>
-    </h2>
-    
-    <time>
-      11月 24, 2021
-    </time>
-		
-    
-    <div class='cats'>
-        <a href="/categories/Crsenal/">Crsenal</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>在之前会用vscode远程连接服务器写代码，pycharm是另外一种的操作，用了pycharm后感觉可以在本地也备份一份的感觉</p>
-<p>在同步的时候，可以本地不存储那些数据文件，只存储核心的代码文件，这样如果远程服务器和github无法连接的时候，就可以将本地的那些代码文件向github同步（正好在向github同步的时候要避免对于数据的同步，而只同步代码）</p>
-
-    
-	  <div class="readmore">
-      <a href="/2021/11/24/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1pycharm%E7%9A%84%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">macOS基础操作</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2021/11/10/%E8%AE%B0%E5%BD%95%E6%9C%8D%E5%8A%A1%E5%99%A8miniconda%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/">
-        记录服务器miniconda配置虚拟环境
-      </a>
-    </h2>
-    
-    <time>
-      11月 10, 2021
-    </time>
-		
-    
-    <div class='cats'>
-        <a href="/categories/Crsenal/">Crsenal</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>在服务器上之前自己一直用的是virtualenv的环境建立虚拟环境，有一种比较依赖本机已经安装了相关python的感觉。另外昨天在使用virtualenv的时候发现pip的版本对应有些问题，会报sys.stderr.write(f”ERROR: {exc}”)这个错</p>
-<p>大佬同学推荐了一个miniconda的方法，感觉安装起来很方便，虚拟环境感觉都可以使用类似的方法了</p>
-
-    
-	  <div class="readmore">
-      <a href="/2021/11/10/%E8%AE%B0%E5%BD%95%E6%9C%8D%E5%8A%A1%E5%99%A8miniconda%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">macOS基础操作</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2021/10/28/macOS%E5%8F%8ALinux-%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E4%B8%AA%E6%95%B0/">
-        macOS及Linux-统计文件夹下的文件目录个数
-      </a>
-    </h2>
-    
-    <time>
-      10月 28, 2021
-    </time>
-		
-    
-    <div class='cats'>
-        <a href="/categories/Crsenal/">Crsenal</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>需求：希望直接在命令行中统计文件夹下的文件、目录个数</p>
-
-    
-	  <div class="readmore">
-      <a href="/2021/10/28/macOS%E5%8F%8ALinux-%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E4%B8%AA%E6%95%B0/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">macOS基础操作</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2021/10/11/macOS%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E7%9A%84-DS-Store/">
-        macOS删除一个文件夹下的.DS_Store
-      </a>
-    </h2>
-    
-    <time>
-      10月 11, 2021
-    </time>
-		
-    
-    <div class='cats'>
-        <a href="/categories/Crsenal/">Crsenal</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>进入目标目录，输入以下代码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./ -name &quot;.DS_Store&quot; -depth -exec rm &#123;&#125; \;</span><br></pre></td></tr></table></figure>
-
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">macOS基础操作</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2021/09/16/macOS%E5%8F%8ALinux-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7diff/">
-        macOS及Linux-命令行工具diff
-      </a>
-    </h2>
-    
-    <time>
-      9月 16, 2021
-    </time>
-		
-    
-    <div class='cats'>
-        <a href="/categories/Crsenal/">Crsenal</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>需求：如果使用beyond compare等工具做diff还是有时候有些不方便的，或者说不够灵活。可以在macOS或者Linux系统中直接使用语句进行diff操作，并且在这里补充了一些关于zsh配置和colordiff的说明。</p>
-
-    
-	  <div class="readmore">
-      <a href="/2021/09/16/macOS%E5%8F%8ALinux-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7diff/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">macOS基础操作</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-</section>
-
+<script>
+	window.subData = {
+		title: '709.转换成小写字母-python',
+		tools: true
+	}
+</script>
 
       </div>
       <aside class='l_side'>
