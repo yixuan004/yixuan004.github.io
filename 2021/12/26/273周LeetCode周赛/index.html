@@ -20,7 +20,7 @@
 <meta property="og:description" content="周赛综述&amp;总结： 第一题：感觉比较水，123400倒过来是004321，再倒回去是1234和原来的数字不一样了，这样其实可以直接判断末尾是不是0，还有是不是单独一个0就可以了； 第二题：矩阵内简单的模拟，up down left right，经过这四个操作后，不能越过矩阵的边界就行了，后缀在python里[i:]好像比较简单； 第三题：在当时做的时候何老板就在想是不是和数学有关的，后来听了">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-26T08:16:43.000Z">
-<meta property="article:modified_time" content="2022-01-03T12:48:59.028Z">
+<meta property="article:modified_time" content="2022-01-04T02:02:32.351Z">
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="数组">
 <meta property="article:tag" content="MEDIUM">
@@ -172,6 +172,8 @@
 <p>第二题：矩阵内简单的模拟，up down left right，经过这四个操作后，不能越过矩阵的边界就行了，后缀在python里<code>[i:]</code>好像比较简单；</p>
 <p>第三题：在当时做的时候何老板就在想是不是和数学有关的，后来听了卿哥的解答后感觉最关键的是abcde这个思路，这样比较容易可能能想到前缀和后缀的问题了，对于一个数字2，比如其角标在<code>[a, b, c, d, e]</code>五个位置，那么根据题意可以模拟下每个位置下的和，这样能看出来之间的关系，详见下文解答；</p>
 <p>第四题：未来有机会再试了；</p>
+<span id="more"></span>
+
 <h1 id="第一题：2119-反转两次的数字"><a href="#第一题：2119-反转两次的数字" class="headerlink" title="第一题：2119.反转两次的数字"></a>第一题：2119.反转两次的数字</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/a-number-after-a-double-reversal/">题目链接</a></p>
 <h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p><strong>反转</strong>一个整数意味着倒置它的所有位。</p>
 <p>例如，反转<code>2021</code>得到<code>1202</code>。反转<code>12300</code>得到<code>321</code>，<strong>不保留前导零</strong>。<br>给你一个整数<code>num</code>，<strong>反转</strong><code>num</code>得到<code>reversed1</code>，<strong>接着反转</strong><code>reversed1</code>得到<code>reversed2</code>。如果<code>reversed2</code>等于<code>num</code>，返回<code>true</code>；否则，返回<code>false</code>。</p>
@@ -325,9 +327,9 @@
     
         <li><a class="flat-box" href="/categories/docker/"><div class='name'>docker</div><div class='badget'>1</div></a></li>
     
-        <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E6%9A%82%E6%9C%AA%E5%AE%9E%E7%8E%B0%E4%BC%98%E5%8C%96%E8%A7%A3%E6%B3%95/"><div class='name'>暂未实现优化解法</div><div class='badget'>1</div></a></li>
-    
         <li><a class="flat-box" href="/categories/LeetCode-python/%E6%9A%82%E6%9C%AA%E5%AE%9E%E7%8E%B0%E4%BC%98%E5%8C%96%E8%A7%A3%E6%B3%95/"><div class='name'>暂未实现优化解法</div><div class='badget'>1</div></a></li>
+    
+        <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E6%9A%82%E6%9C%AA%E5%AE%9E%E7%8E%B0%E4%BC%98%E5%8C%96%E8%A7%A3%E6%B3%95/"><div class='name'>暂未实现优化解法</div><div class='badget'>1</div></a></li>
     
         <li><a class="flat-box" href="/categories/%E7%BC%96%E7%A8%8B%E5%BC%80%E5%8F%91/"><div class='name'>编程开发</div><div class='badget'>1</div></a></li>
     
