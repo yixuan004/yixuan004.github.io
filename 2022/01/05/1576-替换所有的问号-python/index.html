@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>macOS及Linux-screen命令整理 | Curious;的个人划水博客</title>
+  <title>1576.替换所有的问号-python | Curious;的个人划水博客</title>
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <meta name="HandheldFriendly" content="True" />
@@ -12,17 +12,18 @@
   <link rel="shortcut icon" href="/">
   <link rel="alternate" href="/atom.xml" title="Curious;的个人划水博客" type="application/atom+xml">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="需求：例如在跑深度学习等程序的时候，需要让程序挂载在后台执行，这时候就可以使用screen命令进行后台的挂载">
+  <meta name="description" content="1576.替换所有的问号（简单） 题目大意： 给你一个仅包含小写英文字母和&#39;?&#39;字符的字符串s，请你将所有的&#39;?&#39;转换为若干小写字母，使最终的字符串不包含任何连续重复的字符。 注意：你不能修改非&#39;?&#39;字符。 题目测试用例保证除&#39;?&#39;字符之外，不存在连续重复的字符。 在完成所有转换（可能无需转换）后返回最终的字符串。如果有多个解决方案，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="macOS及Linux-screen命令整理">
-<meta property="og:url" content="http://example.com/2021/12/08/macOS%E5%8F%8ALinux-screen%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/index.html">
+<meta property="og:title" content="1576.替换所有的问号-python">
+<meta property="og:url" content="http://example.com/2022/01/05/1576-%E6%9B%BF%E6%8D%A2%E6%89%80%E6%9C%89%E7%9A%84%E9%97%AE%E5%8F%B7-python/index.html">
 <meta property="og:site_name" content="Curious;的个人划水博客">
-<meta property="og:description" content="需求：例如在跑深度学习等程序的时候，需要让程序挂载在后台执行，这时候就可以使用screen命令进行后台的挂载">
+<meta property="og:description" content="1576.替换所有的问号（简单） 题目大意： 给你一个仅包含小写英文字母和&#39;?&#39;字符的字符串s，请你将所有的&#39;?&#39;转换为若干小写字母，使最终的字符串不包含任何连续重复的字符。 注意：你不能修改非&#39;?&#39;字符。 题目测试用例保证除&#39;?&#39;字符之外，不存在连续重复的字符。 在完成所有转换（可能无需转换）后返回最终的字符串。如果有多个解决方案，">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-12-08T06:48:35.000Z">
-<meta property="article:modified_time" content="2021-12-15T11:49:19.394Z">
+<meta property="article:published_time" content="2022-01-05T13:28:05.000Z">
+<meta property="article:modified_time" content="2022-01-05T13:36:47.884Z">
 <meta property="article:author" content="Curious;">
-<meta property="article:tag" content="macOS基础操作">
+<meta property="article:tag" content="EASY">
+<meta property="article:tag" content="字符串">
 <meta name="twitter:card" content="summary">
     
   <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
@@ -136,47 +137,73 @@
   <div class="l_body">
     <div class='container clearfix'>
       <div class='l_main'>
-        <article id="post-macOS及Linux-screen命令整理"
+        <article id="post-1576-替换所有的问号-python"
   class="post white-box article-type-post"
   itemscope itemprop="blogPost">
 	<section class='meta'>
 	<h2 class="title">
-  	<a href="/2021/12/08/macOS%E5%8F%8ALinux-screen%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/">
-    	macOS及Linux-screen命令整理
+  	<a href="/2022/01/05/1576-%E6%9B%BF%E6%8D%A2%E6%89%80%E6%9C%89%E7%9A%84%E9%97%AE%E5%8F%B7-python/">
+    	1576.替换所有的问号-python
     </a>
   </h2>
 	<time>
-	  12月 8, 2021
+	  1月 5, 2022
 	</time>
 	
     
     <div class='cats'>
-        <a href="/categories/Crsenal/">Crsenal</a>
+        <a href="/categories/LeetCode-python/">LeetCode-python</a>
     </div>
 
 	</section>
 	
-		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#screen-ls"><span class="toc-number">1.</span> <span class="toc-text">screen -ls</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#screen-S-name"><span class="toc-number">2.</span> <span class="toc-text">screen -S [name]</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#screen-r-name"><span class="toc-number">3.</span> <span class="toc-text">screen -r [name]</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#screen-X-S-id-quit"><span class="toc-number">4.</span> <span class="toc-text">screen -X -S [id] quit</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#screen-D-name"><span class="toc-number">5.</span> <span class="toc-text">screen -D [name]</span></a></li></ol></section>
+		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E5%92%8C%E8%A7%A3%E7%AD%94"><span class="toc-number">2.</span> <span class="toc-text">分析和解答</span></a></li></ol></section>
 	
 	<section class="article typo">
   	<div class="article-entry" itemprop="articleBody">
-    	<p>需求：例如在跑深度学习等程序的时候，需要让程序挂载在后台执行，这时候就可以使用screen命令进行后台的挂载</p>
+    	<p>1576.替换所有的问号（简单）</p>
+<p>题目大意：</p>
+<p>给你一个仅包含小写英文字母和<code>&#39;?&#39;</code>字符的字符串<code>s</code>，请你将所有的<code>&#39;?&#39;</code>转换为若干小写字母，使最终的字符串不包含任何<strong>连续重复</strong>的字符。</p>
+<p>注意：你<strong>不能</strong>修改非<code>&#39;?&#39;</code>字符。</p>
+<p>题目测试用例保证<strong>除</strong><code>&#39;?&#39;</code>字符<strong>之外</strong>，不存在连续重复的字符。</p>
+<p>在完成所有转换（可能无需转换）后返回最终的字符串。如果有多个解决方案，请返回其中任何一个。可以证明，在给定的约束条件下，答案总是存在的。</p>
 <span id="more"></span>
 
-<h1 id="screen-ls"><a href="#screen-ls" class="headerlink" title="screen -ls"></a>screen -ls</h1><p>查看：<code>screen -ls</code>可以查看当前有哪些Attached/Detached的screen界面</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(base) lyx@h5:~$ screen -ls</span><br><span class="line">There is a screen on:</span><br><span class="line">        12442.xxxxxxx       (12/08/2021 02:12:53 PM)        (Detached)</span><br><span class="line">1 Socket in /var/run/screen/S-lyx.=</span><br></pre></td></tr></table></figure>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/replace-all-s-to-avoid-consecutive-repeating-characters/">题目链接</a></p>
+<p>题目大意：</p>
+<p>给你一个仅包含小写英文字母和<code>&#39;?&#39;</code>字符的字符串<code>s</code>，请你将所有的<code>&#39;?&#39;</code>转换为若干小写字母，使最终的字符串不包含任何<strong>连续重复</strong>的字符。</p>
+<p>注意：你<strong>不能</strong>修改非<code>&#39;?&#39;</code>字符。</p>
+<p>题目测试用例保证<strong>除</strong><code>&#39;?&#39;</code>字符<strong>之外</strong>，不存在连续重复的字符。</p>
+<p>在完成所有转换（可能无需转换）后返回最终的字符串。如果有多个解决方案，请返回其中任何一个。可以证明，在给定的约束条件下，答案总是存在的。</p>
+<p>示例1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;?zs&quot;</span><br><span class="line">输出：&quot;azs&quot;</span><br><span class="line">解释：该示例共有 25 种解决方案，从 &quot;azs&quot; 到 &quot;yzs&quot; 都是符合题目要求的。只有 &quot;z&quot; 是无效的修改，因为字符串 &quot;zzs&quot; 中有连续重复的两个 &#x27;z&#x27; 。</span><br></pre></td></tr></table></figure>
 
-<h1 id="screen-S-name"><a href="#screen-S-name" class="headerlink" title="screen -S [name]"></a>screen -S [name]</h1><p>新建：<code>screen -S [name]</code>可以打开一个新的名称为[name]的screen界面</p>
-<h1 id="screen-r-name"><a href="#screen-r-name" class="headerlink" title="screen -r [name]"></a>screen -r [name]</h1><p>返回：<code>screen -r [name]</code>可以返回名称为[name]的screen界面（例如之前暂时退出了，可通过此命令返回），名称可通过<code>screen -ls</code>查看</p>
-<h1 id="screen-X-S-id-quit"><a href="#screen-X-S-id-quit" class="headerlink" title="screen -X -S [id] quit"></a>screen -X -S [id] quit</h1><p>删除：<code>screen -X -S [id] quit</code>可以关闭挂载的一些screen，这里只用输入id号即可</p>
-<h1 id="screen-D-name"><a href="#screen-D-name" class="headerlink" title="screen -D [name]"></a>screen -D [name]</h1><p>有些情况下，如果finalshell等ssh窗口已经关闭，但是还显示在Attached的状态，就需要先D掉再进去</p>
-<p>```screen -D [name]``</p>
 
+<p>示例2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;ubv?w&quot;</span><br><span class="line">输出：&quot;ubvaw&quot;</span><br><span class="line">解释：该示例共有 24 种解决方案，只有替换成 &quot;v&quot; 和 &quot;w&quot; 不符合题目要求。因为 &quot;ubvvw&quot; 和 &quot;ubvww&quot; 都包含连续重复的字符。</span><br></pre></td></tr></table></figure>
+
+<p>示例3：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;j?qg??b&quot;</span><br><span class="line">输出：&quot;jaqgacb&quot;</span><br></pre></td></tr></table></figure>
+
+<p>示例4：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;??yw?ipkj?&quot;</span><br><span class="line">输出：&quot;acywaipkja&quot;</span><br></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li>1 &lt;= s.length &lt;= 100</li>
+<li>s 仅包含小写英文字母和 ‘?’ 字符</li>
+</ul>
+<h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>每日一题还是挺简单的，这题主要注意的情况是一个字符最多相邻两个，也就是说只要准备三个需要被换的字符，比如<code>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</code>就可以了</p>
+<p>另外是还需要判断问号连续出现的情况就行了</p>
+<p>另：python的字符串处理最好先用列表，然后再join到一起，耗时问题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">modifyString</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 注意可能连续出现两个问号！！！！</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(s) == <span class="number">1</span> <span class="keyword">and</span> s[<span class="number">0</span>] == <span class="string">&#x27;?&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;a&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        letters = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>]  <span class="comment"># 必将在三个字母中找到答案！ 这个地方还是挺关键的</span></span><br><span class="line">        return_list = []  <span class="comment"># python字符串，先用list，然后join回去</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">            <span class="keyword">if</span> s[i] != <span class="string">&#x27;?&#x27;</span>:</span><br><span class="line">                return_list.append(s[i])</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">for</span> letter <span class="keyword">in</span> letters:</span><br><span class="line">                        <span class="keyword">if</span> letter != s[i+<span class="number">1</span>]:</span><br><span class="line">                            return_list.append(letter)</span><br><span class="line">                            <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">elif</span> i == <span class="built_in">len</span>(s) - <span class="number">1</span>:</span><br><span class="line">                    <span class="keyword">for</span> letter <span class="keyword">in</span> letters:</span><br><span class="line">                        <span class="keyword">if</span> letter != return_list[i-<span class="number">1</span>]:</span><br><span class="line">                            return_list.append(letter)</span><br><span class="line">                            <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">for</span> letter <span class="keyword">in</span> letters:</span><br><span class="line">                        <span class="keyword">if</span> letter != s[i+<span class="number">1</span>] <span class="keyword">and</span> letter != return_list[i-<span class="number">1</span>]:</span><br><span class="line">                            return_list.append(letter)</span><br><span class="line">                            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(return_list)</span><br></pre></td></tr></table></figure>
   	</div>
 	  
 	  <div class="article-tags tags">
       
-        <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">macOS基础操作</a>
+        <a href="/tags/EASY/">EASY</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
       
 	  </div>
     
@@ -184,13 +211,9 @@
 	
 		<div class="art-item-footer">
 				
-					<span class="art-item-left"><i class="icon icon-chevron-thin-left"></i>prev：<a href="/2021/12/12/438-%E6%89%BE%E5%88%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%89%80%E6%9C%89%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D-python/" rel="prev"  title="438.找到字符串中所有字母异位词-python">
-						438.找到字符串中所有字母异位词-python 
-					</a></span>
 				
-				
-					<span class="art-item-right">next：<a href="/2021/12/06/iterm2+ohmyzsh%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE/" rel="next"  title="iterm2+ohmyzsh安装及插件配置">
-						iterm2+ohmyzsh安装及插件配置
+					<span class="art-item-right">next：<a href="/2022/01/05/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01-%E8%83%8C%E6%99%AF-%E7%8B%82%E7%A5%9E%E8%A7%86%E9%A2%91/" rel="next"  title="Docker学习笔记1-背景-狂神视频">
+						Docker学习笔记1-背景-狂神视频
 					</a><i class="icon icon-chevron-thin-right"></i></span>
 				
 		</div>
@@ -200,7 +223,7 @@
 </article>
 <script>
 	window.subData = {
-		title: 'macOS及Linux-screen命令整理',
+		title: '1576.替换所有的问号-python',
 		tools: true
 	}
 </script>

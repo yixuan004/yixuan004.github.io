@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>1576.替换所有的问号-python</title>
+      <link href="/2022/01/05/1576-%E6%9B%BF%E6%8D%A2%E6%89%80%E6%9C%89%E7%9A%84%E9%97%AE%E5%8F%B7-python/"/>
+      <url>/2022/01/05/1576-%E6%9B%BF%E6%8D%A2%E6%89%80%E6%9C%89%E7%9A%84%E9%97%AE%E5%8F%B7-python/</url>
+      
+        <content type="html"><![CDATA[<p>1576.替换所有的问号（简单）</p><p>题目大意：</p><p>给你一个仅包含小写英文字母和<code>&#39;?&#39;</code>字符的字符串<code>s</code>，请你将所有的<code>&#39;?&#39;</code>转换为若干小写字母，使最终的字符串不包含任何<strong>连续重复</strong>的字符。</p><p>注意：你<strong>不能</strong>修改非<code>&#39;?&#39;</code>字符。</p><p>题目测试用例保证<strong>除</strong><code>&#39;?&#39;</code>字符<strong>之外</strong>，不存在连续重复的字符。</p><p>在完成所有转换（可能无需转换）后返回最终的字符串。如果有多个解决方案，请返回其中任何一个。可以证明，在给定的约束条件下，答案总是存在的。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/replace-all-s-to-avoid-consecutive-repeating-characters/">题目链接</a></p><p>题目大意：</p><p>给你一个仅包含小写英文字母和<code>&#39;?&#39;</code>字符的字符串<code>s</code>，请你将所有的<code>&#39;?&#39;</code>转换为若干小写字母，使最终的字符串不包含任何<strong>连续重复</strong>的字符。</p><p>注意：你<strong>不能</strong>修改非<code>&#39;?&#39;</code>字符。</p><p>题目测试用例保证<strong>除</strong><code>&#39;?&#39;</code>字符<strong>之外</strong>，不存在连续重复的字符。</p><p>在完成所有转换（可能无需转换）后返回最终的字符串。如果有多个解决方案，请返回其中任何一个。可以证明，在给定的约束条件下，答案总是存在的。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;?zs&quot;</span><br><span class="line">输出：&quot;azs&quot;</span><br><span class="line">解释：该示例共有 25 种解决方案，从 &quot;azs&quot; 到 &quot;yzs&quot; 都是符合题目要求的。只有 &quot;z&quot; 是无效的修改，因为字符串 &quot;zzs&quot; 中有连续重复的两个 &#x27;z&#x27; 。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;ubv?w&quot;</span><br><span class="line">输出：&quot;ubvaw&quot;</span><br><span class="line">解释：该示例共有 24 种解决方案，只有替换成 &quot;v&quot; 和 &quot;w&quot; 不符合题目要求。因为 &quot;ubvvw&quot; 和 &quot;ubvww&quot; 都包含连续重复的字符。</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;j?qg??b&quot;</span><br><span class="line">输出：&quot;jaqgacb&quot;</span><br></pre></td></tr></table></figure><p>示例4：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;??yw?ipkj?&quot;</span><br><span class="line">输出：&quot;acywaipkja&quot;</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>1 &lt;= s.length &lt;= 100</li><li>s 仅包含小写英文字母和 ‘?’ 字符</li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>每日一题还是挺简单的，这题主要注意的情况是一个字符最多相邻两个，也就是说只要准备三个需要被换的字符，比如<code>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</code>就可以了</p><p>另外是还需要判断问号连续出现的情况就行了</p><p>另：python的字符串处理最好先用列表，然后再join到一起，耗时问题</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">modifyString</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 注意可能连续出现两个问号！！！！</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(s) == <span class="number">1</span> <span class="keyword">and</span> s[<span class="number">0</span>] == <span class="string">&#x27;?&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;a&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        letters = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>]  <span class="comment"># 必将在三个字母中找到答案！ 这个地方还是挺关键的</span></span><br><span class="line">        return_list = []  <span class="comment"># python字符串，先用list，然后join回去</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">            <span class="keyword">if</span> s[i] != <span class="string">&#x27;?&#x27;</span>:</span><br><span class="line">                return_list.append(s[i])</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">for</span> letter <span class="keyword">in</span> letters:</span><br><span class="line">                        <span class="keyword">if</span> letter != s[i+<span class="number">1</span>]:</span><br><span class="line">                            return_list.append(letter)</span><br><span class="line">                            <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">elif</span> i == <span class="built_in">len</span>(s) - <span class="number">1</span>:</span><br><span class="line">                    <span class="keyword">for</span> letter <span class="keyword">in</span> letters:</span><br><span class="line">                        <span class="keyword">if</span> letter != return_list[i-<span class="number">1</span>]:</span><br><span class="line">                            return_list.append(letter)</span><br><span class="line">                            <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">for</span> letter <span class="keyword">in</span> letters:</span><br><span class="line">                        <span class="keyword">if</span> letter != s[i+<span class="number">1</span>] <span class="keyword">and</span> letter != return_list[i-<span class="number">1</span>]:</span><br><span class="line">                            return_list.append(letter)</span><br><span class="line">                            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(return_list)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> EASY </tag>
+            
+            <tag> 字符串 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Docker学习笔记1-背景-狂神视频</title>
       <link href="/2022/01/05/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01-%E8%83%8C%E6%99%AF-%E7%8B%82%E7%A5%9E%E8%A7%86%E9%A2%91/"/>
       <url>/2022/01/05/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01-%E8%83%8C%E6%99%AF-%E7%8B%82%E7%A5%9E%E8%A7%86%E9%A2%91/</url>
@@ -74,11 +101,11 @@
             
             <tag> MEDIUM </tag>
             
+            <tag> EASY </tag>
+            
             <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
-            
-            <tag> EASY </tag>
             
             <tag> 数学 </tag>
             
@@ -109,9 +136,9 @@
       
         <tags>
             
-            <tag> 字符串 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 字符串 </tag>
             
         </tags>
       
@@ -206,9 +233,9 @@
       
         <tags>
             
-            <tag> 字符串 </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> 字符串 </tag>
             
             <tag> HARD </tag>
             
@@ -336,11 +363,11 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
-            
-            <tag> EASY </tag>
             
             <tag> 计数 </tag>
             
@@ -371,6 +398,8 @@
             
             <tag> MEDIUM </tag>
             
+            <tag> 动态规划 </tag>
+            
             <tag> 字典树 </tag>
             
             <tag> 记忆化搜索 </tag>
@@ -378,8 +407,6 @@
             <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
-            
-            <tag> 动态规划 </tag>
             
         </tags>
       
@@ -435,9 +462,9 @@
       
         <tags>
             
-            <tag> 字符串 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 字符串 </tag>
             
         </tags>
       
