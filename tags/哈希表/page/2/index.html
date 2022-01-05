@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Category: LeetCode周赛 | Curious;的个人划水博客</title>
+  <title>Tag: 哈希表 | Curious;的个人划水博客</title>
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <meta name="HandheldFriendly" content="True" />
@@ -14,7 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Curious;的个人划水博客">
-<meta property="og:url" content="http://example.com/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/index.html">
+<meta property="og:url" content="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/page/2/index.html">
 <meta property="og:site_name" content="Curious;的个人划水博客">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="Curious;">
@@ -133,7 +133,7 @@
       <div class='l_main'>
         
   <script>
-    window.subData= { title:'Category : LeetCode周赛'}
+    window.subData= { title:'Tag : 哈希表'}
   </script>
 
 <section class="post-list">
@@ -143,87 +143,33 @@
   <section class="meta">
     
     <h2 class="title">
-      <a href="/2022/01/02/274%E5%91%A8LeetCode%E5%91%A8%E8%B5%9B/">
-        274周LeetCode周赛
+      <a href="/2021/11/29/423-%E4%BB%8E%E8%8B%B1%E6%96%87%E4%B8%AD%E9%87%8D%E5%BB%BA%E6%95%B0%E5%AD%97-python/">
+        423.从英文中重建数字-python
       </a>
     </h2>
     
     <time>
-      1月 2, 2022
+      11月 29, 2021
     </time>
 		
     
     <div class='cats'>
-        <a href="/categories/LeetCode-python/">LeetCode-python</a>, <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/">LeetCode周赛</a>
+        <a href="/categories/LeetCode-python/">LeetCode-python</a>
     </div>
 
   </section>
   <section class="article typo">
-	  <p>周赛综述&amp;总结：</p>
-<p>前三个感觉都是水题，自己做的话感觉难得的10-20分钟就搞定了，因为是后来做的看了眼大佬们最快都做了20多分钟，前三个题这么简单的话第四题估计自己现在的水平很难做出来了；</p>
-<p>第一题：一个由ab组成的字符串，如果b出现过了后边就不能出现a了，用一个flag判断就可以了；</p>
-<p>第二题：用Counter统计每行1的个数，然后把0的行排除掉，<code>result += count[i] * count[i+1]</code>就可以了；</p>
-<p>第三题：还是用到了排序，第一次遍历过去的时候可以先不断贪心，然后排序，再一个个加入来判断就行了；</p>
-<p>第四题：未来有机会再试了</p>
+	  <p>423.从英文中重建数字（中等）</p>
+<p>题目大意：给你一个字符串 s ，其中包含字母顺序打乱的用英文单词表示的若干数字（0-9）。按 升序 返回原始的数字。</p>
 
     
 	  <div class="readmore">
-      <a href="/2022/01/02/274%E5%91%A8LeetCode%E5%91%A8%E8%B5%9B/">Read More</a>
+      <a href="/2021/11/29/423-%E4%BB%8E%E8%8B%B1%E6%96%87%E4%B8%AD%E9%87%8D%E5%BB%BA%E6%95%B0%E5%AD%97-python/">Read More</a>
     </div>
     
     
     
 	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/EASY/">EASY</a>
-      
-        <a href="/tags/MEDIUM/">MEDIUM</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2021/12/26/273%E5%91%A8LeetCode%E5%91%A8%E8%B5%9B/">
-        273周LeetCode周赛
-      </a>
-    </h2>
-    
-    <time>
-      12月 26, 2021
-    </time>
-		
-    
-    <div class='cats'>
-        <a href="/categories/LeetCode-python/">LeetCode-python</a>, <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/">LeetCode周赛</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>周赛综述&amp;总结：</p>
-<p>第一题：感觉比较水，123400倒过来是004321，再倒回去是1234和原来的数字不一样了，这样其实可以直接判断末尾是不是0，还有是不是单独一个0就可以了；</p>
-<p>第二题：矩阵内简单的模拟，up down left right，经过这四个操作后，不能越过矩阵的边界就行了，后缀在python里<code>[i:]</code>好像比较简单；</p>
-<p>第三题：在当时做的时候何老板就在想是不是和数学有关的，后来听了卿哥的解答后感觉最关键的是abcde这个思路，这样比较容易可能能想到前缀和后缀的问题了，对于一个数字2，比如其角标在<code>[a, b, c, d, e]</code>五个位置，那么根据题意可以模拟下每个位置下的和，这样能看出来之间的关系，详见下文解答；</p>
-<p>第四题：未来有机会再试了；</p>
-
-    
-	  <div class="readmore">
-      <a href="/2021/12/26/273%E5%91%A8LeetCode%E5%91%A8%E8%B5%9B/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
-      
-        <a href="/tags/EASY/">EASY</a>
       
         <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
       
@@ -233,10 +179,6 @@
       
         <a href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>
       
-        <a href="/tags/%E6%A8%A1%E6%8B%9F/">模拟</a>
-      
-        <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/">前缀和</a>
-      
 	  </div>
     
   </section>
@@ -245,6 +187,17 @@
   
 </section>
 
+
+  <nav id="page-nav">
+    
+    <a class="prev" rel="prev" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">
+      <span class="icon icon-chevron-left"></span>
+      <span class="text">Previous</span>
+    </a>
+    
+    
+  </nav>
+  
 
       </div>
       <aside class='l_side'>
