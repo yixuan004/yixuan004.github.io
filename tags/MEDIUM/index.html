@@ -143,6 +143,74 @@
   <section class="meta">
     
     <h2 class="title">
+      <a href="/2022/01/05/49-%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D%E5%88%86%E7%BB%84-python/">
+        49.字母异位词分组-python
+      </a>
+    </h2>
+    
+    <time>
+      1月 5, 2022
+    </time>
+		
+    
+    <div class='cats'>
+        <a href="/categories/LeetCode-python/">LeetCode-python</a>, <a href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/">LeetCode-热题 HOT 100</a>
+    </div>
+
+  </section>
+  <section class="article typo">
+	  <p>49.字母异位词分组（中等）</p>
+<p>题目大意：</p>
+<p>给你一个字符串数组，请你将<strong>字母异位词</strong>组合在一起。可以按任意顺序返回结果列表。</p>
+<p><strong>字母异位词</strong>是由重新排列源单词的字母得到的一个新单词，所有源单词中的字母通常恰好只用一次。</p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/group-anagrams/">题目链接</a></p>
+<p>给你一个字符串数组，请你将<strong>字母异位词</strong>组合在一起。可以按任意顺序返回结果列表。</p>
+<p><strong>字母异位词</strong>是由重新排列源单词的字母得到的一个新单词，所有源单词中的字母通常恰好只用一次。</p>
+<p>示例1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: strs = [&quot;eat&quot;, &quot;tea&quot;, &quot;tan&quot;, &quot;ate&quot;, &quot;nat&quot;, &quot;bat&quot;]</span><br><span class="line">输出: [[&quot;bat&quot;],[&quot;nat&quot;,&quot;tan&quot;],[&quot;ate&quot;,&quot;eat&quot;,&quot;tea&quot;]]</span><br></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: strs = [&quot;&quot;]</span><br><span class="line">输出: [[&quot;&quot;]]</span><br></pre></td></tr></table></figure>
+
+<p>示例3：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: strs = [&quot;a&quot;]</span><br><span class="line">输出: [[&quot;a&quot;]]</span><br></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li><code>1 &lt;= strs.length &lt;= 104</code></li>
+<li><code>0 &lt;= strs[i].length &lt;= 100</code></li>
+<li><code>strs[i]</code>仅包含小写字母</li>
+</ul>
+<h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>这个题想想自己做法也挺奇葩的，只能说Counter永远的神了</p>
+<p>先重整理数组，在原有的字符串基础上变成<code>[字符串, Counter对象, 标记位（标记是否已经加入了）]</code></p>
+<p>一个两重for循环，在外层for循环中，如果没有加入则加入，如果已经加入了则continue。在内层循环中，a-b, b-a判断Counter是否相等（这里比如a是外层的i，b是内层的j），如果相等并且没加入，就加入到外层循环初始化的list中，然后内层循环结束后append</p>
+<p><strong>Counter永远的神！（除了效率hhh）</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">groupAnagrams</span>(<span class="params">self, strs</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type strs: List[str]</span></span><br><span class="line"><span class="string">        :rtype: List[List[str]]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 一旦用上Coutner耗时就会很高？ 不过Counter真的是个好东西</span></span><br><span class="line">        temp_list = []</span><br><span class="line">        <span class="keyword">for</span> i, item <span class="keyword">in</span> <span class="built_in">enumerate</span>(strs):</span><br><span class="line">            temp_list.append([item, Counter(item), <span class="number">0</span>])  <span class="comment"># 0是一个标记位，标记是否被加进去了</span></span><br><span class="line">        </span><br><span class="line">        return_list = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(temp_list)):</span><br><span class="line">            <span class="keyword">if</span> temp_list[i][<span class="number">2</span>] == <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            add_list = [temp_list[i][<span class="number">0</span>]]</span><br><span class="line">            temp_list[i][<span class="number">2</span>] = <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>, <span class="built_in">len</span>(temp_list)):</span><br><span class="line">                <span class="keyword">if</span> temp_list[j][<span class="number">1</span>] == temp_list[i][<span class="number">1</span>] <span class="keyword">and</span> temp_list[j][<span class="number">2</span>] == <span class="number">0</span>:</span><br><span class="line">                    add_list.append(temp_list[j][<span class="number">0</span>])</span><br><span class="line">                    temp_list[j][<span class="number">2</span>] = <span class="number">1</span></span><br><span class="line">            return_list.append(add_list)</span><br><span class="line">            add_list = []</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">return</span> return_list</span><br></pre></td></tr></table></figure>
+
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/MEDIUM/">MEDIUM</a>
+      
+        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+      
+        <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
       <a href="/2022/01/05/48-%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F-python/">
         48.旋转图像-python
       </a>
@@ -224,9 +292,9 @@
     
 	  <div class="full-width auto-padding tags">
       
-        <a href="/tags/EASY/">EASY</a>
-      
         <a href="/tags/MEDIUM/">MEDIUM</a>
+      
+        <a href="/tags/EASY/">EASY</a>
       
 	  </div>
     
@@ -272,13 +340,13 @@
       
         <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
       
-        <a href="/tags/EASY/">EASY</a>
-      
-        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-      
         <a href="/tags/MEDIUM/">MEDIUM</a>
       
         <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+      
+        <a href="/tags/EASY/">EASY</a>
       
         <a href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>
       
@@ -381,9 +449,9 @@
     
 	  <div class="full-width auto-padding tags">
       
-        <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
-      
         <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
+      
+        <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
       
         <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
       
@@ -486,9 +554,9 @@
       
         <a href="/tags/MEDIUM/">MEDIUM</a>
       
-        <a href="/tags/%E8%AE%BE%E8%AE%A1/">设计</a>
-      
         <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+      
+        <a href="/tags/%E8%AE%BE%E8%AE%A1/">设计</a>
       
         <a href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
       
@@ -534,17 +602,17 @@
     
 	  <div class="full-width auto-padding tags">
       
-        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-      
-        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-      
         <a href="/tags/MEDIUM/">MEDIUM</a>
-      
-        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
       
         <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">字典树</a>
       
         <a href="/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/">记忆化搜索</a>
+      
+        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+      
+        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
       
 	  </div>
     
@@ -588,65 +656,9 @@
       
         <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
       
+        <a href="/tags/MEDIUM/">MEDIUM</a>
+      
         <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-      
-        <a href="/tags/MEDIUM/">MEDIUM</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2021/12/13/208-%E5%AE%9E%E7%8E%B0Trie%E5%89%8D%E7%BC%80%E6%A0%91-python/">
-        208.实现Trie前缀树-python
-      </a>
-    </h2>
-    
-    <time>
-      12月 13, 2021
-    </time>
-		
-    
-    <div class='cats'>
-        <a href="/categories/LeetCode-python/">LeetCode-python</a>, <a href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/">LeetCode-热题 HOT 100</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>208.最长递增子序列（中等）</p>
-<p>题目大意：Trie（发音类似 “try”）或者说 前缀树 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键。这一数据结构有相当多的应用情景，例如自动补完和拼写检查。</p>
-<p>请你实现 Trie 类：</p>
-<p>Trie() 初始化前缀树对象。</p>
-<ul>
-<li>void insert(String word) 向前缀树中插入字符串 word 。</li>
-<li>boolean search(String word) 如果字符串 word 在前缀树中，返回 true（即，在检索之前已经插入）；否则，返回 false 。</li>
-<li>boolean startsWith(String prefix) 如果之前已经插入的字符串 word 的前缀之一为 prefix ，返回 true ；否则，返回 false </li>
-</ul>
-
-    
-	  <div class="readmore">
-      <a href="/2021/12/13/208-%E5%AE%9E%E7%8E%B0Trie%E5%89%8D%E7%BC%80%E6%A0%91-python/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-      
-        <a href="/tags/MEDIUM/">MEDIUM</a>
-      
-        <a href="/tags/%E8%AE%BE%E8%AE%A1/">设计</a>
-      
-        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
-      
-        <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">字典树</a>
       
 	  </div>
     
@@ -700,9 +712,9 @@
     
         <li><a class="flat-box" href="/categories/Crsenal/"><div class='name'>Crsenal</div><div class='badget'>9</div></a></li>
     
-        <li><a class="flat-box" href="/categories/LeetCode-python/"><div class='name'>LeetCode-python</div><div class='badget'>24</div></a></li>
+        <li><a class="flat-box" href="/categories/LeetCode-python/"><div class='name'>LeetCode-python</div><div class='badget'>25</div></a></li>
     
-        <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"><div class='name'>LeetCode-热题 HOT 100</div><div class='badget'>15</div></a></li>
+        <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"><div class='name'>LeetCode-热题 HOT 100</div><div class='badget'>16</div></a></li>
     
         <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/"><div class='name'>LeetCode周赛</div><div class='badget'>2</div></a></li>
     
@@ -725,7 +737,7 @@
 <div class="m_widget tagcloud">
     <div class="header">Tags</div>
     <div class='content'>
-        <a href="/tags/Dataset/" style="font-size: 14px; color: #808080">Dataset</a> <a href="/tags/Dialogue/" style="font-size: 14px; color: #808080">Dialogue</a> <a href="/tags/Dialogue-State-Tracking/" style="font-size: 15.33px; color: #646464">Dialogue State Tracking</a> <a href="/tags/EASY/" style="font-size: 18px; color: #2b2b2b">EASY</a> <a href="/tags/HARD/" style="font-size: 14.67px; color: #727272">HARD</a> <a href="/tags/MEDIUM/" style="font-size: 20px; color: #000">MEDIUM</a> <a href="/tags/NLP/" style="font-size: 17.33px; color: #393939">NLP</a> <a href="/tags/Transformer/" style="font-size: 14.67px; color: #727272">Transformer</a> <a href="/tags/hexo%E7%9B%B8%E5%85%B3/" style="font-size: 14.67px; color: #727272">hexo相关</a> <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" style="font-size: 18px; color: #2b2b2b">macOS基础操作</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 14px; color: #808080">二分查找</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" style="font-size: 14px; color: #808080">二叉搜索树</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 14px; color: #808080">二叉树</a> <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" style="font-size: 14px; color: #808080">前缀和</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 16.67px; color: #474747">动态规划</a> <a href="/tags/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" style="font-size: 14px; color: #808080">双向链表</a> <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 15.33px; color: #646464">双指针</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 18.67px; color: #1c1c1c">哈希表</a> <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/" style="font-size: 14.67px; color: #727272">字典树</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 19.33px; color: #0e0e0e">字符串</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/" style="font-size: 14px; color: #808080">字符串匹配</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 14px; color: #808080">并查集</a> <a href="/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" style="font-size: 14px; color: #808080">广度优先搜索</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 14px; color: #808080">排序</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 16px; color: #555">数学</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 18.67px; color: #1c1c1c">数组</a> <a href="/tags/%E6%A0%91/" style="font-size: 14px; color: #808080">树</a> <a href="/tags/%E6%A8%A1%E6%8B%9F/" style="font-size: 14px; color: #808080">模拟</a> <a href="/tags/%E6%B0%B4%E5%A1%98%E6%8A%BD%E6%A0%B7/" style="font-size: 14px; color: #808080">水塘抽样</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" style="font-size: 14px; color: #808080">深度优先搜索</a> <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" style="font-size: 14.67px; color: #727272">滑动窗口</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 14.67px; color: #727272">矩阵</a> <a href="/tags/%E8%AE%A1%E6%95%B0/" style="font-size: 14px; color: #808080">计数</a> <a href="/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/" style="font-size: 14px; color: #808080">记忆化搜索</a> <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" style="font-size: 14px; color: #808080">论文笔记</a> <a href="/tags/%E8%AE%BE%E8%AE%A1/" style="font-size: 14.67px; color: #727272">设计</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 14px; color: #808080">贪心</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 14px; color: #808080">链表</a> <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/" style="font-size: 14px; color: #808080">随机化</a>
+        <a href="/tags/Dataset/" style="font-size: 14px; color: #808080">Dataset</a> <a href="/tags/Dialogue/" style="font-size: 14px; color: #808080">Dialogue</a> <a href="/tags/Dialogue-State-Tracking/" style="font-size: 15.2px; color: #666">Dialogue State Tracking</a> <a href="/tags/EASY/" style="font-size: 17.6px; color: #333">EASY</a> <a href="/tags/HARD/" style="font-size: 14.6px; color: #737373">HARD</a> <a href="/tags/MEDIUM/" style="font-size: 20px; color: #000">MEDIUM</a> <a href="/tags/NLP/" style="font-size: 17px; color: #404040">NLP</a> <a href="/tags/Transformer/" style="font-size: 14.6px; color: #737373">Transformer</a> <a href="/tags/hexo%E7%9B%B8%E5%85%B3/" style="font-size: 14.6px; color: #737373">hexo相关</a> <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" style="font-size: 17.6px; color: #333">macOS基础操作</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 14px; color: #808080">二分查找</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" style="font-size: 14px; color: #808080">二叉搜索树</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 14px; color: #808080">二叉树</a> <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" style="font-size: 14px; color: #808080">前缀和</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 16.4px; color: #4d4d4d">动态规划</a> <a href="/tags/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" style="font-size: 14px; color: #808080">双向链表</a> <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 15.2px; color: #666">双指针</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 18.8px; color: #1a1a1a">哈希表</a> <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/" style="font-size: 14.6px; color: #737373">字典树</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 19.4px; color: #0d0d0d">字符串</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/" style="font-size: 14px; color: #808080">字符串匹配</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 14px; color: #808080">并查集</a> <a href="/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" style="font-size: 14px; color: #808080">广度优先搜索</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 14.6px; color: #737373">排序</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 15.8px; color: #5a5a5a">数学</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 18.2px; color: #262626">数组</a> <a href="/tags/%E6%A0%91/" style="font-size: 14px; color: #808080">树</a> <a href="/tags/%E6%A8%A1%E6%8B%9F/" style="font-size: 14px; color: #808080">模拟</a> <a href="/tags/%E6%B0%B4%E5%A1%98%E6%8A%BD%E6%A0%B7/" style="font-size: 14px; color: #808080">水塘抽样</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" style="font-size: 14px; color: #808080">深度优先搜索</a> <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" style="font-size: 14.6px; color: #737373">滑动窗口</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 14.6px; color: #737373">矩阵</a> <a href="/tags/%E8%AE%A1%E6%95%B0/" style="font-size: 14px; color: #808080">计数</a> <a href="/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/" style="font-size: 14px; color: #808080">记忆化搜索</a> <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" style="font-size: 14px; color: #808080">论文笔记</a> <a href="/tags/%E8%AE%BE%E8%AE%A1/" style="font-size: 14.6px; color: #737373">设计</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 14px; color: #808080">贪心</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 14px; color: #808080">链表</a> <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/" style="font-size: 14px; color: #808080">随机化</a>
     </div>
 </div>
 

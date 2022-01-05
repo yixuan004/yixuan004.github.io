@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-01-05T13:49:05.847Z</updated>
+  <updated>2022-01-05T14:02:34.420Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,41 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>49.字母异位词分组-python</title>
+    <link href="http://example.com/2022/01/05/49-%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D%E5%88%86%E7%BB%84-python/"/>
+    <id>http://example.com/2022/01/05/49-%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D%E5%88%86%E7%BB%84-python/</id>
+    <published>2022-01-05T13:51:58.000Z</published>
+    <updated>2022-01-05T14:02:34.420Z</updated>
+    
+    <content type="html"><![CDATA[<p>49.字母异位词分组（中等）</p><p>题目大意：</p><p>给你一个字符串数组，请你将<strong>字母异位词</strong>组合在一起。可以按任意顺序返回结果列表。</p><p><strong>字母异位词</strong>是由重新排列源单词的字母得到的一个新单词，所有源单词中的字母通常恰好只用一次。</p><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/group-anagrams/">题目链接</a></p><p>给你一个字符串数组，请你将<strong>字母异位词</strong>组合在一起。可以按任意顺序返回结果列表。</p><p><strong>字母异位词</strong>是由重新排列源单词的字母得到的一个新单词，所有源单词中的字母通常恰好只用一次。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: strs = [&quot;eat&quot;, &quot;tea&quot;, &quot;tan&quot;, &quot;ate&quot;, &quot;nat&quot;, &quot;bat&quot;]</span><br><span class="line">输出: [[&quot;bat&quot;],[&quot;nat&quot;,&quot;tan&quot;],[&quot;ate&quot;,&quot;eat&quot;,&quot;tea&quot;]]</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: strs = [&quot;&quot;]</span><br><span class="line">输出: [[&quot;&quot;]]</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: strs = [&quot;a&quot;]</span><br><span class="line">输出: [[&quot;a&quot;]]</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li><code>1 &lt;= strs.length &lt;= 104</code></li><li><code>0 &lt;= strs[i].length &lt;= 100</code></li><li><code>strs[i]</code>仅包含小写字母</li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>这个题想想自己做法也挺奇葩的，只能说Counter永远的神了</p><p>先重整理数组，在原有的字符串基础上变成<code>[字符串, Counter对象, 标记位（标记是否已经加入了）]</code></p><p>一个两重for循环，在外层for循环中，如果没有加入则加入，如果已经加入了则continue。在内层循环中，a-b, b-a判断Counter是否相等（这里比如a是外层的i，b是内层的j），如果相等并且没加入，就加入到外层循环初始化的list中，然后内层循环结束后append</p><p><strong>Counter永远的神！（除了效率hhh）</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">groupAnagrams</span>(<span class="params">self, strs</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type strs: List[str]</span></span><br><span class="line"><span class="string">        :rtype: List[List[str]]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 一旦用上Coutner耗时就会很高？ 不过Counter真的是个好东西</span></span><br><span class="line">        temp_list = []</span><br><span class="line">        <span class="keyword">for</span> i, item <span class="keyword">in</span> <span class="built_in">enumerate</span>(strs):</span><br><span class="line">            temp_list.append([item, Counter(item), <span class="number">0</span>])  <span class="comment"># 0是一个标记位，标记是否被加进去了</span></span><br><span class="line">        </span><br><span class="line">        return_list = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(temp_list)):</span><br><span class="line">            <span class="keyword">if</span> temp_list[i][<span class="number">2</span>] == <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            add_list = [temp_list[i][<span class="number">0</span>]]</span><br><span class="line">            temp_list[i][<span class="number">2</span>] = <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>, <span class="built_in">len</span>(temp_list)):</span><br><span class="line">                <span class="keyword">if</span> temp_list[j][<span class="number">1</span>] == temp_list[i][<span class="number">1</span>] <span class="keyword">and</span> temp_list[j][<span class="number">2</span>] == <span class="number">0</span>:</span><br><span class="line">                    add_list.append(temp_list[j][<span class="number">0</span>])</span><br><span class="line">                    temp_list[j][<span class="number">2</span>] = <span class="number">1</span></span><br><span class="line">            return_list.append(add_list)</span><br><span class="line">            add_list = []</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">return</span> return_list</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;49.字母异位词分组（中等）&lt;/p&gt;
+&lt;p&gt;题目大意：&lt;/p&gt;
+&lt;p&gt;给你一个字符串数组，请你将&lt;strong&gt;字母异位词&lt;/strong&gt;组合在一起。可以按任意顺序返回结果列表。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;字母异位词&lt;/strong&gt;是由重新排列源单词的字母得到的一个</summary>
+      
+    
+    
+    
+    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
+    
+    <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
+    
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
+    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="排序" scheme="http://example.com/tags/%E6%8E%92%E5%BA%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>48.旋转图像-python</title>
@@ -70,9 +105,9 @@
     <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
     
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
-    
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
   </entry>
   
@@ -120,9 +155,9 @@
     <category term="LeetCode周赛" scheme="http://example.com/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/"/>
     
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
-    
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
   </entry>
   
@@ -151,13 +186,13 @@
     
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
-    
-    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
     <category term="数学" scheme="http://example.com/tags/%E6%95%B0%E5%AD%A6/"/>
     
@@ -186,9 +221,9 @@
     <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
     
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
-    
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
   </entry>
   
@@ -287,9 +322,9 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     <category term="HARD" scheme="http://example.com/tags/HARD/"/>
     
@@ -317,9 +352,9 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
-    
     <category term="贪心" scheme="http://example.com/tags/%E8%B4%AA%E5%BF%83/"/>
+    
+    <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
     <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
@@ -388,9 +423,9 @@
     
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
-    <category term="设计" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1/"/>
-    
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    
+    <category term="设计" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1/"/>
     
     <category term="链表" scheme="http://example.com/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -419,11 +454,11 @@
     <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
     
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
-    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
     <category term="计数" scheme="http://example.com/tags/%E8%AE%A1%E6%95%B0/"/>
     
@@ -450,17 +485,17 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
-    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
-    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="字典树" scheme="http://example.com/tags/%E5%AD%97%E5%85%B8%E6%A0%91/"/>
     
     <category term="记忆化搜索" scheme="http://example.com/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/"/>
+    
+    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
   </entry>
   
@@ -487,9 +522,9 @@
     
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
-    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
+    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
   </entry>
   
@@ -511,9 +546,9 @@
     <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
     
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
-    
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
   </entry>
   
@@ -544,15 +579,15 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
-    <category term="设计" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1/"/>
+    <category term="字典树" scheme="http://example.com/tags/%E5%AD%97%E5%85%B8%E6%A0%91/"/>
     
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
-    <category term="字典树" scheme="http://example.com/tags/%E5%AD%97%E5%85%B8%E6%A0%91/"/>
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="设计" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1/"/>
     
   </entry>
   
@@ -577,11 +612,11 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
     <category term="滑动窗口" scheme="http://example.com/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/"/>
     
@@ -598,27 +633,6 @@
     
     
     <summary type="html">&lt;p&gt;需求：例如在跑深度学习等程序的时候，需要让程序挂载在后台执行，这时候就可以使用screen命令进行后台的挂载&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Crsenal" scheme="http://example.com/categories/Crsenal/"/>
-    
-    
-    <category term="macOS基础操作" scheme="http://example.com/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iterm2+ohmyzsh安装及插件配置</title>
-    <link href="http://example.com/2021/12/06/iterm2+ohmyzsh%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE/"/>
-    <id>http://example.com/2021/12/06/iterm2+ohmyzsh%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE/</id>
-    <published>2021-12-06T04:04:41.000Z</published>
-    <updated>2021-12-06T05:20:16.748Z</updated>
-    
-    <content type="html"><![CDATA[<p>背景：iterm2可以替代macOS自带的terminal，而ohmyzsh是基于zsh命令行的一个扩展工具集，在其上可以安装插件来丰富命令行的功能（何老板推荐的syntax highlighting和auto suggestion）</p><span id="more"></span><h1 id="安装item2"><a href="#安装item2" class="headerlink" title="安装item2"></a>安装item2</h1><p>直接官网安装即可，安装后把其保留在程序坞中，手工替代terminal</p><blockquote><p><a href="https://iterm2.com/">https://iterm2.com/</a></p></blockquote><h1 id="安装ohmyzsh"><a href="#安装ohmyzsh" class="headerlink" title="安装ohmyzsh"></a>安装ohmyzsh</h1><p>直接执行官网的一句话命令安装：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c &quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;</span><br></pre></td></tr></table></figure><blockquote><p><a href="https://ohmyz.sh/#install">https://ohmyz.sh/#install</a></p></blockquote><h1 id="安装ohmyzsh的插件syntax-highlighting和auto-suggestion"><a href="#安装ohmyzsh的插件syntax-highlighting和auto-suggestion" class="headerlink" title="安装ohmyzsh的插件syntax highlighting和auto suggestion"></a>安装ohmyzsh的插件syntax highlighting和auto suggestion</h1><p>Reference:</p><blockquote><p><a href="https://www.jianshu.com/p/2f2c09ebfb7f">https://www.jianshu.com/p/2f2c09ebfb7f</a><br><a href="https://blog.csdn.net/qq_38839744/article/details/90247628">https://blog.csdn.net/qq_38839744/article/details/90247628</a></p></blockquote><h2 id="zsh-syntax-highlighting安装"><a href="#zsh-syntax-highlighting安装" class="headerlink" title="zsh-syntax-highlighting安装"></a>zsh-syntax-highlighting安装</h2><p>官网：</p><blockquote><p><a href="https://github.com/zsh-users/zsh-syntax-highlighting">https://github.com/zsh-users/zsh-syntax-highlighting</a></p></blockquote><p>安装：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git </span><br><span class="line">echo &quot;source $&#123;(q-)PWD&#125;/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh&quot; &gt;&gt; $&#123;ZDOTDIR:-$HOME&#125;/.zshrc</span><br></pre></td></tr></table></figure><p>生效：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure><h2 id="Auto-suggestion的安装"><a href="#Auto-suggestion的安装" class="headerlink" title="Auto suggestion的安装"></a>Auto suggestion的安装</h2><p>auto suggestion是ohmyzsh的一个插件，作用基本上是根据历史输入指令记录即使的提示，能够提高效率</p><ol><li>git clone项目，并与ZSH建立关联</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure><p>其中通过echo查看$ZSH_CUSTOM</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ echo $ZSH_CUSTOM</span><br><span class="line">/Users/curious/.oh-my-zsh/custom</span><br></pre></td></tr></table></figure><ol start="2"><li>编辑~/.zshrc文件</li></ol><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.zshrc</span><br></pre></td></tr></table></figure><p>按i 进入–INSERT–编辑模式，使用上下左右键找找到plugins=(git)这一行添加</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugins=(git zsh-autosuggestions)</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;背景：iterm2可以替代macOS自带的terminal，而ohmyzsh是基于zsh命令行的一个扩展工具集，在其上可以安装插件来丰富命令行的功能（何老板推荐的syntax highlighting和auto suggestion）&lt;/p&gt;</summary>
     
     
     
