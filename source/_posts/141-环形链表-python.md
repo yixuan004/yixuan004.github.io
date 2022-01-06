@@ -9,7 +9,6 @@ tags:
 categories:
 	- LeetCode-python
 	- LeetCode-热题 HOT 100
-	- 暂未实现优化解法
 ---
 
 141.环形链表（简单）
@@ -121,6 +120,8 @@ class Solution(object):
 ## 方法3，快慢指针
 
 一个慢的乌龟和一个快的兔子，兔子跑得快，如果有环那兔子是总能追上乌龟的
+
+快慢指针需要注意不能条件的判断，要把例如head和head.next这种的一起来判断！
 
 ```python
 class Solution(object):
