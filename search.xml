@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>64.最小路径和-python</title>
+      <link href="/2022/01/06/64-%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C-python/"/>
+      <url>/2022/01/06/64-%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C-python/</url>
+      
+        <content type="html"><![CDATA[<p>64.最小路径和（中等）</p><p>题目大意：</p><p>给定一个包含非负整数的<code>m x n</code>网格 grid ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。</p><p>说明：每次只能向下或者向右移动一步。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/minimum-path-sum/">题目链接</a></p><p>题目大意：</p><p>给定一个包含非负整数的<code>m x n</code>网格 grid ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。</p><p>说明：每次只能向下或者向右移动一步。</p><p>示例1：<br><img src="/images/2022-01-06-14-30-08.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：grid = [[1,3,1],[1,5,1],[4,2,1]]</span><br><span class="line">输出：7</span><br><span class="line">解释：因为路径 1→3→1→1→1 的总和最小。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：grid = [[1,2,3],[4,5,6]]</span><br><span class="line">输出：12</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>m == grid.length</li><li>n == grid[i].length</li><li>1 &lt;= m, n &lt;= 200</li><li>0 &lt;= grid[i][j] &lt;= 100</li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>也是一眼就能看出来是二维dp的题目，往下走和往右都是只有一种不断累加的走法</p><p>之后的状态转移方程<code>dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j]</code></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minPathSum</span>(<span class="params">self, grid</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type grid: List[List[int]]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 一眼dp，然后想想dp的思路应该也挺简单的，做一个min应该就行吧</span></span><br><span class="line">        m = <span class="built_in">len</span>(grid)</span><br><span class="line">        n = <span class="built_in">len</span>(grid[<span class="number">0</span>])</span><br><span class="line">        dp = [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)] <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(m)]</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 初始化dp数组的第一行，第一列</span></span><br><span class="line">        <span class="comment">## 初始化dp数组的第一行</span></span><br><span class="line">        now = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            now += grid[<span class="number">0</span>][i]</span><br><span class="line">            dp[<span class="number">0</span>][i] = now</span><br><span class="line">        <span class="comment">## 初始化dp数组的第一列</span></span><br><span class="line">        now = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">            now += grid[i][<span class="number">0</span>]</span><br><span class="line">            dp[i][<span class="number">0</span>] = now</span><br><span class="line">        <span class="comment"># print(dp)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">##</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n):</span><br><span class="line">                dp[i][j] = <span class="built_in">min</span>(dp[i-<span class="number">1</span>][j], dp[i][j-<span class="number">1</span>]) + grid[i][j]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dp[m-<span class="number">1</span>][n-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+          <category> LeetCode-热题 HOT 100 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数组 </tag>
+            
+            <tag> MEDIUM </tag>
+            
+            <tag> 动态规划 </tag>
+            
+            <tag> 矩阵 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>62.不同路径-python</title>
       <link href="/2022/01/06/62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84-python/"/>
       <url>/2022/01/06/62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84-python/</url>
@@ -466,9 +499,9 @@
             
             <tag> 哈希表 </tag>
             
-            <tag> 设计 </tag>
-            
             <tag> 链表 </tag>
+            
+            <tag> 设计 </tag>
             
             <tag> 双向链表 </tag>
             
@@ -1216,9 +1249,9 @@
       
         <tags>
             
-            <tag> NLP </tag>
-            
             <tag> 论文笔记 </tag>
+            
+            <tag> NLP </tag>
             
             <tag> Dialogue State Tracking </tag>
             
