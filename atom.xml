@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-01-06T02:27:02.630Z</updated>
+  <updated>2022-01-06T06:15:52.172Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>62.不同路径-python</title>
+    <link href="http://example.com/2022/01/06/62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84-python/"/>
+    <id>http://example.com/2022/01/06/62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84-python/</id>
+    <published>2022-01-06T06:05:54.000Z</published>
+    <updated>2022-01-06T06:15:52.172Z</updated>
+    
+    <content type="html"><![CDATA[<p>62.不同路径（中等）</p><p>题目大意：</p><p>一个机器人位于一个<code>m x n</code>网格的左上角 （起始点在下图中标记为 “Start” ）。</p><p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。</p><p>问总共有多少条不同的路径？</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/unique-paths/">题目链接</a></p><p>题目大意：</p><p>一个机器人位于一个<code>m x n</code>网格的左上角 （起始点在下图中标记为 “Start” ）。</p><p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。</p><p>问总共有多少条不同的路径？</p><p>示例1：<br><img src="2022-01-06-14-14-44.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：m = 3, n = 7</span><br><span class="line">输出：28</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：m = 3, n = 2</span><br><span class="line">输出：3</span><br><span class="line">解释：</span><br><span class="line">从左上角开始，总共有 3 条路径可以到达右下角。</span><br><span class="line">1. 向右 -&gt; 向下 -&gt; 向下</span><br><span class="line">2. 向下 -&gt; 向下 -&gt; 向右</span><br><span class="line">3. 向下 -&gt; 向右 -&gt; 向下</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：m = 7, n = 3</span><br><span class="line">输出：28</span><br></pre></td></tr></table></figure><p>示例4：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：m = 3, n = 3</span><br><span class="line">输出：6</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li><code>1 &lt;= m, n &lt;= 100</code></li><li>题目数据保证答案小于等于<code>2 * 109</code></li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>很明显的二维dp，向下走的所有格子和向右走的所有格子都只有一种走法，所以初始化为1</p><p>之后的状态转移方程很好想<code>dp[i][j] = dp[i-1][j] + dp[i][j-1]</code></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">uniquePaths</span>(<span class="params">self, m, n</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type m: int</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        dp = [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m)]</span><br><span class="line">        <span class="comment"># 把第一行第一列进行初始化，第一行第一列都只有一种走法</span></span><br><span class="line">        <span class="comment">## 第一行 </span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            dp[<span class="number">0</span>][i] = <span class="number">1</span></span><br><span class="line">        <span class="comment">## 第一列</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">            dp[i][<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 开启新的dp状态转移</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n):</span><br><span class="line">                <span class="comment"># 新的mn位置处有几种到达走法</span></span><br><span class="line">                dp[i][j] = dp[i][j-<span class="number">1</span>] + dp[i-<span class="number">1</span>][j]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[m-<span class="number">1</span>][n-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;62.不同路径（中等）&lt;/p&gt;
+&lt;p&gt;题目大意：&lt;/p&gt;
+&lt;p&gt;一个机器人位于一个&lt;code&gt;m x n&lt;/code&gt;网格的左上角 （起始点在下图中标记为 “Start” ）。&lt;/p&gt;
+&lt;p&gt;机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。&lt;/p&gt;
+&lt;p&gt;问总共有多少条不同的路径？&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
+    
+    <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
+    
+    
+    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
+    <category term="数学" scheme="http://example.com/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+    <category term="组合数学" scheme="http://example.com/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/"/>
+    
+  </entry>
   
   <entry>
     <title>141.环形链表-python</title>
@@ -39,13 +72,13 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="链表" scheme="http://example.com/tags/%E9%93%BE%E8%A1%A8/"/>
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
   </entry>
   
@@ -74,11 +107,11 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
     <category term="排序" scheme="http://example.com/tags/%E6%8E%92%E5%BA%8F/"/>
     
@@ -188,9 +221,9 @@
     <category term="LeetCode周赛" scheme="http://example.com/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/"/>
     
     
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
     <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
   </entry>
   
@@ -219,13 +252,13 @@
     
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
-    
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
     <category term="数学" scheme="http://example.com/tags/%E6%95%B0%E5%AD%A6/"/>
     
@@ -355,9 +388,9 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
     <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
     <category term="HARD" scheme="http://example.com/tags/HARD/"/>
     
@@ -385,13 +418,13 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="贪心" scheme="http://example.com/tags/%E8%B4%AA%E5%BF%83/"/>
-    
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
     <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    <category term="贪心" scheme="http://example.com/tags/%E8%B4%AA%E5%BF%83/"/>
     
   </entry>
   
@@ -419,9 +452,9 @@
     
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
-    <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
+    <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
     <category term="排序" scheme="http://example.com/tags/%E6%8E%92%E5%BA%8F/"/>
     
@@ -454,9 +487,9 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
     <category term="链表" scheme="http://example.com/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -487,9 +520,9 @@
     <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
     
     
-    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
-    
     <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
+    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -518,17 +551,17 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
-    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     <category term="字典树" scheme="http://example.com/tags/%E5%AD%97%E5%85%B8%E6%A0%91/"/>
     
     <category term="记忆化搜索" scheme="http://example.com/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/"/>
     
+    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
-    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
   </entry>
   
@@ -555,9 +588,9 @@
     
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
     <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
   </entry>
   
@@ -612,46 +645,15 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
-    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
-    
     <category term="字典树" scheme="http://example.com/tags/%E5%AD%97%E5%85%B8%E6%A0%91/"/>
     
-    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-    <category term="设计" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>438.找到字符串中所有字母异位词-python</title>
-    <link href="http://example.com/2021/12/12/438-%E6%89%BE%E5%88%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%89%80%E6%9C%89%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D-python/"/>
-    <id>http://example.com/2021/12/12/438-%E6%89%BE%E5%88%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%89%80%E6%9C%89%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D-python/</id>
-    <published>2021-12-12T03:18:10.000Z</published>
-    <updated>2021-12-13T01:57:23.909Z</updated>
-    
-    <content type="html"><![CDATA[<p>438.找到字符串中所有字母异位词（中等）</p><p>题目大意：给定两个字符串 s 和 p，找到 s 中所有 p 的 异位词 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。</p><p>异位词 指由相同字母重排列形成的字符串（包括相同的字符串）。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/find-all-anagrams-in-a-string/">题目链接</a></p><p>给定两个字符串 s 和 p，找到 s 中所有 p 的 异位词 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。</p><p>异位词 指由相同字母重排列形成的字符串（包括相同的字符串）。</p><p>示例一：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: s = &quot;cbaebabacd&quot;, p = &quot;abc&quot;</span><br><span class="line">输出: [0,6]</span><br><span class="line">解释:</span><br><span class="line">起始索引等于 0 的子串是 &quot;cba&quot;, 它是 &quot;abc&quot; 的异位词。</span><br><span class="line">起始索引等于 6 的子串是 &quot;bac&quot;, 它是 &quot;abc&quot; 的异位词。</span><br></pre></td></tr></table></figure><p>示例二：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: s = &quot;abab&quot;, p = &quot;ab&quot;</span><br><span class="line">输出: [0,1,2]</span><br><span class="line">解释:</span><br><span class="line">起始索引等于 0 的子串是 &quot;ab&quot;, 它是 &quot;ab&quot; 的异位词。</span><br><span class="line">起始索引等于 1 的子串是 &quot;ba&quot;, 它是 &quot;ab&quot; 的异位词。</span><br><span class="line">起始索引等于 2 的子串是 &quot;ab&quot;, 它是 &quot;ab&quot; 的异位词。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>1 &lt;= s.length, p.length &lt;= 3 * 104</li><li>s 和 p 仅包含小写字母</li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>这个题要构建一个“滑动窗口”来减少操作次数的感觉，就是说如果每i+=1向后移动一位的时候，如果都重新计数，那么将会时间复杂度非常高。所以在每次移动的时候，只需要把i-1位置的删除，再加入i+window_size-1位置处最新的字符即可，这样的话每次移动只用操作两下；</p><p>一开始设置一个和p长度相等的s之后开始滑动窗口，删除头并新增尾只需要操作两次了（注意做字典判断相等时候，要把字典值为0的删除掉），另外注意print语句也会占用时间；</p><p>另外这个题也可以使用colletions.Counter，Counter可以进行一个计数操作，而且最关键的是<strong>Counter居然可以执行加减操作</strong>，</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>text1 = <span class="string">&quot;aaabbbccc&quot;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>text1_count = Counter(text1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>text1_count</span><br><span class="line">Counter(&#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;c&#x27;</span>: <span class="number">3</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>text1_count.get(<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">type</span>(text1_count)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">collections</span>.<span class="title">Counter</span>&#x27;&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">text2</span> = &quot;<span class="title">abcd</span>&quot;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">text2_count</span> = <span class="title">Counter</span>(<span class="params">text2</span>)</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">text2_count</span></span></span><br><span class="line"><span class="class"><span class="title">Counter</span>(<span class="params">&#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;c&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;d&#x27;</span>: <span class="number">1</span>&#125;</span>)</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">tmp</span> = <span class="title">text1_count</span> - <span class="title">text2_count</span></span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">tmp</span></span></span><br><span class="line"><span class="class"><span class="title">Counter</span>(<span class="params">&#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;c&#x27;</span>: <span class="number">2</span>&#125;</span>)</span></span><br></pre></td></tr></table></figure><p>在上述思路分析后，主要记住新加入的位置是i+window_size-1就好了，代码编写思路还是比较简单，这里使用了Counter的方法，实际上用字典的方法也可以，而且说不定可以增加效率：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findAnagrams</span>(<span class="params">self, s, p</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    :type s: str</span></span><br><span class="line"><span class="string">    :type p: str</span></span><br><span class="line"><span class="string">    :rtype: List[int]</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    rList = []</span><br><span class="line">    window_size = <span class="built_in">len</span>(p)</span><br><span class="line">    compare_dict = collections.Counter(p)</span><br><span class="line">    record_s_dict = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)-window_size+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> record_s_dict <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            record_s_dict = collections.Counter(s[i: window_size])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            remove_head = collections.Counter(s[i-<span class="number">1</span>])</span><br><span class="line">            <span class="comment"># print(&quot;remove_head: &quot;, i, remove_head)</span></span><br><span class="line">            add_tail = collections.Counter(s[i+window_size-<span class="number">1</span>]) <span class="comment"># 调试还是比较容易看出来这个错误的</span></span><br><span class="line">            <span class="comment"># print(&quot;add tail: &quot;, i, add_tail)</span></span><br><span class="line">            record_s_dict -= remove_head</span><br><span class="line">            record_s_dict += add_tail</span><br><span class="line">            <span class="comment"># print(&quot;record_s_dict: &quot;, i, record_s_dict)</span></span><br><span class="line">        <span class="keyword">if</span> record_s_dict == compare_dict:</span><br><span class="line">            rList.append(i)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> rList</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;438.找到字符串中所有字母异位词（中等）&lt;/p&gt;
-&lt;p&gt;题目大意：给定两个字符串 s 和 p，找到 s 中所有 p 的 异位词 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。&lt;/p&gt;
-&lt;p&gt;异位词 指由相同字母重排列形成的字符串（包括相同的字符串）。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
-    
-    <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
-    
-    
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
-    <category term="滑动窗口" scheme="http://example.com/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/"/>
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
+    <category term="设计" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1/"/>
     
   </entry>
   

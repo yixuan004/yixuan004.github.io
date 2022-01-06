@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>198.打家劫舍-python | Curious;的个人划水博客</title>
+  <title>62.不同路径-python | Curious;的个人划水博客</title>
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <meta name="HandheldFriendly" content="True" />
@@ -12,20 +12,23 @@
   <link rel="shortcut icon" href="/">
   <link rel="alternate" href="/atom.xml" title="Curious;的个人划水博客" type="application/atom+xml">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="198.打家劫舍（中等） 题目大意：你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。 给定一个代表每个房屋存放金额的非负整数数组，计算你不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。">
+  <meta name="description" content="62.不同路径（中等） 题目大意： 一个机器人位于一个m x n网格的左上角 （起始点在下图中标记为 “Start” ）。 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。 问总共有多少条不同的路径？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="198.打家劫舍-python">
-<meta property="og:url" content="http://example.com/2021/12/13/198-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D-python/index.html">
+<meta property="og:title" content="62.不同路径-python">
+<meta property="og:url" content="http://example.com/2022/01/06/62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84-python/index.html">
 <meta property="og:site_name" content="Curious;的个人划水博客">
-<meta property="og:description" content="198.打家劫舍（中等） 题目大意：你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。 给定一个代表每个房屋存放金额的非负整数数组，计算你不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。">
+<meta property="og:description" content="62.不同路径（中等） 题目大意： 一个机器人位于一个m x n网格的左上角 （起始点在下图中标记为 “Start” ）。 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。 问总共有多少条不同的路径？">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-12-13T15:15:28.000Z">
-<meta property="article:modified_time" content="2021-12-13T16:12:49.253Z">
+<meta property="og:image" content="http://example.com/2022/01/06/62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84-python/2022-01-06-14-14-44.png">
+<meta property="article:published_time" content="2022-01-06T06:05:54.000Z">
+<meta property="article:modified_time" content="2022-01-06T06:15:52.172Z">
 <meta property="article:author" content="Curious;">
-<meta property="article:tag" content="数组">
 <meta property="article:tag" content="动态规划">
 <meta property="article:tag" content="MEDIUM">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="组合数学">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/01/06/62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84-python/2022-01-06-14-14-44.png">
     
   <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
@@ -138,17 +141,17 @@
   <div class="l_body">
     <div class='container clearfix'>
       <div class='l_main'>
-        <article id="post-198-打家劫舍-python"
+        <article id="post-62-不同路径-python"
   class="post white-box article-type-post"
   itemscope itemprop="blogPost">
 	<section class='meta'>
 	<h2 class="title">
-  	<a href="/2021/12/13/198-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D-python/">
-    	198.打家劫舍-python
+  	<a href="/2022/01/06/62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84-python/">
+    	62.不同路径-python
     </a>
   </h2>
 	<time>
-	  12月 13, 2021
+	  1月 6, 2022
 	</time>
 	
     
@@ -158,40 +161,53 @@
 
 	</section>
 	
-		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E7%AD%94%E4%B8%8E%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">解答与分析</span></a></li></ol></section>
+		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E5%92%8C%E8%A7%A3%E7%AD%94"><span class="toc-number">2.</span> <span class="toc-text">分析和解答</span></a></li></ol></section>
 	
 	<section class="article typo">
   	<div class="article-entry" itemprop="articleBody">
-    	<p>198.打家劫舍（中等）</p>
-<p>题目大意：你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。</p>
-<p>给定一个代表每个房屋存放金额的非负整数数组，计算你不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。</p>
+    	<p>62.不同路径（中等）</p>
+<p>题目大意：</p>
+<p>一个机器人位于一个<code>m x n</code>网格的左上角 （起始点在下图中标记为 “Start” ）。</p>
+<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。</p>
+<p>问总共有多少条不同的路径？</p>
 <span id="more"></span>
 
-<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/house-robber/">题目链接</a></p>
-<p>你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，<strong>如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。</strong></p>
-<p>给定一个代表每个房屋存放金额的非负整数数组，计算你<strong>不触动警报装置的情况下</strong>，一夜之内能够偷窃到的最高金额。</p>
-<p>示例1：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：[1,2,3,1]</span><br><span class="line">输出：4</span><br><span class="line">解释：偷窃 1 号房屋 (金额 = 1) ，然后偷窃 3 号房屋 (金额 = 3)。</span><br><span class="line">     偷窃到的最高金额 = 1 + 3 = 4 。</span><br></pre></td></tr></table></figure>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-paths/">题目链接</a></p>
+<p>题目大意：</p>
+<p>一个机器人位于一个<code>m x n</code>网格的左上角 （起始点在下图中标记为 “Start” ）。</p>
+<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。</p>
+<p>问总共有多少条不同的路径？</p>
+<p>示例1：<br><img src="2022-01-06-14-14-44.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：m = 3, n = 7</span><br><span class="line">输出：28</span><br></pre></td></tr></table></figure>
 
 <p>示例2：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：[2,7,9,3,1]</span><br><span class="line">输出：12</span><br><span class="line">解释：偷窃 1 号房屋 (金额 = 2), 偷窃 3 号房屋 (金额 = 9)，接着偷窃 5 号房屋 (金额 = 1)。</span><br><span class="line">     偷窃到的最高金额 = 2 + 9 + 1 = 12 。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：m = 3, n = 2</span><br><span class="line">输出：3</span><br><span class="line">解释：</span><br><span class="line">从左上角开始，总共有 3 条路径可以到达右下角。</span><br><span class="line">1. 向右 -&gt; 向下 -&gt; 向下</span><br><span class="line">2. 向下 -&gt; 向下 -&gt; 向右</span><br><span class="line">3. 向下 -&gt; 向右 -&gt; 向下</span><br></pre></td></tr></table></figure>
+
+<p>示例3：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：m = 7, n = 3</span><br><span class="line">输出：28</span><br></pre></td></tr></table></figure>
+
+<p>示例4：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：m = 3, n = 3</span><br><span class="line">输出：6</span><br></pre></td></tr></table></figure>
 
 <p>提示：</p>
 <ul>
-<li>1 &lt;= nums.length &lt;= 100</li>
-<li>0 &lt;= nums[i] &lt;= 400</li>
+<li><code>1 &lt;= m, n &lt;= 100</code></li>
+<li>题目数据保证答案小于等于<code>2 * 109</code></li>
 </ul>
-<h1 id="解答与分析"><a href="#解答与分析" class="headerlink" title="解答与分析"></a>解答与分析</h1><p>这个题dp的还是比较明显的，感觉可以算简单题了<code>dp[i] = max(dp[i-1], s[i] + dp[i-2])</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rob</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(nums) == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>]</span><br><span class="line">        dp = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums))]</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>]</span><br><span class="line">        dp[<span class="number">1</span>] = <span class="built_in">max</span>(nums[<span class="number">0</span>], nums[<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">len</span>(nums)):</span><br><span class="line">            dp[i] = <span class="built_in">max</span>(dp[i-<span class="number">1</span>], dp[i-<span class="number">2</span>] + nums[i])</span><br><span class="line">        <span class="keyword">return</span> dp[<span class="built_in">len</span>(nums)-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>很明显的二维dp，向下走的所有格子和向右走的所有格子都只有一种走法，所以初始化为1</p>
+<p>之后的状态转移方程很好想<code>dp[i][j] = dp[i-1][j] + dp[i][j-1]</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">uniquePaths</span>(<span class="params">self, m, n</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type m: int</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        dp = [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m)]</span><br><span class="line">        <span class="comment"># 把第一行第一列进行初始化，第一行第一列都只有一种走法</span></span><br><span class="line">        <span class="comment">## 第一行 </span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            dp[<span class="number">0</span>][i] = <span class="number">1</span></span><br><span class="line">        <span class="comment">## 第一列</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">            dp[i][<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 开启新的dp状态转移</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, n):</span><br><span class="line">                <span class="comment"># 新的mn位置处有几种到达走法</span></span><br><span class="line">                dp[i][j] = dp[i][j-<span class="number">1</span>] + dp[i-<span class="number">1</span>][j]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[m-<span class="number">1</span>][n-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
   	</div>
 	  
 	  <div class="article-tags tags">
       
-        <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
-      
         <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
       
         <a href="/tags/MEDIUM/">MEDIUM</a>
+      
+        <a href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>
+      
+        <a href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/">组合数学</a>
       
 	  </div>
     
@@ -199,13 +215,9 @@
 	
 		<div class="art-item-footer">
 				
-					<span class="art-item-left"><i class="icon icon-chevron-thin-left"></i>prev：<a href="/2021/12/14/139-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86-python/" rel="prev"  title="139.单词拆分-python">
-						139.单词拆分-python 
-					</a></span>
 				
-				
-					<span class="art-item-right">next：<a href="/2021/12/13/1446-%E8%BF%9E%E7%BB%AD%E5%AD%97%E7%AC%A6-python/" rel="next"  title="1446.连续字符-python">
-						1446.连续字符-python
+					<span class="art-item-right">next：<a href="/2022/01/05/141-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-python/" rel="next"  title="141.环形链表-python">
+						141.环形链表-python
 					</a><i class="icon icon-chevron-thin-right"></i></span>
 				
 		</div>
@@ -215,7 +227,7 @@
 </article>
 <script>
 	window.subData = {
-		title: '198.打家劫舍-python',
+		title: '62.不同路径-python',
 		tools: true
 	}
 </script>
