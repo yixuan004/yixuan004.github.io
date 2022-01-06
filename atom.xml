@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-01-06T06:33:26.339Z</updated>
+  <updated>2022-01-06T17:21:13.695Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,47 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>1614.括号的最大嵌套深度-python</title>
+    <link href="http://example.com/2022/01/07/1614-%E6%8B%AC%E5%8F%B7%E7%9A%84%E6%9C%80%E5%A4%A7%E5%B5%8C%E5%A5%97%E6%B7%B1%E5%BA%A6-python/"/>
+    <id>http://example.com/2022/01/07/1614-%E6%8B%AC%E5%8F%B7%E7%9A%84%E6%9C%80%E5%A4%A7%E5%B5%8C%E5%A5%97%E6%B7%B1%E5%BA%A6-python/</id>
+    <published>2022-01-06T17:07:44.000Z</published>
+    <updated>2022-01-06T17:21:13.695Z</updated>
+    
+    <content type="html"><![CDATA[<p>1614.括号的最大嵌套深度（简单）</p><p>题目大意：</p><p>如果字符串满足以下条件之一，则可以称之为<strong>有效括号字符串（valid parentheses string</strong>，可以简写为<strong>VPS</strong>）：</p><ul><li>字符串是一个空字符串<code>&quot;&quot;</code>，或者是一个不为<code>&quot;(&quot;</code>或<code>&quot;)&quot;</code>的单字符。</li><li>字符串可以写为<code>AB</code>（<code>A</code>与<code>B</code>字符串连接），其中<code>A</code>和<code>B</code>都是 有效括号字符串 。</li><li>字符串可以写为<code>(A)</code>，其中<code>A</code>是一个 有效括号字符串 。</li></ul><p>类似地，可以定义任何有效括号字符串<code>S</code>的 嵌套深度<code>depth(S)</code>：</p><ul><li><code>depth(&quot;&quot;) = 0</code></li><li><code>depth(C) = 0</code>，其中<code>C</code>是单个字符的字符串，且该字符不是<code>&quot;(&quot;</code>或者<code>&quot;)&quot;</code></li><li><code>depth(A + B) = max(depth(A), depth(B))</code>，其中<code>A</code>和<code>B</code>都是 有效括号字符串</li><li><code>epth(&quot;(&quot; + A + &quot;)&quot;) = 1 + depth(A)</code>，其中<code>A</code>是一个 有效括号字符串</li></ul><p>例如：<code>&quot;&quot;</code>、<code>&quot;()()&quot;</code>、<code>&quot;()(()())&quot;</code>都是 有效括号字符串（嵌套深度分别为 0、1、2），而<code>&quot;)(&quot;</code>、<code>&quot;(()&quot;</code>都不是 有效括号字符串 。</p><p>给你一个<strong>有效括号字符串</strong><code>s</code>，返回该字符串的<code>s</code><strong>嵌套深度</strong>。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/maximum-nesting-depth-of-the-parentheses/">题目链接</a></p><p>题目大意：</p><p>如果字符串满足以下条件之一，则可以称之为<strong>有效括号字符串（valid parentheses string</strong>，可以简写为<strong>VPS</strong>）：</p><ul><li>字符串是一个空字符串<code>&quot;&quot;</code>，或者是一个不为<code>&quot;(&quot;</code>或<code>&quot;)&quot;</code>的单字符。</li><li>字符串可以写为<code>AB</code>（<code>A</code>与<code>B</code>字符串连接），其中<code>A</code>和<code>B</code>都是 有效括号字符串 。</li><li>字符串可以写为<code>(A)</code>，其中<code>A</code>是一个 有效括号字符串 。</li></ul><p>类似地，可以定义任何有效括号字符串<code>S</code>的 嵌套深度<code>depth(S)</code>：</p><ul><li><code>depth(&quot;&quot;) = 0</code></li><li><code>depth(C) = 0</code>，其中<code>C</code>是单个字符的字符串，且该字符不是<code>&quot;(&quot;</code>或者<code>&quot;)&quot;</code></li><li><code>depth(A + B) = max(depth(A), depth(B))</code>，其中<code>A</code>和<code>B</code>都是 有效括号字符串</li><li><code>epth(&quot;(&quot; + A + &quot;)&quot;) = 1 + depth(A)</code>，其中<code>A</code>是一个 有效括号字符串</li></ul><p>例如：<code>&quot;&quot;</code>、<code>&quot;()()&quot;</code>、<code>&quot;()(()())&quot;</code>都是 有效括号字符串（嵌套深度分别为 0、1、2），而<code>&quot;)(&quot;</code>、<code>&quot;(()&quot;</code>都不是 有效括号字符串 。</p><p>给你一个<strong>有效括号字符串</strong><code>s</code>，返回该字符串的<code>s</code><strong>嵌套深度</strong>。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;(1+(2*3)+((8)/4))+1&quot;</span><br><span class="line">输出：3</span><br><span class="line">解释：数字 8 在嵌套的 3 层括号中。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;(1)+((2))+(((3)))&quot;</span><br><span class="line">输出：3</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;1+(2*3)/(2-1)&quot;</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure><p>示例4：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;1&quot;</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>1 &lt;= s.length &lt;= 100</li><li>s 由数字 0-9 和字符 ‘+’、’-‘、’*’、’/‘、’(‘、’)’ 组成</li><li>题目数据保证括号表达式 s 是 有效的括号表达式</li></ul><h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>这个题如果是python的话只要搞个list模拟栈就可以了，每次操作的时候判断当前list的长度，来更新max_depth还是很简单的</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxDepth</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        stack = []</span><br><span class="line">        max_depth = -<span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i, c <span class="keyword">in</span> <span class="built_in">enumerate</span>(s):</span><br><span class="line">            <span class="keyword">if</span> c == <span class="string">&#x27;(&#x27;</span>:</span><br><span class="line">                stack.append(c)</span><br><span class="line">            <span class="keyword">elif</span> c == <span class="string">&#x27;)&#x27;</span>:</span><br><span class="line">                stack = stack[:-<span class="number">1</span>]  <span class="comment"># 截断到最后一个</span></span><br><span class="line">            </span><br><span class="line">            max_depth = <span class="built_in">max</span>(max_depth, <span class="built_in">len</span>(stack))</span><br><span class="line">        <span class="keyword">return</span> max_depth</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;1614.括号的最大嵌套深度（简单）&lt;/p&gt;
+&lt;p&gt;题目大意：&lt;/p&gt;
+&lt;p&gt;如果字符串满足以下条件之一，则可以称之为&lt;strong&gt;有效括号字符串（valid parentheses string&lt;/strong&gt;，可以简写为&lt;strong&gt;VPS&lt;/strong&gt;）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;字符串是一个空字符串&lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt;，或者是一个不为&lt;code&gt;&amp;quot;(&amp;quot;&lt;/code&gt;或&lt;code&gt;&amp;quot;)&amp;quot;&lt;/code&gt;的单字符。&lt;/li&gt;
+&lt;li&gt;字符串可以写为&lt;code&gt;AB&lt;/code&gt;（&lt;code&gt;A&lt;/code&gt;与&lt;code&gt;B&lt;/code&gt;字符串连接），其中&lt;code&gt;A&lt;/code&gt;和&lt;code&gt;B&lt;/code&gt;都是 有效括号字符串 。&lt;/li&gt;
+&lt;li&gt;字符串可以写为&lt;code&gt;(A)&lt;/code&gt;，其中&lt;code&gt;A&lt;/code&gt;是一个 有效括号字符串 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;类似地，可以定义任何有效括号字符串&lt;code&gt;S&lt;/code&gt;的 嵌套深度&lt;code&gt;depth(S)&lt;/code&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;depth(&amp;quot;&amp;quot;) = 0&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;depth(C) = 0&lt;/code&gt;，其中&lt;code&gt;C&lt;/code&gt;是单个字符的字符串，且该字符不是&lt;code&gt;&amp;quot;(&amp;quot;&lt;/code&gt;或者&lt;code&gt;&amp;quot;)&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;depth(A + B) = max(depth(A), depth(B))&lt;/code&gt;，其中&lt;code&gt;A&lt;/code&gt;和&lt;code&gt;B&lt;/code&gt;都是 有效括号字符串&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;epth(&amp;quot;(&amp;quot; + A + &amp;quot;)&amp;quot;) = 1 + depth(A)&lt;/code&gt;，其中&lt;code&gt;A&lt;/code&gt;是一个 有效括号字符串&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;例如：&lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt;、&lt;code&gt;&amp;quot;()()&amp;quot;&lt;/code&gt;、&lt;code&gt;&amp;quot;()(()())&amp;quot;&lt;/code&gt;都是 有效括号字符串（嵌套深度分别为 0、1、2），而&lt;code&gt;&amp;quot;)(&amp;quot;&lt;/code&gt;、&lt;code&gt;&amp;quot;(()&amp;quot;&lt;/code&gt;都不是 有效括号字符串 。&lt;/p&gt;
+&lt;p&gt;给你一个&lt;strong&gt;有效括号字符串&lt;/strong&gt;&lt;code&gt;s&lt;/code&gt;，返回该字符串的&lt;code&gt;s&lt;/code&gt;&lt;strong&gt;嵌套深度&lt;/strong&gt;。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
+    
+    
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="栈" scheme="http://example.com/tags/%E6%A0%88/"/>
+    
+  </entry>
   
   <entry>
     <title>64.最小路径和-python</title>
@@ -523,9 +564,9 @@
     
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
-    <category term="链表" scheme="http://example.com/tags/%E9%93%BE%E8%A1%A8/"/>
-    
     <category term="设计" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1/"/>
+    
+    <category term="链表" scheme="http://example.com/tags/%E9%93%BE%E8%A1%A8/"/>
     
     <category term="双向链表" scheme="http://example.com/tags/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/"/>
     
@@ -623,30 +664,6 @@
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
     <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>1446.连续字符-python</title>
-    <link href="http://example.com/2021/12/13/1446-%E8%BF%9E%E7%BB%AD%E5%AD%97%E7%AC%A6-python/"/>
-    <id>http://example.com/2021/12/13/1446-%E8%BF%9E%E7%BB%AD%E5%AD%97%E7%AC%A6-python/</id>
-    <published>2021-12-13T14:35:08.000Z</published>
-    <updated>2021-12-13T15:02:33.862Z</updated>
-    
-    <content type="html"><![CDATA[<p>1446.连续字符（简单）</p><p>题目大意：给你一个字符串 s ，字符串的「能量」定义为：只包含一种字符的最长非空子字符串的长度。请你返回字符串的能量。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/consecutive-characters/">题目链接</a></p><p>题目大意：给你一个字符串 s ，字符串的「能量」定义为：只包含一种字符的最长非空子字符串的长度。请你返回字符串的能量。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;leetcode&quot;</span><br><span class="line">输出：2</span><br><span class="line">解释：子字符串 &quot;ee&quot; 长度为 2 ，只包含字符 &#x27;e&#x27; 。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;abbcccddddeeeeedcba&quot;</span><br><span class="line">输出：5</span><br><span class="line">解释：子字符串 &quot;eeeee&quot; 长度为 5 ，只包含字符 &#x27;e&#x27; 。</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;triplepillooooow&quot;</span><br><span class="line">输出：5</span><br></pre></td></tr></table></figure><p>示例4：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;hooraaaaaaaaaaay&quot;</span><br><span class="line">输出：11</span><br></pre></td></tr></table></figure><p>示例5：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;tourist&quot;</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>1 &lt;= s.length &lt;= 500</li><li>s 只包含小写英文字母。</li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>比较简单，O(n)遍历一次，如果不等清空重新计数就可以了，另外感觉有很多种实现方法。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxPower</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(s) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        max_cnt = <span class="number">1</span></span><br><span class="line">        cnt = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(s)):</span><br><span class="line">            <span class="keyword">if</span> s[i] == s[i-<span class="number">1</span>]:</span><br><span class="line">                cnt += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cnt = <span class="number">1</span></span><br><span class="line">            max_cnt = <span class="built_in">max</span>(max_cnt, cnt)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> max_cnt</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;1446.连续字符（简单）&lt;/p&gt;
-&lt;p&gt;题目大意：给你一个字符串 s ，字符串的「能量」定义为：只包含一种字符的最长非空子字符串的长度。请你返回字符串的能量。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
-    
-    
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
-    
-    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
   </entry>
   

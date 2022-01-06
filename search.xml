@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>1614.括号的最大嵌套深度-python</title>
+      <link href="/2022/01/07/1614-%E6%8B%AC%E5%8F%B7%E7%9A%84%E6%9C%80%E5%A4%A7%E5%B5%8C%E5%A5%97%E6%B7%B1%E5%BA%A6-python/"/>
+      <url>/2022/01/07/1614-%E6%8B%AC%E5%8F%B7%E7%9A%84%E6%9C%80%E5%A4%A7%E5%B5%8C%E5%A5%97%E6%B7%B1%E5%BA%A6-python/</url>
+      
+        <content type="html"><![CDATA[<p>1614.括号的最大嵌套深度（简单）</p><p>题目大意：</p><p>如果字符串满足以下条件之一，则可以称之为<strong>有效括号字符串（valid parentheses string</strong>，可以简写为<strong>VPS</strong>）：</p><ul><li>字符串是一个空字符串<code>&quot;&quot;</code>，或者是一个不为<code>&quot;(&quot;</code>或<code>&quot;)&quot;</code>的单字符。</li><li>字符串可以写为<code>AB</code>（<code>A</code>与<code>B</code>字符串连接），其中<code>A</code>和<code>B</code>都是 有效括号字符串 。</li><li>字符串可以写为<code>(A)</code>，其中<code>A</code>是一个 有效括号字符串 。</li></ul><p>类似地，可以定义任何有效括号字符串<code>S</code>的 嵌套深度<code>depth(S)</code>：</p><ul><li><code>depth(&quot;&quot;) = 0</code></li><li><code>depth(C) = 0</code>，其中<code>C</code>是单个字符的字符串，且该字符不是<code>&quot;(&quot;</code>或者<code>&quot;)&quot;</code></li><li><code>depth(A + B) = max(depth(A), depth(B))</code>，其中<code>A</code>和<code>B</code>都是 有效括号字符串</li><li><code>epth(&quot;(&quot; + A + &quot;)&quot;) = 1 + depth(A)</code>，其中<code>A</code>是一个 有效括号字符串</li></ul><p>例如：<code>&quot;&quot;</code>、<code>&quot;()()&quot;</code>、<code>&quot;()(()())&quot;</code>都是 有效括号字符串（嵌套深度分别为 0、1、2），而<code>&quot;)(&quot;</code>、<code>&quot;(()&quot;</code>都不是 有效括号字符串 。</p><p>给你一个<strong>有效括号字符串</strong><code>s</code>，返回该字符串的<code>s</code><strong>嵌套深度</strong>。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/maximum-nesting-depth-of-the-parentheses/">题目链接</a></p><p>题目大意：</p><p>如果字符串满足以下条件之一，则可以称之为<strong>有效括号字符串（valid parentheses string</strong>，可以简写为<strong>VPS</strong>）：</p><ul><li>字符串是一个空字符串<code>&quot;&quot;</code>，或者是一个不为<code>&quot;(&quot;</code>或<code>&quot;)&quot;</code>的单字符。</li><li>字符串可以写为<code>AB</code>（<code>A</code>与<code>B</code>字符串连接），其中<code>A</code>和<code>B</code>都是 有效括号字符串 。</li><li>字符串可以写为<code>(A)</code>，其中<code>A</code>是一个 有效括号字符串 。</li></ul><p>类似地，可以定义任何有效括号字符串<code>S</code>的 嵌套深度<code>depth(S)</code>：</p><ul><li><code>depth(&quot;&quot;) = 0</code></li><li><code>depth(C) = 0</code>，其中<code>C</code>是单个字符的字符串，且该字符不是<code>&quot;(&quot;</code>或者<code>&quot;)&quot;</code></li><li><code>depth(A + B) = max(depth(A), depth(B))</code>，其中<code>A</code>和<code>B</code>都是 有效括号字符串</li><li><code>epth(&quot;(&quot; + A + &quot;)&quot;) = 1 + depth(A)</code>，其中<code>A</code>是一个 有效括号字符串</li></ul><p>例如：<code>&quot;&quot;</code>、<code>&quot;()()&quot;</code>、<code>&quot;()(()())&quot;</code>都是 有效括号字符串（嵌套深度分别为 0、1、2），而<code>&quot;)(&quot;</code>、<code>&quot;(()&quot;</code>都不是 有效括号字符串 。</p><p>给你一个<strong>有效括号字符串</strong><code>s</code>，返回该字符串的<code>s</code><strong>嵌套深度</strong>。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;(1+(2*3)+((8)/4))+1&quot;</span><br><span class="line">输出：3</span><br><span class="line">解释：数字 8 在嵌套的 3 层括号中。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;(1)+((2))+(((3)))&quot;</span><br><span class="line">输出：3</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;1+(2*3)/(2-1)&quot;</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure><p>示例4：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;1&quot;</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>1 &lt;= s.length &lt;= 100</li><li>s 由数字 0-9 和字符 ‘+’、’-‘、’*’、’/‘、’(‘、’)’ 组成</li><li>题目数据保证括号表达式 s 是 有效的括号表达式</li></ul><h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>这个题如果是python的话只要搞个list模拟栈就可以了，每次操作的时候判断当前list的长度，来更新max_depth还是很简单的</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxDepth</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        stack = []</span><br><span class="line">        max_depth = -<span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i, c <span class="keyword">in</span> <span class="built_in">enumerate</span>(s):</span><br><span class="line">            <span class="keyword">if</span> c == <span class="string">&#x27;(&#x27;</span>:</span><br><span class="line">                stack.append(c)</span><br><span class="line">            <span class="keyword">elif</span> c == <span class="string">&#x27;)&#x27;</span>:</span><br><span class="line">                stack = stack[:-<span class="number">1</span>]  <span class="comment"># 截断到最后一个</span></span><br><span class="line">            </span><br><span class="line">            max_depth = <span class="built_in">max</span>(max_depth, <span class="built_in">len</span>(stack))</span><br><span class="line">        <span class="keyword">return</span> max_depth</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> EASY </tag>
+            
+            <tag> 字符串 </tag>
+            
+            <tag> 栈 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>64.最小路径和-python</title>
       <link href="/2022/01/06/64-%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C-python/"/>
       <url>/2022/01/06/64-%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C-python/</url>
@@ -499,9 +528,9 @@
             
             <tag> 哈希表 </tag>
             
-            <tag> 链表 </tag>
-            
             <tag> 设计 </tag>
+            
+            <tag> 链表 </tag>
             
             <tag> 双向链表 </tag>
             
@@ -1249,9 +1278,9 @@
       
         <tags>
             
-            <tag> 论文笔记 </tag>
-            
             <tag> NLP </tag>
+            
+            <tag> 论文笔记 </tag>
             
             <tag> Dialogue State Tracking </tag>
             
