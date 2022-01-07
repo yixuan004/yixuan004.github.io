@@ -1,7 +1,8 @@
 ---
 title: Docker学习笔记2-安装环境-狂神视频
 date: 2022-01-07 22:30:41
-tags:
+categories:
+    - docker
 ---
 
 本篇博客记录根据狂神视频学习的Docker安装过程和一些安装后的基本配置
