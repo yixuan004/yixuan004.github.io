@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>276周LeetCode周赛</title>
+      <link href="/2022/01/16/276%E5%91%A8LeetCode%E5%91%A8%E8%B5%9B/"/>
+      <url>/2022/01/16/276%E5%91%A8LeetCode%E5%91%A8%E8%B5%9B/</url>
+      
+        <content type="html"><![CDATA[<p>周赛综述&amp;总结：</p><p>前两题难度还是比较低的，第三题的话感觉dp这个思路还值得复盘研究一下，常见的一维dp数组感觉是有两种思路，一种是存储当前位置的一些状态值，另外一种是存储截止到这个位置下的状态值；</p><p>第一题：简单字符串模拟，有一些mod的使用，熟练度的题目；</p><p>第二题：从大到小贪心就行了，最后一次直接 += target - 1；</p><p>第三题：一眼看上去很像背包，这种题多半就是dp了，就像总结里说的，常见的一维dp感觉是有两种思路，一种是存储当前位置的一些状态值，另外一种是存储截止到这个位置下的状态值，这个题就是后边一种思路，如果使用第一种思路实现的话会因为多次使用<code>max()</code>而TLE，所以在优化方向上应该也找到后边一种思路的优化方向；</p><p>第四题：未来有机会再试了TAT（周常鸽第四题）；</p><span id="more"></span><h1 id="第一题：5980-将字符串拆分为若干长度为k的组"><a href="#第一题：5980-将字符串拆分为若干长度为k的组" class="headerlink" title="第一题：5980.将字符串拆分为若干长度为k的组"></a>第一题：5980.将字符串拆分为若干长度为k的组</h1><p><a href="https://leetcode-cn.com/problems/divide-a-string-into-groups-of-size-k/">题目链接</a></p><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>字符串<code>s</code>可以按下述步骤划分为若干长度为<code>k</code>的组：</p><ul><li>第一组由字符串中的前<code>k</code>个字符组成，第二组由接下来的<code>k</code>个字符串组成，依此类推。每个字符都能够成为<strong>某一个</strong>组的一部分。</li><li>对于最后一组，如果字符串剩下的字符<strong>不足</strong><code>k</code>个，需使用字符<code>fill</code>来补全这一组字符。</li></ul><p>注意，在去除最后一个组的填充字符<code>fill</code>（如果存在的话）并按顺序连接所有的组后，所得到的字符串应该是<code>s</code>。</p><p>给你一个字符串<code>s</code>，以及每组的长度<code>k</code>和一个用于填充的字符<code>fill</code>，按上述步骤处理之后，返回一个字符串数组，该数组表示<code>s</code>分组后<strong>每个组的组成情况</strong>。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;abcdefghi&quot;, k = 3, fill = &quot;x&quot;</span><br><span class="line">输出：[&quot;abc&quot;,&quot;def&quot;,&quot;ghi&quot;]</span><br><span class="line">解释：</span><br><span class="line">前 3 个字符是 &quot;abc&quot; ，形成第一组。</span><br><span class="line">接下来 3 个字符是 &quot;def&quot; ，形成第二组。</span><br><span class="line">最后 3 个字符是 &quot;ghi&quot; ，形成第三组。</span><br><span class="line">由于所有组都可以由字符串中的字符完全填充，所以不需要使用填充字符。</span><br><span class="line">因此，形成 3 组，分别是 &quot;abc&quot;、&quot;def&quot; 和 &quot;ghi&quot; 。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;abcdefghij&quot;, k = 3, fill = &quot;x&quot;</span><br><span class="line">输出：[&quot;abc&quot;,&quot;def&quot;,&quot;ghi&quot;,&quot;jxx&quot;]</span><br><span class="line">解释：</span><br><span class="line">与前一个例子类似，形成前三组 &quot;abc&quot;、&quot;def&quot; 和 &quot;ghi&quot; 。</span><br><span class="line">对于最后一组，字符串中仅剩下字符 &#x27;j&#x27; 可以用。为了补全这一组，使用填充字符 &#x27;x&#x27; 两次。</span><br><span class="line">因此，形成 4 组，分别是 &quot;abc&quot;、&quot;def&quot;、&quot;ghi&quot; 和 &quot;jxx&quot; 。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>1 &lt;= s.length &lt;= 100</li><li>s 仅由小写英文字母组成</li><li>1 &lt;= k &lt;= 100</li><li>fill 是一个小写英文字母</li></ul><h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>简单的字符串模拟，需要比较熟练地使用mod</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">divideString</span>(<span class="params">self, s, k, fill</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :type k: int</span></span><br><span class="line"><span class="string">        :type fill: str</span></span><br><span class="line"><span class="string">        :rtype: List[str]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        return_list = []</span><br><span class="line">        </span><br><span class="line">        s_list = <span class="built_in">list</span>(s)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(s_list) % k != <span class="number">0</span>:</span><br><span class="line">            s_list += [fill <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(k - <span class="built_in">len</span>(s_list) % k)]</span><br><span class="line">        <span class="built_in">print</span>(s_list)</span><br><span class="line">        </span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(s_list):</span><br><span class="line">            return_list.append(<span class="string">&quot;&quot;</span>.join(s_list[i: i+k]))</span><br><span class="line">            i += k</span><br><span class="line">        <span class="keyword">return</span> return_list</span><br></pre></td></tr></table></figure><h1 id="第二题：5194-得到目标值的最少行动次数"><a href="#第二题：5194-得到目标值的最少行动次数" class="headerlink" title="第二题：5194.得到目标值的最少行动次数"></a>第二题：5194.得到目标值的最少行动次数</h1><p><a href="https://leetcode-cn.com/problems/minimum-moves-to-reach-target-score/">题目链接</a></p><h2 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h2><p>你正在玩一个整数游戏。从整数<code>1</code>开始，期望得到整数<code>target</code>。</p><p>在一次行动中，你可以做下述两种操作之一：</p><ul><li>递增，将当前整数的值加 1（即，<code>x = x + 1</code>）。</li><li>加倍，使当前整数的值翻倍（即，<code>x = 2 * x</code>）。</li></ul><p>在整个游戏过程中，你可以使用<strong>递增</strong>操作<strong>任意</strong>次数。但是只能使用<strong>加倍</strong>操作 至多<code>maxDoubles</code>次。</p><p>给你两个整数<code>target</code>和<code>maxDoubles</code>，返回从 1 开始得到<code>target</code>需要的最少行动次数。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：target = 5, maxDoubles = 0</span><br><span class="line">输出：4</span><br><span class="line">解释：一直递增 1 直到得到 target 。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：target = 19, maxDoubles = 2</span><br><span class="line">输出：7</span><br><span class="line">解释：最初，x = 1 。</span><br><span class="line">递增 3 次，x = 4 。</span><br><span class="line">加倍 1 次，x = 8 。</span><br><span class="line">递增 1 次，x = 9 。</span><br><span class="line">加倍 1 次，x = 18 。</span><br><span class="line">递增 1 次，x = 19 。</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：target = 10, maxDoubles = 4</span><br><span class="line">输出：4</span><br><span class="line">解释：</span><br><span class="line">最初，x = 1 。 </span><br><span class="line">递增 1 次，x = 2 。 </span><br><span class="line">加倍 1 次，x = 4 。 </span><br><span class="line">递增 1 次，x = 5 。 </span><br><span class="line">加倍 1 次，x = 10 。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>1 &lt;= target &lt;= 109</li><li>0 &lt;= maxDoubles &lt;= 100</li></ul><h2 id="分析和解答-1"><a href="#分析和解答-1" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>贪心，还是比较容易看出来的</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minMoves</span>(<span class="params">self, target, maxDoubles</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :type maxDoubles: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        cnt = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> maxDoubles != <span class="number">0</span> <span class="keyword">and</span> target != <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">if</span> target % <span class="number">2</span> != <span class="number">0</span>:</span><br><span class="line">                target -= <span class="number">1</span></span><br><span class="line">                cnt += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                target //= <span class="number">2</span></span><br><span class="line">                cnt += <span class="number">1</span></span><br><span class="line">                maxDoubles -= <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        cnt += target - <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> cnt</span><br></pre></td></tr></table></figure><h1 id="第三题：5982-解决智力问题"><a href="#第三题：5982-解决智力问题" class="headerlink" title="第三题：5982.解决智力问题"></a>第三题：5982.解决智力问题</h1><p><a href="https://leetcode-cn.com/problems/solving-questions-with-brainpower/">题目链接</a></p><h2 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个下标从<strong>0</strong>开始的二维整数数组<code>questions</code>，其中<code>questions[i] = [pointsi, brainpoweri]</code>。</p><p>这个数组表示一场考试里的一系列题目，你需要<strong>按顺序</strong>（也就是从问题<code>0</code>开始依次解决），针对每个问题选择<strong>解决</strong>或者<strong>跳过</strong>操作。解决问题<code>i</code>将让你<strong>获得</strong><code>pointsi</code>的分数，但是你将<strong>无法</strong>解决接下来的<code>brainpoweri</code>个问题（即只能跳过接下来的<code>brainpoweri</code>个问题）。如果你跳过问题<code>i</code>，你可以对下一个问题决定使用哪种操作。</p><ul><li>比方说，给你<code>questions = [[3, 2], [4, 3], [4, 4], [2, 5]]</code>：<ul><li>如果问题<code>0</code>被解决了， 那么你可以获得<code>3</code>分，但你不能解决问题<code>1</code>和<code>2</code>。</li><li>如果你跳过问题<code>0</code>，且解决问题<code>1</code>，你将获得<code>4</code>分但是不能解决问题<code>2</code>和<code>3</code>。</li></ul></li></ul><p>请你返回这场考试里你能获得的<strong>最高</strong>分数。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：questions = [[3,2],[4,3],[4,4],[2,5]]</span><br><span class="line">输出：5</span><br><span class="line">解释：解决问题 0 和 3 得到最高分。</span><br><span class="line">- 解决问题 0 ：获得 3 分，但接下来 2 个问题都不能解决。</span><br><span class="line">- 不能解决问题 1 和 2</span><br><span class="line">- 解决问题 3 ：获得 2 分</span><br><span class="line">总得分为：3 + 2 = 5 。没有别的办法获得 5 分或者多于 5 分。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：questions = [[1,1],[2,2],[3,3],[4,4],[5,5]]</span><br><span class="line">输出：7</span><br><span class="line">解释：解决问题 1 和 4 得到最高分。</span><br><span class="line">- 跳过问题 0</span><br><span class="line">- 解决问题 1 ：获得 2 分，但接下来 2 个问题都不能解决。</span><br><span class="line">- 不能解决问题 2 和 3</span><br><span class="line">- 解决问题 4 ：获得 5 分</span><br><span class="line">总得分为：2 + 5 = 7 。没有别的办法获得 7 分或者多于 7 分。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>1 &lt;= questions.length &lt;= 105</li><li>questions[i].length == 2</li><li>1 &lt;= pointsi, brainpoweri &lt;= 105</li></ul><h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>题目的名字好有意思哈哈哈哈，这是按时解决一下我的智力问题吗23333</p><p>一眼看上去很像背包，这种题多半就是dp了，就像总结里说的，常见的一维dp感觉是有两种思路，一种是存储当前位置的一些状态值，另外一种是存储截止到这个位置下的状态值，这个题就是后边一种思路，如果使用第一种思路实现的话会因为多次使用<code>max()</code>而TLE，所以在优化方向上应该也找到后边一种思路的优化方向；</p><p>TLE的写法，这里dp数组存储的是每个状态的：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mostPoints</span>(<span class="params">self, questions</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type questions: List[List[int]]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        questions.reverse()</span><br><span class="line">        dp = [x[<span class="number">0</span>] <span class="keyword">for</span> x <span class="keyword">in</span> questions]  <span class="comment"># 每个位置上先初始化</span></span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(questions)):  <span class="comment"># 每个位置有选得到和选不到两种状态的dp</span></span><br><span class="line">            <span class="keyword">if</span> i - questions[i][<span class="number">1</span>] - <span class="number">1</span> &lt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># 选和不选两种状态</span></span><br><span class="line">                <span class="comment"># 选的话</span></span><br><span class="line">                tmp_choose = questions[i][<span class="number">0</span>] + <span class="built_in">max</span>(dp[<span class="number">0</span>:i-questions[i][<span class="number">1</span>]])</span><br><span class="line">                <span class="comment"># 不选的话</span></span><br><span class="line">                tmp_not_choose = <span class="built_in">max</span>(dp[i-questions[i][<span class="number">1</span>]: i])</span><br><span class="line">                dp[i] = <span class="built_in">max</span>(tmp_choose, tmp_not_choose)</span><br><span class="line">                </span><br><span class="line">                <span class="comment"># print(dp)</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(dp)</span><br></pre></td></tr></table></figure><p>优化后的写法， 这里dp数组存储的是截止到这个状态的，下图是思路：<br><img src="/images/2022-01-16-21-16-46.png"></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mostPoints</span>(<span class="params">self, questions</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type questions: List[List[int]]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        dp = [<span class="number">0</span> <span class="keyword">for</span> x <span class="keyword">in</span> questions]</span><br><span class="line">        questions.reverse()</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(questions)):</span><br><span class="line">            <span class="keyword">if</span> i - questions[i][<span class="number">1</span>] - <span class="number">1</span> &lt; <span class="number">0</span>:  <span class="comment"># 越界了的状态，维护不断增加的dp</span></span><br><span class="line">                dp[i] = <span class="built_in">max</span>(dp[i-<span class="number">1</span>], questions[i][<span class="number">0</span>])</span><br><span class="line">            <span class="keyword">else</span>:  <span class="comment"># 没有越界的话，因为不断增加</span></span><br><span class="line">                dp[i] = <span class="built_in">max</span>(dp[i-<span class="number">1</span>], questions[i][<span class="number">0</span>] + dp[i - questions[i][<span class="number">1</span>] - <span class="number">1</span>])</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># print(max(dp))</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dp[<span class="built_in">len</span>(questions) - <span class="number">1</span>]</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+          <category> LeetCode周赛 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> EASY </tag>
+            
+            <tag> MEDIUM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Docker学习笔记3-Docker常用命令-狂神视频</title>
       <link href="/2022/01/08/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03-Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-%E7%8B%82%E7%A5%9E%E8%A7%86%E9%A2%91/"/>
       <url>/2022/01/08/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03-Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-%E7%8B%82%E7%A5%9E%E8%A7%86%E9%A2%91/</url>
@@ -58,9 +87,9 @@
       
         <tags>
             
-            <tag> 字符串 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 字符串 </tag>
             
             <tag> 栈 </tag>
             
@@ -91,9 +120,9 @@
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 矩阵 </tag>
             
@@ -122,9 +151,9 @@
       
         <tags>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 数学 </tag>
             
@@ -155,13 +184,13 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 双指针 </tag>
             
             <tag> 哈希表 </tag>
             
             <tag> 链表 </tag>
-            
-            <tag> EASY </tag>
             
         </tags>
       
@@ -225,9 +254,9 @@
             
             <tag> MEDIUM </tag>
             
-            <tag> 矩阵 </tag>
-            
             <tag> 数学 </tag>
+            
+            <tag> 矩阵 </tag>
             
         </tags>
       
@@ -252,9 +281,9 @@
       
         <tags>
             
-            <tag> 字符串 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 字符串 </tag>
             
         </tags>
       
@@ -300,9 +329,9 @@
       
         <tags>
             
-            <tag> MEDIUM </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> MEDIUM </tag>
             
         </tags>
       
@@ -331,13 +360,13 @@
             
             <tag> 数组 </tag>
             
+            <tag> EASY </tag>
+            
             <tag> MEDIUM </tag>
             
             <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
-            
-            <tag> EASY </tag>
             
             <tag> 数学 </tag>
             
@@ -368,9 +397,9 @@
       
         <tags>
             
-            <tag> 字符串 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 字符串 </tag>
             
         </tags>
       
@@ -465,9 +494,9 @@
       
         <tags>
             
-            <tag> 字符串 </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> 字符串 </tag>
             
             <tag> HARD </tag>
             
@@ -496,9 +525,9 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
-            
             <tag> 数组 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 双指针 </tag>
             
@@ -595,11 +624,11 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
-            
-            <tag> EASY </tag>
             
             <tag> 计数 </tag>
             
@@ -628,6 +657,8 @@
       
         <tags>
             
+            <tag> 动态规划 </tag>
+            
             <tag> MEDIUM </tag>
             
             <tag> 字典树 </tag>
@@ -637,8 +668,6 @@
             <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
-            
-            <tag> 动态规划 </tag>
             
         </tags>
       
@@ -667,9 +696,9 @@
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> MEDIUM </tag>
             
         </tags>
       
@@ -694,9 +723,9 @@
       
         <tags>
             
-            <tag> 字符串 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 字符串 </tag>
             
         </tags>
       
@@ -1013,9 +1042,9 @@
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 二分查找 </tag>
             
