@@ -2,6 +2,12 @@
 title: 274周LeetCode周赛
 date: 2022-01-02 22:13:43
 tags:
+    - 字符串
+    - 数组
+    - 数学
+    - 矩阵
+    - 贪心
+    - 排序
     - EASY
     - MEDIUM
 categories:
