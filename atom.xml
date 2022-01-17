@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-01-16T14:59:20.051Z</updated>
+  <updated>2022-01-17T08:37:26.781Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,117 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>160.相交链表-python</title>
+    <link href="http://example.com/2022/01/17/160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8-python/"/>
+    <id>http://example.com/2022/01/17/160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8-python/</id>
+    <published>2022-01-17T07:57:26.000Z</published>
+    <updated>2022-01-17T08:37:26.781Z</updated>
+    
+    <content type="html"><![CDATA[<p>160.相交链表（简单）</p><p>题目大意：</p><p>给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null 。</p><p>进阶：你能否设计一个时间复杂度 O(m + n) 、仅用 O(1) 内存的解决方案？</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/intersection-of-two-linked-lists/">题目链接</a></p><p>给你两个单链表的头节点<code>headA</code>和<code>headB</code>，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回<code>null</code>。</p><p>图示两个链表在节点<code>c1</code>开始相交：</p><p><img src="/images/2022-01-17-16-20-00.png"></p><p>题目数据 保证 整个链式结构中不存在环。</p><p>注意，函数返回结果后，链表必须 保持其原始结构 。</p><p>自定义评测：</p><p>评测系统 的输入如下（你设计的程序 不适用 此输入）：</p><ul><li><code>intersectVal</code> - 相交的起始节点的值。如果不存在相交节点，这一值为<code>0</code></li><li><code>listA</code> - 第一个链表</li><li><code>listB</code> - 第二个链表</li><li><code>skipA</code> - 在<code>listA</code>中（从头节点开始）跳到交叉节点的节点数</li><li><code>skipB</code> - 在<code>listB</code>中（从头节点开始）跳到交叉节点的节点数</li></ul><p>评测系统将根据这些输入创建链式数据结构，并将两个头节点 headA 和 headB 传递给你的程序。如果程序能够正确返回相交节点，那么你的解决方案将被 视作正确答案 。</p><p>示例1：<br><img src="/images/2022-01-17-16-28-41.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：intersectVal = 8, listA = [4,1,8,4,5], listB = [5,6,1,8,4,5], skipA = 2, skipB = 3</span><br><span class="line">输出：Intersected at &#x27;8&#x27;</span><br><span class="line">解释：相交节点的值为 8 （注意，如果两个链表相交则不能为 0）。</span><br><span class="line">从各自的表头开始算起，链表 A 为 [4,1,8,4,5]，链表 B 为 [5,6,1,8,4,5]。</span><br><span class="line">在 A 中，相交节点前有 2 个节点；在 B 中，相交节点前有 3 个节点。</span><br></pre></td></tr></table></figure><p>示例2：<br><img src="/images/2022-01-17-16-28-58.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：intersectVal = 2, listA = [1,9,1,2,4], listB = [3,2,4], skipA = 3, skipB = 1</span><br><span class="line">输出：Intersected at &#x27;2&#x27;</span><br><span class="line">解释：相交节点的值为 2 （注意，如果两个链表相交则不能为 0）。</span><br><span class="line">从各自的表头开始算起，链表 A 为 [1,9,1,2,4]，链表 B 为 [3,2,4]。</span><br><span class="line">在 A 中，相交节点前有 3 个节点；在 B 中，相交节点前有 1 个节点。</span><br></pre></td></tr></table></figure><p>示例3：<br><img src="/images/2022-01-17-16-29-05.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：intersectVal = 0, listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2</span><br><span class="line">输出：null</span><br><span class="line">解释：从各自的表头开始算起，链表 A 为 [2,6,4]，链表 B 为 [1,5]。</span><br><span class="line">由于这两个链表不相交，所以 intersectVal 必须为 0，而 skipA 和 skipB 可以是任意值。</span><br><span class="line">这两个链表不相交，因此返回 null 。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li><code>listA</code>中节点数目为<code>m</code></li><li><code>listB</code>中节点数目为<code>n</code></li><li><code>1 &lt;= m, n &lt;= 3 * 104</code></li><li><code>1 &lt;= Node.val &lt;= 105</code></li><li><code>0 &lt;= skipA &lt;= m</code></li><li><code>0 &lt;= skipB &lt;= n</code></li><li>如果<code>listA</code>和<code>listB</code>没有交点，<code>intersectVal</code>为<code>0</code></li><li>如果<code>listA</code>和<code>listB</code>有交点，<code>intersectVal == listA[skipA] == listB[skipB]</code></li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>这个题在面试的时候曾经被问过，判断两个链表是否有交有很多种方法，如果只是判断是否有交的话，最简单的方法就是两个链表都分别走到结尾处，如果结尾处是一样的，那么就判断两个链表在之前一定有交了；</p><p>这个题要求判断并找到两个链表相交的位置，一种非常简单的思路是把每个地方都存到一个字典里，这样找一下就行了，但是题目的附加要求是O(1)的时间复杂度，所以说不能这么做；</p><p>下边这个图也是看了题解后才明白的，这样最多走a+b这个长度的次数，两个走的长度是一样的，如果有交集则必定能相交！</p><p><img src="/images/2022-01-17-16-16-56.png"></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getIntersectionNode</span>(<span class="params">self, headA, headB</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type head1, head1: ListNode</span></span><br><span class="line"><span class="string">        :rtype: ListNode</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> headA <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> headB <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 循环结束的两种条件，一种是pq交到一个位置了，另外一种就是pq都是null，所以都是</span></span><br><span class="line">        <span class="comment"># 只走一遍就可以了，a+b的长度</span></span><br><span class="line">        p = headA</span><br><span class="line">        q = headB</span><br><span class="line">        <span class="keyword">while</span> p != q:</span><br><span class="line">            <span class="keyword">if</span> p <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                p = headB</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                p = p.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">if</span> q <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                q = headA</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                q = q.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> p</span><br></pre></td></tr></table></figure><p>复习单链表的一个写法</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, val=<span class="number">0</span>, <span class="built_in">next</span>=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.val = val</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="built_in">next</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;160.相交链表（简单）&lt;/p&gt;
+&lt;p&gt;题目大意：&lt;/p&gt;
+&lt;p&gt;给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null 。&lt;/p&gt;
+&lt;p&gt;进阶：你能否设计一个时间复杂度 O(m + n) 、仅用 O(1) 内存的解决方案？&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
+    
+    <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
+    
+    
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>136.只出现一次的数字-python</title>
+    <link href="http://example.com/2022/01/17/136-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97-python/"/>
+    <id>http://example.com/2022/01/17/136-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97-python/</id>
+    <published>2022-01-17T03:26:58.000Z</published>
+    <updated>2022-01-17T04:20:00.606Z</updated>
+    
+    <content type="html"><![CDATA[<p>136.只出现一次的数字（简单）</p><p>题目大意：</p><p>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p><p><strong>说明</strong>：</p><p>你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/single-number/">题目链接</a></p><p>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p><p><strong>说明</strong>：</p><p>你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,2,1]</span><br><span class="line">输出: 1</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [4,1,2,1,2]</span><br><span class="line">输出: 4</span><br></pre></td></tr></table></figure><h1 id="题目分析和解答"><a href="#题目分析和解答" class="headerlink" title="题目分析和解答"></a>题目分析和解答</h1><p>简单的位运算题目，因为题目说了其余每个元素都出现了两次，所以用xor就行了，真值表上异是1，同是0</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        return_num = nums[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(nums)):</span><br><span class="line">            return_num ^= nums[i]  <span class="comment"># 异或</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> return_num</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;136.只出现一次的数字（简单）&lt;/p&gt;
+&lt;p&gt;题目大意：&lt;/p&gt;
+&lt;p&gt;给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
+    
+    <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
+    
+    
+    <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
+    
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
+    <category term="位运算" scheme="http://example.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>104.二叉树的最大深度-python</title>
+    <link href="http://example.com/2022/01/16/104-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6-python/"/>
+    <id>http://example.com/2022/01/16/104-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6-python/</id>
+    <published>2022-01-16T15:43:31.000Z</published>
+    <updated>2022-01-16T16:22:34.325Z</updated>
+    
+    <content type="html"><![CDATA[<p>104.二叉树的最大深度（简单）</p><p>题目大意：</p><p>给定一个二叉树，找出其最大深度。</p><p>二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p><p>说明: 叶子节点是指没有子节点的节点。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/">题目链接</a></p><p>给定一个二叉树，找出其最大深度。</p><p>二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p><p>说明: 叶子节点是指没有子节点的节点。</p><p>示例：<br>给定二叉树<code>[3,9,20,null,null,15,7]</code>，</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> / \</span><br><span class="line">9  20</span><br><span class="line">  /  \</span><br><span class="line"> 15   7</span><br></pre></td></tr></table></figure><p>返回它的最大深度3。</p><h1 id="题目分析和解答"><a href="#题目分析和解答" class="headerlink" title="题目分析和解答"></a>题目分析和解答</h1><p>这个题是一个典型的”自递归“系列的题目，首先复习一下树节点的写法（建议每个二叉树的题目都复习一下）</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, val=-<span class="number">1</span>, left=<span class="literal">None</span>, right=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.val = val</span><br><span class="line">        self.left = left</span><br><span class="line">        self.right = right</span><br></pre></td></tr></table></figure><p>复习Solution的写法和题解，注意这个maxDepth函数，他的返回值是一个int，代表直接调用这个函数就要得到最终答案的depth返回值，所以感觉是一个自递归的题目了，这种的递归dfs还是很好写的</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxDepth</span>(<span class="params">self, root</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span> + <span class="built_in">max</span>(self.maxDepth(root.left), self.maxDepth(root.right))</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;104.二叉树的最大深度（简单）&lt;/p&gt;
+&lt;p&gt;题目大意：&lt;/p&gt;
+&lt;p&gt;给定一个二叉树，找出其最大深度。&lt;/p&gt;
+&lt;p&gt;二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。&lt;/p&gt;
+&lt;p&gt;说明: 叶子节点是指没有子节点的节点。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
+    
+    <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
+    
+    
+    <category term="树" scheme="http://example.com/tags/%E6%A0%91/"/>
+    
+    <category term="深度优先搜索" scheme="http://example.com/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/"/>
+    
+    <category term="广度优先搜索" scheme="http://example.com/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/"/>
+    
+    <category term="二叉树" scheme="http://example.com/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Curious的2021年年度总结</title>
+    <link href="http://example.com/2022/01/16/Curious%E7%9A%842021%E5%B9%B4%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/"/>
+    <id>http://example.com/2022/01/16/Curious%E7%9A%842021%E5%B9%B4%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</id>
+    <published>2022-01-16T15:02:44.000Z</published>
+    <updated>2022-01-16T15:22:43.626Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天是2022.1.16的晚上，</p><span id="more"></span>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;今天是2022.1.16的晚上，&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="随便写写" scheme="http://example.com/categories/%E9%9A%8F%E4%BE%BF%E5%86%99%E5%86%99/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>275周LeetCode周赛</title>
@@ -44,19 +155,19 @@
     
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
+    <category term="位运算" scheme="http://example.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
     <category term="排序" scheme="http://example.com/tags/%E6%8E%92%E5%BA%8F/"/>
     
     <category term="矩阵" scheme="http://example.com/tags/%E7%9F%A9%E9%98%B5/"/>
     
     <category term="滑动窗口" scheme="http://example.com/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/"/>
-    
-    <category term="位运算" scheme="http://example.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
@@ -163,9 +274,9 @@
     <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
     
     
-    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
     <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
     <category term="栈" scheme="http://example.com/tags/%E6%A0%88/"/>
     
@@ -261,11 +372,11 @@
     
     <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="链表" scheme="http://example.com/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
   </entry>
   
@@ -358,9 +469,9 @@
     <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
     
     
-    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
     <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
   </entry>
   
@@ -414,9 +525,9 @@
     
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
-    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
     <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
     <category term="排序" scheme="http://example.com/tags/%E6%8E%92%E5%BA%8F/"/>
     
@@ -453,11 +564,11 @@
     
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
     <category term="数学" scheme="http://example.com/tags/%E6%95%B0%E5%AD%A6/"/>
     
@@ -486,9 +597,9 @@
     <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
     
     
-    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
     <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
   </entry>
   
@@ -526,136 +637,6 @@
     <category term="并查集" scheme="http://example.com/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
     
     <category term="矩阵" scheme="http://example.com/tags/%E7%9F%A9%E9%98%B5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>312.戳气球-python</title>
-    <link href="http://example.com/2021/12/16/312-%E6%88%B3%E6%B0%94%E7%90%83-python/"/>
-    <id>http://example.com/2021/12/16/312-%E6%88%B3%E6%B0%94%E7%90%83-python/</id>
-    <published>2021-12-16T15:42:30.000Z</published>
-    <updated>2021-12-17T00:49:36.353Z</updated>
-    
-    <content type="html"><![CDATA[<p>312.戳气球（困难）</p><p>题目大意：</p><p>有<code>n</code>个气球，编号为<code>0</code>到<code>n - 1</code>，每个气球上都标有一个数字，这些数字存在数组<code>nums</code>中。</p><p>现在要求你戳破所有的气球。戳破第<code>i</code>个气球，你可以获得<code>nums[i - 1] * nums[i] * nums[i + 1]</code>枚硬币。 这里的<code>i - 1</code>和<code>i + 1</code>代表和<code>i</code>相邻的两个气球的序号。如果<code>i - 1</code>或<code>i + 1</code>超出了数组的边界，那么就当它是一个数字为<code>1</code>的气球。</p><p>求所能获得硬币的最大数量。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/burst-balloons/">题目链接</a></p><p>有<code>n</code>个气球，编号为<code>0</code>到<code>n - 1</code>，每个气球上都标有一个数字，这些数字存在数组<code>nums</code>中。</p><p>现在要求你戳破所有的气球。戳破第<code>i</code>个气球，你可以获得<code>nums[i - 1] * nums[i] * nums[i + 1]</code>枚硬币。 这里的<code>i - 1</code>和<code>i + 1</code>代表和<code>i</code>相邻的两个气球的序号。如果<code>i - 1</code>或<code>i + 1</code>超出了数组的边界，那么就当它是一个数字为<code>1</code>的气球。</p><p>求所能获得硬币的最大数量。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [3,1,5,8]</span><br><span class="line">输出：167</span><br><span class="line">解释：</span><br><span class="line">nums = [3,1,5,8] --&gt; [3,5,8] --&gt; [3,8] --&gt; [8] --&gt; []</span><br><span class="line">coins =  3*1*5    +   3*5*8   +  1*3*8  + 1*8*1 = 167</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [1,5]</span><br><span class="line">输出：10</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>n == nums.length</li><li>1 &lt;= n &lt;= 500</li><li>0 &lt;= nums[i] &lt;= 100</li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>这个题在没有见过之前几乎很难想到这个dp的思路，二维<code>dp[i][j]</code>数组代表的含义是，在开区间(i, j)之间所能获得的最大金币数。</p><p><strong>注意dp数组的初始化，避免深浅拷贝问题！</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp = [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums))] <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums))]  <span class="comment"># 避免深浅拷贝问题</span></span><br></pre></td></tr></table></figure><p>想到状态转移的递推关系，戳爆最后一个气球的时候，最后一个气球必然两边都是空的，也就是题目中说如果「如果<code>i - 1</code>或<code>i + 1</code>超出了数组的边界，那么就当它是一个数字为<code>1</code>的气球」，这个时候的状态，也就是<code>dp[0][len(nums)-1]</code>（注意这里的nums已经经过扩充，<code>nums.insert(0, 1)，nums.insert(len(nums), 1)</code>。</p><p>想在最后一个状态的状态转移方程，<code>dp[0][len(nums)-1] = dp[0][k] + dp[0]*dp[k]*dp[len(nums)-1] + dp[k][len(nums)-1]</code>，这里想法是要遍历k在整个区间上，找到一个最大的赋值给<code>dp[0][len(nums)-1]</code>。经过这个状态转移方程后，感觉可以慢慢想到是一种自底向上的动态规划策略，由于是开区间(i, j)，所以最小的窗口要从3开始，到len(nums)这个长度为止。然后用每个长度的窗口3、4 … len(nums)在上边滑动。循环整体结构如下所示</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 由于是自底向上的思想，要让这个开区间不断扩大，[2, len(nums))，注意是左闭右开区间</span></span><br><span class="line"><span class="keyword">for</span> window_size <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">len</span>(nums)):</span><br><span class="line">    <span class="comment"># 在当前的窗口大小下，把整个数组过一遍，自底向上来不断修改dp中的值</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(nums)-window_size):</span><br></pre></td></tr></table></figure><p>在每次的循环内部，需要计算<code>dp[i][i+window_size]</code>的值，这个就是上文中分析的开区间(i, j)之间能获得的最大金币数，遍历<code>for k in range(i+1, j)</code>，使用状态转移方程<code>dp[0][len(nums)-1] = dp[0][k] + dp[0]*dp[k]*dp[len(nums)-1] + dp[k][len(nums)-1]</code>，在不断的循环中窗口会扩大，也会自底向上。</p><p>完整解答如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxCoins</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        自底向上动态规划感觉可以算非常经典的题目了？</span></span><br><span class="line"><span class="string">        如果能想到dp数组的含义感觉还是可以理解的，但是感觉这个dp数组的含义实在不太好想</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        假设 dp[i][j] 表示【【【开区间】】】 (i,j) 内你能拿到的最多金币</span></span><br><span class="line"><span class="string">        想到这个递推的关系，删除【【【最后】】】一个气球k的时候，dp[i][k] + num[i]*num[j]*num[k] + dp[k][j]</span></span><br><span class="line"><span class="string">        再加上这个题说如果i-1，i+1超出了数组的时候，就当他是一个数字为1的气球</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        所以如果在开始和最后补充上两个1的话，在新的数组上开区间(0, len(nums)-1)所能拿到的最大值，就是最终的状态了</span></span><br><span class="line"><span class="string">        这个状态在递推下，就等于最后一个删除的气球k，dp[i][k] + num[i]*num[j]*num[k] + dp[k][j]，有一种分而治之的思想</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        由于是开区间，所以最小的长度为3才可以，也或许是先想出上边的递推公式后，再来看dp的思路，dp数组的含义是什么了，感觉还是得想状态转移</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        最后来看的话，这个题是一个自底向上的动态规划问题，要首先找到小区间的，例如对于一个长度为3的开区间，永远就是当前窗口中间的那个数字</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        解法的话按照答案的思路写了一遍，答案还是有很多内容需要注意到的</span></span><br><span class="line"><span class="string">            - 包括区间不要让角标超出限制</span></span><br><span class="line"><span class="string">            - 还有range_best中的ij参数是代表开区间，所以在遍历的时候for k in range(i+1, j)就可以这样的</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">get_range_best</span>(<span class="params">i, j</span>):</span></span><br><span class="line">            max_value = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>, j):</span><br><span class="line">                tmp_value = dp[i][k] + nums[i] * nums[k] * nums[j] + dp[k][j]</span><br><span class="line">                max_value = <span class="built_in">max</span>(max_value, tmp_value)</span><br><span class="line">            dp[i][j] = max_value</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        nums.insert(<span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line">        nums.insert(<span class="built_in">len</span>(nums), <span class="number">1</span>)</span><br><span class="line">        dp = [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums))] <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums))]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 由于是自底向上的思想，要让这个开区间不断扩大，[2, len(nums))，注意是左闭右开区间</span></span><br><span class="line">        <span class="keyword">for</span> window_size <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">len</span>(nums)):</span><br><span class="line">            <span class="comment"># 在当前的窗口大小下，把整个数组过一遍，自底向上来不断修改dp中的值</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(nums)-window_size):</span><br><span class="line">                get_range_best(i, i+window_size)  <span class="comment"># 这个函数的作用是，找到在i, i+window_size这个开区间中，最大的那一个值，窗口大小是3（window_size=2时，就是那个值）</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># print(dp)</span></span><br><span class="line">            <span class="comment"># assert False</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dp[<span class="number">0</span>][<span class="built_in">len</span>(nums)-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;312.戳气球（困难）&lt;/p&gt;
-&lt;p&gt;题目大意：&lt;/p&gt;
-&lt;p&gt;有&lt;code&gt;n&lt;/code&gt;个气球，编号为&lt;code&gt;0&lt;/code&gt;到&lt;code&gt;n - 1&lt;/code&gt;，每个气球上都标有一个数字，这些数字存在数组&lt;code&gt;nums&lt;/code&gt;中。&lt;/p&gt;
-&lt;p&gt;现在要求你戳破所有的气球。戳破第&lt;code&gt;i&lt;/code&gt;个气球，你可以获得&lt;code&gt;nums[i - 1] * nums[i] * nums[i + 1]&lt;/code&gt;枚硬币。 这里的&lt;code&gt;i - 1&lt;/code&gt;和&lt;code&gt;i + 1&lt;/code&gt;代表和&lt;code&gt;i&lt;/code&gt;相邻的两个气球的序号。如果&lt;code&gt;i - 1&lt;/code&gt;或&lt;code&gt;i + 1&lt;/code&gt;超出了数组的边界，那么就当它是一个数字为&lt;code&gt;1&lt;/code&gt;的气球。&lt;/p&gt;
-&lt;p&gt;求所能获得硬币的最大数量。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
-    
-    <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
-    
-    
-    <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
-    
-    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
-    <category term="HARD" scheme="http://example.com/tags/HARD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>72.编辑距离-python</title>
-    <link href="http://example.com/2021/12/16/72-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB-python/"/>
-    <id>http://example.com/2021/12/16/72-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB-python/</id>
-    <published>2021-12-16T14:52:36.000Z</published>
-    <updated>2021-12-16T15:36:14.066Z</updated>
-    
-    <content type="html"><![CDATA[<p>72.编辑距离（困难）</p><p>题目大意：</p><p>给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 。</p><p>你可以对一个单词进行如下三种操作：</p><ul><li>插入一个字符</li><li>删除一个字符</li><li>替换一个字符</li></ul><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/edit-distance/">题目链接</a></p><p>给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 。</p><p>你可以对一个单词进行如下三种操作：</p><ul><li>插入一个字符</li><li>删除一个字符</li><li>替换一个字符</li></ul><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入：word1 = &quot;horse&quot;, word2 = &quot;ros&quot;</span><br><span class="line">输出：3</span><br><span class="line">解释：</span><br><span class="line">horse -&gt; rorse (将 &#x27;h&#x27; 替换为 &#x27;r&#x27;)</span><br><span class="line">rorse -&gt; rose (删除 &#x27;r&#x27;)</span><br><span class="line">rose -&gt; ros (删除 &#x27;e&#x27;)</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：word1 = &quot;intention&quot;, word2 = &quot;execution&quot;</span><br><span class="line">输出：5</span><br><span class="line">解释：</span><br><span class="line">intention -&gt; inention (删除 &#x27;t&#x27;)</span><br><span class="line">inention -&gt; enention (将 &#x27;i&#x27; 替换为 &#x27;e&#x27;)</span><br><span class="line">enention -&gt; exention (将 &#x27;n&#x27; 替换为 &#x27;x&#x27;)</span><br><span class="line">exention -&gt; exection (将 &#x27;n&#x27; 替换为 &#x27;c&#x27;)</span><br><span class="line">exection -&gt; execution (插入 &#x27;u&#x27;)</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>0 &lt;= word1.length, word2.length &lt;= 500</li><li>word1 和 word2 由小写英文字母组成</li></ul><h1 id="题目分析和解答"><a href="#题目分析和解答" class="headerlink" title="题目分析和解答"></a>题目分析和解答</h1><p>二维dp的题目，想象两个单词word1和word2，二维dp的每个位置上，代表word1的i位置处，和word2的j位置处情况下，多少次变换能达到是一样的情况；</p><p>个人习惯上把word1作为行来放置，把word2作为列来放置；</p><p>由于word1和word2都可能为空，所以在初始化二维dp数组的时候，行和列要分别是<code>len(word1)+1</code>和<code>len(word2)+1</code>，初始化dp数组的第一行第一列，想象i到j的这个顺序，第一列<code>dp[i][0]</code>代表word1在当前的情况下经过多少次操作能变成空，所以这个数值就等于i；第一行<code>dp[0][i]</code>就是代表空字符串经过多少次能变到word2的当前这个位置上。</p><p>现在初始化好了dp数组的第一行第一列，<strong>下边就来想状态转移这个方程</strong>，也是这个题目每次复习的时候需要想到的部分，<code>dp[i][j]</code>可以由<code>dp[i-1][j-1]，dp[i-1][j]，dp[i][j-1]</code>得到：</p><ul><li><code>dp[i-1][j-1]</code>到<code>dp[i][j]</code>的操作是修改，注意修改这个操作需要判断word1 i位置处的值和word2 j位置处的值是不是相等的，如果相等的话则不需要修改，如果是不相等的话则需要修改，也就是<code>dp[i-1][j-1]+1</code>；</li><li><code>dp[i][j-1]</code>到<code>dp[i][j]</code>的操作是删除，想象最左上角的三个块，ij代表word1变到word2的这一种感觉。执行删除的情况下，状态转移后必然是<code>dp[i][j]=dp[i][j-1]+1</code>；</li><li><code>dp[i-1][j]</code>到<code>dp[i][j]</code>的操作是新增，同样是想象最左上角的三个块。执行新增的情况下，状态转移后必然是<code>dp[i][j]=dp[i-1][j]+1</code></li></ul><p>经过如上分析后，在每次判断时先判断是不是相等，如果相等的话，可以走<code>dp[i][j]=dp[i-1][j-1]</code>，代表不需要修改。如果是不相等的话就需要对三种情况进行min判断，<code>dp[i][j]=min(dp[i-1][j-1], dp[i][j-1], dp[i-1][j]) + 1</code></p><p>经过上述循环后，因为在最开始前边补充的字符串为空的长度情况，所以<code>dp[len(word1)][len(word2)]</code>就可以了。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minDistance</span>(<span class="params">self, word1, word2</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type word1: str</span></span><br><span class="line"><span class="string">        :type word2: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        二维dp的题目，dp数组代表，word1的前i个字符，和word2的前j个字符，需要几次修改可以变成一样的</span></span><br><span class="line"><span class="string">        回想题解里给出的那张图，要分别想到word1，word2为空字符串的情况</span></span><br><span class="line"><span class="string">        空串情况下的初始化状态比较容易想，一个字符串变成空串，就是这个字符串的长度的次数</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 初始化dp数组状态，word1在行维度上，word2在列维度上</span></span><br><span class="line">        dp = [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(word2)+<span class="number">1</span>)] <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(word1)+<span class="number">1</span>)]  <span class="comment"># 注意深浅拷贝的问题，这个还挺坑的，只能这么初始化数组</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(word1)+<span class="number">1</span>):</span><br><span class="line">            dp[i][<span class="number">0</span>] = i</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(word2) + <span class="number">1</span>):</span><br><span class="line">            dp[<span class="number">0</span>][i] = i</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        <span class="comment"># 假设每个地方想象的是从竖着的word1变到横着的word2的状态，那么[i-1][j-1]代表替换，[i-1][j]代表插入，[i][j-1]代表删除（想初始状态即可）</span></span><br><span class="line">        <span class="comment"># 如果当前两个字符相等的情况下，保持不变（即不做修改[i-1][j-1]的状态）一定是最优的，因为无论增加或减少，则一定还需要1次操作</span></span><br><span class="line">        <span class="comment"># 而如果当前两个字符不等的情况，则由删除，增加，修改三种之最小的+1次操作得到</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(word1)+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(word2)+<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> word1[i-<span class="number">1</span>] == word2[j-<span class="number">1</span>]:</span><br><span class="line">                    dp[i][j] = dp[i-<span class="number">1</span>][j-<span class="number">1</span>]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    dp[i][j] = <span class="built_in">min</span>(dp[i-<span class="number">1</span>][j-<span class="number">1</span>], dp[i][j-<span class="number">1</span>], dp[i-<span class="number">1</span>][j]) +<span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dp[<span class="built_in">len</span>(word1)][<span class="built_in">len</span>(word2)]</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;72.编辑距离（困难）&lt;/p&gt;
-&lt;p&gt;题目大意：&lt;/p&gt;
-&lt;p&gt;给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 。&lt;/p&gt;
-&lt;p&gt;你可以对一个单词进行如下三种操作：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;插入一个字符&lt;/li&gt;
-&lt;li&gt;删除一个字符&lt;/li&gt;
-&lt;li&gt;替换一个字符&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
-    
-    <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
-    
-    
-    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-    <category term="动态规划" scheme="http://example.com/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
-    <category term="HARD" scheme="http://example.com/tags/HARD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>11.盛最多水的容器-python</title>
-    <link href="http://example.com/2021/12/15/11-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8-python/"/>
-    <id>http://example.com/2021/12/15/11-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8-python/</id>
-    <published>2021-12-15T10:48:09.000Z</published>
-    <updated>2021-12-15T11:05:53.258Z</updated>
-    
-    <content type="html"><![CDATA[<p>11.盛最多水的容器（中等）</p><p>题目大意：</p><p>给你 n 个非负整数 a1，a2，…，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0) 。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p><p>说明：你不能倾斜容器。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/container-with-most-water/">题目链接</a></p><p>给你 n 个非负整数 a1，a2，…，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0) 。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p><p>说明：你不能倾斜容器。</p><p>示例1：<br><img src="/images/2021-12-15-18-56-13.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：[1,8,6,2,5,4,8,3,7]</span><br><span class="line">输出：49 </span><br><span class="line">解释：图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：height = [1,1]</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：height = [4,3,2,1,4]</span><br><span class="line">输出：16</span><br></pre></td></tr></table></figure><p>示例4：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：height = [1,2,1]</span><br><span class="line">输出：2</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>n == height.length</li><li>2 &lt;= n &lt;= 105</li><li>0 &lt;= height[i] &lt;= 104</li></ul><h1 id="分析与解答"><a href="#分析与解答" class="headerlink" title="分析与解答"></a>分析与解答</h1><p>O(n^2)的方法很会超时</p><p>对上述方法采用双指针进行优化，整体性的思路如下：</p><p>在整体上一定存在一个长板和一个短板，初始化下的面积为 短板高度 * (j-i) <code>min(a[i], a[j]) * (j-i)</code></p><p>由于水桶的容量是收到短板影响的，所以怎么“往内”移动长板都是没用的，要么是还受到现在的短板作用，要么是只会找到一个比现在短板更短的短板，由于是往内移动的，所以只会进一步缩小</p><p>所以要把短板往内移动，每次移动的时候记录当前的值并进行比较，注意在移动的过程中要更新短板（贪心的思想应该隐含在这里了）</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxArea</span>(<span class="params">self, height</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type height: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># O(n^2) time limit了</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        max_water = 0</span></span><br><span class="line"><span class="string">        for i in range(len(height)):</span></span><br><span class="line"><span class="string">            for j in range(i, len(height)):</span></span><br><span class="line"><span class="string">                max_water = max(max_water, (j-i)*min(height[i], height[j]))</span></span><br><span class="line"><span class="string">        return max_water</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        对上述方法采用双指针进行优化，整体性的思路如下：</span></span><br><span class="line"><span class="string">            在整体上一定存在一个长板和一个短板，初始化下的面积为 短板高度 * (j-i)</span></span><br><span class="line"><span class="string">            由于水桶的容量是收到短板影响的，所以怎么“往内”移动长板都是没用的，要么是还受到现在的短板作用，要么是只会找到一个比现在短板更短的短板，由于是往内移动的，所以只会进一步缩小</span></span><br><span class="line"><span class="string">            所以要把短板往内移动，每次移动的时候记录当前的值并进行比较，注意在移动的过程中要更新短板</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(height) &lt; <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        j = <span class="built_in">len</span>(height) - <span class="number">1</span></span><br><span class="line">        max_water = (j-i) * <span class="built_in">min</span>(height[i], height[j])</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> i &lt; j:</span><br><span class="line">            <span class="keyword">if</span> height[i] &lt;= height[j]:  <span class="comment"># 等号随便给一边就可以了</span></span><br><span class="line">                <span class="keyword">while</span> i &lt; j <span class="keyword">and</span> height[i] &lt;= height[j]:</span><br><span class="line">                    max_water = <span class="built_in">max</span>(max_water, (j-i) * <span class="built_in">min</span>(height[i], height[j]))</span><br><span class="line">                    i += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">while</span> j &gt; i <span class="keyword">and</span> height[j] &lt;= height[i]:</span><br><span class="line">                    max_water = <span class="built_in">max</span>(max_water, (j-i) * <span class="built_in">min</span>(height[i], height[j]))</span><br><span class="line">                    j -= <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> max_water</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;11.盛最多水的容器（中等）&lt;/p&gt;
-&lt;p&gt;题目大意：&lt;/p&gt;
-&lt;p&gt;给你 n 个非负整数 a1，a2，…，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0) 。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。&lt;/p&gt;
-&lt;p&gt;说明：你不能倾斜容器。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
-    
-    <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
-    
-    
-    <category term="贪心" scheme="http://example.com/tags/%E8%B4%AA%E5%BF%83/"/>
-    
-    <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
-    
-    <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>15.三数之和-python</title>
-    <link href="http://example.com/2021/12/15/15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C-python/"/>
-    <id>http://example.com/2021/12/15/15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C-python/</id>
-    <published>2021-12-15T09:46:36.000Z</published>
-    <updated>2021-12-15T10:47:43.182Z</updated>
-    
-    <content type="html"><![CDATA[<p>15.三数之和（中等）</p><p>题目大意：</p><p>给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。</p><p>注意：答案中不可以包含重复的三元组。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/3sum/">题目链接</a></p><p>给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。</p><p>注意：答案中不可以包含重复的三元组。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [-1,0,1,2,-1,-4]</span><br><span class="line">输出：[[-1,-1,2],[-1,0,1]]</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = []</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [0]</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>0 &lt;= nums.length &lt;= 3000</li><li>-105 &lt;= nums[i] &lt;= 105</li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>O(n^3)是一种最容易想到的解法，但是会超时。</p><p>外层i，内层双指针+移动位置，移动位置主要是为去重的，每次ijk都要移动到下一个不一样的，指针的移动这里要模拟do-while循环，这个非常关键</p><p>既然是要求和为0，可以想到进行排序O(nlogn)，从小到大。之后的思路感觉是一种O(n^2)的思路，设立ijk</p><ul><li>i代表：一个基准的数字，可以看做jk位置处的数字加起来要等于-i位置处的数字</li><li>j，k代表：在i后边的数字序列中，j从头开始，k从尾开始，这样根据加了后的关系可以判断是j该往后移动还是k该往前移动</li></ul><p>由于题目中要求答案中不可以包含重复的三元组，这里就是题目里代码实现起来很容易出错的部分了，i，j，k在每次遍历的时候都要走到下一个不一样的地方去，这里感觉有一种do-while循环的感觉</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在如下的操作下，j最终会停在不相等的位置上</span></span><br><span class="line">j += <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> j &lt; k <span class="keyword">and</span> nums[j] == nums[j-<span class="number">1</span>]:</span><br><span class="line">    j += <span class="number">1</span></span><br></pre></td></tr></table></figure><p>要分加起来等于0，小于0，大于0三个讨论，其中等于0的情况jk一起移动</p><p>有剪枝操作，在排序了后如果i位置处都大于0了，那么就可以结束了</p><p>解答如下</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: List[List[int]]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        # O(n^3)，其中tuple这个操作用来去重用，tuple是可哈希化的，这种方法超时了</span></span><br><span class="line"><span class="string">        rlist = []</span></span><br><span class="line"><span class="string">        for i in range(len(nums)):</span></span><br><span class="line"><span class="string">            for j in range(i+1, len(nums)):</span></span><br><span class="line"><span class="string">                for k in range(j+1, len(nums)):</span></span><br><span class="line"><span class="string">                    if nums[i] + nums[j] + nums[k] == 0:</span></span><br><span class="line"><span class="string">                        tmplist = sorted([nums[i], nums[j], nums[k]])</span></span><br><span class="line"><span class="string">                        rlist.append(tuple(tmplist))</span></span><br><span class="line"><span class="string">        temp = list(set(rlist))</span></span><br><span class="line"><span class="string">        return [[x[0], x[1], x[2]] for x in temp]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 优化方法</span></span><br><span class="line">        <span class="comment"># O(nlogn)排序+ O(n^2)双指针，一前一后，跳过后</span></span><br><span class="line">        rlist = []</span><br><span class="line">        nums = <span class="built_in">sorted</span>(nums)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)-<span class="number">2</span>):</span><br><span class="line">            <span class="comment"># 学习题解中的剪枝操作</span></span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; <span class="number">0</span>: </span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> i &gt; <span class="number">0</span> <span class="keyword">and</span> nums[i] == nums[i-<span class="number">1</span>]: <span class="comment"># 三元组不能重复，注意python的-1问题</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">            j = i + <span class="number">1</span></span><br><span class="line">            k = <span class="built_in">len</span>(nums) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> j &lt; k:</span><br><span class="line">                <span class="keyword">if</span> nums[i] + nums[j] + nums[k] == <span class="number">0</span>:</span><br><span class="line">                    rlist.append([nums[i], nums[j], nums[k]])</span><br><span class="line">                    <span class="comment"># print(rlist)</span></span><br><span class="line">                    <span class="comment"># j移动到下一个不一样的</span></span><br><span class="line">                    j += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">while</span> j &lt; k <span class="keyword">and</span> nums[j] == nums[j-<span class="number">1</span>]:</span><br><span class="line">                        j += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">                    k -= <span class="number">1</span></span><br><span class="line">                    <span class="keyword">while</span> k &gt; j <span class="keyword">and</span> nums[k] == nums[k+<span class="number">1</span>]:</span><br><span class="line">                        k -= <span class="number">1</span></span><br><span class="line">                    </span><br><span class="line">                <span class="keyword">elif</span> nums[i] + nums[j] + nums[k] &gt; <span class="number">0</span>: <span class="comment"># 太大了，k往左移动到一个不一样的</span></span><br><span class="line">                    k -= <span class="number">1</span></span><br><span class="line">                    <span class="keyword">while</span> k &gt; j <span class="keyword">and</span> nums[k] == nums[k+<span class="number">1</span>]:</span><br><span class="line">                        k -= <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="comment"># 模拟do-while循环</span></span><br><span class="line">                    j += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">while</span> j &lt; k <span class="keyword">and</span> nums[j] == nums[j-<span class="number">1</span>]:</span><br><span class="line">                        j += <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">        <span class="keyword">return</span> rlist</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;15.三数之和（中等）&lt;/p&gt;
-&lt;p&gt;题目大意：&lt;/p&gt;
-&lt;p&gt;给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。&lt;/p&gt;
-&lt;p&gt;注意：答案中不可以包含重复的三元组。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
-    
-    <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
-    
-    
-    <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
-    
-    <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
-    
-    <category term="排序" scheme="http://example.com/tags/%E6%8E%92%E5%BA%8F/"/>
     
   </entry>
   
