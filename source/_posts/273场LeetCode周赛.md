@@ -1,5 +1,5 @@
 ---
-title: 273周LeetCode周赛
+title: 273场LeetCode周赛
 date: 2021-12-26 16:16:43
 tags:
     - 数学

@@ -1,5 +1,5 @@
 ---
-title: 275周LeetCode周赛
+title: 275场LeetCode周赛
 date: 2022-01-16 21:20:42
 tags:
     - 数组

@@ -1,7 +1,13 @@
 ---
-title: 276周LeetCode周赛
+title: 276场LeetCode周赛
 date: 2022-01-16 17:27:04
 tags:
+    - 字符串
+    - 模拟
+    - 贪心
+    - 数学
+    - 数组
+    - 动态规划
     - EASY
     - MEDIUM
 categories:
