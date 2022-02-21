@@ -7,9 +7,9 @@ tags:
     - 动态规划
     - MEDIUM
 categories:
-	- LeetCode-python
-	- LeetCode-热题 HOT 100
-	- TODO优化
+    - TODO优化
+    - LeetCode-python
+    - LeetCode-热题 HOT 100
 ---
 
 300.最长递增子序列（中等）

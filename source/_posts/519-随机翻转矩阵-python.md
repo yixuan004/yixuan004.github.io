@@ -8,8 +8,8 @@ tags:
     - 随机化
     - MEDIUM
 categories:
-	- LeetCode-python
-	- TODO优化
+    - TODO优化
+    - LeetCode-python
 ---
 
 519.随机翻转矩阵（中等）
