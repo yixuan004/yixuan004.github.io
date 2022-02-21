@@ -7,8 +7,8 @@ tags:
     - 数学
     - 随机化
     - MEDIUM
-categories:
     - TODO优化
+categories:
     - LeetCode-python
 ---
 

@@ -6,8 +6,8 @@ tags:
     - 二分查找
     - 动态规划
     - MEDIUM
-categories:
     - TODO优化
+categories:
     - LeetCode-python
     - LeetCode-热题 HOT 100
 ---
