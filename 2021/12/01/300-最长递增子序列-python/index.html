@@ -20,7 +20,7 @@
 <meta property="og:description" content="300.最长递增子序列（中等） 题目大意：给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。 子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-30T16:05:54.000Z">
-<meta property="article:modified_time" content="2021-12-05T15:49:33.653Z">
+<meta property="article:modified_time" content="2022-02-21T16:23:45.266Z">
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="数组">
 <meta property="article:tag" content="MEDIUM">
@@ -154,12 +154,12 @@
 	
     
     <div class='cats'>
-        <a href="/categories/LeetCode-python/">LeetCode-python</a>, <a href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/">LeetCode-热题 HOT 100</a>, <a href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E6%9A%82%E6%9C%AA%E5%AE%9E%E7%8E%B0%E4%BC%98%E5%8C%96%E8%A7%A3%E6%B3%95/">暂未实现优化解法</a>
+        <a href="/categories/LeetCode-python/">LeetCode-python</a>, <a href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/">LeetCode-热题 HOT 100</a>, <a href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/TODO%E4%BC%98%E5%8C%96/">TODO优化</a>
     </div>
 
 	</section>
 	
-		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E5%92%8C%E8%A7%A3%E7%AD%94"><span class="toc-number">2.</span> <span class="toc-text">分析和解答</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E8%A7%A3%E6%B3%95%EF%BC%88%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%EF%BC%89%E5%BE%85%E8%A1%A5%E5%85%85"><span class="toc-number">3.</span> <span class="toc-text">优化解法（二分查找）待补充</span></a></li></ol></section>
+		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E5%92%8C%E8%A7%A3%E7%AD%94"><span class="toc-number">2.</span> <span class="toc-text">分析和解答</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E6%B3%95%E4%B8%80%EF%BC%9AO-n-2-%E5%90%91%E5%89%8D%E6%9F%A5%E6%89%BE%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">解法一：O(n^2)向前查找法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E6%B3%95%E4%BA%8C%EF%BC%9A%E4%BC%98%E5%8C%96%E8%A7%A3%E6%B3%95%EF%BC%88%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%EF%BC%89%E5%BE%85%E8%A1%A5%E5%85%85"><span class="toc-number">2.2.</span> <span class="toc-text">解法二：优化解法（二分查找）待补充</span></a></li></ol></li></ol></section>
 	
 	<section class="article typo">
   	<div class="article-entry" itemprop="articleBody">
@@ -185,12 +185,12 @@
 <li>1 &lt;= nums.length &lt;= 2500</li>
 <li>104 &lt;= nums[i] &lt;= 104</li>
 </ul>
-<h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>O(n^2)的解法还是比较好想的（简单题），先创建一个一维dp数组，然后走到每个位置的时候要往前看，看看前边比当前数字小的那些数组位置处，选择一个这些位置里dp值最大的，+1得到现在这个位置的dp值。最后返回max(dp)就可以</p>
+<h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><h2 id="解法一：O-n-2-向前查找法"><a href="#解法一：O-n-2-向前查找法" class="headerlink" title="解法一：O(n^2)向前查找法"></a>解法一：O(n^2)向前查找法</h2><p>O(n^2)的解法还是比较好想的（简单题），先创建一个一维dp数组，然后走到每个位置的时候要往前看，看看前边比当前数字小的那些数组位置处，选择一个这些位置里dp值最大的，+1得到现在这个位置的dp值。最后返回max(dp)就可以</p>
 <p>解题：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLIS</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 思路还是很简单的，设置dp数组，走到每个位置后，【往前找】比这个位置小的元素，然后选一个最大的dp[i] + 1当做当前位置的dp</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(nums) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        dp = [<span class="number">1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums))]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(nums)):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> nums[i] &gt; nums[j]:</span><br><span class="line">                    dp[i] = <span class="built_in">max</span>(dp[i], dp[j] + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(dp)</span><br></pre></td></tr></table></figure>
 
 
-<h1 id="优化解法（二分查找）待补充"><a href="#优化解法（二分查找）待补充" class="headerlink" title="优化解法（二分查找）待补充"></a>优化解法（二分查找）待补充</h1>
+<h2 id="解法二：优化解法（二分查找）待补充"><a href="#解法二：优化解法（二分查找）待补充" class="headerlink" title="解法二：优化解法（二分查找）待补充"></a>解法二：优化解法（二分查找）待补充</h2>
   	</div>
 	  
 	  <div class="article-tags tags">
@@ -260,7 +260,7 @@
     
     <ul class="entry">
     
-        <li><a class="flat-box" href="/categories/Crsenal/"><div class='name'>Crsenal</div><div class='badget'>9</div></a></li>
+        <li><a class="flat-box" href="/categories/Crsenal/"><div class='name'>Crsenal</div><div class='badget'>10</div></a></li>
     
         <li><a class="flat-box" href="/categories/LeetCode-python/"><div class='name'>LeetCode-python</div><div class='badget'>44</div></a></li>
     
@@ -270,13 +270,11 @@
     
         <li><a class="flat-box" href="/categories/NLP/"><div class='name'>NLP</div><div class='badget'>7</div></a></li>
     
+        <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/TODO%E4%BC%98%E5%8C%96/"><div class='name'>TODO优化</div><div class='badget'>1</div></a></li>
+    
+        <li><a class="flat-box" href="/categories/LeetCode-python/TODO%E4%BC%98%E5%8C%96/"><div class='name'>TODO优化</div><div class='badget'>1</div></a></li>
+    
         <li><a class="flat-box" href="/categories/docker/"><div class='name'>docker</div><div class='badget'>4</div></a></li>
-    
-        <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/%E6%9A%82%E6%9C%AA%E5%AE%9E%E7%8E%B0%E4%BC%98%E5%8C%96%E8%A7%A3%E6%B3%95/"><div class='name'>暂未实现优化解法</div><div class='badget'>1</div></a></li>
-    
-        <li><a class="flat-box" href="/categories/LeetCode-python/%E6%9A%82%E6%9C%AA%E5%AE%9E%E7%8E%B0%E4%BC%98%E5%8C%96%E8%A7%A3%E6%B3%95/"><div class='name'>暂未实现优化解法</div><div class='badget'>1</div></a></li>
-    
-        <li><a class="flat-box" href="/categories/%E7%BC%96%E7%A8%8B%E5%BC%80%E5%8F%91/"><div class='name'>编程开发</div><div class='badget'>1</div></a></li>
     
         <li><a class="flat-box" href="/categories/%E9%9A%8F%E4%BE%BF%E5%86%99%E5%86%99/"><div class='name'>随便写写</div><div class='badget'>1</div></a></li>
     

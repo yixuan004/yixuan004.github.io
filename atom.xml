@@ -233,9 +233,9 @@
     
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
-    <category term="设计" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1/"/>
-    
     <category term="排序" scheme="http://example.com/tags/%E6%8E%92%E5%BA%8F/"/>
+    
+    <category term="设计" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1/"/>
     
     <category term="数学" scheme="http://example.com/tags/%E6%95%B0%E5%AD%A6/"/>
     
@@ -500,9 +500,9 @@
     
     <category term="排序" scheme="http://example.com/tags/%E6%8E%92%E5%BA%8F/"/>
     
-    <category term="矩阵" scheme="http://example.com/tags/%E7%9F%A9%E9%98%B5/"/>
-    
     <category term="滑动窗口" scheme="http://example.com/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/"/>
+    
+    <category term="矩阵" scheme="http://example.com/tags/%E7%9F%A9%E9%98%B5/"/>
     
   </entry>
   

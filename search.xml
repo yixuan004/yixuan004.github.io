@@ -212,9 +212,9 @@
             
             <tag> 哈希表 </tag>
             
-            <tag> 设计 </tag>
-            
             <tag> 排序 </tag>
+            
+            <tag> 设计 </tag>
             
             <tag> 数学 </tag>
             
@@ -478,9 +478,9 @@
             
             <tag> 排序 </tag>
             
-            <tag> 矩阵 </tag>
-            
             <tag> 滑动窗口 </tag>
+            
+            <tag> 矩阵 </tag>
             
         </tags>
       
@@ -1170,11 +1170,11 @@
             
             <tag> 动态规划 </tag>
             
+            <tag> 哈希表 </tag>
+            
             <tag> 字典树 </tag>
             
             <tag> 记忆化搜索 </tag>
-            
-            <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
             
@@ -1263,9 +1263,9 @@
             
             <tag> MEDIUM </tag>
             
-            <tag> 字典树 </tag>
-            
             <tag> 哈希表 </tag>
+            
+            <tag> 字典树 </tag>
             
             <tag> 字符串 </tag>
             
@@ -1474,7 +1474,7 @@
           
           <category> LeetCode-python </category>
           
-          <category> 暂未实现优化解法 </category>
+          <category> TODO优化 </category>
           
       </categories>
       
@@ -1533,7 +1533,7 @@
       <link href="/2021/12/01/300-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97-python/"/>
       <url>/2021/12/01/300-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97-python/</url>
       
-        <content type="html"><![CDATA[<p>300.最长递增子序列（中等）</p><p>题目大意：给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p><p>子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/">题目链接</a></p><p>给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p><p>子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [10,9,2,5,3,7,101,18]</span><br><span class="line">输出：4</span><br><span class="line">解释：最长递增子序列是 [2,3,7,101]，因此长度为 4 。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [0,1,0,3,2,3]</span><br><span class="line">输出：4</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [7,7,7,7,7,7,7]</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>1 &lt;= nums.length &lt;= 2500</li><li>104 &lt;= nums[i] &lt;= 104</li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>O(n^2)的解法还是比较好想的（简单题），先创建一个一维dp数组，然后走到每个位置的时候要往前看，看看前边比当前数字小的那些数组位置处，选择一个这些位置里dp值最大的，+1得到现在这个位置的dp值。最后返回max(dp)就可以</p><p>解题：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLIS</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 思路还是很简单的，设置dp数组，走到每个位置后，【往前找】比这个位置小的元素，然后选一个最大的dp[i] + 1当做当前位置的dp</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(nums) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        dp = [<span class="number">1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums))]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(nums)):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> nums[i] &gt; nums[j]:</span><br><span class="line">                    dp[i] = <span class="built_in">max</span>(dp[i], dp[j] + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(dp)</span><br></pre></td></tr></table></figure><h1 id="优化解法（二分查找）待补充"><a href="#优化解法（二分查找）待补充" class="headerlink" title="优化解法（二分查找）待补充"></a>优化解法（二分查找）待补充</h1>]]></content>
+        <content type="html"><![CDATA[<p>300.最长递增子序列（中等）</p><p>题目大意：给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p><p>子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/">题目链接</a></p><p>给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p><p>子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [10,9,2,5,3,7,101,18]</span><br><span class="line">输出：4</span><br><span class="line">解释：最长递增子序列是 [2,3,7,101]，因此长度为 4 。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [0,1,0,3,2,3]</span><br><span class="line">输出：4</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [7,7,7,7,7,7,7]</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>1 &lt;= nums.length &lt;= 2500</li><li>104 &lt;= nums[i] &lt;= 104</li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><h2 id="解法一：O-n-2-向前查找法"><a href="#解法一：O-n-2-向前查找法" class="headerlink" title="解法一：O(n^2)向前查找法"></a>解法一：O(n^2)向前查找法</h2><p>O(n^2)的解法还是比较好想的（简单题），先创建一个一维dp数组，然后走到每个位置的时候要往前看，看看前边比当前数字小的那些数组位置处，选择一个这些位置里dp值最大的，+1得到现在这个位置的dp值。最后返回max(dp)就可以</p><p>解题：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLIS</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 思路还是很简单的，设置dp数组，走到每个位置后，【往前找】比这个位置小的元素，然后选一个最大的dp[i] + 1当做当前位置的dp</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(nums) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        dp = [<span class="number">1</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums))]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(nums)):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> nums[i] &gt; nums[j]:</span><br><span class="line">                    dp[i] = <span class="built_in">max</span>(dp[i], dp[j] + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(dp)</span><br></pre></td></tr></table></figure><h2 id="解法二：优化解法（二分查找）待补充"><a href="#解法二：优化解法（二分查找）待补充" class="headerlink" title="解法二：优化解法（二分查找）待补充"></a>解法二：优化解法（二分查找）待补充</h2>]]></content>
       
       
       <categories>
@@ -1542,7 +1542,7 @@
           
           <category> LeetCode-热题 HOT 100 </category>
           
-          <category> 暂未实现优化解法 </category>
+          <category> TODO优化 </category>
           
       </categories>
       
@@ -1984,7 +1984,7 @@
       
       <categories>
           
-          <category> 编程开发 </category>
+          <category> Crsenal </category>
           
       </categories>
       
