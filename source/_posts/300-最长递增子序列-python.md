@@ -8,8 +8,8 @@ tags:
     - MEDIUM
     - TODO优化
 categories:
-    - LeetCode-python
-    - LeetCode-热题 HOT 100
+	- LeetCode-python
+	- LeetCode-热题 HOT 100
 ---
 
 300.最长递增子序列（中等）
