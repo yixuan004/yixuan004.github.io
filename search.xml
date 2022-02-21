@@ -4,6 +4,159 @@
   
     
     <entry>
+      <title>78.子集-python</title>
+      <link href="/2022/02/21/78-%E5%AD%90%E9%9B%86-python/"/>
+      <url>/2022/02/21/78-%E5%AD%90%E9%9B%86-python/</url>
+      
+        <content type="html"><![CDATA[<p>78.子集（中等）</p><p>题目大意：</p><p>给你一个整数数组 <code>nums</code> ，数组中的元素 <strong>互不相同</strong> 。返回该数组所有可能的子集（幂集）。</p><p>解集 <strong>不能</strong> 包含重复的子集。你可以按 <strong>任意顺序</strong> 返回解集。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/subsets/">题目链接</a></p><p>给你一个整数数组 <code>nums</code> ，数组中的元素 <strong>互不相同</strong> 。返回该数组所有可能的子集（幂集）。</p><p>解集 <strong>不能</strong> 包含重复的子集。你可以按 <strong>任意顺序</strong> 返回解集。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [1,2,3]</span><br><span class="line">输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [0]</span><br><span class="line">输出：[[],[0]]</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li><code>1 &lt;= nums.length &lt;= 10</code></li><li><code>-10 &lt;= nums[i] &lt;= 10</code></li><li><code>nums</code> 中的所有元素 <strong>互不相同</strong></li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><h2 id="解法一：2-n遍历法"><a href="#解法一：2-n遍历法" class="headerlink" title="解法一：2^n遍历法"></a>解法一：2^n遍历法</h2><p>在某次周赛的时候积累到了这个思路，可以通过位运算的方法把0到n的二进制每个位的表示都提取出来，这样就可以实现每个位置选择/不选择的2^n遍历法。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subsets</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: List[List[int]]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 某次周赛积累到的2^n这种的遍历思路，可以实现暴力非递归</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">get_bits</span>(<span class="params">num</span>):</span></span><br><span class="line">            l = []</span><br><span class="line">            <span class="keyword">while</span> num &gt; <span class="number">0</span>:</span><br><span class="line">                l.append(num&amp;<span class="number">1</span>)</span><br><span class="line">                num &gt;&gt;= <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> l</span><br><span class="line"></span><br><span class="line">        ans = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>**<span class="built_in">len</span>(nums)):</span><br><span class="line">            l = get_bits(i)</span><br><span class="line">            tmp = []</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(l)):</span><br><span class="line">                <span class="keyword">if</span> l[j] == <span class="number">1</span>:</span><br><span class="line">                    tmp.append(nums[j])</span><br><span class="line">            ans.append(tmp)</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure><h2 id="解法二：dfs回溯法"><a href="#解法二：dfs回溯法" class="headerlink" title="解法二：dfs回溯法"></a>解法二：dfs回溯法</h2><p>dfs的方法在本质上也是针对每个位置的选择，不选择。所以每次carry到递归下一个轮次状态就是位置i，<strong>针对位置i的选择和不选择两条dfs分支</strong>。</p><p>另外在这个题里发现dfs的时候需要deepcopy复制一份，列表在dfs过程中不能指向相同的地址，否则一个改动了就全部改动了。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subsets</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: List[List[int]]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 递归思路，这个题涉及到了python的深浅拷贝问题，在dfs向下一层的时候本质上是复制了状态，所以要拷贝</span></span><br><span class="line">        res = []</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">i, tmp_list</span>):</span></span><br><span class="line">            <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">            :type i: int，代表当前到了dfs的第几层了</span></span><br><span class="line"><span class="string">            : type tmp_list: List[int]，代表当前带着哪些下到下一层了！！！！</span></span><br><span class="line"><span class="string">            &quot;&quot;&quot;</span></span><br><span class="line">            <span class="keyword">if</span> i == <span class="built_in">len</span>(nums):  <span class="comment"># 这类的递归一般用长度作为出口</span></span><br><span class="line">                res.append(tmp_list)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 不取的dfs分支</span></span><br><span class="line">            dfs(i+<span class="number">1</span>, copy.deepcopy(tmp_list))  <span class="comment"># 这里要传拷贝，否则会搞到一个分支上！！！</span></span><br><span class="line">            <span class="comment"># 取的dfs分支</span></span><br><span class="line">            tmp_list.append(nums[i])</span><br><span class="line">            dfs(i+<span class="number">1</span>, copy.deepcopy(tmp_list))  <span class="comment"># 这里要传拷贝</span></span><br><span class="line">            </span><br><span class="line">        dfs(<span class="number">0</span>, [])</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+          <category> LeetCode-热题 HOT 100 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数组 </tag>
+            
+            <tag> MEDIUM </tag>
+            
+            <tag> 位运算 </tag>
+            
+            <tag> 回溯 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>0-LeetCode笔记模板</title>
+      <link href="/2022/02/21/0-LeetCode%E7%AC%94%E8%AE%B0%E6%A8%A1%E6%9D%BF/"/>
+      <url>/2022/02/21/0-LeetCode%E7%AC%94%E8%AE%B0%E6%A8%A1%E6%9D%BF/</url>
+      
+        <content type="html"><![CDATA[<p>0.LeetCode笔记模板</p><p>个人使用，在写LeetCode相关博客的时候直接从这里复制模板了</p><span id="more"></span><h1 id="LeetCode单个题目模板如下"><a href="#LeetCode单个题目模板如下" class="headerlink" title="LeetCode单个题目模板如下"></a>LeetCode单个题目模板如下</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 0.××××××××-python</span><br><span class="line">date: 2022-02-21 18:11:44</span><br><span class="line">tags:</span><br><span class="line">    - ×××</span><br><span class="line">    - ×××</span><br><span class="line">    - MEDIUM</span><br><span class="line">categories:</span><br><span class="line">- LeetCode-python</span><br><span class="line">- LeetCode-热题 HOT 100</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">1.××××××××（中等）</span><br><span class="line"></span><br><span class="line">题目大意：××××××××××××</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line"># 题目</span><br><span class="line"></span><br><span class="line">[题目链接]()</span><br><span class="line"></span><br><span class="line"># 分析和解答</span><br><span class="line"></span><br></pre></td></tr></table></figure><h1 id="LeetCode周赛模板如下"><a href="#LeetCode周赛模板如下" class="headerlink" title="LeetCode周赛模板如下"></a>LeetCode周赛模板如下</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 280场LeetCode周赛</span><br><span class="line">date: 2022-02-14 01:58:59</span><br><span class="line">tags:</span><br><span class="line">    - </span><br><span class="line">    - EASY</span><br><span class="line">    - MEDIUM</span><br><span class="line">categories:</span><br><span class="line">- LeetCode-python</span><br><span class="line">- LeetCode周赛</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">周赛综述&amp;总结：</span><br><span class="line"></span><br><span class="line">××××××××××××××××</span><br><span class="line"></span><br><span class="line">第一题：××××××××××</span><br><span class="line"></span><br><span class="line">第二题：××××××××××</span><br><span class="line"></span><br><span class="line">第三题：××××××××××</span><br><span class="line"></span><br><span class="line">第四题：××××××××××</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 第一题：2000.××××××××</span><br><span class="line"></span><br><span class="line">[题目链接]()</span><br><span class="line"></span><br><span class="line">## 题目大意</span><br><span class="line"></span><br><span class="line">## 分析和解答</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 第一题：2000.××××××××</span><br><span class="line"></span><br><span class="line">[题目链接]()</span><br><span class="line"></span><br><span class="line">## 题目大意</span><br><span class="line"></span><br><span class="line">## 分析和解答</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 第一题：2000.××××××××</span><br><span class="line"></span><br><span class="line">[题目链接]()</span><br><span class="line"></span><br><span class="line">## 题目大意</span><br><span class="line"></span><br><span class="line">## 分析和解答</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 第一题：2000.××××××××</span><br><span class="line"></span><br><span class="line">[题目链接]()</span><br><span class="line"></span><br><span class="line">## 题目大意</span><br><span class="line"></span><br><span class="line">## 分析和解答</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>19.删除链表的倒数第N个结点-python</title>
+      <link href="/2022/02/21/19-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%BB%93%E7%82%B9-python/"/>
+      <url>/2022/02/21/19-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%BB%93%E7%82%B9-python/</url>
+      
+        <content type="html"><![CDATA[<p>19.删除链表的倒数第 N 个结点（中等）</p><p>题目大意：</p><p>给你一个链表，删除链表的倒数第 <code>n</code> 个结点，并且返回链表的头结点。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/">题目链接</a></p><p>题目大意：给你一个链表，删除链表的倒数第 <code>n</code> 个结点，并且返回链表的头结点。</p><p>示例1：<br><img src="/images/2022-02-21-23-49-06.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [1,2,3,4,5], n = 2</span><br><span class="line">输出：[1,2,3,5]</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [1], n = 1</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [1,2], n = 1</span><br><span class="line">输出：[1]</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>链表中结点的数目为 <code>sz</code></li><li><code>1 &lt;= sz &lt;= 30</code></li><li><code>0 &lt;= Node.val &lt;= 100</code></li><li><code>1 &lt;= n &lt;= sz</code></li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>这是一个经典的双指针题目了，保持pq指针之间的距离差是n，然后当p先到结尾后，把q.next那个地方删除了就可以。</p><p>这个题比较麻烦的地方在于很难一次性做对，需要自己构造一些相对极端的的case来测试下，例如只有一个节点的链表这样的。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode(object):</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, next=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.next = next</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeNthFromEnd</span>(<span class="params">self, head, n</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type head: ListNode</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :rtype: ListNode</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 注意自己构造一些badcase的例子，来把所有特殊情况覆盖掉</span></span><br><span class="line">        <span class="comment"># 双指针法，双指针之间的差距是n</span></span><br><span class="line">        p = head</span><br><span class="line">        q = head</span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; n:</span><br><span class="line">            q = q.<span class="built_in">next</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 让q指向最后一个不为None的，有一个异常情况是q已经是None了，应该删除头结点</span></span><br><span class="line">        <span class="keyword">if</span> q <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> head.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">while</span> q.<span class="built_in">next</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            p = p.<span class="built_in">next</span></span><br><span class="line">            q = q.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 删除p</span></span><br><span class="line">        p.<span class="built_in">next</span> = p.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> head</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+          <category> LeetCode-热题 HOT 100 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 双指针 </tag>
+            
+            <tag> MEDIUM </tag>
+            
+            <tag> 链表 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>101.对称二叉树-python</title>
+      <link href="/2022/02/14/101-%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91-python/"/>
+      <url>/2022/02/14/101-%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91-python/</url>
+      
+        <content type="html"><![CDATA[<p>101.对称二叉树（简单）</p><p>题目大意：</p><p>给你一个二叉树的根节点 <code>root</code> ， 检查它是否轴对称。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/symmetric-tree/">题目链接</a></p><p>给你一个二叉树的根节点 <code>root</code> ， 检查它是否轴对称。</p><p>示例1：<br><img src="/images/2022-02-14-15-53-42.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,2,2,3,4,4,3]</span><br><span class="line">输出：true</span><br></pre></td></tr></table></figure><p>示例2：<br><img src="/images/2022-02-14-15-53-53.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,2,2,null,3,null,3]</span><br><span class="line">输出：false</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>树中节点数目在范围 <code>[1, 1000]</code> 内</li><li>-100 &lt;= Node.val &lt;= 100</li></ul><h1 id="题目分析和解答"><a href="#题目分析和解答" class="headerlink" title="题目分析和解答"></a>题目分析和解答</h1><p>这种题又和完全的自递归题目有些区别，需要再构造一个dfscheck的函数，来套一下递归。</p><p>这个<code>dfs_check()</code>函数的输入是两个root这样的感觉，先判断当前节点的左右是否相等，然后往下嵌套递归，判断当前节点的左的左和当前节点右的右，还有当前节点左的右和当前节点右的左是不是一样就行了，在前边要加入一些None的出口递归条件</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode(object):</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, left=None, right=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.left = left</span></span><br><span class="line"><span class="comment">#         self.right = right</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isSymmetric</span>(<span class="params">self, root</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">dfs_check</span>(<span class="params">root1, root2</span>):</span></span><br><span class="line">            <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">            用于判断一个点的左右子树是否轴对称，首次输入两个都是这个树的根</span></span><br><span class="line"><span class="string">            &quot;&quot;&quot;</span></span><br><span class="line">            <span class="keyword">if</span> root1 <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">and</span> root2 <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">if</span> root1 <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> root2 <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 当前节点的左右，然后递归下一层的左右！</span></span><br><span class="line">            <span class="keyword">return</span> root1.val == root2.val <span class="keyword">and</span> dfs_check(root1.left, root2.right) <span class="keyword">and</span> dfs_check(root1.right, root2.left)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dfs_check(root, root)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+          <category> LeetCode-热题 HOT 100 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 树 </tag>
+            
+            <tag> 深度优先搜索 </tag>
+            
+            <tag> 广度优先搜索 </tag>
+            
+            <tag> 二叉树 </tag>
+            
+            <tag> EASY </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>617.合并二叉树-python</title>
+      <link href="/2022/02/14/617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91-python/"/>
+      <url>/2022/02/14/617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91-python/</url>
+      
+        <content type="html"><![CDATA[<p>617.合并二叉树（简单）</p><p>题目大意：</p><p>给你两棵二叉树： <code>root1</code> 和 <code>root2</code> 。</p><p>想象一下，当你将其中一棵覆盖到另一棵之上时，两棵树上的一些节点将会重叠（而另一些不会）。你需要将这两棵树合并成一棵新二叉树。合并的规则是：如果两个节点重叠，那么将这两个节点的值相加作为合并后节点的新值；否则，<strong>不为</strong> null 的节点将直接作为新二叉树的节点。</p><p>返回合并后的二叉树。</p><p><strong>注意</strong>: 合并过程必须从两个树的根节点开始。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/merge-two-binary-trees/">题目链接</a></p><p>给你两棵二叉树： <code>root1</code> 和 <code>root2</code> 。</p><p>想象一下，当你将其中一棵覆盖到另一棵之上时，两棵树上的一些节点将会重叠（而另一些不会）。你需要将这两棵树合并成一棵新二叉树。合并的规则是：如果两个节点重叠，那么将这两个节点的值相加作为合并后节点的新值；否则，<strong>不为</strong> null 的节点将直接作为新二叉树的节点。</p><p>返回合并后的二叉树。</p><p><strong>注意</strong>: 合并过程必须从两个树的根节点开始。</p><p>示例1：<br><img src="/images/2022-02-14-15-33-49.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root1 = [1,3,2,5], root2 = [2,1,3,null,4,null,7]</span><br><span class="line">输出：[3,4,5,5,4,null,7]</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root1 = [1], root2 = [1,2]</span><br><span class="line">输出：[2,2]</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>两棵树中的节点数目在范围 <code>[0, 2000]</code> 内</li><li>-10^4 &lt;= Node.val &lt;= 10^4</li></ul><h1 id="题目分析和解答"><a href="#题目分析和解答" class="headerlink" title="题目分析和解答"></a>题目分析和解答</h1><p>这个题有一种自递归的感觉，题目的初始Solution类如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeTrees</span>(<span class="params">self, root1, root2</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type root1: TreeNode</span></span><br><span class="line"><span class="string">        :type root2: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: TreeNode</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure><p>rtype是一个TreeNode类型的，所以能有一种自递归的感觉，先建立TreeNode，然后</p><p>这种自递归的题还是可以先把主干写好了，再决定递归出口那样的感觉。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode(object):</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, left=None, right=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.left = left</span></span><br><span class="line"><span class="comment">#         self.right = right</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeTrees</span>(<span class="params">self, root1, root2</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type root1: TreeNode</span></span><br><span class="line"><span class="string">        :type root2: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: TreeNode</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 整个题目有一种自递归的感觉</span></span><br><span class="line">        <span class="keyword">if</span> root1 <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> root2</span><br><span class="line">        <span class="keyword">if</span> root2 <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> root1</span><br><span class="line">        </span><br><span class="line">        merged_node = TreeNode(val=root1.val + root2.val)</span><br><span class="line">        merged_node.left = self.mergeTrees(root1.left, root2.left)</span><br><span class="line">        merged_node.right = self.mergeTrees(root1.right, root2.right)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span>  merged_node</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+          <category> LeetCode-热题 HOT 100 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 树 </tag>
+            
+            <tag> 深度优先搜索 </tag>
+            
+            <tag> 广度优先搜索 </tag>
+            
+            <tag> 二叉树 </tag>
+            
+            <tag> EASY </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>280场LeetCode周赛</title>
       <link href="/2022/02/14/280%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/"/>
       <url>/2022/02/14/280%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/</url>
@@ -51,9 +204,9 @@
       
         <tags>
             
-            <tag> 数组 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 数组 </tag>
             
             <tag> MEDIUM </tag>
             
@@ -109,15 +262,15 @@
       
         <tags>
             
-            <tag> 位运算 </tag>
+            <tag> EASY </tag>
             
             <tag> 数组 </tag>
-            
-            <tag> EASY </tag>
             
             <tag> 双指针 </tag>
             
             <tag> MEDIUM </tag>
+            
+            <tag> 位运算 </tag>
             
             <tag> 哈希表 </tag>
             
@@ -185,9 +338,9 @@
       
         <tags>
             
-            <tag> 数组 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 数组 </tag>
             
             <tag> 哈希表 </tag>
             
@@ -245,11 +398,11 @@
       
         <tags>
             
-            <tag> 位运算 </tag>
+            <tag> EASY </tag>
             
             <tag> 数组 </tag>
             
-            <tag> EASY </tag>
+            <tag> 位运算 </tag>
             
         </tags>
       
@@ -276,8 +429,6 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
             <tag> 树 </tag>
             
             <tag> 深度优先搜索 </tag>
@@ -285,6 +436,8 @@
             <tag> 广度优先搜索 </tag>
             
             <tag> 二叉树 </tag>
+            
+            <tag> EASY </tag>
             
         </tags>
       
@@ -311,13 +464,13 @@
       
         <tags>
             
-            <tag> 位运算 </tag>
+            <tag> EASY </tag>
             
             <tag> 数组 </tag>
             
-            <tag> EASY </tag>
-            
             <tag> MEDIUM </tag>
+            
+            <tag> 位运算 </tag>
             
             <tag> 哈希表 </tag>
             
@@ -354,17 +507,17 @@
       
         <tags>
             
-            <tag> 数组 </tag>
-            
             <tag> EASY </tag>
             
             <tag> 贪心 </tag>
             
+            <tag> 数组 </tag>
+            
             <tag> MEDIUM </tag>
             
-            <tag> 动态规划 </tag>
-            
             <tag> 字符串 </tag>
+            
+            <tag> 动态规划 </tag>
             
             <tag> 数学 </tag>
             
@@ -673,11 +826,11 @@
       
         <tags>
             
-            <tag> 数组 </tag>
-            
             <tag> EASY </tag>
             
             <tag> 贪心 </tag>
+            
+            <tag> 数组 </tag>
             
             <tag> MEDIUM </tag>
             
@@ -714,9 +867,9 @@
       
         <tags>
             
-            <tag> 数组 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 数组 </tag>
             
             <tag> MEDIUM </tag>
             
@@ -782,13 +935,13 @@
       
         <tags>
             
-            <tag> 数组 </tag>
-            
-            <tag> MEDIUM </tag>
-            
             <tag> 深度优先搜索 </tag>
             
             <tag> 广度优先搜索 </tag>
+            
+            <tag> 数组 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 并查集 </tag>
             
@@ -850,9 +1003,9 @@
       
         <tags>
             
-            <tag> 动态规划 </tag>
-            
             <tag> 字符串 </tag>
+            
+            <tag> 动态规划 </tag>
             
             <tag> HARD </tag>
             
@@ -881,9 +1034,9 @@
       
         <tags>
             
-            <tag> 数组 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 数组 </tag>
             
             <tag> 双指针 </tag>
             
@@ -1015,15 +1168,15 @@
             
             <tag> MEDIUM </tag>
             
-            <tag> 动态规划 </tag>
+            <tag> 字典树 </tag>
+            
+            <tag> 记忆化搜索 </tag>
             
             <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
             
-            <tag> 字典树 </tag>
-            
-            <tag> 记忆化搜索 </tag>
+            <tag> 动态规划 </tag>
             
         </tags>
       
@@ -1110,13 +1263,13 @@
             
             <tag> MEDIUM </tag>
             
+            <tag> 字典树 </tag>
+            
             <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
             
             <tag> 设计 </tag>
-            
-            <tag> 字典树 </tag>
             
         </tags>
       
@@ -1363,9 +1516,9 @@
       
         <tags>
             
-            <tag> 数组 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 数组 </tag>
             
             <tag> 动态规划 </tag>
             
@@ -1491,11 +1644,11 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
             <tag> 树 </tag>
             
             <tag> 二叉树 </tag>
+            
+            <tag> EASY </tag>
             
             <tag> 二叉搜索树 </tag>
             
@@ -1701,9 +1854,9 @@
       
         <tags>
             
-            <tag> 论文笔记 </tag>
-            
             <tag> NLP </tag>
+            
+            <tag> 论文笔记 </tag>
             
             <tag> Dialogue State Tracking </tag>
             
