@@ -24,9 +24,9 @@
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 位运算 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 回溯 </tag>
             
@@ -175,9 +175,9 @@
       
         <tags>
             
-            <tag> MEDIUM </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> MEDIUM </tag>
             
         </tags>
       
@@ -204,17 +204,17 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 数组 </tag>
             
             <tag> MEDIUM </tag>
             
-            <tag> EASY </tag>
-            
             <tag> 哈希表 </tag>
             
-            <tag> 排序 </tag>
-            
             <tag> 设计 </tag>
+            
+            <tag> 排序 </tag>
             
             <tag> 数学 </tag>
             
@@ -262,15 +262,15 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 数组 </tag>
+            
+            <tag> 位运算 </tag>
             
             <tag> 双指针 </tag>
             
             <tag> MEDIUM </tag>
-            
-            <tag> EASY </tag>
-            
-            <tag> 位运算 </tag>
             
             <tag> 哈希表 </tag>
             
@@ -311,9 +311,9 @@
       
         <tags>
             
-            <tag> MEDIUM </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> MEDIUM </tag>
             
         </tags>
       
@@ -338,9 +338,9 @@
       
         <tags>
             
-            <tag> 数组 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 数组 </tag>
             
             <tag> 哈希表 </tag>
             
@@ -398,9 +398,9 @@
       
         <tags>
             
-            <tag> 数组 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 数组 </tag>
             
             <tag> 位运算 </tag>
             
@@ -464,13 +464,13 @@
       
         <tags>
             
-            <tag> 数组 </tag>
-            
-            <tag> MEDIUM </tag>
-            
             <tag> EASY </tag>
             
+            <tag> 数组 </tag>
+            
             <tag> 位运算 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 哈希表 </tag>
             
@@ -478,9 +478,9 @@
             
             <tag> 排序 </tag>
             
-            <tag> 滑动窗口 </tag>
-            
             <tag> 矩阵 </tag>
+            
+            <tag> 滑动窗口 </tag>
             
         </tags>
       
@@ -507,15 +507,15 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
+            <tag> EASY </tag>
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
-            
-            <tag> EASY </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> 贪心 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 字符串 </tag>
             
@@ -617,9 +617,9 @@
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 矩阵 </tag>
             
@@ -648,9 +648,9 @@
       
         <tags>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 数学 </tag>
             
@@ -681,9 +681,9 @@
       
         <tags>
             
-            <tag> 双指针 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 双指针 </tag>
             
             <tag> 哈希表 </tag>
             
@@ -826,13 +826,13 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
+            <tag> EASY </tag>
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
+            <tag> 贪心 </tag>
             
-            <tag> EASY </tag>
+            <tag> MEDIUM </tag>
             
             <tag> 字符串 </tag>
             
@@ -867,11 +867,11 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 数组 </tag>
             
             <tag> MEDIUM </tag>
-            
-            <tag> EASY </tag>
             
             <tag> 哈希表 </tag>
             
@@ -935,13 +935,13 @@
       
         <tags>
             
-            <tag> 数组 </tag>
-            
-            <tag> MEDIUM </tag>
-            
             <tag> 深度优先搜索 </tag>
             
             <tag> 广度优先搜索 </tag>
+            
+            <tag> 数组 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 并查集 </tag>
             
@@ -1034,9 +1034,9 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
-            
             <tag> 数组 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 双指针 </tag>
             
@@ -1166,17 +1166,17 @@
       
         <tags>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 动态规划 </tag>
             
-            <tag> 哈希表 </tag>
+            <tag> MEDIUM </tag>
             
-            <tag> 字符串 </tag>
+            <tag> 哈希表 </tag>
             
             <tag> 字典树 </tag>
             
             <tag> 记忆化搜索 </tag>
+            
+            <tag> 字符串 </tag>
             
         </tags>
       
@@ -1205,9 +1205,9 @@
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> MEDIUM </tag>
             
         </tags>
       
@@ -1265,9 +1265,9 @@
             
             <tag> 哈希表 </tag>
             
-            <tag> 字符串 </tag>
-            
             <tag> 字典树 </tag>
+            
+            <tag> 字符串 </tag>
             
             <tag> 设计 </tag>
             
@@ -1472,8 +1472,6 @@
       
       <categories>
           
-          <category> TODO优化 </category>
-          
           <category> LeetCode-python </category>
           
       </categories>
@@ -1486,6 +1484,8 @@
             <tag> 哈希表 </tag>
             
             <tag> 数学 </tag>
+            
+            <tag> TODO优化 </tag>
             
             <tag> 水塘抽样 </tag>
             
@@ -1516,9 +1516,9 @@
       
         <tags>
             
-            <tag> 数组 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 数组 </tag>
             
             <tag> 动态规划 </tag>
             
@@ -1538,8 +1538,6 @@
       
       <categories>
           
-          <category> TODO优化 </category>
-          
           <category> LeetCode-python </category>
           
           <category> LeetCode-热题 HOT 100 </category>
@@ -1551,11 +1549,13 @@
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 动态规划 </tag>
             
+            <tag> MEDIUM </tag>
+            
             <tag> 二分查找 </tag>
+            
+            <tag> TODO优化 </tag>
             
         </tags>
       
@@ -1856,9 +1856,9 @@
             
             <tag> NLP </tag>
             
-            <tag> Dialogue State Tracking </tag>
-            
             <tag> 论文笔记 </tag>
+            
+            <tag> Dialogue State Tracking </tag>
             
         </tags>
       
