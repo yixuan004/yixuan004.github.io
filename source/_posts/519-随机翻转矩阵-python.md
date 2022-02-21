@@ -9,7 +9,7 @@ tags:
     - MEDIUM
 categories:
 	- LeetCode-python
-	- 暂未实现优化解法
+	- TODO优化
 ---
 
 519.随机翻转矩阵（中等）

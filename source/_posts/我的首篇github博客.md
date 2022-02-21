@@ -4,7 +4,7 @@ date: 2021-09-13 08:01:04
 tags: 
     - hexo相关
 categories:
-	- 编程开发
+	- Crsenal
 ---
 
 **何老版推荐的github.io+hexo好用啊**
