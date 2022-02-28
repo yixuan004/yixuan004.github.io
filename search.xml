@@ -4,6 +4,80 @@
   
     
     <entry>
+      <title>282场LeetCode周赛</title>
+      <link href="/2022/02/27/282%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/"/>
+      <url>/2022/02/27/282%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/</url>
+      
+        <content type="html"><![CDATA[<p>周赛综述&amp;总结：</p><p>又是光速做完前两个题，然后盯着第三题发呆的一周周赛，第三题这次用到的思路是二分，感觉还是要多刷题多积累，可能需要找个时间复盘一下做题常用到的思路了吧哈哈哈，现在感觉思路有点打不开了，可能要阶段性总结梳理下吧，这样避免下有些想法太极端了~</p><p>第一题：这个题python有<code>str.startswtih()</code>函数，用这个返回值的<code>True</code>和<code>False</code>直接加就行了；</p><p>第二题：一眼看过去都有点没看懂这个题，后来感觉就是一个计数两个字符串的题目，计数一下然后互相用Counter相减的性质，互相相减后统计字符个数就行了；</p><p>第三题：这个题一眼看过去就感觉有很暴力的思路，遍历每个时刻，在每个时刻下再进一步遍历数组，判断是不是可以超过需要的趟数，后来在大佬的提醒下是在遍历每个时刻这里可以二分，这很符合二分的性质，也是好久没在具体的题里用到过二分了；</p><p>第四题：鸽了鸽了；</p><span id="more"></span><h1 id="第一题：6008-统计包含给定前缀的字符串"><a href="#第一题：6008-统计包含给定前缀的字符串" class="headerlink" title="第一题：6008.统计包含给定前缀的字符串"></a>第一题：6008.统计包含给定前缀的字符串</h1><p><a href="https://leetcode-cn.com/problems/counting-words-with-a-given-prefix/">题目链接</a></p><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个字符串数组 <code>words</code> 和一个字符串 <code>pref</code> 。</p><p>返回 <code>words</code> 中以 <code>pref</code> 作为 <strong>前缀</strong> 的字符串的数目。</p><p>字符串 <code>s</code> 的 <strong>前缀</strong> 就是  <code>s</code> 的任一前导连续字符串。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：words = [&quot;pay&quot;,&quot;attention&quot;,&quot;practice&quot;,&quot;attend&quot;], pref = &quot;at&quot;</span><br><span class="line">输出：2</span><br><span class="line">解释：以 &quot;at&quot; 作为前缀的字符串有两个，分别是：&quot;attention&quot; 和 &quot;attend&quot; 。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：words = [&quot;leetcode&quot;,&quot;win&quot;,&quot;loops&quot;,&quot;success&quot;], pref = &quot;code&quot;</span><br><span class="line">输出：0</span><br><span class="line">解释：不存在以 &quot;code&quot; 作为前缀的字符串。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li><code>1 &lt;= words.length &lt;= 100</code></li><li><code>1 &lt;= words[i].length, pref.length &lt;= 100</code></li><li><code>words[i]</code> 和 <code>pref</code> 由小写英文字母组成</li></ul><h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>直接调用python的<code>str.startswith(pref)</code>函数就可以，这里或许可以借机复习下Trie树的数据结构，每个节点由一个mapping的词典和<code>is_last</code>标记组成，第一次插入一个单词的时候就是不断创造mapping里边嵌套的mapping，中间的节点is_last都是False，最后的一个节点is_last设置成True；之后插入第二个单词的时候就有一种寻迹的感觉了，如果已经有了就不用重复插入；</p><p>p.s.没想到这题和某top10排名大佬代码一模一样哈哈哈，奇怪的开心点增加了</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">prefixCount</span>(<span class="params">self, words, pref</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type words: List[str]</span></span><br><span class="line"><span class="string">        :type pref: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> words:</span><br><span class="line">            <span class="keyword">if</span> word.startswith(pref):</span><br><span class="line">               res += <span class="number">1</span> </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure><h1 id="第二题：2186-使两字符串互为字母异位词的最少步骤数"><a href="#第二题：2186-使两字符串互为字母异位词的最少步骤数" class="headerlink" title="第二题：2186.使两字符串互为字母异位词的最少步骤数"></a>第二题：2186.使两字符串互为字母异位词的最少步骤数</h1><p><a href="https://leetcode-cn.com/problems/minimum-number-of-steps-to-make-two-strings-anagram-ii/">题目链接</a></p><h2 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你两个字符串 <code>s</code> 和 <code>t</code> 。在一步操作中，你可以给 <code>s</code> 或者 <code>t</code> 追加 <strong>任一字符</strong> 。</p><p>返回使 <code>s</code> 和 <code>t</code> 互为 <strong>字母异位词</strong> 所需的最少步骤数。</p><p><strong>字母异位词</strong> 指字母相同但是顺序不同（或者相同）的字符串。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;leetcode&quot;, t = &quot;coats&quot;</span><br><span class="line">输出：7</span><br><span class="line">解释：</span><br><span class="line">- 执行 2 步操作，将 &quot;as&quot; 追加到 s = &quot;leetcode&quot; 中，得到 s = &quot;leetcodeas&quot; 。</span><br><span class="line">- 执行 5 步操作，将 &quot;leede&quot; 追加到 t = &quot;coats&quot; 中，得到 t = &quot;coatsleede&quot; 。</span><br><span class="line">&quot;leetcodeas&quot; 和 &quot;coatsleede&quot; 互为字母异位词。</span><br><span class="line">总共用去 2 + 5 = 7 步。</span><br><span class="line">可以证明，无法用少于 7 步操作使这两个字符串互为字母异位词。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;night&quot;, t = &quot;thing&quot;</span><br><span class="line">输出：0</span><br><span class="line">解释：给出的字符串已经互为字母异位词。因此，不需要任何进一步操作。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li><code>1 &lt;= s.length, t.length &lt;= 2 * 10^5</code></li><li><code>s</code> 和 <code>t</code> 由小写英文字符组成</li></ul><h2 id="分析和解答-1"><a href="#分析和解答-1" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>看到这个题就想着要拟合测试样例，感觉能拟合测试样例可能就差不多能做出来了，然后看到第二个样例感觉就是比较明显的Counter了，感觉就是一个计数两个字符串的题目，计数一下然后互相用Counter相减的性质，互相相减后统计字符个数就行了；</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minSteps</span>(<span class="params">self, s, t</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :type t: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        s_counter = Counter(s)</span><br><span class="line">        t_counter = Counter(t)</span><br><span class="line">        <span class="comment"># print(s_counter)</span></span><br><span class="line">        <span class="comment"># print(t_counter)</span></span><br><span class="line">        </span><br><span class="line">        s_t_counter = s_counter - t_counter</span><br><span class="line">        t_s_counter = t_counter - s_counter</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># print(&quot;s_t_counter:&quot;, s_t_counter)</span></span><br><span class="line">        <span class="comment"># print(&quot;t_s_counter:&quot;, t_s_counter)</span></span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> key, value <span class="keyword">in</span> s_t_counter.items():</span><br><span class="line">            res += value</span><br><span class="line">        <span class="keyword">for</span> key, value <span class="keyword">in</span> t_s_counter.items():</span><br><span class="line">            res += value</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure><h1 id="第三题：2187-完成旅途的最少时间"><a href="#第三题：2187-完成旅途的最少时间" class="headerlink" title="第三题：2187.完成旅途的最少时间"></a>第三题：2187.完成旅途的最少时间</h1><p><a href="https://leetcode-cn.com/problems/minimum-time-to-complete-trips/">题目链接</a></p><h2 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个数组 <code>time</code> ，其中 <code>time[i]</code> 表示第 <code>i</code> 辆公交车完成 <strong>一趟旅途</strong> 所需要花费的时间。</p><p>每辆公交车可以 <strong>连续</strong> 完成多趟旅途，也就是说，一辆公交车当前旅途完成后，可以 <strong>立马开始</strong> 下一趟旅途。每辆公交车 独立 运行，也就是说可以同时有多辆公交车在运行且互不影响。</p><p>给你一个整数 <code>totalTrips</code> ，表示所有公交车 <strong>总共</strong> 需要完成的旅途数目。请你返回完成 <strong>至少</strong> <code>totalTrips</code> 趟旅途需要花费的 <strong>最少</strong> 时间。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">输入：time = [1,2,3], totalTrips = 5</span><br><span class="line">输出：3</span><br><span class="line">解释：</span><br><span class="line">- 时刻 t = 1 ，每辆公交车完成的旅途数分别为 [1,0,0] 。</span><br><span class="line">  已完成的总旅途数为 1 + 0 + 0 = 1 。</span><br><span class="line">- 时刻 t = 2 ，每辆公交车完成的旅途数分别为 [2,1,0] 。</span><br><span class="line">  已完成的总旅途数为 2 + 1 + 0 = 3 。</span><br><span class="line">- 时刻 t = 3 ，每辆公交车完成的旅途数分别为 [3,1,1] 。</span><br><span class="line">  已完成的总旅途数为 3 + 1 + 1 = 5 。</span><br><span class="line">所以总共完成至少 5 趟旅途的最少时间为 3 。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：time = [2], totalTrips = 1</span><br><span class="line">输出：2</span><br><span class="line">解释：</span><br><span class="line">只有一辆公交车，它将在时刻 t = 2 完成第一趟旅途。</span><br><span class="line">所以完成 1 趟旅途的最少时间为 2 。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li><code>1 &lt;= time.length &lt;= 10^5</code></li><li><code>1 &lt;= time[i], totalTrips &lt;= 10^7</code></li></ul><h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>这个题一眼看过去就感觉有很暴力的思路，遍历每个时刻，在每个时刻下再进一步遍历数组，判断是不是可以超过需要的趟数，后来在大佬的提醒下是在遍历每个时刻这里可以二分，这很符合二分的性质，也是好久没在具体的题里用到过二分了；</p><p>二分的过程细节需要把握下，就是 <code>right left = mid</code> 还是 <code>mid + 1</code> 还是 <code>mid - 1</code> 这类的问题。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minimumTime</span>(<span class="params">self, time, totalTrips</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type time: List[int]</span></span><br><span class="line"><span class="string">        :type totalTrips: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">judge</span>(<span class="params">mid, time, totalTrips</span>):</span></span><br><span class="line">            tmp = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> t <span class="keyword">in</span> time:</span><br><span class="line">                tmp += mid // t</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> tmp &gt;= totalTrips:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            </span><br><span class="line">        left = <span class="number">1</span></span><br><span class="line">        right = <span class="built_in">min</span>(time) * totalTrips</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> left &lt; right:</span><br><span class="line">            mid = (left + right) &gt;&gt; <span class="number">1</span>  <span class="comment"># 中间那个时间</span></span><br><span class="line">            <span class="comment"># 判断中间那个时间是否可以完成</span></span><br><span class="line">            <span class="keyword">if</span> judge(mid, time, totalTrips):</span><br><span class="line">                right = mid</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                left = mid + <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> left</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+          <category> LeetCode周赛 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> EASY </tag>
+            
+            <tag> MEDIUM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>281场LeetCode周赛</title>
+      <link href="/2022/02/27/281%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/"/>
+      <url>/2022/02/27/281%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/</url>
+      
+        <content type="html"><![CDATA[<p>周赛综述&amp;总结：</p><p>依旧是前两个题很简单，然后第三题直接卡到死的节奏，感觉近几次周赛第三题感觉都不是很好，可能需要阶段性的复习一下？</p><p>总结下来的话算法似乎都是在可以知道范围内的，比如这次题印象比较深的就是要正确理解题意或者说不要走到和题意错误的路上，有些题可能需要灵光一现用一些广泛用的Coutner、二分、前缀和、有限队列单调栈类的，有些题可能写着写着会有思路吧。</p><p>总之感觉刷题这个事还是要持续进行，总有瓶颈也总需要突破，冲！</p><p>第一题：看到<code>n &lt; 1000</code>感觉就直接暴力模拟就行了，模拟起来还是相对简单的，python对字符的操作太方便了；</p><p>第二题：一个链表的操作题，很简单就能搞定了，纯链表题现在感觉没有太难的；</p><p>第三题：这个题这次又卡的时间太长了，开始想的是排序后原地交换的思路，然后感觉就思维掉到一个坑里边了，一直在排序后原地交换一些细节条件里考虑来考虑去。后来大佬提醒说可以用Counter后排序贪心的思路，感觉这个思路一下就简单并且明确了；</p><p>第四题：鸽了鸽了。</p><span id="more"></span><h1 id="第一题：2180-统计各位数字之和为偶数的整数个数"><a href="#第一题：2180-统计各位数字之和为偶数的整数个数" class="headerlink" title="第一题：2180.统计各位数字之和为偶数的整数个数"></a>第一题：2180.统计各位数字之和为偶数的整数个数</h1><p><a href="https://leetcode-cn.com/problems/count-integers-with-even-digit-sum/">题目链接</a></p><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个正整数 <code>num</code> ，请你统计并返回 <strong>小于或等于</strong> <code>num</code> 且各位数字之和为 <strong>偶数</strong> 的正整数的数目。</p><p>正整数的 <strong>各位数字之和</strong> 是其所有位上的对应数字相加的结果。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：num = 4</span><br><span class="line">输出：2</span><br><span class="line">解释：</span><br><span class="line">只有 2 和 4 满足小于等于 4 且各位数字之和为偶数。 </span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：num = 30</span><br><span class="line">输出：14</span><br><span class="line">解释：</span><br><span class="line">只有 14 个整数满足小于等于 30 且各位数字之和为偶数，分别是： </span><br><span class="line">2、4、6、8、11、13、15、17、19、20、22、24、26 和 28 。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li><code>1 &lt;= num &lt;= 1000</code></li></ul><h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>考虑到数据范围的1000，直接暴力就可以了</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">countEven</span>(<span class="params">self, num</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type num: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">judge</span>(<span class="params">n</span>):</span></span><br><span class="line">            res = <span class="number">0</span></span><br><span class="line">            str_n = <span class="built_in">str</span>(n)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(str_n)):</span><br><span class="line">                res += <span class="built_in">int</span>(str_n[i])</span><br><span class="line">            <span class="keyword">return</span> res % <span class="number">2</span> == <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, num+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> judge(i):</span><br><span class="line">                res += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure><h1 id="第二题：2181-合并零之间的节点"><a href="#第二题：2181-合并零之间的节点" class="headerlink" title="第二题：2181.合并零之间的节点"></a>第二题：2181.合并零之间的节点</h1><p><a href="https://leetcode-cn.com/problems/merge-nodes-in-between-zeros/">题目链接</a></p><h2 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个链表的头节点 <code>head</code> ，该链表包含由 <code>0</code> 分隔开的一连串整数。链表的 <strong>开端</strong> 和 <strong>末尾</strong> 的节点都满足 <code>Node.val == 0</code> 。</p><p>对于每两个相邻的 ```0`` ，请你将它们之间的所有节点合并成一个节点，其值是所有已合并节点的值之和。然后将所有 0 移除，修改后的链表不应该含有任何 0 。</p><p>返回修改后链表的头节点 <code>head</code> 。</p><p>示例1：<br><img src="/images/2022-02-27-22-48-01.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [0,3,1,0,4,5,2,0]</span><br><span class="line">输出：[4,11]</span><br><span class="line">解释：</span><br><span class="line">上图表示输入的链表。修改后的链表包含：</span><br><span class="line">- 标记为绿色的节点之和：3 + 1 = 4</span><br><span class="line">- 标记为红色的节点之和：4 + 5 + 2 = 11</span><br></pre></td></tr></table></figure><p>示例2：<br><img src="/images/2022-02-27-22-48-28.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [0,1,0,3,0,2,2,0]</span><br><span class="line">输出：[1,3,4]</span><br><span class="line">解释：</span><br><span class="line">上图表示输入的链表。修改后的链表包含：</span><br><span class="line">- 标记为绿色的节点之和：1 = 1</span><br><span class="line">- 标记为红色的节点之和：3 = 3</span><br><span class="line">- 标记为黄色的节点之和：2 + 2 = 4</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>列表中的节点数目在范围 <code>[3, 2 * 10^5]</code> 内</li><li><code>0 &lt;= Node.val &lt;= 1000</code></li><li><strong>不</strong> 存在连续两个 <code>Node.val == 0</code> 的节点</li><li>链表的 <strong>开端</strong> 和 <strong>末尾</strong> 节点都满足 <code>Node.val == 0</code></li></ul><h2 id="分析和解答-1"><a href="#分析和解答-1" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>看起来提示里很多条件都是避免特殊情况用的，链表题比较复杂的地方在于经常有一些很极端的case只能靠测试样例来debug，很难一次想到，这个题没有这个问题不过也需要注意下</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode(object):</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, next=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.next = next</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeNodes</span>(<span class="params">self, head</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type head: Optional[ListNode]</span></span><br><span class="line"><span class="string">        :rtype: Optional[ListNode]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        new_head = ListNode(val=<span class="number">0</span>, <span class="built_in">next</span>=<span class="literal">None</span>)</span><br><span class="line">        q = new_head</span><br><span class="line"></span><br><span class="line">        tmp = <span class="number">0</span></span><br><span class="line">        head = head.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">while</span> head <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">if</span> head.val == <span class="number">0</span>:</span><br><span class="line">                tmp_node = ListNode(val=tmp)</span><br><span class="line">                q.<span class="built_in">next</span> = tmp_node</span><br><span class="line">                q = q.<span class="built_in">next</span></span><br><span class="line">                tmp = <span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                tmp += head.val</span><br><span class="line"></span><br><span class="line">            head = head.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> new_head.<span class="built_in">next</span></span><br></pre></td></tr></table></figure><h1 id="第三题：2182-构造限制重复的字符串"><a href="#第三题：2182-构造限制重复的字符串" class="headerlink" title="第三题：2182.构造限制重复的字符串"></a>第三题：2182.构造限制重复的字符串</h1><p><a href="https://leetcode-cn.com/problems/construct-string-with-repeat-limit/">题目链接</a></p><h2 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个字符串 <code>s</code> 和一个整数 <code>repeatLimit</code> ，用 <code>s</code> 中的字符构造一个新字符串 <code>repeatLimitedString</code> ，使任何字母 <strong>连续</strong> 出现的次数都不超过 <code>repeatLimit</code> 次。你不必使用 <code>s</code> 中的全部字符。</p><p>返回 <strong>字典序最大的</strong> <code>repeatLimitedString</code> 。</p><p>如果在字符串 <code>a</code> 和 <code>b</code> 不同的第一个位置，字符串 <code>a</code> 中的字母在字母表中出现时间比字符串 <code>b</code> 对应的字母晚，则认为字符串 <code>a</code> 比字符串 <code>b</code> <strong>字典序更大</strong> 。如果字符串中前 <code>min(a.length, b.length)</code> 个字符都相同，那么较长的字符串字典序更大。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;cczazcc&quot;, repeatLimit = 3</span><br><span class="line">输出：&quot;zzcccac&quot;</span><br><span class="line">解释：使用 s 中的所有字符来构造 repeatLimitedString &quot;zzcccac&quot;。</span><br><span class="line">字母 &#x27;a&#x27; 连续出现至多 1 次。</span><br><span class="line">字母 &#x27;c&#x27; 连续出现至多 3 次。</span><br><span class="line">字母 &#x27;z&#x27; 连续出现至多 2 次。</span><br><span class="line">因此，没有字母连续出现超过 repeatLimit 次，字符串是一个有效的 repeatLimitedString 。</span><br><span class="line">该字符串是字典序最大的 repeatLimitedString ，所以返回 &quot;zzcccac&quot; 。</span><br><span class="line">注意，尽管 &quot;zzcccca&quot; 字典序更大，但字母 &#x27;c&#x27; 连续出现超过 3 次，所以它不是一个有效的 repeatLimitedString 。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;aababab&quot;, repeatLimit = 2</span><br><span class="line">输出：&quot;bbabaa&quot;</span><br><span class="line">解释：</span><br><span class="line">使用 s 中的一些字符来构造 repeatLimitedString &quot;bbabaa&quot;。 </span><br><span class="line">字母 &#x27;a&#x27; 连续出现至多 2 次。 </span><br><span class="line">字母 &#x27;b&#x27; 连续出现至多 2 次。 </span><br><span class="line">因此，没有字母连续出现超过 repeatLimit 次，字符串是一个有效的 repeatLimitedString 。 </span><br><span class="line">该字符串是字典序最大的 repeatLimitedString ，所以返回 &quot;bbabaa&quot; 。 </span><br><span class="line">注意，尽管 &quot;bbabaaa&quot; 字典序更大，但字母 &#x27;a&#x27; 连续出现超过 2 次，所以它不是一个有效的 repeatLimitedString 。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>1 &lt;= repeatLimit &lt;= s.length &lt;= 10^5</li><li><code>s</code>由小写英文字母组成</li></ul><h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>这个题现场做的时候又做了好久好久，最后还是gg了，当时主要考虑的是一种排序后交换的思路，但是交换的思路最后就越换越乱，比如换完了后在那个位置的“指针”是否要++这样的；</p><p>后来大佬给了一种Counter计数排序后贪心的思路感觉能想到的话代码实现就比较简单了，每次取最头的元素，然后取够个数了后就交替取一个下一个，如果没有下一个就代表已经取不了了，这样实际上有一种类似于队列的小思想在里边</p><p>另外删除列表中的一个元素可以用<code>del tmp[i]</code>这样的操作来做</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">repeatLimitedString</span>(<span class="params">self, s, repeatLimit</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :type repeatLimit: int</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 还是要多锻炼多总结思路hhh</span></span><br><span class="line">        <span class="comment"># 一种贪心算法的思想，Counter后排序，然后相对贪心一点的拿就行了</span></span><br><span class="line">        <span class="comment"># 开始的思路想的是排序后有一种原地交换的感觉，但后来还是换着换着就乱了</span></span><br><span class="line">        </span><br><span class="line">        counter_s = Counter(s)</span><br><span class="line">        <span class="comment"># print(counter_s)</span></span><br><span class="line">        counter_s_list = <span class="built_in">sorted</span>([<span class="built_in">list</span>(x) <span class="keyword">for</span> x <span class="keyword">in</span> counter_s.items()], key=<span class="keyword">lambda</span> x: x[<span class="number">0</span>])</span><br><span class="line">        counter_s_list.reverse()</span><br><span class="line">        <span class="comment"># print(counter_s_list)</span></span><br><span class="line"></span><br><span class="line">        result = []</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(counter_s_list):  <span class="comment"># 循环直到为空为止，这里不用循环变量i，直接用0就行了</span></span><br><span class="line">            <span class="keyword">if</span> counter_s_list[<span class="number">0</span>][<span class="number">1</span>] &lt;= repeatLimit:</span><br><span class="line">                result.append(counter_s_list[<span class="number">0</span>][<span class="number">0</span>] * counter_s_list[<span class="number">0</span>][<span class="number">1</span>])</span><br><span class="line">                counter_s_list = counter_s_list[<span class="number">1</span>:]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                result.append(counter_s_list[<span class="number">0</span>][<span class="number">0</span>] * repeatLimit)</span><br><span class="line">                counter_s_list[<span class="number">0</span>][<span class="number">1</span>] -= repeatLimit</span><br><span class="line">                <span class="keyword">if</span> counter_s_list[<span class="number">0</span>][<span class="number">1</span>] &gt; <span class="number">0</span>: <span class="comment"># 如果还有的话，如果此时列表就1个了，就结束，否则和下一个交换</span></span><br><span class="line">                    <span class="keyword">if</span> <span class="built_in">len</span>(counter_s_list) &gt; <span class="number">1</span>:</span><br><span class="line">                        result.append(counter_s_list[<span class="number">1</span>][<span class="number">0</span>])</span><br><span class="line">                        counter_s_list[<span class="number">1</span>][<span class="number">1</span>] -= <span class="number">1</span></span><br><span class="line">                        <span class="keyword">if</span> counter_s_list[<span class="number">1</span>][<span class="number">1</span>] == <span class="number">0</span>:</span><br><span class="line">                            <span class="comment"># counter_s_list = counter_s_list[:1] + counter_s_list[2:]  # 去掉，这里写的其实不够简化</span></span><br><span class="line">                            <span class="keyword">del</span> counter_s_list[<span class="number">1</span>]</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># print(result)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(result)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+          <category> LeetCode周赛 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> EASY </tag>
+            
+            <tag> 贪心 </tag>
+            
+            <tag> MEDIUM </tag>
+            
+            <tag> 链表 </tag>
+            
+            <tag> 字符串 </tag>
+            
+            <tag> 数学 </tag>
+            
+            <tag> 模拟 </tag>
+            
+            <tag> 计数 </tag>
+            
+            <tag> 堆 </tag>
+            
+            <tag> 优先队列 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>78.子集-python</title>
       <link href="/2022/02/21/78-%E5%AD%90%E9%9B%86-python/"/>
       <url>/2022/02/21/78-%E5%AD%90%E9%9B%86-python/</url>
@@ -105,8 +179,6 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
             <tag> 树 </tag>
             
             <tag> 深度优先搜索 </tag>
@@ -114,6 +186,8 @@
             <tag> 广度优先搜索 </tag>
             
             <tag> 二叉树 </tag>
+            
+            <tag> EASY </tag>
             
         </tags>
       
@@ -140,8 +214,6 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
             <tag> 树 </tag>
             
             <tag> 深度优先搜索 </tag>
@@ -149,6 +221,8 @@
             <tag> 广度优先搜索 </tag>
             
             <tag> 二叉树 </tag>
+            
+            <tag> EASY </tag>
             
         </tags>
       
@@ -175,9 +249,25 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
+            <tag> 数组 </tag>
+            
+            <tag> 贪心 </tag>
+            
             <tag> MEDIUM </tag>
             
-            <tag> EASY </tag>
+            <tag> 哈希表 </tag>
+            
+            <tag> 排序 </tag>
+            
+            <tag> 数学 </tag>
+            
+            <tag> 模拟 </tag>
+            
+            <tag> 前缀和 </tag>
+            
+            <tag> 计数 </tag>
             
         </tags>
       
@@ -204,17 +294,17 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 数组 </tag>
             
             <tag> MEDIUM </tag>
             
-            <tag> EASY </tag>
-            
             <tag> 哈希表 </tag>
             
-            <tag> 设计 </tag>
-            
             <tag> 排序 </tag>
+            
+            <tag> 设计 </tag>
             
             <tag> 数学 </tag>
             
@@ -262,6 +352,8 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 数组 </tag>
             
             <tag> 双指针 </tag>
@@ -269,8 +361,6 @@
             <tag> MEDIUM </tag>
             
             <tag> 位运算 </tag>
-            
-            <tag> EASY </tag>
             
             <tag> 哈希表 </tag>
             
@@ -311,9 +401,9 @@
       
         <tags>
             
-            <tag> MEDIUM </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> MEDIUM </tag>
             
         </tags>
       
@@ -338,9 +428,9 @@
       
         <tags>
             
-            <tag> 数组 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 数组 </tag>
             
             <tag> 哈希表 </tag>
             
@@ -398,11 +488,11 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 数组 </tag>
             
             <tag> 位运算 </tag>
-            
-            <tag> EASY </tag>
             
         </tags>
       
@@ -429,8 +519,6 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
             <tag> 树 </tag>
             
             <tag> 深度优先搜索 </tag>
@@ -438,6 +526,8 @@
             <tag> 广度优先搜索 </tag>
             
             <tag> 二叉树 </tag>
+            
+            <tag> EASY </tag>
             
         </tags>
       
@@ -464,13 +554,13 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 数组 </tag>
             
             <tag> MEDIUM </tag>
             
             <tag> 位运算 </tag>
-            
-            <tag> EASY </tag>
             
             <tag> 哈希表 </tag>
             
@@ -507,15 +597,15 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
+            <tag> EASY </tag>
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
-            
-            <tag> EASY </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> 贪心 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 字符串 </tag>
             
@@ -617,9 +707,9 @@
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 矩阵 </tag>
             
@@ -648,9 +738,9 @@
       
         <tags>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 数学 </tag>
             
@@ -681,9 +771,9 @@
       
         <tags>
             
-            <tag> 双指针 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 双指针 </tag>
             
             <tag> 哈希表 </tag>
             
@@ -826,13 +916,13 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
+            <tag> EASY </tag>
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
+            <tag> 贪心 </tag>
             
-            <tag> EASY </tag>
+            <tag> MEDIUM </tag>
             
             <tag> 字符串 </tag>
             
@@ -867,11 +957,11 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 数组 </tag>
             
             <tag> MEDIUM </tag>
-            
-            <tag> EASY </tag>
             
             <tag> 哈希表 </tag>
             
@@ -935,13 +1025,13 @@
       
         <tags>
             
-            <tag> 数组 </tag>
-            
-            <tag> MEDIUM </tag>
-            
             <tag> 深度优先搜索 </tag>
             
             <tag> 广度优先搜索 </tag>
+            
+            <tag> 数组 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 并查集 </tag>
             
@@ -1034,9 +1124,9 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
-            
             <tag> 数组 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 双指针 </tag>
             
@@ -1166,15 +1256,15 @@
       
         <tags>
             
+            <tag> 动态规划 </tag>
+            
             <tag> MEDIUM </tag>
             
-            <tag> 动态规划 </tag>
+            <tag> 哈希表 </tag>
             
             <tag> 字典树 </tag>
             
             <tag> 记忆化搜索 </tag>
-            
-            <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
             
@@ -1205,9 +1295,9 @@
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> MEDIUM </tag>
             
         </tags>
       
@@ -1263,9 +1353,9 @@
             
             <tag> MEDIUM </tag>
             
-            <tag> 字典树 </tag>
-            
             <tag> 哈希表 </tag>
+            
+            <tag> 字典树 </tag>
             
             <tag> 字符串 </tag>
             
@@ -1516,9 +1606,9 @@
       
         <tags>
             
-            <tag> 数组 </tag>
-            
             <tag> EASY </tag>
+            
+            <tag> 数组 </tag>
             
             <tag> 动态规划 </tag>
             
@@ -1549,9 +1639,9 @@
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 二分查找 </tag>
             
@@ -1644,11 +1734,11 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
             <tag> 树 </tag>
             
             <tag> 二叉树 </tag>
+            
+            <tag> EASY </tag>
             
             <tag> 二叉搜索树 </tag>
             
