@@ -251,9 +251,9 @@
     
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
-    <category term="位运算" scheme="http://example.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
-    
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
+    <category term="位运算" scheme="http://example.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
     <category term="回溯" scheme="http://example.com/tags/%E5%9B%9E%E6%BA%AF/"/>
     
@@ -403,9 +403,9 @@
     
     <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
-    <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
-    
     <category term="贪心" scheme="http://example.com/tags/%E8%B4%AA%E5%BF%83/"/>
+    
+    <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
@@ -516,13 +516,13 @@
     
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
-    <category term="位运算" scheme="http://example.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
-    
     <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    
+    <category term="位运算" scheme="http://example.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
     <category term="排序" scheme="http://example.com/tags/%E6%8E%92%E5%BA%8F/"/>
     
