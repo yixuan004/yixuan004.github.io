@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-03-08T01:14:40.051Z</updated>
+  <updated>2022-03-08T13:18:36.959Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2055.蜡烛之间的盘子-python</title>
+    <link href="http://example.com/2022/03/08/2055-%E8%9C%A1%E7%83%9B%E4%B9%8B%E9%97%B4%E7%9A%84%E7%9B%98%E5%AD%90-python/"/>
+    <id>http://example.com/2022/03/08/2055-%E8%9C%A1%E7%83%9B%E4%B9%8B%E9%97%B4%E7%9A%84%E7%9B%98%E5%AD%90-python/</id>
+    <published>2022-03-08T12:22:04.000Z</published>
+    <updated>2022-03-08T13:18:36.959Z</updated>
+    
+    <content type="html"><![CDATA[<p>2055.蜡烛之间的盘子（中等）</p><p>每日一题的话就不在这里完整粘贴题目的题面了，换用自己的想法写法说一说</p><p>这个题感觉和周赛第三题非常接近？是一个感觉可以积累的很经典的前缀和题目，每个盘子位置先存到左右蜡烛的索引，然后再存前缀，实际上两个位置之间的差，就是【左边那个位置的右边蜡烛位置】，和【右边那个位置的左边蜡烛位置】之间的差了，感觉是一种角标索引（哈希表）背景下的前缀和问题，这种区间多次查询感觉确实不少前缀和问题</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>给你一个长桌子，桌子上盘子和蜡烛排成一列。给你一个下标从 <strong>0</strong> 开始的字符串 <code>s</code> ，它只包含字符 <code>&#39;*&#39;</code> 和 <code>&#39;|&#39;</code> ，其中 <code>&#39;*&#39;</code> 表示一个 <strong>盘子</strong> ，<code>&#39;|&#39;</code> 表示一支 <strong>蜡烛</strong> 。</p><p>同时给你一个下标从 <strong>0</strong> 开始的二维整数数组 <code>queries</code> ，其中 <code>queries[i] = [lefti, righti]</code> 表示 <strong>子字符串</strong> <code>s[lefti...righti]</code> <strong>（包含左右端点的字符）</strong>。对于每个查询，你需要找到 <strong>子字符串中</strong> 在 <strong>两支蜡烛之间</strong> 的盘子的 数目 。如果一个盘子在 <strong>子字符串中</strong> 左边和右边 <strong>都</strong> 至少有一支蜡烛，那么这个盘子满足在 <strong>两支蜡烛之间</strong> 。</p><ul><li>比方说，<code>s = &quot;||**||**|*&quot;</code> ，查询 <code>[3, 8]</code> ，表示的是子字符串 <code>&quot;*||**|&quot;</code> 。子字符串中在两支蜡烛之间的盘子数目为 <code>2</code> ，子字符串中右边两个盘子在它们左边和右边 <strong>都</strong> 至少有一支蜡烛。</li></ul><p>请你返回一个整数数组 <code>answer</code> ，其中 <code>answer[i]</code> 是第 <code>i</code> 个查询的答案。</p><p>示例1：<br><img src="/images/2022-03-08-21-16-07.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;**|**|***|&quot;, queries = [[2,5],[5,9]]</span><br><span class="line">输出：[2,3]</span><br><span class="line">解释：</span><br><span class="line">- queries[0] 有两个盘子在蜡烛之间。</span><br><span class="line">- queries[1] 有三个盘子在蜡烛之间。</span><br></pre></td></tr></table></figure><p>示例2：<br><img src="/images/2022-03-08-21-16-18.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;***|**|*****|**||**|*&quot;, queries = [[1,17],[4,5],[14,17],[5,11],[15,16]]</span><br><span class="line">输出：[9,0,0,0,0]</span><br><span class="line">解释：</span><br><span class="line">- queries[0] 有 9 个盘子在蜡烛之间。</span><br><span class="line">- 另一个查询没有盘子在蜡烛之间。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li><code>3 &lt;= s.length &lt;= 10^5</code></li><li><code>s</code> 只包含字符 <code>&#39;*&#39;</code> 和 <code>&#39;|&#39;</code> 。</li><li><code>1 &lt;= queries.length &lt;= 10^5</code></li><li><code>queries[i].length == 2</code></li><li><code>0 &lt;= left_i &lt;= right_i &lt; s.length</code></li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>这个题感觉和周赛第三题非常接近？是一个感觉可以积累的很经典的前缀和题目，每个盘子位置先存到左右蜡烛的索引，然后再存前缀，实际上两个位置之间的差，就是【左边那个位置的右边蜡烛位置】，和【右边那个位置的左边蜡烛位置】之间的差了，感觉是一种角标索引（哈希表）背景下的前缀和问题，这种区间多次查询感觉确实不少前缀和问题</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">platesBetweenCandles</span>(<span class="params">self, s, queries</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :type queries: List[List[int]]</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 经典前缀题目思路</span></span><br><span class="line">        <span class="comment"># 先遍历两边，找到每个位置的左边和右边第一次碰到蜡烛的位置</span></span><br><span class="line">        <span class="comment"># 然后再看前缀和，截止到当前位置处，出现过几个*了</span></span><br><span class="line">        left_candle_idx = [-<span class="number">1</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s))]</span><br><span class="line">        right_candle_idx = [-<span class="number">1</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s))]</span><br><span class="line">        plate_prefix_sum = [-<span class="number">1</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s))]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 先正着走一遍，找到每个index位置处左边的那个candle的角标</span></span><br><span class="line">        left = -<span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">            <span class="keyword">if</span> s[i] == <span class="string">&#x27;|&#x27;</span>:</span><br><span class="line">                left = i</span><br><span class="line">                left_candle_idx[i] = i</span><br><span class="line">            <span class="keyword">elif</span> s[i] == <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">                left_candle_idx[i] = left</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;left_candle_idx: &quot;</span>, left_candle_idx)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 倒着走一遍，找到每个index位置处右边的那个candle的角标</span></span><br><span class="line">        right = -<span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)-<span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> s[i] == <span class="string">&#x27;|&#x27;</span>:</span><br><span class="line">                right = i</span><br><span class="line">                right_candle_idx[i] = i</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                right_candle_idx[i] = right</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;right_candle_idx: &quot;</span>, right_candle_idx)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 正着走找prefix</span></span><br><span class="line">        prefix = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">            <span class="keyword">if</span> s[i] == <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">                prefix += <span class="number">1</span></span><br><span class="line">            plate_prefix_sum[i] = prefix</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;plate_prefix_sum: &quot;</span>, plate_prefix_sum)</span><br><span class="line"></span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(queries)):</span><br><span class="line">            l, r = queries[i][<span class="number">0</span>], queries[i][<span class="number">1</span>]</span><br><span class="line">            <span class="comment"># 特殊处理</span></span><br><span class="line">            <span class="keyword">if</span> l == r:</span><br><span class="line">                res.append(<span class="number">0</span>)</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">            tmp = plate_prefix_sum[left_candle_idx[r]]-plate_prefix_sum[right_candle_idx[l]]</span><br><span class="line">            <span class="comment"># 这里可能还会有异常，一下不好想感觉只能通过case看一下</span></span><br><span class="line">            res.append(tmp) <span class="keyword">if</span> tmp &gt;= <span class="number">0</span> <span class="keyword">else</span> res.append(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;2055.蜡烛之间的盘子（中等）&lt;/p&gt;
+&lt;p&gt;每日一题的话就不在这里完整粘贴题目的题面了，换用自己的想法写法说一说&lt;/p&gt;
+&lt;p&gt;这个题感觉和周赛第三题非常接近？是一个感觉可以积累的很经典的前缀和题目，每个盘子位置先存到左右蜡烛的索引，然后再存前缀，实际上两个位置之间的差，就是【左边那个位置的右边蜡烛位置】，和【右边那个位置的左边蜡烛位置】之间的差了，感觉是一种角标索引（哈希表）背景下的前缀和问题，这种区间多次查询感觉确实不少前缀和问题&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
+    
+    <category term="LeetCode每日一题" scheme="http://example.com/categories/LeetCode-python/LeetCode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/"/>
+    
+    
+    <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
+    
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+    <category term="前缀和" scheme="http://example.com/tags/%E5%89%8D%E7%BC%80%E5%92%8C/"/>
+    
+  </entry>
   
   <entry>
     <title>98.验证二叉搜索树-python</title>
@@ -43,13 +74,13 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
+    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
     <category term="树" scheme="http://example.com/tags/%E6%A0%91/"/>
     
     <category term="深度优先搜索" scheme="http://example.com/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/"/>
     
     <category term="二叉树" scheme="http://example.com/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    
-    <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
     <category term="二叉搜索树" scheme="http://example.com/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/"/>
     
@@ -112,9 +143,9 @@
     <category term="LeetCode周赛" scheme="http://example.com/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/"/>
     
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
-    
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
   </entry>
   
@@ -163,11 +194,11 @@
     <category term="LeetCode周赛" scheme="http://example.com/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/"/>
     
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
-    
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
@@ -205,15 +236,15 @@
     <category term="LeetCode周赛" scheme="http://example.com/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/"/>
     
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
-    
     <category term="贪心" scheme="http://example.com/tags/%E8%B4%AA%E5%BF%83/"/>
     
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
-    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
     <category term="链表" scheme="http://example.com/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+    <category term="字符串" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
     <category term="数学" scheme="http://example.com/tags/%E6%95%B0%E5%AD%A6/"/>
     
@@ -401,23 +432,23 @@
     <category term="LeetCode周赛" scheme="http://example.com/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/"/>
     
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
-    
     <category term="贪心" scheme="http://example.com/tags/%E8%B4%AA%E5%BF%83/"/>
     
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="排序" scheme="http://example.com/tags/%E6%8E%92%E5%BA%8F/"/>
     
+    <category term="前缀和" scheme="http://example.com/tags/%E5%89%8D%E7%BC%80%E5%92%8C/"/>
+    
     <category term="数学" scheme="http://example.com/tags/%E6%95%B0%E5%AD%A6/"/>
     
     <category term="模拟" scheme="http://example.com/tags/%E6%A8%A1%E6%8B%9F/"/>
-    
-    <category term="前缀和" scheme="http://example.com/tags/%E5%89%8D%E7%BC%80%E5%92%8C/"/>
     
     <category term="计数" scheme="http://example.com/tags/%E8%AE%A1%E6%95%B0/"/>
     
@@ -452,17 +483,17 @@
     <category term="LeetCode周赛" scheme="http://example.com/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/"/>
     
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
-    
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
-    <category term="排序" scheme="http://example.com/tags/%E6%8E%92%E5%BA%8F/"/>
-    
     <category term="设计" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1/"/>
+    
+    <category term="排序" scheme="http://example.com/tags/%E6%8E%92%E5%BA%8F/"/>
     
     <category term="数学" scheme="http://example.com/tags/%E6%95%B0%E5%AD%A6/"/>
     
@@ -512,17 +543,17 @@
     <category term="LeetCode周赛" scheme="http://example.com/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/"/>
     
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
-    
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
     <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
     
-    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
     <category term="位运算" scheme="http://example.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    
+    <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
     <category term="排序" scheme="http://example.com/tags/%E6%8E%92%E5%BA%8F/"/>
     
@@ -562,9 +593,9 @@
     <category term="LeetCode周赛" scheme="http://example.com/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/"/>
     
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
-    
     <category term="MEDIUM" scheme="http://example.com/tags/MEDIUM/"/>
+    
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
   </entry>
   
@@ -587,9 +618,9 @@
     <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
     
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
-    
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
+    
+    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
     
     <category term="哈希表" scheme="http://example.com/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
@@ -646,46 +677,11 @@
     <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
     
     
-    <category term="EASY" scheme="http://example.com/tags/EASY/"/>
-    
     <category term="数组" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84/"/>
     
-    <category term="位运算" scheme="http://example.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>104.二叉树的最大深度-python</title>
-    <link href="http://example.com/2022/01/16/104-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6-python/"/>
-    <id>http://example.com/2022/01/16/104-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6-python/</id>
-    <published>2022-01-16T15:43:31.000Z</published>
-    <updated>2022-01-16T16:22:34.325Z</updated>
-    
-    <content type="html"><![CDATA[<p>104.二叉树的最大深度（简单）</p><p>题目大意：</p><p>给定一个二叉树，找出其最大深度。</p><p>二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p><p>说明: 叶子节点是指没有子节点的节点。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/">题目链接</a></p><p>给定一个二叉树，找出其最大深度。</p><p>二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p><p>说明: 叶子节点是指没有子节点的节点。</p><p>示例：<br>给定二叉树<code>[3,9,20,null,null,15,7]</code>，</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> / \</span><br><span class="line">9  20</span><br><span class="line">  /  \</span><br><span class="line"> 15   7</span><br></pre></td></tr></table></figure><p>返回它的最大深度3。</p><h1 id="题目分析和解答"><a href="#题目分析和解答" class="headerlink" title="题目分析和解答"></a>题目分析和解答</h1><p>这个题是一个典型的”自递归“系列的题目，首先复习一下树节点的写法（建议每个二叉树的题目都复习一下）</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, val=-<span class="number">1</span>, left=<span class="literal">None</span>, right=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.val = val</span><br><span class="line">        self.left = left</span><br><span class="line">        self.right = right</span><br></pre></td></tr></table></figure><p>复习Solution的写法和题解，注意这个maxDepth函数，他的返回值是一个int，代表直接调用这个函数就要得到最终答案的depth返回值，所以感觉是一个自递归的题目了，这种的递归dfs还是很好写的</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxDepth</span>(<span class="params">self, root</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span> + <span class="built_in">max</span>(self.maxDepth(root.left), self.maxDepth(root.right))</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;104.二叉树的最大深度（简单）&lt;/p&gt;
-&lt;p&gt;题目大意：&lt;/p&gt;
-&lt;p&gt;给定一个二叉树，找出其最大深度。&lt;/p&gt;
-&lt;p&gt;二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。&lt;/p&gt;
-&lt;p&gt;说明: 叶子节点是指没有子节点的节点。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="LeetCode-python" scheme="http://example.com/categories/LeetCode-python/"/>
-    
-    <category term="LeetCode-热题 HOT 100" scheme="http://example.com/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"/>
-    
-    
-    <category term="树" scheme="http://example.com/tags/%E6%A0%91/"/>
-    
-    <category term="深度优先搜索" scheme="http://example.com/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/"/>
-    
-    <category term="广度优先搜索" scheme="http://example.com/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/"/>
-    
-    <category term="二叉树" scheme="http://example.com/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    
     <category term="EASY" scheme="http://example.com/tags/EASY/"/>
+    
+    <category term="位运算" scheme="http://example.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
     
   </entry>
   
