@@ -143,6 +143,66 @@
   <section class="meta">
     
     <h2 class="title">
+      <a href="/2022/01/07/1614-%E6%8B%AC%E5%8F%B7%E7%9A%84%E6%9C%80%E5%A4%A7%E5%B5%8C%E5%A5%97%E6%B7%B1%E5%BA%A6-python/">
+        1614.括号的最大嵌套深度-python
+      </a>
+    </h2>
+    
+    <time>
+      1月 7, 2022
+    </time>
+		
+    
+    <div class='cats'>
+        <a href="/categories/LeetCode-python/">LeetCode-python</a>
+    </div>
+
+  </section>
+  <section class="article typo">
+	  <p>1614.括号的最大嵌套深度（简单）</p>
+<p>题目大意：</p>
+<p>如果字符串满足以下条件之一，则可以称之为<strong>有效括号字符串（valid parentheses string</strong>，可以简写为<strong>VPS</strong>）：</p>
+<ul>
+<li>字符串是一个空字符串<code>&quot;&quot;</code>，或者是一个不为<code>&quot;(&quot;</code>或<code>&quot;)&quot;</code>的单字符。</li>
+<li>字符串可以写为<code>AB</code>（<code>A</code>与<code>B</code>字符串连接），其中<code>A</code>和<code>B</code>都是 有效括号字符串 。</li>
+<li>字符串可以写为<code>(A)</code>，其中<code>A</code>是一个 有效括号字符串 。</li>
+</ul>
+<p>类似地，可以定义任何有效括号字符串<code>S</code>的 嵌套深度<code>depth(S)</code>：</p>
+<ul>
+<li><code>depth(&quot;&quot;) = 0</code></li>
+<li><code>depth(C) = 0</code>，其中<code>C</code>是单个字符的字符串，且该字符不是<code>&quot;(&quot;</code>或者<code>&quot;)&quot;</code></li>
+<li><code>depth(A + B) = max(depth(A), depth(B))</code>，其中<code>A</code>和<code>B</code>都是 有效括号字符串</li>
+<li><code>epth(&quot;(&quot; + A + &quot;)&quot;) = 1 + depth(A)</code>，其中<code>A</code>是一个 有效括号字符串</li>
+</ul>
+<p>例如：<code>&quot;&quot;</code>、<code>&quot;()()&quot;</code>、<code>&quot;()(()())&quot;</code>都是 有效括号字符串（嵌套深度分别为 0、1、2），而<code>&quot;)(&quot;</code>、<code>&quot;(()&quot;</code>都不是 有效括号字符串 。</p>
+<p>给你一个<strong>有效括号字符串</strong><code>s</code>，返回该字符串的<code>s</code><strong>嵌套深度</strong>。</p>
+
+    
+	  <div class="readmore">
+      <a href="/2022/01/07/1614-%E6%8B%AC%E5%8F%B7%E7%9A%84%E6%9C%80%E5%A4%A7%E5%B5%8C%E5%A5%97%E6%B7%B1%E5%BA%A6-python/">Read More</a>
+    </div>
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/EASY/">EASY</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+      
+        <a href="/tags/%E6%A0%88/">栈</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
       <a href="/2022/01/06/64-%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C-python/">
         64.最小路径和-python
       </a>
@@ -612,60 +672,6 @@
 </article>
     </div>
   
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2021/12/17/200-%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F-python/">
-        200.岛屿数量-python
-      </a>
-    </h2>
-    
-    <time>
-      12月 17, 2021
-    </time>
-		
-    
-    <div class='cats'>
-        <a href="/categories/LeetCode-python/">LeetCode-python</a>, <a href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/">LeetCode-热题 HOT 100</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>200.岛屿数量（中等）</p>
-<p>题目大意：</p>
-<p>给你一个由<code>&#39;1&#39;</code>（陆地）和<code>&#39;0&#39;</code>（水）组成的的二维网格，请你计算网格中岛屿的数量。</p>
-<p>岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成。</p>
-<p>此外，你可以假设该网格的四条边均被水包围。</p>
-
-    
-	  <div class="readmore">
-      <a href="/2021/12/17/200-%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F-python/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">深度优先搜索</a>
-      
-        <a href="/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">广度优先搜索</a>
-      
-        <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
-      
-        <a href="/tags/MEDIUM/">MEDIUM</a>
-      
-        <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集</a>
-      
-        <a href="/tags/%E7%9F%A9%E9%98%B5/">矩阵</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
 </section>
 
 
@@ -717,11 +723,11 @@
     
         <li><a class="flat-box" href="/categories/Crsenal/"><div class='name'>Crsenal</div><div class='badget'>12</div></a></li>
     
-        <li><a class="flat-box" href="/categories/LeetCode-python/"><div class='name'>LeetCode-python</div><div class='badget'>58</div></a></li>
+        <li><a class="flat-box" href="/categories/LeetCode-python/"><div class='name'>LeetCode-python</div><div class='badget'>59</div></a></li>
     
         <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"><div class='name'>LeetCode-热题 HOT 100</div><div class='badget'>29</div></a></li>
     
-        <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/"><div class='name'>LeetCode周赛</div><div class='badget'>14</div></a></li>
+        <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/"><div class='name'>LeetCode周赛</div><div class='badget'>15</div></a></li>
     
         <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/"><div class='name'>LeetCode每日一题</div><div class='badget'>4</div></a></li>
     
