@@ -2,7 +2,14 @@
 title: 289场LeetCode周赛
 date: 2022-04-18 18:03:00
 tags:
-    - 
+    - 字符串
+    - 模拟
+    - 贪心
+    - 数组
+    - 哈希表
+    - 计数
+    - 矩阵
+    - 前缀和
     - EASY
     - MEDIUM
 categories:
