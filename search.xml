@@ -4,6 +4,66 @@
   
     
     <entry>
+      <title>273-283场LeetCode周赛总结</title>
+      <link href="/2022/05/04/273-283%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B%E6%80%BB%E7%BB%93/"/>
+      <url>/2022/05/04/273-283%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B%E6%80%BB%E7%BB%93/</url>
+      
+        <content type="html"><![CDATA[<p>273-283场LeetCode周赛综述&amp;总结：</p><p>LeetCode感觉周赛做多了有时候思维就容易僵化，像中间有几次感觉对第二题、第三题直接走到不同思路上去了就直接坐牢；</p><p>温故而知新，定期总结下周赛题目的套路，希望早日能成为周赛三题&amp;前1000名选手吧，现在感觉只有在手感特别好还有题目完全正好适配的时候才能前1000，剩下的情况能进前2000都是大胜利了，还是要不断刷题积累下了~</p><p>另外这里相对整理一下需要数据结构/特殊技巧才能做出来的题，比较水的题可能就不放在这里了，可以参考各次博客内容；</p><p>总结来看主要有这些操作：</p><p>【前后缀和】【数学&amp;找规律】【哈希表mapping】【贪心】【Counter计数】【滑动窗口】【哨兵】【模拟】【动态规划】【设计&amp;构造】【链表】【二分】【字符串】【水题】</p><span id="more"></span><h1 id="前后缀和"><a href="#前后缀和" class="headerlink" title="前后缀和"></a>前后缀和</h1><blockquote><p>前后缀和大概是因为每次都要统计相同的位置，那么就是每次在基础上做累加的操作来避免每次对于相同位置的统计；</p></blockquote><p>273场周赛第3题 <a href="https://leetcode-cn.com/problems/intervals-between-identical-elements/">2121.相同元素的间隔之和</a>，这个题同时被归入了 <code>前后缀和</code> 、 <code>数学&amp;找规律</code> 和 <code>哈希表mapping</code> 三个类型，这个题算是遇到相对比较难的第三题了，制作一种类似于 <code>&#123;1: [1, 3], 2: [0, 4], 3: [2, 5, 6]&#125;</code> 的mapping思路，然后可以在内部开始模拟，用数学的方法找一找规律，前后缀和在这个过程中可能就能发现前缀和相关的一些优化了，总结来说虽然可能是连续刷周赛的第一次周赛，但是这个题在各次来说也是比较难的第三题了，降时间复杂度就要想mapping，前后缀和这些思路；</p><p>280场周赛第3题 <a href="https://leetcode-cn.com/problems/removing-minimum-number-of-magic-beans/">2171.拿出最少数目的魔法豆</a>，这个题同时被归入了 <code>前后缀和</code> 和 <code>贪心</code> 的思路，排序后前缀拿过去就可以了；</p><h1 id="数学-amp-找规律"><a href="#数学-amp-找规律" class="headerlink" title="数学&amp;找规律"></a>数学&amp;找规律</h1><blockquote><p>数学和找规律的题一般都要现场推，自己动手模拟下看看，也没什么太多复盘的思路，每次遇到的感觉都不会太一样；</p></blockquote><p>273场周赛第3题 <a href="https://leetcode-cn.com/problems/intervals-between-identical-elements/">2121.相同元素的间隔之和</a>，这个题同时被归入了 <code>前后缀和</code> 、 <code>数学&amp;找规律</code> 和 <code>哈希表mapping</code> 三个类型，这个题算是遇到相对比较难的第三题了，制作一种类似于 <code>&#123;1: [1, 3], 2: [0, 4], 3: [2, 5, 6]&#125;</code> 的mapping思路，然后可以在内部开始模拟，用数学的方法找一找规律，前后缀和在这个过程中可能就能发现前缀和相关的一些优化了，总结来说虽然可能是连续刷周赛的第一次周赛，但是这个题在各次来说也是比较难的第三题了，降时间复杂度就要想mapping，前后缀和这些思路；</p><p>283场周赛第2题 <a href="https://leetcode-cn.com/problems/append-k-integers-with-minimal-sum/">2195.向数组中追加 K 个整数</a>，暴力哈希的思路还是比较好像，但实际上不能这样，还要往后补的思路，总结数学题来说就是每次现场推就行了，复盘的时候不用想的太明白；</p><h1 id="哈希表mapping"><a href="#哈希表mapping" class="headerlink" title="哈希表mapping"></a>哈希表mapping</h1><blockquote><p>哈希表是个简化时间复杂度的好东西，万物皆可哈希hhhh；</p></blockquote><p>273场周赛第3题 <a href="https://leetcode-cn.com/problems/intervals-between-identical-elements/">2121.相同元素的间隔之和</a>，这个题同时被归入了 <code>前后缀和</code> 、 <code>数学&amp;找规律</code> 和 <code>哈希表mapping</code> 三个类型，这个题算是遇到相对比较难的第三题了，制作一种类似于 <code>&#123;1: [1, 3], 2: [0, 4], 3: [2, 5, 6]&#125;</code> 的mapping思路，然后可以在内部开始模拟，用数学的方法找一找规律，前后缀和在这个过程中可能就能发现前缀和相关的一些优化了，总结来说虽然可能是连续刷周赛的第一次周赛，但是这个题在各次来说也是比较难的第三题了，降时间复杂度就要想mapping，前后缀和这些思路；</p><p>275场周赛第3题 <a href="https://leetcode-cn.com/problems/count-words-obtained-after-adding-a-letter/">2135.统计追加字母可以获得的单词数</a>，这个题主要就是哈希表的思想，一方面来说 <strong>重排</strong> 这个事情可以在最开始的时候把大家都重排了这样一种预处理得到，另一方面来说set起到判重的作用，差一个字符上就是截断的拼接问题 <code>word[:i] + word[i+1:]</code> 这样可以把第i位的字符忽略掉，还是很难的这个题，这么看来说275场周赛的三个题都好难啊；</p><p>277场周赛第3题 <a href="https://leetcode-cn.com/problems/find-all-lonely-numbers-in-the-array/">2150.找出数组中的所有孤独数字</a>，这个题哈希表也太明显了，甚至有些情况够不上平常周赛第一题，第二题的难度，包装的也比较简单，其实可以算在水题里了；</p><h1 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h1><blockquote><p>贪心的事情，不用想的那么明白哈哈哈哈；</p></blockquote><p>274场周赛第3题 <a href="https://leetcode-cn.com/problems/destroying-asteroids/">2126.摧毁小行星</a>，这个题算是很简单的第三题啊，274场周赛没有实时做，不然来说的话应该是一个靠前三题能rank前1000内的比赛，就是直接暴力贪心就可以了，中间带一个简单的排序，名言之贪心的事情不用搞那么明白！；</p><p>276场周赛第2题 <a href="https://leetcode-cn.com/problems/minimum-moves-to-reach-target-score/">2139.得到目标值的最少行动次数</a>，从大往小贪心就可以了，如果是偶数就除，如果是奇数就减就行了；</p><p>279场周赛第2题 <a href="https://leetcode-cn.com/problems/smallest-value-of-the-rearranged-number/">2165.重排数字的最小值</a>，这个题分正数负数贪心就可以了，前导0还是个约束条件；</p><p>280场周赛第2题 <a href="https://leetcode-cn.com/problems/minimum-operations-to-make-the-array-alternating/">2170.使数组变成交替数组的最少操作数</a>，第二题还是不能想太复杂了，奇数偶数位，选出分别两边出现最多的，但是 <strong>不能相等的</strong>，当时把自己坑惨了啊，还是要仔细读题，读歪了那可真是掉沟里了；</p><p>280场周赛第3题 <a href="https://leetcode-cn.com/problems/removing-minimum-number-of-magic-beans/">2171.拿出最少数目的魔法豆</a>，这个题同时被归入了 <code>前后缀和</code> 和 <code>贪心</code> 的思路，排序后前缀拿过去就可以了；</p><p>281场周赛第3题 <a href="https://leetcode-cn.com/problems/construct-string-with-repeat-limit/">2182.构造限制重复的字符串</a>，这个题真的难，不是特殊情况下一定不要往原地交换的思路想，要想往新构造的思路想，剩下就是贪心和随缘的面向答案编程了；</p><h1 id="Counter计数"><a href="#Counter计数" class="headerlink" title="Counter计数"></a>Counter计数</h1><blockquote><p>Counter是个很常用的数据结构，任何涉及到统计的的题目都可能会用到这个，不知道在其他语言Counter的对应是什么；</p></blockquote><p>275场周赛第1题 <a href="https://leetcode-cn.com/problems/check-if-every-row-and-column-contains-all-numbers/">2133.检查是否每一行每一列都包含全部整数</a>，是个比较难的第一题，甚至感觉很多情况下难度超过了第二题，一方面是对一行/一列取Counter计数的时候，应该是 <code>第i行：Counter(matrix[i])</code> 和 <code>第i列：Counter([matrix[x][i] for x in range(n)])</code>，另一方面来说Counter是可以加减，还有相比较的，这个是个很方便的特性不知道在其他语言里怎么使用这个内容，这个题的特色点在于只要遍历一次主对角线做Counter，就可以涵盖所有情况了；</p><p>275场周赛第2题 <a href="https://leetcode-cn.com/problems/minimum-swaps-to-group-all-1s-together-ii/">2134.最少交换次数来组合所有的 1 II</a>，这个题同时被归入了 <code>滑动窗口</code>，<code>哨兵</code> 和 <code>Counter计数</code> 三种类型，算是相对比较难的第二题了，一方面在一个长度为有几个1的滑动的窗口中不断滑动过去，然后通过Counter看看把几个1聚在一起最少需要把几个0变成1，另一方面可以通过哨兵的机制，把环形的问题转成线型的问题，在这种需要计数类的问题的时候，Counter还是好用的！；</p><p>282场周赛第2题 <a href="https://leetcode-cn.com/problems/minimum-number-of-steps-to-make-two-strings-anagram-ii/">2186.使两字符串互为字母异位词的最少步骤数</a>，经典Counter加减，莽过去！；</p><h1 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h1><blockquote><p>主要看题目是否本身暗含了一种窗口的思想在里面；</p></blockquote><p>275场周赛第2题 <a href="https://leetcode-cn.com/problems/minimum-swaps-to-group-all-1s-together-ii/">2134.最少交换次数来组合所有的 1 II</a>，这个题同时被归入了 <code>滑动窗口</code>，<code>哨兵</code> 和 <code>Counter计数</code> 三种类型，算是相对比较难的第二题了，一方面在一个长度为有几个1的滑动的窗口中不断滑动过去，然后通过Counter看看把几个1聚在一起最少需要把几个0变成1，另一方面可以通过哨兵的机制，把环形的问题转成线型的问题，在这种需要计数类的问题的时候，Counter还是好用的！；</p><h1 id="哨兵"><a href="#哨兵" class="headerlink" title="哨兵"></a>哨兵</h1><blockquote><p>主要是简化实现上的操作，比如把环变成数组，还有就是针对起始位置还有终点位置的特殊处理；</p></blockquote><p>275场周赛第2题 <a href="https://leetcode-cn.com/problems/minimum-swaps-to-group-all-1s-together-ii/">2134.最少交换次数来组合所有的 1 II</a>，这个题同时被归入了 <code>滑动窗口</code>，<code>哨兵</code> 和 <code>Counter计数</code> 三种类型，算是相对比较难的第二题了，一方面在一个长度为有几个1的滑动的窗口中不断滑动过去，然后通过Counter看看把几个1聚在一起最少需要把几个0变成1，另一方面可以通过哨兵的机制，把环形的问题转成线型的问题，在这种需要计数类的问题的时候，Counter还是好用的！；</p><p>276场周赛第1题 <a href="https://leetcode-cn.com/problems/divide-a-string-into-groups-of-size-k/">2138.将字符串拆分为若干长度为 k 的组</a>，也是水题但是可以通过哨兵补齐的思想，这样最后切分起来就很容易了，看了下当时的代码，不知道为什么当时能写那么复杂。。。；</p><h1 id="模拟"><a href="#模拟" class="headerlink" title="模拟"></a>模拟</h1><blockquote><p>一般按照题目来，跟着题目操作就可以；</p></blockquote><p>273场周赛第2题 <a href="https://leetcode-cn.com/problems/execution-of-all-suffix-instructions-staying-in-a-grid/">2120.执行所有后缀指令</a>，使用 <code>[1:]</code> 不断截断，然后按照操作要求来模拟就行，这种题感觉也是不能着急，争取能在5分钟内完成第二题和第一题，要爆一下手速，第二题一般不会太难，不要太考虑时间复杂度的事情，想到方法基本就差不多了；</p><p>274场周赛第2题 <a href="https://leetcode-cn.com/problems/number-of-laser-beams-in-a-bank/">2125.银行中的激光束数量</a>，感觉是题目理解相对比较长的第二题，第二题可能存在题面复杂类的问题，但是通过这个题来看不能着急读题，读完题最好一遍能理解题意，尽快做出来；</p><p>280场周赛第1题 <a href="https://leetcode-cn.com/problems/count-operations-to-obtain-zero/">2169. 得到 0 的操作数</a>，两边来回减，按照题目的要求模拟就可以了；</p><h1 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h1><blockquote><p>还是要多刷，包括普通dp，区间dp等等，跟一波wls了；</p></blockquote><p>276场周赛第3题 <a href="https://leetcode-cn.com/problems/solving-questions-with-brainpower/">2140.解决智力问题</a>，这个题dp还是相对能看出来的？每个位置是选和不选两种状态，但是这个题只能让自己觉得自己智力有问题，dp第三题还是难，看来276和275场周赛是把自己给虐了，这个题要存 <strong>截止到当前位置的状态值！</strong></p><h1 id="状态压缩（2-n那种类型的题目）"><a href="#状态压缩（2-n那种类型的题目）" class="headerlink" title="状态压缩（2^n那种类型的题目）"></a>状态压缩（2^n那种类型的题目）</h1><blockquote><p>看数据范围有可能可以看出来是不是这类型的题目，特点就是每个状态下验证合理性的感觉吧；</p></blockquote><p>277场周赛第4题 <a href="https://leetcode-cn.com/problems/maximum-good-people-based-on-statements/">2151.基于陈述统计最多好人数</a>，还是比较难的，首先看数据范围如果是8，15这样比较小的数，那可能就要想能不能往2^n这种方向上做一做，这个题的关键思路还是当时室友给的，就是说：只需要判断假定所有说真话的人是否和条件有冲突就可以了，这种2^n很多情况都是判断每种情况是否合理的;</p><h1 id="设计-amp-构造"><a href="#设计-amp-构造" class="headerlink" title="设计&amp;构造"></a>设计&amp;构造</h1><blockquote><p>设计构造题目比较思路型，可能也是面试常考的题目，包括LRU也是设计类题目；</p></blockquote><p>279场周赛第3题 <a href="https://leetcode-cn.com/problems/design-bitset/">2166.设计位集</a>，依照时间复杂度把一些能简化时间复杂度的操作转化为全局的，在 <code>__init__</code> 的时候设计全局变量，然后后边依照这个全局变量简化时间复杂度即可，设计的时候来说边设计应该就是能想到的；</p><p>283场周赛第3题 <a href="https://leetcode-cn.com/problems/create-binary-tree-from-descriptions/">2196.根据描述创建二叉树</a>，这种设计的题，要把每个节点做成一个哈希，然后用哈希再往里插入就可以了，构造的题目好像要用这种哈希是比较普遍的思路；</p><h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><blockquote><p>链表题还没在周赛见过太多，这个题是比较水的链表题；</p></blockquote><p>281场周赛第2题 <a href="https://leetcode-cn.com/problems/merge-nodes-in-between-zeros/">2181.合并零之间的节点</a>，链表模拟操作，操作过去就行了；</p><h1 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h1><blockquote><p>二分边界情况判断，最后是left还是right是真的难，二分也可以做在每个情况下，O(n)的合理性验证吧；</p></blockquote><p>282场周赛第3题 <a href="https://leetcode-cn.com/problems/minimum-time-to-complete-trips/">2187.完成旅途的最少时间</a>，自己想的时候没有看出来哪里可以二分，在大佬的提醒下二分验证每个时刻，O(n)判断judge是否合理，实际上有点像2^n那种题的验证思路了；</p><h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><blockquote><p>字符串题目还是很多的，一方面要会a-z A-Z这种ord chr的转化，另外一方面也要自己多练习一些正则的题目；</p></blockquote><p>283场周赛第1题 <a href="https://leetcode-cn.com/problems/cells-in-a-range-on-an-excel-sheet/">2194.Excel 表中某个范围内的单元格</a>，本来是个简单的二维遍历问题，但是居然不知道python怎么遍历字符。。。查了下是 <code>ord()</code> 把字符转数字, <code>chr()</code> 把数字转字符，这个还是要记住的，特别是一些a-z，A-Z的遍历题目；</p><h1 id="水题"><a href="#水题" class="headerlink" title="水题"></a>水题</h1><p>273场周赛第1题 <a href="https://leetcode-cn.com/problems/a-number-after-a-double-reversal/">2119.反转两次的数字</a>，稍微操作一下就可以完成这个模拟操作了，第一题千万注意的就是不要急躁，耐下心来一遍把题读完，然后2分钟之内刷出来；</p><p>274场周赛第1题 <a href="https://leetcode-cn.com/problems/check-if-all-as-appears-before-all-bs/">2124.检查是否所有 A 都在 B 之前</a>，标准水题，这种题感觉要半分钟读题，一分半内手速搞定暴力出来；</p><p>277场周赛第1题 <a href="https://leetcode-cn.com/problems/count-elements-with-strictly-smaller-and-greater-elements/">2148.元素计数</a>，能看出来是和最大最小比就很容易了，读题还是要细心呀；</p><p>277场周赛第2题 <a href="https://leetcode-cn.com/problems/rearrange-array-elements-by-sign/">2149.按符号重排数组</a>，甚至比很多第一题还简单，是相对比较简单的第二题了，直接拆成两个，不做原地操作就还是很简单的；</p><p>279场周赛第1题 <a href="https://leetcode-cn.com/problems/sort-even-and-odd-indices-independently/">2164.对奇偶下标分别排序</a>，这个题虽然是水题，但是可以学习python奇数偶数 <strong>下标位置</strong> 取值方法，<code>nums[::2]</code>取偶数，<code>nums[1:;2]</code>取奇数；</p><p>281场周赛第1题 <a href="https://leetcode-cn.com/problems/count-integers-with-even-digit-sum/">2180.统计各位数字之和为偶数的整数个数</a>，水题，写个judge函数搞过去就可以了；</p><p>282场周赛第1题 <a href="https://leetcode-cn.com/problems/counting-words-with-a-given-prefix/">2185.统计包含给定前缀的字符串</a>，python有 <code>str.startswith()</code> 函数，用这个就可以了；</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+          <category> LeetCode周赛 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> EASY </tag>
+            
+            <tag> MEDIUM </tag>
+            
+            <tag> HARD </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>291场LeetCode周赛</title>
+      <link href="/2022/05/02/291%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/"/>
+      <url>/2022/05/02/291%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/</url>
+      
+        <content type="html"><![CDATA[<p>周赛综述&amp;总结：</p><p>久违的前1000名了，这次能排的稍微靠前点在于前三个题特别快的就做出来了，可惜第四个题没做出来，要不说不定能到前500呢hh~ 上周做了一回笔试题，今天再看周赛题还有点陌生了，也可能是这种陌生感让自己做快了一些吧，另外还是喜欢描述比较短的题；</p><p>感觉就是状态好+题目对着自己常做的思路吧，也可能和周中稍微做了几个题有些关系，前三个题描述还都不是很简单，但是做出来的都比自己预期的快一些，第四个题上来方向又走偏了，如果走到数学规律上面的话感觉可能还有戏，这个题是个“贡献”类的思路，比较巧妙</p><p>第一题：毕竟第一题，直接暴力每个位置比较+列表拼接join就可以了，注意最后的返回值是个字符串，室友大佬后来还提醒说这个题中间如果转int处理可能会爆，看来是用python正好就把这个坑给避开了；</p><p>第二题：做一个哈希表，每个数字映射到他出现过位置的一个列表，然后遍历这个哈希表，看看区间长度比较下找个min的就可以了；</p><p>第三题：这个题先判断每个位置是否可以被p整除，然后根据这个做一个新的列表，能被p整除的就是1，不能被p整除的就是0，之后按照他这个子数组的定义来遍历（就是j要从i开始遍历），去重的话可以用tuple的子数组作为key，然后就是对每个区间sum就可以了；</p><p>第四题：一道计算“贡献”的题目，自己一开始想的有点偏，贡献类的题目感觉不能从完全全局来说，要考虑每个字符在全局上的贡献，这个题也是第一次遇到，感觉算法还是很神奇的，具体内容写在博客里了；</p><span id="more"></span><p>希望下次前1000名来得快一点，这次确实是题简单了</p><p><img src="/images/2022-05-02-09-13-42.png"></p><h1 id="第一题：6047-移除指定数字得到的最大结果"><a href="#第一题：6047-移除指定数字得到的最大结果" class="headerlink" title="第一题：6047.移除指定数字得到的最大结果"></a>第一题：6047.移除指定数字得到的最大结果</h1><p><a href="https://leetcode.cn/problems/remove-digit-from-number-to-maximize-result/">题目链接</a></p><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个表示某个正整数的字符串 <code>number</code> 和一个字符 <code>digit</code> 。</p><p>从 <code>number</code> 中 <strong>恰好</strong> 移除 <strong>一个</strong> 等于 <code>digit</code> 的字符后，找出并返回按 <strong>十进制</strong> 表示 <strong>最大</strong> 的结果字符串。生成的测试用例满足 <code>digit</code> 在 <code>number</code> 中出现至少一次。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：number = &quot;123&quot;, digit = &quot;3&quot;</span><br><span class="line">输出：&quot;12&quot;</span><br><span class="line">解释：&quot;123&quot; 中只有一个 &#x27;3&#x27; ，在移除 &#x27;3&#x27; 之后，结果为 &quot;12&quot; 。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：number = &quot;1231&quot;, digit = &quot;1&quot;</span><br><span class="line">输出：&quot;231&quot;</span><br><span class="line">解释：可以移除第一个 &#x27;1&#x27; 得到 &quot;231&quot; 或者移除第二个 &#x27;1&#x27; 得到 &quot;123&quot; 。</span><br><span class="line">由于 231 &gt; 123 ，返回 &quot;231&quot; 。</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：number = &quot;551&quot;, digit = &quot;5&quot;</span><br><span class="line">输出：&quot;51&quot;</span><br><span class="line">解释：可以从 &quot;551&quot; 中移除第一个或者第二个 &#x27;5&#x27; 。</span><br><span class="line">两种方案的结果都是 &quot;51&quot; 。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li><code>2 &lt;= number.length &lt;= 100</code></li><li><code>number</code> 由数字 <code>&#39;1&#39;</code> 到 <code>&#39;9&#39;</code> 组成</li><li><code>digit</code> 是 <code>&#39;1&#39;</code> 到 <code>&#39;9&#39;</code> 中的一个数字</li><li><code>digit</code> 在 <code>number</code> 中出现至少一次</li></ul><h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>毕竟第一题，直接暴力每个位置比较+列表拼接join就可以了，注意最后的返回值是个字符串，室友大佬后来还提醒说这个题中间如果转int处理可能会爆，看来是用python正好就把这个坑给避开了；</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeDigit</span>(<span class="params">self, number, digit</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type number: str</span></span><br><span class="line"><span class="string">        :type digit: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        res = -<span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(number)):</span><br><span class="line">            <span class="keyword">if</span> number[i] == digit:</span><br><span class="line">                tmp_list = <span class="string">&#x27;&#x27;</span>.join(number[:i] + number[i+<span class="number">1</span>:])</span><br><span class="line">                res = <span class="built_in">max</span>(res, <span class="built_in">int</span>(tmp_list))</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">str</span>(res)</span><br></pre></td></tr></table></figure><h1 id="第二题：6048-必须拿起的最小连续卡牌数"><a href="#第二题：6048-必须拿起的最小连续卡牌数" class="headerlink" title="第二题：6048.必须拿起的最小连续卡牌数"></a>第二题：6048.必须拿起的最小连续卡牌数</h1><p><a href="https://leetcode.cn/problems/minimum-consecutive-cards-to-pick-up/">题目链接</a></p><h2 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个整数数组 <code>cards</code> ，其中 <code>cards[i]</code> 表示第 <code>i</code> 张卡牌的 <strong>值</strong> 。如果两张卡牌的值相同，则认为这一对卡牌 <strong>匹配</strong> 。</p><p>返回你必须拿起的最小连续卡牌数，以使在拿起的卡牌中有一对匹配的卡牌。如果无法得到一对匹配的卡牌，返回 <code>-1</code> 。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：cards = [3,4,2,3,4,7]</span><br><span class="line">输出：4</span><br><span class="line">解释：拿起卡牌 [3,4,2,3] 将会包含一对值为 3 的匹配卡牌。注意，拿起 [4,2,3,4] 也是最优方案。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：cards = [1,0,5,3]</span><br><span class="line">输出：-1</span><br><span class="line">解释：无法找出含一对匹配卡牌的一组连续卡牌。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li><code>1 &lt;= cards.length &lt;= 10^5</code></li><li><code>0 &lt;= cards[i] &lt;= 10^6</code></li></ul><h2 id="分析和解答-1"><a href="#分析和解答-1" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>做一个哈希表，每个数字映射到他出现过位置的一个列表，然后遍历这个哈希表，看看区间长度比较下找个min的就可以了，还是比较好想到这个思路的</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minimumCardPickup</span>(<span class="params">self, cards</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type cards: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line">        tmp_dict = defaultdict(<span class="built_in">list</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(cards)):</span><br><span class="line">            tmp_dict[cards[i]].append(i)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># print(tmp_dict)</span></span><br><span class="line">        res = <span class="number">1e9</span></span><br><span class="line">        <span class="keyword">for</span> value <span class="keyword">in</span> tmp_dict.values():</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(value) &lt; <span class="number">2</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(value)-<span class="number">1</span>):</span><br><span class="line">                res = <span class="built_in">min</span>(res, value[j+<span class="number">1</span>]-value[j])</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> res != <span class="number">1e9</span>:</span><br><span class="line">            <span class="keyword">return</span> res+ <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure><h1 id="第三题：6049-含最多-K-个可整除元素的子数组"><a href="#第三题：6049-含最多-K-个可整除元素的子数组" class="headerlink" title="第三题：6049.含最多 K 个可整除元素的子数组"></a>第三题：6049.含最多 K 个可整除元素的子数组</h1><p><a href="https://leetcode.cn/problems/k-divisible-elements-subarrays/">题目链接</a></p><h2 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个整数数组 <code>nums</code> 和两个整数 <code>k</code> 和 <code>p</code> ，找出并返回满足要求的不同的子数组数，要求子数组中最多 <code>k</code> 个可被 <code>p</code> 整除的元素。</p><p>如果满足下述条件之一，则认为数组 <code>nums1</code> 和 <code>nums2</code> 是 <strong>不同</strong> 数组：</p><ul><li>两数组长度 <strong>不同</strong> ，或者</li><li>存在 <strong>至少</strong> 一个下标 <code>i</code> 满足 <code>nums1[i] != nums2[i]</code> 。</li></ul><p><strong>子数组</strong> 定义为：数组中的连续元素组成的一个 <strong>非空</strong> 序列。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [2,3,3,2,2], k = 2, p = 2</span><br><span class="line">输出：11</span><br><span class="line">解释：</span><br><span class="line">位于下标 0、3 和 4 的元素都可以被 p = 2 整除。</span><br><span class="line">共计 11 个不同子数组都满足最多含 k = 2 个可以被 2 整除的元素：</span><br><span class="line">[2]、[2,3]、[2,3,3]、[2,3,3,2]、[3]、[3,3]、[3,3,2]、[3,3,2,2]、[3,2]、[3,2,2] 和 [2,2] 。</span><br><span class="line">注意，尽管子数组 [2] 和 [3] 在 nums 中出现不止一次，但统计时只计数一次。</span><br><span class="line">子数组 [2,3,3,2,2] 不满足条件，因为其中有 3 个元素可以被 2 整除。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [1,2,3,4], k = 4, p = 1</span><br><span class="line">输出：10</span><br><span class="line">解释：</span><br><span class="line">nums 中的所有元素都可以被 p = 1 整除。</span><br><span class="line">此外，nums 中的每个子数组都满足最多 4 个元素可以被 1 整除。</span><br><span class="line">因为所有子数组互不相同，因此满足所有限制条件的子数组总数为 10 。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>1 &lt;= nums.length &lt;= 200</li><li>1 &lt;= nums[i], p &lt;= 200</li><li>1 &lt;= k &lt;= nums.length</li></ul><h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>这个题先判断每个位置是否可以被p整除，然后根据这个做一个新的列表，能被p整除的就是1，不能被p整除的就是0，之后按照他这个子数组的定义来遍历（就是j要从i开始遍历），去重的话可以用tuple的子数组作为key，然后就是对每个区间sum就可以了；</p><p>另外还想说这个子字符串好有意思啊，他不是2^n那种遍历方法的，而是j=i那种双重for循环的，看了眼数据范围还在想要不要搞2^n做法呢</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">countDistinct</span>(<span class="params">self, nums, k, p</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type k: int</span></span><br><span class="line"><span class="string">        :type p: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># preprocess</span></span><br><span class="line">        cnt_list = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] % p == <span class="number">0</span>:</span><br><span class="line">                cnt_list.append(<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                cnt_list.append(<span class="number">0</span>)</span><br><span class="line">        <span class="comment"># print(&quot;cnt_list: &quot;, cnt_list)</span></span><br><span class="line">            </span><br><span class="line">        </span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        <span class="comment"># from collections import defaultdict</span></span><br><span class="line">        hash_set = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i, <span class="built_in">len</span>(nums)):</span><br><span class="line">                tmp_list = nums[i:j+<span class="number">1</span>]</span><br><span class="line">                <span class="keyword">if</span> hash_set.get(<span class="built_in">tuple</span>(tmp_list)) <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                hash_set[<span class="built_in">tuple</span>(tmp_list)] = <span class="number">1</span></span><br><span class="line">                tmp = <span class="built_in">sum</span>(cnt_list[i:j+<span class="number">1</span>])</span><br><span class="line">                <span class="keyword">if</span> tmp &lt;= k:</span><br><span class="line">                    res += <span class="number">1</span></span><br><span class="line">                </span><br><span class="line">                </span><br><span class="line">                </span><br><span class="line">                <span class="comment"># print(tmp_list)</span></span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure><h1 id="第四题：6050-字符串的总引力"><a href="#第四题：6050-字符串的总引力" class="headerlink" title="第四题：6050.字符串的总引力"></a>第四题：6050.字符串的总引力</h1><p><a href="https://leetcode.cn/problems/total-appeal-of-a-string/">题目链接</a></p><h2 id="题目大意-3"><a href="#题目大意-3" class="headerlink" title="题目大意"></a>题目大意</h2><p>字符串的 <strong>引力</strong> 定义为：字符串中 <strong>不同</strong> 字符的数量。</p><ul><li>例如，<code>&quot;abbca&quot;</code> 的引力为 <code>3</code> ，因为其中有 3 个不同字符 <code>&#39;a&#39;</code>、<code>&#39;b&#39;</code> 和 <code>&#39;c&#39;</code> 。</li></ul><p>给你一个字符串 <code>s</code> ，返回 <strong>其所有子字符串的总引力</strong> 。</p><p><strong>子字符串</strong> 定义为：字符串中的一个连续字符序列。</p><h2 id="分析和解答-3"><a href="#分析和解答-3" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>一道计算“贡献”的题目，自己一开始想的有点偏，贡献类的题目感觉不能从完全全局来说，要考虑每个字符在全局上的贡献，这个题也是第一次遇到，感觉算法还是很神奇的，自己举的例子是下边这个图这样，这样能按照每个字符，来统计每个字符的贡献度：</p><p>非重复情况：<br><img src="/images/2022-05-02-10-28-47.png"></p><p>重复情况：<br><img src="/images/2022-05-02-10-29-13.png"></p><p>另外还想再次说这个子字符串好有意思啊，他不是2^n那种遍历方法的，而是j=i那种双重for循环的，看了眼数据范围还在想要不要搞2^n做法呢</p><p>正确解答方法：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">appealSum</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># 一种每个字符贡献度的思想，还是很有特点的</span></span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        char_dict = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">            <span class="keyword">if</span> char_dict.get(s[i]) <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                res += (i + <span class="number">1</span>) * (<span class="built_in">len</span>(s)-i)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                res += (i - char_dict[s[i]]) * (<span class="built_in">len</span>(s) - i)</span><br><span class="line">            char_dict[s[i]] = i</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure><p>这里也额外把自己当时写的暴力方法附上，一位缩减了时间复杂度，实际上像个小丑哈哈哈哈哈哈哈哈，dp了但没完全dp</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">appealSum</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        d1 = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">            d1[i] = &#123;s[i]: <span class="number">1</span>&#125;</span><br><span class="line">            res += <span class="number">1</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;init: &quot;</span>, d1)</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        res_d = &#123;&#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 这里感觉是一个base基础上的dp，每次要取几位，有点不像平常的遍历思路1</span></span><br><span class="line">        <span class="comment"># 现在要开始每次取两位</span></span><br><span class="line">        <span class="keyword">for</span> l <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">len</span>(s)+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)-l+<span class="number">1</span>):</span><br><span class="line">                <span class="comment"># base</span></span><br><span class="line">                base = s[i:i+l-<span class="number">1</span>]</span><br><span class="line">                <span class="comment"># print(&quot;base: &quot;, base)</span></span><br><span class="line">                </span><br><span class="line">                <span class="comment"># now（要不要给他加一个标识？）</span></span><br><span class="line">                tmp_s = s[i:i+l]</span><br><span class="line">                <span class="comment"># print(&quot;tmp_s: &quot;, tmp_s)</span></span><br><span class="line">                </span><br><span class="line">                <span class="comment"># 增量</span></span><br><span class="line">                upper = tmp_s[<span class="built_in">len</span>(base):]</span><br><span class="line">                <span class="comment"># print(&quot;upper: &quot;, upper)</span></span><br><span class="line">                </span><br><span class="line">                <span class="comment"># 查看upper在不在</span></span><br><span class="line">                <span class="keyword">if</span> d1[i].get(upper) <span class="keyword">is</span> <span class="literal">None</span>:  <span class="comment"># 不在，这样是一种累加的</span></span><br><span class="line">                    d1[i][tmp_s] = d1[i][base] + <span class="number">1</span></span><br><span class="line">                    d1[i][upper] = <span class="number">1</span></span><br><span class="line">                    res += d1[i][tmp_s]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    d1[i][tmp_s] = d1[i][base]</span><br><span class="line">                    res += d1[i][tmp_s]</span><br><span class="line">                    </span><br><span class="line">                    <span class="comment"># continue</span></span><br><span class="line">                    <span class="comment"># res += d1[i][upper]</span></span><br><span class="line">                    <span class="comment"># d1[i][upper] = d1[i][upper] + 1</span></span><br><span class="line">                    <span class="comment"># continue</span></span><br><span class="line">                </span><br><span class="line">        <span class="comment"># print(d1)</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># print(res)</span></span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode-python </category>
+          
+          <category> LeetCode周赛 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> EASY </tag>
+            
+            <tag> MEDIUM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>687.最长同值路径-python</title>
       <link href="/2022/04/30/687-%E6%9C%80%E9%95%BF%E5%90%8C%E5%80%BC%E8%B7%AF%E5%BE%84-python/"/>
       <url>/2022/04/30/687-%E6%9C%80%E9%95%BF%E5%90%8C%E5%80%BC%E8%B7%AF%E5%BE%84-python/</url>
@@ -20,13 +80,13 @@
       
         <tags>
             
+            <tag> MEDIUM </tag>
+            
             <tag> 树 </tag>
             
             <tag> 深度优先搜索 </tag>
             
             <tag> 二叉树 </tag>
-            
-            <tag> MEDIUM </tag>
             
         </tags>
       
@@ -51,13 +111,13 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 树 </tag>
             
             <tag> 深度优先搜索 </tag>
             
             <tag> 二叉树 </tag>
-            
-            <tag> EASY </tag>
             
         </tags>
       
@@ -70,7 +130,7 @@
       <link href="/2022/04/30/124-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C-python/"/>
       <url>/2022/04/30/124-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C-python/</url>
       
-        <content type="html"><![CDATA[<p>124.二叉树中的最大路径和（困难）</p><p>题目大意：<strong>路径</strong> 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条路径序列中 <strong>至多出现一次</strong> 。该路径 <strong>至少包含一个</strong> 节点，且不一定经过根节点。</p><p><strong>路径和</strong> 是路径中各节点值的总和。</p><p>给你一个二叉树的根节点 <code>root</code> ，返回其 <strong>最大路径和</strong> 。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode.cn/problems/binary-tree-maximum-path-sum/">题目链接</a></p><p><strong>路径</strong> 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条路径序列中 <strong>至多出现一次</strong> 。该路径 <strong>至少包含一个</strong> 节点，且不一定经过根节点。</p><p><strong>路径和</strong> 是路径中各节点值的总和。</p><p>给你一个二叉树的根节点 <code>root</code> ，返回其 <strong>最大路径和</strong> 。</p><p>示例1：</p><p><img src="/images/2022-04-30-10-00-18.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,2,3]</span><br><span class="line">输出：6</span><br><span class="line">解释：最优路径是 2 -&gt; 1 -&gt; 3 ，路径和为 2 + 1 + 3 = 6</span><br></pre></td></tr></table></figure><p>示例2：</p><p><img src="/images/2022-04-30-10-00-43.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [-10,9,20,null,null,15,7]</span><br><span class="line">输出：42</span><br><span class="line">解释：最优路径是 15 -&gt; 20 -&gt; 7 ，路径和为 15 + 20 + 7 = 42</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li><code>树中节点数目范围是 [1, 3 * 10^4]</code></li><li><code>-1000 &lt;= Node.val &lt;= 1000</code></li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>经典的树形子结构dp题目，这个题带了一个最大路径和，这块是要有一个全局的变量，每个子结构的值要和这个全局的值来比取最大值；</p><p>树里的子结构，一般思路就是<strong>后序遍历</strong>的思想，把每个节点当做根节点，然后求出这个点左右和这个点的值加起来，和全局的来比；而其中比较关键的是在此之前，每个地方的递归出口，也就是后序遍历的出口要把子结构的值给返回回去，而这种路径的话，子结构实际上只能往左边或者右边，也就是<code>root.val + max(left_val, right_val)</code>，其中两边的val需要通过递归来完成返回</p><p>总结来说，一般的套路是如下几个步骤：</p><ol><li>写 <code>from function tools import lru_cache</code> ，在dfs函数前加上 <code>@lru_cache(1000*1000)</code> 的修饰，这样可以一定程度上减小时间占用（在笔试题目中可能会有奇效hh）；</li><li>写入口，入口一般有两种情况，像是笔试题目的话可能是 <code>def dfs(left, right)</code> 这样的，像是leetcode题目的话，可能就是 <code>def dfs(root)</code>；</li><li>写出口返回值，一般来说就是子结构的值，如果是像这个题一样树中路径的话，就是当前节点加上左边或者右边的；</li><li>写后续遍历的递归部分，将两边的子结构传入dfs函数中，来进一步往深度优先寻找；</li><li>写全局比较，这个步骤不一定存在，但是如果把每个节点像这个题一样当做“中转节点”的话，那就要和全局的值比较一下；</li><li>写递归出口条件，一般来说就是 <code>root is None</code> 或者 <code>left &gt;= right</code>这类的条件；</li></ol><p>这个模式感觉还挺套路的，几乎子结构或者带着树中路径的题目都可以这么做，也算是积累到一种做法吧，相似题目包括：</p><p><a href="https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/">124.二叉树中的最大路径和 hard</a><br><a href="https://leetcode-cn.com/problems/diameter-of-binary-tree/">543.二叉树直径 easy</a><br><a href="https://leetcode-cn.com/problems/longest-univalue-path/">687.最长同值路径 medium</a><br><a href="https://www.nowcoder.com/test/28665343/summary">001场笔试练习 第四题.最优二叉树</a></p><p>通过上边的总结来说，这个题目基本已经可以做出来了，需要注意的是这个题目中可能有负数存在，路径上带上负数还不如不带这条路径，子结构返回的时候需要注意一下</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode(object):</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, left=None, right=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.left = left</span></span><br><span class="line"><span class="comment">#         self.right = right</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.max_res = -<span class="number">1e9</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxPathSum</span>(<span class="params">self, root</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">root</span>):</span></span><br><span class="line">            <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">            left_max_val = dfs(root.left) <span class="comment"># 往左子树走，以左子树为根的最大子结构</span></span><br><span class="line">            right_max_val = dfs(root.right)  <span class="comment"># 往右子树走，右子树的最大子结构</span></span><br><span class="line"></span><br><span class="line">            tmp_value = root.val + left_max_val + right_max_val  <span class="comment"># 以root为根的最大子结构</span></span><br><span class="line">            self.max_res = <span class="built_in">max</span>(self.max_res, tmp_value)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 这个return是单一子结构的return，子结构下不能同时往左又往右走，只能选择一边，子结构的！！！</span></span><br><span class="line">            <span class="keyword">if</span> root.val + <span class="built_in">max</span>([<span class="number">0</span>, left_max_val, right_max_val]) &gt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> root.val + <span class="built_in">max</span>([<span class="number">0</span>, left_max_val, right_max_val]) </span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        dfs(root)</span><br><span class="line">        <span class="keyword">return</span> self.max_res</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p>124.二叉树中的最大路径和（困难）</p><p>题目大意：<strong>路径</strong> 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条路径序列中 <strong>至多出现一次</strong> 。该路径 <strong>至少包含一个</strong> 节点，且不一定经过根节点。</p><p><strong>路径和</strong> 是路径中各节点值的总和。</p><p>给你一个二叉树的根节点 <code>root</code> ，返回其 <strong>最大路径和</strong> 。</p><span id="more"></span><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode.cn/problems/binary-tree-maximum-path-sum/">题目链接</a></p><p><strong>路径</strong> 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条路径序列中 <strong>至多出现一次</strong> 。该路径 <strong>至少包含一个</strong> 节点，且不一定经过根节点。</p><p><strong>路径和</strong> 是路径中各节点值的总和。</p><p>给你一个二叉树的根节点 <code>root</code> ，返回其 <strong>最大路径和</strong> 。</p><p>示例1：</p><p><img src="/images/2022-04-30-10-00-18.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,2,3]</span><br><span class="line">输出：6</span><br><span class="line">解释：最优路径是 2 -&gt; 1 -&gt; 3 ，路径和为 2 + 1 + 3 = 6</span><br></pre></td></tr></table></figure><p>示例2：</p><p><img src="/images/2022-04-30-10-00-43.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [-10,9,20,null,null,15,7]</span><br><span class="line">输出：42</span><br><span class="line">解释：最优路径是 15 -&gt; 20 -&gt; 7 ，路径和为 15 + 20 + 7 = 42</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li><code>树中节点数目范围是 [1, 3 * 10^4]</code></li><li><code>-1000 &lt;= Node.val &lt;= 1000</code></li></ul><h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>经典的树形子结构dp题目，这个题带了一个最大路径和，这块是要有一个全局的变量，每个子结构的值要和这个全局的值来比取最大值；</p><p>树里的子结构，一般思路就是<strong>后序遍历</strong>的思想，把每个节点当做根节点，然后求出这个点左右和这个点的值加起来，和全局的来比；而其中比较关键的是在此之前，每个地方的递归出口，也就是后序遍历的出口要把子结构的值给返回回去，而这种路径的话，子结构实际上只能往左边或者右边，也就是<code>root.val + max(left_val, right_val)</code>，其中两边的val需要通过递归来完成返回</p><p>总结来说，一般的套路是如下几个步骤：</p><ol><li>写 <code>from function tools import lru_cache</code> ，在dfs函数前加上 <code>@lru_cache(1000*1000)</code> 的修饰，这样可以一定程度上减小时间占用（在笔试题目中可能会有奇效hh）；</li><li>写入口，入口一般有两种情况，像是笔试题目的话可能是 <code>def dfs(left, right)</code> 这样的，像是leetcode题目的话，可能就是 <code>def dfs(root)</code>；</li><li>写出口返回值，一般来说就是子结构的值，如果是像这个题一样树中路径的话，就是当前节点加上左边或者右边的；</li><li>写后续遍历的递归部分，将两边的子结构传入dfs函数中，来进一步往深度优先寻找；</li><li>写全局比较，这个步骤不一定存在，但是如果把每个节点像这个题一样当做“中转节点”的话，那就要和全局的值比较一下；</li><li>写递归出口条件，一般来说就是 <code>root is None</code> 或者 <code>left &gt;= right</code>这类的条件；</li></ol><p>这个模式感觉还挺套路的，几乎子结构或者带着树中路径的题目都可以这么做，也算是积累到一种做法吧，相似题目包括：</p><p><a href="https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/">124.二叉树中的最大路径和 hard</a><br><a href="https://leetcode-cn.com/problems/diameter-of-binary-tree/">543.二叉树直径 easy</a><br><a href="https://leetcode-cn.com/problems/longest-univalue-path/">687.最长同值路径 medium</a><br><a href="https://www.nowcoder.com/test/28665343/summary">001场笔试练习 第四题.最优二叉树</a></p><p>通过上边的总结来说，这个题目基本已经可以做出来了，需要注意的是这个题目中可能有负数存在，路径上带上负数还不如不带这条路径，子结构返回的时候需要注意一下</p><p>补充：</p><p>543.二叉树直径 easy: <a href="https://leetcode-cn.com/problems/diameter-of-binary-tree/">https://leetcode-cn.com/problems/diameter-of-binary-tree/</a></p><p>124.二叉树中的最大路径和 hard: <a href="https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/">https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/</a></p><p>这两个题感觉是很像的，但是不太像树形dp，就像是在树里的dfs一样，感觉最主要的思路就是子结构</p><ul><li><p>在写dfs函数的时候，先写返回值，返回值是左右两个子结构中最大的一个加上当前节点的值；；这里说是子结构是因为他的父节点如果选了左边的就不能选右边的（题目特性决定）；；代表这个根作为子结构的条件下最大值</p></li><li><p>然后写结束条件，一般就是root is None的时候</p></li><li><p>然后写递归的两边，基本就是把root.left和root.right传进去</p></li><li><p>然后写全局的，全局的就是 当前+左子结构+右子结构，然后和现有比取最大的；；；代表按这个根作为真实根的情况下条件的最大值</p></li></ul><p>最后return回全局的这个最大的</p><p>树里子结构的dfs</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode(object):</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, left=None, right=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.left = left</span></span><br><span class="line"><span class="comment">#         self.right = right</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.max_res = -<span class="number">1e9</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxPathSum</span>(<span class="params">self, root</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type root: TreeNode</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">root</span>):</span></span><br><span class="line">            <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">            left_max_val = dfs(root.left) <span class="comment"># 往左子树走，以左子树为根的最大子结构</span></span><br><span class="line">            right_max_val = dfs(root.right)  <span class="comment"># 往右子树走，右子树的最大子结构</span></span><br><span class="line"></span><br><span class="line">            tmp_value = root.val + left_max_val + right_max_val  <span class="comment"># 以root为根的最大子结构</span></span><br><span class="line">            self.max_res = <span class="built_in">max</span>(self.max_res, tmp_value)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 这个return是单一子结构的return，子结构下不能同时往左又往右走，只能选择一边，子结构的！！！</span></span><br><span class="line">            <span class="keyword">if</span> root.val + <span class="built_in">max</span>([<span class="number">0</span>, left_max_val, right_max_val]) &gt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> root.val + <span class="built_in">max</span>([<span class="number">0</span>, left_max_val, right_max_val]) </span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        dfs(root)</span><br><span class="line">        <span class="keyword">return</span> self.max_res</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -115,19 +175,19 @@
       
         <tags>
             
-            <tag> EASY </tag>
+            <tag> 模拟 </tag>
             
             <tag> 数组 </tag>
-            
-            <tag> MEDIUM </tag>
-            
-            <tag> 模拟 </tag>
             
             <tag> 排序 </tag>
             
             <tag> 堆 </tag>
             
             <tag> 优先队列 </tag>
+            
+            <tag> EASY </tag>
+            
+            <tag> MEDIUM </tag>
             
         </tags>
       
@@ -183,23 +243,23 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
-            <tag> 贪心 </tag>
+            <tag> 模拟 </tag>
             
             <tag> 数组 </tag>
             
+            <tag> EASY </tag>
+            
             <tag> MEDIUM </tag>
             
-            <tag> 模拟 </tag>
+            <tag> 贪心 </tag>
             
             <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
             
-            <tag> 矩阵 </tag>
-            
             <tag> 前缀和 </tag>
+            
+            <tag> 矩阵 </tag>
             
             <tag> 计数 </tag>
             
@@ -228,19 +288,19 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
-            <tag> 贪心 </tag>
-            
             <tag> 数组 </tag>
-            
-            <tag> MEDIUM </tag>
             
             <tag> 排序 </tag>
             
             <tag> 堆 </tag>
             
             <tag> 优先队列 </tag>
+            
+            <tag> EASY </tag>
+            
+            <tag> MEDIUM </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 字符串 </tag>
             
@@ -273,9 +333,9 @@
             
             <tag> EASY </tag>
             
-            <tag> 贪心 </tag>
-            
             <tag> MEDIUM </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 动态规划 </tag>
             
@@ -346,15 +406,15 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
             <tag> 数组 </tag>
+            
+            <tag> EASY </tag>
             
             <tag> MEDIUM </tag>
             
-            <tag> 字符串 </tag>
-            
             <tag> 位运算 </tag>
+            
+            <tag> 字符串 </tag>
             
             <tag> 栈 </tag>
             
@@ -420,11 +480,11 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 树 </tag>
             
             <tag> 深度优先搜索 </tag>
-            
-            <tag> EASY </tag>
             
             <tag> 栈 </tag>
             
@@ -453,11 +513,11 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 树 </tag>
             
             <tag> 深度优先搜索 </tag>
-            
-            <tag> EASY </tag>
             
             <tag> 栈 </tag>
             
@@ -484,11 +544,11 @@
       
         <tags>
             
+            <tag> MEDIUM </tag>
+            
             <tag> 树 </tag>
             
             <tag> 广度优先搜索 </tag>
-            
-            <tag> MEDIUM </tag>
             
         </tags>
       
@@ -519,9 +579,9 @@
             
             <tag> 优先队列 </tag>
             
-            <tag> 链表 </tag>
-            
             <tag> HARD </tag>
+            
+            <tag> 链表 </tag>
             
             <tag> 分治 </tag>
             
@@ -552,15 +612,15 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
-            <tag> 贪心 </tag>
+            <tag> 模拟 </tag>
             
             <tag> 数组 </tag>
             
+            <tag> EASY </tag>
+            
             <tag> MEDIUM </tag>
             
-            <tag> 模拟 </tag>
+            <tag> 贪心 </tag>
             
             <tag> 哈希表 </tag>
             
@@ -622,13 +682,13 @@
       
         <tags>
             
+            <tag> MEDIUM </tag>
+            
             <tag> 树 </tag>
             
             <tag> 深度优先搜索 </tag>
             
             <tag> 二叉树 </tag>
-            
-            <tag> MEDIUM </tag>
             
             <tag> 二叉搜索树 </tag>
             
@@ -688,6 +748,14 @@
       
         <tags>
             
+            <tag> 数组 </tag>
+            
+            <tag> 排序 </tag>
+            
+            <tag> EASY </tag>
+            
+            <tag> MEDIUM </tag>
+            
             <tag> 树 </tag>
             
             <tag> 深度优先搜索 </tag>
@@ -696,15 +764,7 @@
             
             <tag> 二叉树 </tag>
             
-            <tag> EASY </tag>
-            
             <tag> 贪心 </tag>
-            
-            <tag> 数组 </tag>
-            
-            <tag> MEDIUM </tag>
-            
-            <tag> 排序 </tag>
             
             <tag> 哈希表 </tag>
             
@@ -762,9 +822,9 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
             <tag> 数组 </tag>
+            
+            <tag> EASY </tag>
             
             <tag> MEDIUM </tag>
             
@@ -801,21 +861,21 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
-            <tag> 贪心 </tag>
-            
-            <tag> MEDIUM </tag>
-            
             <tag> 模拟 </tag>
             
             <tag> 堆 </tag>
             
             <tag> 优先队列 </tag>
             
-            <tag> 链表 </tag>
+            <tag> EASY </tag>
+            
+            <tag> MEDIUM </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 字符串 </tag>
+            
+            <tag> 链表 </tag>
             
             <tag> 数学 </tag>
             
@@ -898,9 +958,9 @@
       
         <tags>
             
-            <tag> 双指针 </tag>
-            
             <tag> MEDIUM </tag>
+            
+            <tag> 双指针 </tag>
             
             <tag> 链表 </tag>
             
@@ -929,6 +989,8 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 树 </tag>
             
             <tag> 深度优先搜索 </tag>
@@ -936,8 +998,6 @@
             <tag> 广度优先搜索 </tag>
             
             <tag> 二叉树 </tag>
-            
-            <tag> EASY </tag>
             
         </tags>
       
@@ -964,6 +1024,8 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 树 </tag>
             
             <tag> 深度优先搜索 </tag>
@@ -971,8 +1033,6 @@
             <tag> 广度优先搜索 </tag>
             
             <tag> 二叉树 </tag>
-            
-            <tag> EASY </tag>
             
         </tags>
       
@@ -999,17 +1059,17 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
-            <tag> 贪心 </tag>
+            <tag> 模拟 </tag>
             
             <tag> 数组 </tag>
             
+            <tag> 排序 </tag>
+            
+            <tag> EASY </tag>
+            
             <tag> MEDIUM </tag>
             
-            <tag> 模拟 </tag>
-            
-            <tag> 排序 </tag>
+            <tag> 贪心 </tag>
             
             <tag> 哈希表 </tag>
             
@@ -1044,13 +1104,13 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 排序 </tag>
+            
+            <tag> EASY </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 哈希表 </tag>
             
@@ -1102,23 +1162,23 @@
       
         <tags>
             
-            <tag> EASY </tag>
+            <tag> 模拟 </tag>
             
             <tag> 数组 </tag>
             
-            <tag> 双指针 </tag>
+            <tag> 排序 </tag>
+            
+            <tag> EASY </tag>
             
             <tag> MEDIUM </tag>
             
-            <tag> 模拟 </tag>
-            
-            <tag> 排序 </tag>
-            
-            <tag> 哈希表 </tag>
+            <tag> 双指针 </tag>
             
             <tag> 位运算 </tag>
             
             <tag> HARD </tag>
+            
+            <tag> 哈希表 </tag>
             
             <tag> 回溯 </tag>
             
@@ -1178,9 +1238,9 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
             <tag> 数组 </tag>
+            
+            <tag> EASY </tag>
             
             <tag> 哈希表 </tag>
             
@@ -1238,9 +1298,9 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
             <tag> 数组 </tag>
+            
+            <tag> EASY </tag>
             
             <tag> 位运算 </tag>
             
@@ -1269,6 +1329,8 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 树 </tag>
             
             <tag> 深度优先搜索 </tag>
@@ -1276,8 +1338,6 @@
             <tag> 广度优先搜索 </tag>
             
             <tag> 二叉树 </tag>
-            
-            <tag> EASY </tag>
             
         </tags>
       
@@ -1304,19 +1364,19 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
             <tag> 数组 </tag>
+            
+            <tag> 排序 </tag>
+            
+            <tag> EASY </tag>
             
             <tag> MEDIUM </tag>
             
-            <tag> 排序 </tag>
+            <tag> 位运算 </tag>
             
             <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
-            
-            <tag> 位运算 </tag>
             
             <tag> 矩阵 </tag>
             
@@ -1347,15 +1407,15 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
-            <tag> 贪心 </tag>
+            <tag> 模拟 </tag>
             
             <tag> 数组 </tag>
             
+            <tag> EASY </tag>
+            
             <tag> MEDIUM </tag>
             
-            <tag> 模拟 </tag>
+            <tag> 贪心 </tag>
             
             <tag> 动态规划 </tag>
             
@@ -1554,9 +1614,9 @@
       
         <tags>
             
-            <tag> MEDIUM </tag>
-            
             <tag> 排序 </tag>
+            
+            <tag> MEDIUM </tag>
             
             <tag> 哈希表 </tag>
             
@@ -1666,15 +1726,15 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
-            <tag> 贪心 </tag>
-            
             <tag> 数组 </tag>
+            
+            <tag> 排序 </tag>
+            
+            <tag> EASY </tag>
             
             <tag> MEDIUM </tag>
             
-            <tag> 排序 </tag>
+            <tag> 贪心 </tag>
             
             <tag> 字符串 </tag>
             
@@ -1693,7 +1753,7 @@
       <link href="/2021/12/26/273%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/"/>
       <url>/2021/12/26/273%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/</url>
       
-        <content type="html"><![CDATA[<p>周赛综述&amp;总结：</p><p>第一题：感觉比较水，123400倒过来是004321，再倒回去是1234和原来的数字不一样了，这样其实可以直接判断末尾是不是0，还有是不是单独一个0就可以了；</p><p>第二题：矩阵内简单的模拟，up down left right，经过这四个操作后，不能越过矩阵的边界就行了，后缀在python里<code>[i:]</code>好像比较简单；</p><p>第三题：在当时做的时候何老板就在想是不是和数学有关的，后来听了卿哥的解答后感觉最关键的是abcde这个思路，这样比较容易可能能想到前缀和后缀的问题了，对于一个数字2，比如其角标在<code>[a, b, c, d, e]</code>五个位置，那么根据题意可以模拟下每个位置下的和，这样能看出来之间的关系，详见下文解答；</p><p>第四题：未来有机会再试了；</p><span id="more"></span><h1 id="第一题：2119-反转两次的数字"><a href="#第一题：2119-反转两次的数字" class="headerlink" title="第一题：2119.反转两次的数字"></a>第一题：2119.反转两次的数字</h1><p><a href="https://leetcode-cn.com/problems/a-number-after-a-double-reversal/">题目链接</a></p><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p><strong>反转</strong>一个整数意味着倒置它的所有位。</p><p>例如，反转<code>2021</code>得到<code>1202</code>。反转<code>12300</code>得到<code>321</code>，<strong>不保留前导零</strong>。<br>给你一个整数<code>num</code>，<strong>反转</strong><code>num</code>得到<code>reversed1</code>，<strong>接着反转</strong><code>reversed1</code>得到<code>reversed2</code>。如果<code>reversed2</code>等于<code>num</code>，返回<code>true</code>；否则，返回<code>false</code>。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：num = 526</span><br><span class="line">输出：true</span><br><span class="line">解释：反转 num 得到 625 ，接着反转 625 得到 526 ，等于 num 。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：num = 1800</span><br><span class="line">输出：false</span><br><span class="line">解释：反转 num 得到 81 ，接着反转 81 得到 18 ，不等于 num 。 </span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：num = 0</span><br><span class="line">输出：true</span><br><span class="line">解释：反转 num 得到 0 ，接着反转 0 得到 0 ，等于 num 。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>0 &lt;= num &lt;= 106</li></ul><h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>这个题感觉不能被题面唬住了，还是判断后边有没有0就可以了，然后单独0的单独处理下；</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isSameAfterReversals</span>(<span class="params">self, num</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type num: int</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(<span class="built_in">str</span>(num)) == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">str</span>(num)[-<span class="number">1</span>] == <span class="string">&quot;0&quot;</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure><h1 id="第二题：2120-执行所有后缀执行"><a href="#第二题：2120-执行所有后缀执行" class="headerlink" title="第二题：2120.执行所有后缀执行"></a>第二题：2120.执行所有后缀执行</h1><p><a href="https://leetcode-cn.com/problems/execution-of-all-suffix-instructions-staying-in-a-grid/">题目链接</a></p><h2 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h2><p>现有一个<code>n x n</code>大小的网格，左上角单元格坐标<code>(0, 0)</code>，右下角单元格坐标<code>(n - 1, n - 1)</code>。给你整数<code>n</code>和一个整数数组<code>startPos</code>，其中<code>startPos = [startrow, startcol]</code>表示机器人最开始在坐标为<code>(startrow, startcol)</code>的单元格上。</p><p>另给你一个长度为<code>m</code>、下标从<code>0</code>开始的字符串<code>s</code>，其中<code>s[i]</code>是对机器人的第<code>i</code>条指令：<code>&#39;L&#39;</code>（向左移动），<code>&#39;R&#39;</code>（向右移动），<code>&#39;U&#39;</code>（向上移动）和 <code>&#39;D&#39;</code>（向下移动）。</p><p>机器人可以从<code>s</code>中的任一第<code>i</code>条指令开始执行。它将会逐条执行指令直到<code>s</code>的末尾，但在满足下述条件之一时，机器人将会停止：</p><p>下一条指令将会导致机器人移动到网格外。<br>没有指令可以执行。<br>返回一个长度为<code>m</code>的数组<code>answer</code>，其中<code>answer[i]</code>是机器人从第<code>i</code>条指令 开始 ，可以执行的 指令数目 。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 3, startPos = [0,1], s = &quot;RRDDLU&quot;</span><br><span class="line">输出：[1,5,4,3,1,0]</span><br><span class="line">解释：机器人从 startPos 出发，并从第 i 条指令开始执行：</span><br><span class="line">- 0: &quot;RRDDLU&quot; 在移动到网格外之前，只能执行一条 &quot;R&quot; 指令。</span><br><span class="line">- 1:  &quot;RDDLU&quot; 可以执行全部五条指令，机器人仍在网格内，最终到达 (0, 0) 。</span><br><span class="line">- 2:   &quot;DDLU&quot; 可以执行全部四条指令，机器人仍在网格内，最终到达 (0, 0) 。</span><br><span class="line">- 3:    &quot;DLU&quot; 可以执行全部三条指令，机器人仍在网格内，最终到达 (0, 0) 。</span><br><span class="line">- 4:     &quot;LU&quot; 在移动到网格外之前，只能执行一条 &quot;L&quot; 指令。</span><br><span class="line">- 5:      &quot;U&quot; 如果向上移动，将会移动到网格外。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 2, startPos = [1,1], s = &quot;LURD&quot;</span><br><span class="line">输出：[4,1,0,0]</span><br><span class="line">解释：</span><br><span class="line">- 0: &quot;LURD&quot;</span><br><span class="line">- 1:  &quot;URD&quot;</span><br><span class="line">- 2:   &quot;RD&quot;</span><br><span class="line">- 3:    &quot;D&quot;</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 1, startPos = [0,0], s = &quot;LRUD&quot;</span><br><span class="line">输出：[0,0,0,0]</span><br><span class="line">解释：无论机器人从哪条指令开始执行，都会移动到网格外。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>m == s.length</li><li>1 &lt;= n, m &lt;= 500</li><li>startPos.length == 2</li><li>0 &lt;= startrow, startcol &lt; n</li><li>s 由 ‘L’、’R’、’U’ 和 ‘D’ 组成</li></ul><h2 id="分析和解答-1"><a href="#分析和解答-1" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>比较水，实际上是简单题，执行就可以了，后缀执行用<code>s[:i]</code>截断就可以了，边界的判断就像dfs couting lakes的判断一样</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><h1 id="第三题：2121-相同元素的间隔之和"><a href="#第三题：2121-相同元素的间隔之和" class="headerlink" title="第三题：2121.相同元素的间隔之和"></a>第三题：2121.相同元素的间隔之和</h1><p><a href="https://leetcode-cn.com/problems/intervals-between-identical-elements/">题目链接</a></p><h2 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个下标从<strong>0</strong>开始、由<code>n</code>个整数组成的数组<code>arr</code>。</p><p>arr 中两个元素的 间隔 定义为它们下标之间的<strong>绝对差</strong>。更正式地，<code>arr[i]</code>和<code>arr[j]</code>之间的间隔是<code>|i - j|</code>。</p><p>返回一个长度为<code>n</code>的数组<code>intervals</code>，其中<code>intervals[i]</code>是<code>arr[i]</code>和<code>arr</code>中每个相同元素（与<code>arr[i]</code>的值相同）的<strong>间隔之和</strong>。</p><p>注意：<code>|x|</code>是<code>x</code>的绝对值。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">输入：arr = [2,1,3,1,2,3,3]</span><br><span class="line">输出：[4,2,7,2,4,4,5]</span><br><span class="line">解释：</span><br><span class="line">- 下标 0 ：另一个 2 在下标 4 ，|0 - 4| = 4</span><br><span class="line">- 下标 1 ：另一个 1 在下标 3 ，|1 - 3| = 2</span><br><span class="line">- 下标 2 ：另两个 3 在下标 5 和 6 ，|2 - 5| + |2 - 6| = 7</span><br><span class="line">- 下标 3 ：另一个 1 在下标 1 ，|3 - 1| = 2</span><br><span class="line">- 下标 4 ：另一个 2 在下标 0 ，|4 - 0| = 4</span><br><span class="line">- 下标 5 ：另两个 3 在下标 2 和 6 ，|5 - 2| + |5 - 6| = 4</span><br><span class="line">- 下标 6 ：另两个 3 在下标 2 和 5 ，|6 - 2| + |6 - 5| = 5</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：arr = [10,5,10,10]</span><br><span class="line">输出：[5,0,3,4]</span><br><span class="line">解释：</span><br><span class="line">- 下标 0 ：另两个 10 在下标 2 和 3 ，|0 - 2| + |0 - 3| = 5</span><br><span class="line">- 下标 1 ：只有这一个 5 在数组中，所以到相同元素的间隔之和是 0</span><br><span class="line">- 下标 2 ：另两个 10 在下标 0 和 3 ，|2 - 0| + |2 - 3| = 3</span><br><span class="line">- 下标 3 ：另两个 10 在下标 0 和 2 ，|3 - 0| + |3 - 2| = 4</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>n == arr.length</li><li>1 &lt;= n &lt;= 105</li><li>1 &lt;= arr[i] &lt;= 105</li></ul><h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>思路还是很巧妙的，假设一个<code>[a, b, c, d, e]</code>角标数组，现在要统计<code>c</code>这个位置下的角标绝对差，那么这个位置上就是<code>(c-a) + (c-b) + (d-c) + (e-c)</code>，如果要统计</p><figure class="highlight plaintext"><figcaption><span>+ (d-b) + (d-c) + (e-d)```，这样：</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 在```c```的位置下看规律，前缀（left_sum）是```a+b```，后缀（right_sum）是```d+e```，求和是：```(c-a) + (c-b) + (d-c) + (e-c)```</span><br><span class="line"></span><br><span class="line">- 在```d```的位置下看规律，前缀（left_sum）是```a+b+c```，后缀（right_sum）是```e```，求和是：```(d-a) + (d-b) + (d-c) + (e-d)```</span><br><span class="line"></span><br><span class="line">这样感觉可以总结出来规律了，在哪个角标x位置，就是：``` ((x * 前缀个数) - 前缀) + (后缀 - (x * 后缀个数))```，这样前缀后缀可以通过一种类似于滑动窗口的方法更新，大大减少了时间复杂度。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">class Solution(object):</span><br><span class="line">    def getDistances(self, arr):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        :type arr: List[int]</span><br><span class="line">        :rtype: List[int]</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        return_list = [0 for i in range(len(arr))]</span><br><span class="line"></span><br><span class="line">        # 把arr转化为一个map，类似于3: [2, 5, 6]这样的，前边是数值，后边是数值的角标</span><br><span class="line">        tmp_dict = &#123;&#125;  # &#123;1: [1, 3], 2: [0, 4], 3: [2, 5, 6]&#125;</span><br><span class="line">        for i, item in enumerate(arr):</span><br><span class="line">            if tmp_dict.get(arr[i]) is None:</span><br><span class="line">                tmp_dict[arr[i]] = [i]</span><br><span class="line">            else:</span><br><span class="line">                tmp_dict[arr[i]].append(i)</span><br><span class="line">        </span><br><span class="line">        for key, value in tmp_dict.items():</span><br><span class="line">            # 在每个value中，使用 a b c d e的思想</span><br><span class="line">            left_sum = 0</span><br><span class="line">            left_cnt = 0</span><br><span class="line">            right_sum = 0</span><br><span class="line">            right_cnt = 0</span><br><span class="line">            for i in range(0, len(value)):</span><br><span class="line">                right_sum += value[i]</span><br><span class="line">                right_cnt += 1</span><br><span class="line">            </span><br><span class="line">            for i in range(len(value)):</span><br><span class="line">                # 滑动窗口的感觉</span><br><span class="line">                right_sum -= value[i]</span><br><span class="line">                right_cnt -= 1</span><br><span class="line">                return_list[value[i]] = (right_sum - (right_cnt * value[i])) + (left_cnt * value[i] - left_sum)</span><br><span class="line">                left_sum += value[i]</span><br><span class="line">                left_cnt += 1</span><br><span class="line">                </span><br><span class="line">        return return_list</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p>周赛综述&amp;总结：</p><p>第一题：感觉比较水，123400倒过来是004321，再倒回去是1234和原来的数字不一样了，这样其实可以直接判断末尾是不是0，还有是不是单独一个0就可以了；</p><p>第二题：矩阵内简单的模拟，up down left right，经过这四个操作后，不能越过矩阵的边界就行了，后缀在python里<code>[i:]</code>好像比较简单；</p><p>第三题：在当时做的时候何老板就在想是不是和数学有关的，后来听了卿哥的解答后感觉最关键的是abcde这个思路，这样比较容易可能能想到前缀和后缀的问题了，对于一个数字2，比如其角标在<code>[a, b, c, d, e]</code>五个位置，那么根据题意可以模拟下每个位置下的和，这样能看出来之间的关系，详见下文解答；</p><p>第四题：未来有机会再试了；</p><span id="more"></span><h1 id="第一题：2119-反转两次的数字"><a href="#第一题：2119-反转两次的数字" class="headerlink" title="第一题：2119.反转两次的数字"></a>第一题：2119.反转两次的数字</h1><p><a href="https://leetcode-cn.com/problems/a-number-after-a-double-reversal/">题目链接</a></p><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p><strong>反转</strong>一个整数意味着倒置它的所有位。</p><p>例如，反转<code>2021</code>得到<code>1202</code>。反转<code>12300</code>得到<code>321</code>，<strong>不保留前导零</strong>。<br>给你一个整数<code>num</code>，<strong>反转</strong><code>num</code>得到<code>reversed1</code>，<strong>接着反转</strong><code>reversed1</code>得到<code>reversed2</code>。如果<code>reversed2</code>等于<code>num</code>，返回<code>true</code>；否则，返回<code>false</code>。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：num = 526</span><br><span class="line">输出：true</span><br><span class="line">解释：反转 num 得到 625 ，接着反转 625 得到 526 ，等于 num 。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：num = 1800</span><br><span class="line">输出：false</span><br><span class="line">解释：反转 num 得到 81 ，接着反转 81 得到 18 ，不等于 num 。 </span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：num = 0</span><br><span class="line">输出：true</span><br><span class="line">解释：反转 num 得到 0 ，接着反转 0 得到 0 ，等于 num 。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>0 &lt;= num &lt;= 106</li></ul><h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>这个题感觉不能被题面唬住了，还是判断后边有没有0就可以了，然后单独0的单独处理下；</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isSameAfterReversals</span>(<span class="params">self, num</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type num: int</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(<span class="built_in">str</span>(num)) == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">str</span>(num)[-<span class="number">1</span>] == <span class="string">&quot;0&quot;</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure><h1 id="第二题：2120-执行所有后缀指令"><a href="#第二题：2120-执行所有后缀指令" class="headerlink" title="第二题：2120.执行所有后缀指令"></a>第二题：2120.执行所有后缀指令</h1><p><a href="https://leetcode-cn.com/problems/execution-of-all-suffix-instructions-staying-in-a-grid/">题目链接</a></p><h2 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h2><p>现有一个<code>n x n</code>大小的网格，左上角单元格坐标<code>(0, 0)</code>，右下角单元格坐标<code>(n - 1, n - 1)</code>。给你整数<code>n</code>和一个整数数组<code>startPos</code>，其中<code>startPos = [startrow, startcol]</code>表示机器人最开始在坐标为<code>(startrow, startcol)</code>的单元格上。</p><p>另给你一个长度为<code>m</code>、下标从<code>0</code>开始的字符串<code>s</code>，其中<code>s[i]</code>是对机器人的第<code>i</code>条指令：<code>&#39;L&#39;</code>（向左移动），<code>&#39;R&#39;</code>（向右移动），<code>&#39;U&#39;</code>（向上移动）和 <code>&#39;D&#39;</code>（向下移动）。</p><p>机器人可以从<code>s</code>中的任一第<code>i</code>条指令开始执行。它将会逐条执行指令直到<code>s</code>的末尾，但在满足下述条件之一时，机器人将会停止：</p><p>下一条指令将会导致机器人移动到网格外。<br>没有指令可以执行。<br>返回一个长度为<code>m</code>的数组<code>answer</code>，其中<code>answer[i]</code>是机器人从第<code>i</code>条指令 开始 ，可以执行的 指令数目 。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 3, startPos = [0,1], s = &quot;RRDDLU&quot;</span><br><span class="line">输出：[1,5,4,3,1,0]</span><br><span class="line">解释：机器人从 startPos 出发，并从第 i 条指令开始执行：</span><br><span class="line">- 0: &quot;RRDDLU&quot; 在移动到网格外之前，只能执行一条 &quot;R&quot; 指令。</span><br><span class="line">- 1:  &quot;RDDLU&quot; 可以执行全部五条指令，机器人仍在网格内，最终到达 (0, 0) 。</span><br><span class="line">- 2:   &quot;DDLU&quot; 可以执行全部四条指令，机器人仍在网格内，最终到达 (0, 0) 。</span><br><span class="line">- 3:    &quot;DLU&quot; 可以执行全部三条指令，机器人仍在网格内，最终到达 (0, 0) 。</span><br><span class="line">- 4:     &quot;LU&quot; 在移动到网格外之前，只能执行一条 &quot;L&quot; 指令。</span><br><span class="line">- 5:      &quot;U&quot; 如果向上移动，将会移动到网格外。</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 2, startPos = [1,1], s = &quot;LURD&quot;</span><br><span class="line">输出：[4,1,0,0]</span><br><span class="line">解释：</span><br><span class="line">- 0: &quot;LURD&quot;</span><br><span class="line">- 1:  &quot;URD&quot;</span><br><span class="line">- 2:   &quot;RD&quot;</span><br><span class="line">- 3:    &quot;D&quot;</span><br></pre></td></tr></table></figure><p>示例3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 1, startPos = [0,0], s = &quot;LRUD&quot;</span><br><span class="line">输出：[0,0,0,0]</span><br><span class="line">解释：无论机器人从哪条指令开始执行，都会移动到网格外。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>m == s.length</li><li>1 &lt;= n, m &lt;= 500</li><li>startPos.length == 2</li><li>0 &lt;= startrow, startcol &lt; n</li><li>s 由 ‘L’、’R’、’U’ 和 ‘D’ 组成</li></ul><h2 id="分析和解答-1"><a href="#分析和解答-1" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>比较水，实际上是简单题，执行就可以了，后缀执行用<code>s[:i]</code>截断就可以了，边界的判断就像dfs couting lakes的判断一样</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">executeInstructions</span>(<span class="params">self, n, startPos, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :type startPos: List[int]</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        matrix = [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)] <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">        cnt = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s))]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">            startX = startPos[<span class="number">0</span>]</span><br><span class="line">            startY = startPos[<span class="number">1</span>]</span><br><span class="line">            tmp_seq = s[i:]</span><br><span class="line">            <span class="comment"># print(cnt)</span></span><br><span class="line">            <span class="keyword">for</span> j, c <span class="keyword">in</span> <span class="built_in">enumerate</span>(tmp_seq):</span><br><span class="line">                <span class="keyword">if</span> c == <span class="string">&#x27;L&#x27;</span>:</span><br><span class="line">                    <span class="keyword">if</span> startY - <span class="number">1</span> &gt;= <span class="number">0</span>:</span><br><span class="line">                        startY = startY - <span class="number">1</span></span><br><span class="line">                        cnt[i] += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">elif</span> c == <span class="string">&#x27;R&#x27;</span>:</span><br><span class="line">                    <span class="keyword">if</span> startY + <span class="number">1</span> &lt; n:</span><br><span class="line">                        startY = startY + <span class="number">1</span></span><br><span class="line">                        cnt[i] += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">elif</span> c == <span class="string">&#x27;U&#x27;</span>:</span><br><span class="line">                    <span class="keyword">if</span> startX - <span class="number">1</span> &gt;= <span class="number">0</span>:</span><br><span class="line">                        startX = startX - <span class="number">1</span></span><br><span class="line">                        cnt[i] += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">elif</span> c == <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">                    <span class="keyword">if</span> startX + <span class="number">1</span> &lt; n:</span><br><span class="line">                        startX = startX + <span class="number">1</span></span><br><span class="line">                        cnt[i] += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> cnt</span><br></pre></td></tr></table></figure><h1 id="第三题：2121-相同元素的间隔之和"><a href="#第三题：2121-相同元素的间隔之和" class="headerlink" title="第三题：2121.相同元素的间隔之和"></a>第三题：2121.相同元素的间隔之和</h1><p><a href="https://leetcode-cn.com/problems/intervals-between-identical-elements/">题目链接</a></p><h2 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个下标从<strong>0</strong>开始、由<code>n</code>个整数组成的数组<code>arr</code>。</p><p>arr 中两个元素的 间隔 定义为它们下标之间的<strong>绝对差</strong>。更正式地，<code>arr[i]</code>和<code>arr[j]</code>之间的间隔是<code>|i - j|</code>。</p><p>返回一个长度为<code>n</code>的数组<code>intervals</code>，其中<code>intervals[i]</code>是<code>arr[i]</code>和<code>arr</code>中每个相同元素（与<code>arr[i]</code>的值相同）的<strong>间隔之和</strong>。</p><p>注意：<code>|x|</code>是<code>x</code>的绝对值。</p><p>示例1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">输入：arr = [2,1,3,1,2,3,3]</span><br><span class="line">输出：[4,2,7,2,4,4,5]</span><br><span class="line">解释：</span><br><span class="line">- 下标 0 ：另一个 2 在下标 4 ，|0 - 4| = 4</span><br><span class="line">- 下标 1 ：另一个 1 在下标 3 ，|1 - 3| = 2</span><br><span class="line">- 下标 2 ：另两个 3 在下标 5 和 6 ，|2 - 5| + |2 - 6| = 7</span><br><span class="line">- 下标 3 ：另一个 1 在下标 1 ，|3 - 1| = 2</span><br><span class="line">- 下标 4 ：另一个 2 在下标 0 ，|4 - 0| = 4</span><br><span class="line">- 下标 5 ：另两个 3 在下标 2 和 6 ，|5 - 2| + |5 - 6| = 4</span><br><span class="line">- 下标 6 ：另两个 3 在下标 2 和 5 ，|6 - 2| + |6 - 5| = 5</span><br></pre></td></tr></table></figure><p>示例2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：arr = [10,5,10,10]</span><br><span class="line">输出：[5,0,3,4]</span><br><span class="line">解释：</span><br><span class="line">- 下标 0 ：另两个 10 在下标 2 和 3 ，|0 - 2| + |0 - 3| = 5</span><br><span class="line">- 下标 1 ：只有这一个 5 在数组中，所以到相同元素的间隔之和是 0</span><br><span class="line">- 下标 2 ：另两个 10 在下标 0 和 3 ，|2 - 0| + |2 - 3| = 3</span><br><span class="line">- 下标 3 ：另两个 10 在下标 0 和 2 ，|3 - 0| + |3 - 2| = 4</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>n == arr.length</li><li>1 &lt;= n &lt;= 105</li><li>1 &lt;= arr[i] &lt;= 105</li></ul><h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>思路还是很巧妙的，假设一个<code>[a, b, c, d, e]</code>角标数组，现在要统计<code>c</code>这个位置下的角标绝对差，那么这个位置上就是<code>(c-a) + (c-b) + (d-c) + (e-c)</code>，如果要统计</p><figure class="highlight plaintext"><figcaption><span>+ (d-b) + (d-c) + (e-d)```，这样：</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 在```c```的位置下看规律，前缀（left_sum）是```a+b```，后缀（right_sum）是```d+e```，求和是：```(c-a) + (c-b) + (d-c) + (e-c)```</span><br><span class="line"></span><br><span class="line">- 在```d```的位置下看规律，前缀（left_sum）是```a+b+c```，后缀（right_sum）是```e```，求和是：```(d-a) + (d-b) + (d-c) + (e-d)```</span><br><span class="line"></span><br><span class="line">这样感觉可以总结出来规律了，在哪个角标x位置，就是：``` ((x * 前缀个数) - 前缀) + (后缀 - (x * 后缀个数))```，这样前缀后缀可以通过一种类似于滑动窗口的方法更新，大大减少了时间复杂度。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">class Solution(object):</span><br><span class="line">    def getDistances(self, arr):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        :type arr: List[int]</span><br><span class="line">        :rtype: List[int]</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        return_list = [0 for i in range(len(arr))]</span><br><span class="line"></span><br><span class="line">        # 把arr转化为一个map，类似于3: [2, 5, 6]这样的，前边是数值，后边是数值的角标</span><br><span class="line">        tmp_dict = &#123;&#125;  # &#123;1: [1, 3], 2: [0, 4], 3: [2, 5, 6]&#125;</span><br><span class="line">        for i, item in enumerate(arr):</span><br><span class="line">            if tmp_dict.get(arr[i]) is None:</span><br><span class="line">                tmp_dict[arr[i]] = [i]</span><br><span class="line">            else:</span><br><span class="line">                tmp_dict[arr[i]].append(i)</span><br><span class="line">        </span><br><span class="line">        for key, value in tmp_dict.items():</span><br><span class="line">            # 在每个value中，使用 a b c d e的思想</span><br><span class="line">            left_sum = 0</span><br><span class="line">            left_cnt = 0</span><br><span class="line">            right_sum = 0</span><br><span class="line">            right_cnt = 0</span><br><span class="line">            for i in range(0, len(value)):</span><br><span class="line">                right_sum += value[i]</span><br><span class="line">                right_cnt += 1</span><br><span class="line">            </span><br><span class="line">            for i in range(len(value)):</span><br><span class="line">                # 滑动窗口的感觉</span><br><span class="line">                right_sum -= value[i]</span><br><span class="line">                right_cnt -= 1</span><br><span class="line">                return_list[value[i]] = (right_sum - (right_cnt * value[i])) + (left_cnt * value[i] - left_sum)</span><br><span class="line">                left_sum += value[i]</span><br><span class="line">                left_cnt += 1</span><br><span class="line">                </span><br><span class="line">        return return_list</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -1707,13 +1767,13 @@
       
         <tags>
             
-            <tag> EASY </tag>
+            <tag> 模拟 </tag>
             
             <tag> 数组 </tag>
             
-            <tag> MEDIUM </tag>
+            <tag> EASY </tag>
             
-            <tag> 模拟 </tag>
+            <tag> MEDIUM </tag>
             
             <tag> 哈希表 </tag>
             
@@ -1775,13 +1835,13 @@
       
         <tags>
             
-            <tag> 深度优先搜索 </tag>
-            
-            <tag> 广度优先搜索 </tag>
-            
             <tag> 数组 </tag>
             
             <tag> MEDIUM </tag>
+            
+            <tag> 深度优先搜索 </tag>
+            
+            <tag> 广度优先搜索 </tag>
             
             <tag> 并查集 </tag>
             
@@ -1845,9 +1905,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 字符串 </tag>
-            
             <tag> HARD </tag>
+            
+            <tag> 字符串 </tag>
             
         </tags>
       
@@ -1874,13 +1934,13 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
-            
             <tag> 数组 </tag>
             
-            <tag> 双指针 </tag>
-            
             <tag> MEDIUM </tag>
+            
+            <tag> 贪心 </tag>
+            
+            <tag> 双指针 </tag>
             
         </tags>
       
@@ -1909,11 +1969,11 @@
             
             <tag> 数组 </tag>
             
-            <tag> 双指针 </tag>
+            <tag> 排序 </tag>
             
             <tag> MEDIUM </tag>
             
-            <tag> 排序 </tag>
+            <tag> 双指针 </tag>
             
         </tags>
       
@@ -2010,11 +2070,11 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 哈希表 </tag>
-            
             <tag> 字典树 </tag>
             
             <tag> 记忆化搜索 </tag>
+            
+            <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
             
@@ -2103,9 +2163,9 @@
             
             <tag> MEDIUM </tag>
             
-            <tag> 哈希表 </tag>
-            
             <tag> 字典树 </tag>
+            
+            <tag> 哈希表 </tag>
             
             <tag> 字符串 </tag>
             
@@ -2288,9 +2348,9 @@
       
         <tags>
             
-            <tag> 双指针 </tag>
-            
             <tag> MEDIUM </tag>
+            
+            <tag> 双指针 </tag>
             
             <tag> 字符串 </tag>
             
@@ -2356,9 +2416,9 @@
       
         <tags>
             
-            <tag> EASY </tag>
-            
             <tag> 数组 </tag>
+            
+            <tag> EASY </tag>
             
             <tag> 动态规划 </tag>
             
@@ -2484,11 +2544,11 @@
       
         <tags>
             
+            <tag> EASY </tag>
+            
             <tag> 树 </tag>
             
             <tag> 二叉树 </tag>
-            
-            <tag> EASY </tag>
             
             <tag> 二叉搜索树 </tag>
             
@@ -2696,9 +2756,9 @@
             
             <tag> NLP </tag>
             
-            <tag> Dialogue State Tracking </tag>
-            
             <tag> 论文笔记 </tag>
+            
+            <tag> Dialogue State Tracking </tag>
             
         </tags>
       
