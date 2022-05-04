@@ -76,6 +76,26 @@ categories:
 
 通过上边的总结来说，这个题目基本已经可以做出来了，需要注意的是这个题目中可能有负数存在，路径上带上负数还不如不带这条路径，子结构返回的时候需要注意一下
 
+补充：
+
+543.二叉树直径 easy: https://leetcode-cn.com/problems/diameter-of-binary-tree/
+
+124.二叉树中的最大路径和 hard: https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/
+
+这两个题感觉是很像的，但是不太像树形dp，就像是在树里的dfs一样，感觉最主要的思路就是子结构
+
+- 在写dfs函数的时候，先写返回值，返回值是左右两个子结构中最大的一个加上当前节点的值；；这里说是子结构是因为他的父节点如果选了左边的就不能选右边的（题目特性决定）；；代表这个根作为子结构的条件下最大值
+
+- 然后写结束条件，一般就是root is None的时候
+
+- 然后写递归的两边，基本就是把root.left和root.right传进去
+
+- 然后写全局的，全局的就是 当前+左子结构+右子结构，然后和现有比取最大的；；；代表按这个根作为真实根的情况下条件的最大值
+
+最后return回全局的这个最大的
+
+树里子结构的dfs
+
 ```python
 # Definition for a binary tree node.
 # class TreeNode(object):

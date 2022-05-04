@@ -82,7 +82,7 @@ class Solution(object):
             return True
 ```
 
-# 第二题：2120.执行所有后缀执行
+# 第二题：2120.执行所有后缀指令
 
 [题目链接](https://leetcode-cn.com/problems/execution-of-all-suffix-instructions-staying-in-a-grid/)
 
@@ -141,7 +141,49 @@ class Solution(object):
 比较水，实际上是简单题，执行就可以了，后缀执行用```s[:i]```截断就可以了，边界的判断就像dfs couting lakes的判断一样
 
 ```python
-
+class Solution(object):
+    def executeInstructions(self, n, startPos, s):
+        """
+        :type n: int
+        :type startPos: List[int]
+        :type s: str
+        :rtype: List[int]
+        """
+        matrix = [[0 for i in range(n)] for j in range(n)]
+        cnt = [0 for i in range(len(s))]
+        
+        for i in range(len(s)):
+            startX = startPos[0]
+            startY = startPos[1]
+            tmp_seq = s[i:]
+            # print(cnt)
+            for j, c in enumerate(tmp_seq):
+                if c == 'L':
+                    if startY - 1 >= 0:
+                        startY = startY - 1
+                        cnt[i] += 1
+                    else:
+                        break
+                elif c == 'R':
+                    if startY + 1 < n:
+                        startY = startY + 1
+                        cnt[i] += 1
+                    else:
+                        break
+                elif c == 'U':
+                    if startX - 1 >= 0:
+                        startX = startX - 1
+                        cnt[i] += 1
+                    else:
+                        break
+                elif c == 'D':
+                    if startX + 1 < n:
+                        startX = startX + 1
+                        cnt[i] += 1
+                    else:
+                        break
+            
+        return cnt
 ```
 
 
