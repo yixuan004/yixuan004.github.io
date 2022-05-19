@@ -2,9 +2,19 @@
 title: 291场LeetCode周赛
 date: 2022-05-02 09:07:10
 tags:
-    - 
+    - 贪心
+    - 字符串
+    - 枚举
+    - 数组
+    - 哈希表
+    - 滑动窗口
+    - 字典树
+    - 哈希函数
+    - 滚动哈希
+    - 动态规划
     - EASY
     - MEDIUM
+    - HARD
 categories:
 	- LeetCode-python
 	- LeetCode周赛
