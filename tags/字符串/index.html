@@ -143,6 +143,248 @@
   <section class="meta">
     
     <h2 class="title">
+      <a href="/2022/05/15/293%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/">
+        293场LeetCode周赛
+      </a>
+    </h2>
+    
+    <time>
+      5月 15, 2022
+    </time>
+		
+    
+    <div class='cats'>
+        <a href="/categories/LeetCode-python/">LeetCode-python</a>, <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/">LeetCode周赛</a>
+    </div>
+
+  </section>
+  <section class="article typo">
+	  <p>周赛综述&amp;总结：</p>
+<p>没想到一周过后学校就各个地方都封了，快乐没有了啊gg，感觉最近也是越来越没干劲，还是通过多刷一刷题缓解迷茫吧~ 周赛练思路，平常练面试基础题了，之前朋友说的“基础不牢，地动山摇”是真的太有道理了，上一周也是又被上了一课hhh</p>
+<p>第一题：第一题还是要仔细读题，然后按照题目的内容模拟操作就可以了，这里开始开读错了一次题，应该是前后 <code>i</code> 和 <code>i-1</code> 之间不相同就可以了，python的话可以用 <code>Counter</code> 小偷一鸡，其他语言可以用字符串排序后做比较；</p>
+<p>第二题：是个哨兵的题，开始应该注意一下时间复杂度的，另外空间和时间复杂度一样应该是不能开到 <code>10^9</code> 这个级别的，应该注意下题目示例说明，那样感觉很容易就能想到是加哨兵然后遍历的思路了；</p>
+<p>第三题：二进制的题目，本来开始的时候没有什么思路，后来边和同学讨论边做，同学说要不要先转化成二进制看看，然后转成二进制后发现只要纵向遍历，看看哪一列的1最多就可以了，根据之前刷题的经验，纵向遍历就是把 <code>for j in range(len(a[0]))</code> 放在 <code>for i in range(len(a))</code> 之外，但是内部循环还是 <code>a[i][j]</code> 就可以了；</p>
+<p>第四题：这种多次区间维护和查询的操作感觉看起来就很像是线段树的题目了，咕咕了；</p>
+
+    
+	  <div class="readmore">
+      <a href="/2022/05/15/293%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/">Read More</a>
+    </div>
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
+      
+        <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+      
+        <a href="/tags/EASY/">EASY</a>
+      
+        <a href="/tags/MEDIUM/">MEDIUM</a>
+      
+        <a href="/tags/HARD/">HARD</a>
+      
+        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+      
+        <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
+      
+        <a href="/tags/%E8%AE%A1%E6%95%B0/">计数</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
+      <a href="/2022/05/08/292%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/">
+        292场LeetCode周赛
+      </a>
+    </h2>
+    
+    <time>
+      5月 8, 2022
+    </time>
+		
+    
+    <div class='cats'>
+        <a href="/categories/LeetCode-python/">LeetCode-python</a>, <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/">LeetCode周赛</a>
+    </div>
+
+  </section>
+  <section class="article typo">
+	  <p>周赛综述&amp;总结：</p>
+<p>打完羽毛球的一场周赛哈哈哈，好累感觉思想敏捷度也跟着有点疲惫了hh，不过这也不是自己做不出来的理由！第三题自己把 <code>22222</code> 这种case的可能情况给推错了，也怪不了什么了hhhh，最后一题实际上就是个简单dfs，python有 <code>@lru_cache(1000*1000)</code> 可以偷鸡，总结来说还是第三题占用时间太长了，自己把规律推错了找错了，gg</p>
+<p>第一题：第一题要慢慢读题，一次读明白然后就开始写，这次虽然2分半左右做完了，但是居然错了一次，好久好久没有第一次错过了。。。确实应该注意下边界条件和角标的，不能只追求快；</p>
+<p>第二题：双重dfs（树的前序遍历）套在一起，非常暴力的做法了，这个题手速有点跟不上来了，主要还是树里的dfs没做的那么熟悉，每遇到一次就练习一下吧，这个题还是很暴力的；</p>
+<p>第三题：像是数学找规律的题目，背后隐藏的其实是dp的内容，有点像跳台阶那种做法，可惜自己规律找错了没有写出来，具体内容写在详解里的照片中了；</p>
+<p>第四题：存在，还有路径类的可以说是dfs的题目；而最小，走迷宫类的题目就是比较经典的bfs题目；这个题是个括号场景下的dfs题目，括号场景的题做多了就发现实际上不用栈什么的做匹配，而是直接记录左括号的数目，在一个右括号过来的时候看看左括号还有没有剩余可供匹配的就可以了，还可以参考这个题目，是个栈来判断最长满足条件的！<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-valid-parentheses/">32.最长有效括号</a>，<strong>注意这个题的优化剪枝！</strong></p>
+
+    
+	  <div class="readmore">
+      <a href="/2022/05/08/292%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/">Read More</a>
+    </div>
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
+      
+        <a href="/tags/EASY/">EASY</a>
+      
+        <a href="/tags/MEDIUM/">MEDIUM</a>
+      
+        <a href="/tags/%E6%A0%91/">树</a>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">深度优先搜索</a>
+      
+        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+      
+        <a href="/tags/HARD/">HARD</a>
+      
+        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+      
+        <a href="/tags/%E7%9F%A9%E9%98%B5/">矩阵</a>
+      
+        <a href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>
+      
+        <a href="/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">二叉搜索树</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
+      <a href="/2022/05/06/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AD%A6%E4%B9%A0/">
+        正则表达式学习
+      </a>
+    </h2>
+    
+    <time>
+      5月 6, 2022
+    </time>
+		
+    
+    <div class='cats'>
+        <a href="/categories/Crsenal/">Crsenal</a>
+    </div>
+
+  </section>
+  <section class="article typo">
+	  <p>在刷LeetCode的时候发现很多恶心的字符串规则判断题目都可以转化成正则表达式来做，也正好通过这些题来熟悉下正则的用法，未来还是希望能自己在不查的情况下凭空写出来正则的~</p>
+<p>另外作为一个nlp的同学，正则不会还是差点意思啊哈哈哈，这个博客可能以后会不断扩充吧~</p>
+<p><a target="_blank" rel="noopener" href="https://c.runoob.com/front-end/854/">菜鸟工具在线正则表达式验证工具</a></p>
+
+    
+	  <div class="readmore">
+      <a href="/2022/05/06/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AD%A6%E4%B9%A0/">Read More</a>
+    </div>
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+      
+        <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
+      <a href="/2022/05/02/291%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/">
+        291场LeetCode周赛
+      </a>
+    </h2>
+    
+    <time>
+      5月 2, 2022
+    </time>
+		
+    
+    <div class='cats'>
+        <a href="/categories/LeetCode-python/">LeetCode-python</a>, <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/">LeetCode周赛</a>
+    </div>
+
+  </section>
+  <section class="article typo">
+	  <p>周赛综述&amp;总结：</p>
+<p>久违的前1000名了，这次能排的稍微靠前点在于前三个题特别快的就做出来了，可惜第四个题没做出来，要不说不定能到前500呢hh~ 上周做了一回笔试题，今天再看周赛题还有点陌生了，也可能是这种陌生感让自己做快了一些吧，另外还是喜欢描述比较短的题；</p>
+<p>感觉就是状态好+题目对着自己常做的思路吧，也可能和周中稍微做了几个题有些关系，前三个题描述还都不是很简单，但是做出来的都比自己预期的快一些，第四个题上来方向又走偏了，如果走到数学规律上面的话感觉可能还有戏，这个题是个“贡献”类的思路，比较巧妙</p>
+<p>第一题：毕竟第一题，直接暴力每个位置比较+列表拼接join就可以了，注意最后的返回值是个字符串，室友大佬后来还提醒说这个题中间如果转int处理可能会爆，看来是用python正好就把这个坑给避开了；</p>
+<p>第二题：做一个哈希表，每个数字映射到他出现过位置的一个列表，然后遍历这个哈希表，看看区间长度比较下找个min的就可以了；</p>
+<p>第三题：这个题先判断每个位置是否可以被p整除，然后根据这个做一个新的列表，能被p整除的就是1，不能被p整除的就是0，之后按照他这个子数组的定义来遍历（就是j要从i开始遍历），去重的话可以用tuple的子数组作为key，然后就是对每个区间sum就可以了；</p>
+<p>第四题：一道计算“贡献”的题目，自己一开始想的有点偏，贡献类的题目感觉不能从完全全局来说，要考虑每个字符在全局上的贡献，这个题也是第一次遇到，感觉算法还是很神奇的，具体内容写在博客里了；</p>
+
+    
+	  <div class="readmore">
+      <a href="/2022/05/02/291%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/">Read More</a>
+    </div>
+    
+    
+    
+	  <div class="full-width auto-padding tags">
+      
+        <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
+      
+        <a href="/tags/EASY/">EASY</a>
+      
+        <a href="/tags/MEDIUM/">MEDIUM</a>
+      
+        <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
+      
+        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+      
+        <a href="/tags/HARD/">HARD</a>
+      
+        <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">字典树</a>
+      
+        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+      
+        <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
+      
+        <a href="/tags/%E6%9E%9A%E4%B8%BE/">枚举</a>
+      
+        <a href="/tags/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/">哈希函数</a>
+      
+        <a href="/tags/%E6%BB%9A%E5%8A%A8%E5%93%88%E5%B8%8C/">滚动哈希</a>
+      
+	  </div>
+    
+  </section>
+</article>
+    </div>
+  
+    <div class='post-wrapper'>
+      <article class="post reveal">
+  <section class="meta">
+    
+    <h2 class="title">
       <a href="/2022/04/18/289%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/">
         289场LeetCode周赛
       </a>
@@ -177,11 +419,11 @@
     
 	  <div class="full-width auto-padding tags">
       
-        <a href="/tags/EASY/">EASY</a>
-      
         <a href="/tags/%E6%A8%A1%E6%8B%9F/">模拟</a>
       
         <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
+      
+        <a href="/tags/EASY/">EASY</a>
       
         <a href="/tags/MEDIUM/">MEDIUM</a>
       
@@ -191,9 +433,9 @@
       
         <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
       
-        <a href="/tags/%E7%9F%A9%E9%98%B5/">矩阵</a>
-      
         <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/">前缀和</a>
+      
+        <a href="/tags/%E7%9F%A9%E9%98%B5/">矩阵</a>
       
         <a href="/tags/%E8%AE%A1%E6%95%B0/">计数</a>
       
@@ -242,8 +484,6 @@
     
 	  <div class="full-width auto-padding tags">
       
-        <a href="/tags/EASY/">EASY</a>
-      
         <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
       
         <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
@@ -251,6 +491,8 @@
         <a href="/tags/%E5%A0%86/">堆</a>
       
         <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">优先队列</a>
+      
+        <a href="/tags/EASY/">EASY</a>
       
         <a href="/tags/MEDIUM/">MEDIUM</a>
       
@@ -303,15 +545,15 @@
     
 	  <div class="full-width auto-padding tags">
       
-        <a href="/tags/EASY/">EASY</a>
-      
         <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
+      
+        <a href="/tags/EASY/">EASY</a>
       
         <a href="/tags/MEDIUM/">MEDIUM</a>
       
-        <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
-      
         <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+      
+        <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
       
         <a href="/tags/%E6%A0%88/">栈</a>
       
@@ -411,6 +653,14 @@
     
 	  <div class="full-width auto-padding tags">
       
+        <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
+      
+        <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+      
+        <a href="/tags/EASY/">EASY</a>
+      
+        <a href="/tags/MEDIUM/">MEDIUM</a>
+      
         <a href="/tags/%E6%A0%91/">树</a>
       
         <a href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">深度优先搜索</a>
@@ -418,14 +668,6 @@
         <a href="/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">广度优先搜索</a>
       
         <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a>
-      
-        <a href="/tags/EASY/">EASY</a>
-      
-        <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
-      
-        <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
-      
-        <a href="/tags/MEDIUM/">MEDIUM</a>
       
         <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
       
@@ -478,9 +720,9 @@
     
 	  <div class="full-width auto-padding tags">
       
-        <a href="/tags/EASY/">EASY</a>
-      
         <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
+      
+        <a href="/tags/EASY/">EASY</a>
       
         <a href="/tags/MEDIUM/">MEDIUM</a>
       
@@ -491,251 +733,6 @@
         <a href="/tags/%E8%AE%A1%E6%95%B0/">计数</a>
       
         <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">二分查找</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2022/02/27/281%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/">
-        281场LeetCode周赛
-      </a>
-    </h2>
-    
-    <time>
-      2月 27, 2022
-    </time>
-		
-    
-    <div class='cats'>
-        <a href="/categories/LeetCode-python/">LeetCode-python</a>, <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/">LeetCode周赛</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>周赛综述&amp;总结：</p>
-<p>依旧是前两个题很简单，然后第三题直接卡到死的节奏，感觉近几次周赛第三题感觉都不是很好，可能需要阶段性的复习一下？</p>
-<p>总结下来的话算法似乎都是在可以知道范围内的，比如这次题印象比较深的就是要正确理解题意或者说不要走到和题意错误的路上，有些题可能需要灵光一现用一些广泛用的Coutner、二分、前缀和、有限队列单调栈类的，有些题可能写着写着会有思路吧。</p>
-<p>总之感觉刷题这个事还是要持续进行，总有瓶颈也总需要突破，冲！</p>
-<p>第一题：看到<code>n &lt; 1000</code>感觉就直接暴力模拟就行了，模拟起来还是相对简单的，python对字符的操作太方便了；</p>
-<p>第二题：一个链表的操作题，很简单就能搞定了，纯链表题现在感觉没有太难的；</p>
-<p>第三题：这个题这次又卡的时间太长了，开始想的是排序后原地交换的思路，然后感觉就思维掉到一个坑里边了，一直在排序后原地交换一些细节条件里考虑来考虑去。后来大佬提醒说可以用Counter后排序贪心的思路，感觉这个思路一下就简单并且明确了；</p>
-<p>第四题：鸽了鸽了。</p>
-
-    
-	  <div class="readmore">
-      <a href="/2022/02/27/281%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/EASY/">EASY</a>
-      
-        <a href="/tags/%E6%A8%A1%E6%8B%9F/">模拟</a>
-      
-        <a href="/tags/%E5%A0%86/">堆</a>
-      
-        <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">优先队列</a>
-      
-        <a href="/tags/MEDIUM/">MEDIUM</a>
-      
-        <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
-      
-        <a href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
-      
-        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-      
-        <a href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>
-      
-        <a href="/tags/%E8%AE%A1%E6%95%B0/">计数</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2022/01/16/275%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/">
-        275场LeetCode周赛
-      </a>
-    </h2>
-    
-    <time>
-      1月 16, 2022
-    </time>
-		
-    
-    <div class='cats'>
-        <a href="/categories/LeetCode-python/">LeetCode-python</a>, <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/">LeetCode周赛</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>周赛综述&amp;总结：</p>
-<p>前两个题实际上说感觉还没有那么容易想，第三个题的话感觉简化的思路是需要复盘梳理的，另外只能说Counter永远的神哈哈哈哈</p>
-<p>第一题：这个题开始想法是把每个位置都遍历判断一下，但这样搞就超时了，后来发现只判断对角线就可以了，这里还有个思路是取矩阵的某一行可以用<code>matrix[i]</code>，而取矩阵的某一列没有什么很好的思路，可以用<code>[matrix[x][j] for x in range(n)]</code>，这里的<code>j</code>代表第<code>j</code>列；</p>
-<p>第二题：比较思路题的感觉，用一个滑动窗口存储最终状态，当前状态和最终状态的差距就是move的次数，另外有个需要注意的是，滑动窗口的尾部角标是i+k（或者i+k-1一类的），这个题也是能体现出Counter的好用，但是Counter在使用的时候时间复杂度貌似比较高，注意每次不要都生成新的Counter，只要根据首尾位置修改即可；</p>
-<p>第三题：只能说是非常妙的一个题，普通搞的话很容易超时，于是可以将每个单词的字母排序后放入到一个set/dict/Counter中，这样可以O(1)的判断是否存在；</p>
-<p>第四题：未来有机会再试了TAT（周常鸽第四题）；</p>
-
-    
-	  <div class="readmore">
-      <a href="/2022/01/16/275%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/EASY/">EASY</a>
-      
-        <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
-      
-        <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
-      
-        <a href="/tags/MEDIUM/">MEDIUM</a>
-      
-        <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
-      
-        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
-      
-        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-      
-        <a href="/tags/%E7%9F%A9%E9%98%B5/">矩阵</a>
-      
-        <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2022/01/16/276%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/">
-        276场LeetCode周赛
-      </a>
-    </h2>
-    
-    <time>
-      1月 16, 2022
-    </time>
-		
-    
-    <div class='cats'>
-        <a href="/categories/LeetCode-python/">LeetCode-python</a>, <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/">LeetCode周赛</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>周赛综述&amp;总结：</p>
-<p>前两题难度还是比较低的，第三题的话感觉dp这个思路还值得复盘研究一下，常见的一维dp数组感觉是有两种思路，一种是存储当前位置的一些状态值，另外一种是存储截止到这个位置下的状态值；</p>
-<p>第一题：简单字符串模拟，有一些mod的使用，熟练度的题目；</p>
-<p>第二题：从大到小贪心就行了，最后一次直接 += target - 1；</p>
-<p>第三题：一眼看上去很像背包，这种题多半就是dp了，就像总结里说的，常见的一维dp感觉是有两种思路，一种是存储当前位置的一些状态值，另外一种是存储截止到这个位置下的状态值，这个题就是后边一种思路，如果使用第一种思路实现的话会因为多次使用<code>max()</code>而TLE，所以在优化方向上应该也找到后边一种思路的优化方向；</p>
-<p>第四题：未来有机会再试了TAT（周常鸽第四题）；</p>
-
-    
-	  <div class="readmore">
-      <a href="/2022/01/16/276%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/EASY/">EASY</a>
-      
-        <a href="/tags/%E6%A8%A1%E6%8B%9F/">模拟</a>
-      
-        <a href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
-      
-        <a href="/tags/MEDIUM/">MEDIUM</a>
-      
-        <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
-      
-        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-      
-        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-      
-        <a href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>
-      
-	  </div>
-    
-  </section>
-</article>
-    </div>
-  
-    <div class='post-wrapper'>
-      <article class="post reveal">
-  <section class="meta">
-    
-    <h2 class="title">
-      <a href="/2022/01/07/1614-%E6%8B%AC%E5%8F%B7%E7%9A%84%E6%9C%80%E5%A4%A7%E5%B5%8C%E5%A5%97%E6%B7%B1%E5%BA%A6-python/">
-        1614.括号的最大嵌套深度-python
-      </a>
-    </h2>
-    
-    <time>
-      1月 7, 2022
-    </time>
-		
-    
-    <div class='cats'>
-        <a href="/categories/LeetCode-python/">LeetCode-python</a>
-    </div>
-
-  </section>
-  <section class="article typo">
-	  <p>1614.括号的最大嵌套深度（简单）</p>
-<p>题目大意：</p>
-<p>如果字符串满足以下条件之一，则可以称之为<strong>有效括号字符串（valid parentheses string</strong>，可以简写为<strong>VPS</strong>）：</p>
-<ul>
-<li>字符串是一个空字符串<code>&quot;&quot;</code>，或者是一个不为<code>&quot;(&quot;</code>或<code>&quot;)&quot;</code>的单字符。</li>
-<li>字符串可以写为<code>AB</code>（<code>A</code>与<code>B</code>字符串连接），其中<code>A</code>和<code>B</code>都是 有效括号字符串 。</li>
-<li>字符串可以写为<code>(A)</code>，其中<code>A</code>是一个 有效括号字符串 。</li>
-</ul>
-<p>类似地，可以定义任何有效括号字符串<code>S</code>的 嵌套深度<code>depth(S)</code>：</p>
-<ul>
-<li><code>depth(&quot;&quot;) = 0</code></li>
-<li><code>depth(C) = 0</code>，其中<code>C</code>是单个字符的字符串，且该字符不是<code>&quot;(&quot;</code>或者<code>&quot;)&quot;</code></li>
-<li><code>depth(A + B) = max(depth(A), depth(B))</code>，其中<code>A</code>和<code>B</code>都是 有效括号字符串</li>
-<li><code>epth(&quot;(&quot; + A + &quot;)&quot;) = 1 + depth(A)</code>，其中<code>A</code>是一个 有效括号字符串</li>
-</ul>
-<p>例如：<code>&quot;&quot;</code>、<code>&quot;()()&quot;</code>、<code>&quot;()(()())&quot;</code>都是 有效括号字符串（嵌套深度分别为 0、1、2），而<code>&quot;)(&quot;</code>、<code>&quot;(()&quot;</code>都不是 有效括号字符串 。</p>
-<p>给你一个<strong>有效括号字符串</strong><code>s</code>，返回该字符串的<code>s</code><strong>嵌套深度</strong>。</p>
-
-    
-	  <div class="readmore">
-      <a href="/2022/01/07/1614-%E6%8B%AC%E5%8F%B7%E7%9A%84%E6%9C%80%E5%A4%A7%E5%B5%8C%E5%A5%97%E6%B7%B1%E5%BA%A6-python/">Read More</a>
-    </div>
-    
-    
-    
-	  <div class="full-width auto-padding tags">
-      
-        <a href="/tags/EASY/">EASY</a>
-      
-        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-      
-        <a href="/tags/%E6%A0%88/">栈</a>
       
 	  </div>
     
@@ -787,13 +784,13 @@
     
     <ul class="entry">
     
-        <li><a class="flat-box" href="/categories/Crsenal/"><div class='name'>Crsenal</div><div class='badget'>12</div></a></li>
+        <li><a class="flat-box" href="/categories/Crsenal/"><div class='name'>Crsenal</div><div class='badget'>13</div></a></li>
     
-        <li><a class="flat-box" href="/categories/LeetCode-python/"><div class='name'>LeetCode-python</div><div class='badget'>66</div></a></li>
+        <li><a class="flat-box" href="/categories/LeetCode-python/"><div class='name'>LeetCode-python</div><div class='badget'>68</div></a></li>
     
         <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"><div class='name'>LeetCode-热题 HOT 100</div><div class='badget'>29</div></a></li>
     
-        <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/"><div class='name'>LeetCode周赛</div><div class='badget'>19</div></a></li>
+        <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/"><div class='name'>LeetCode周赛</div><div class='badget'>21</div></a></li>
     
         <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/"><div class='name'>LeetCode每日一题</div><div class='badget'>4</div></a></li>
     
@@ -814,7 +811,7 @@
 <div class="m_widget tagcloud">
     <div class="header">Tags</div>
     <div class='content'>
-        <a href="/tags/Dataset/" style="font-size: 14px; color: #808080">Dataset</a> <a href="/tags/Dialogue/" style="font-size: 14px; color: #808080">Dialogue</a> <a href="/tags/Dialogue-State-Tracking/" style="font-size: 14.75px; color: #707070">Dialogue State Tracking</a> <a href="/tags/EASY/" style="font-size: 19.63px; color: #080808">EASY</a> <a href="/tags/HARD/" style="font-size: 15.88px; color: #585858">HARD</a> <a href="/tags/MEDIUM/" style="font-size: 20px; color: #000">MEDIUM</a> <a href="/tags/NLP/" style="font-size: 16.25px; color: #505050">NLP</a> <a href="/tags/TODO%E4%BC%98%E5%8C%96/" style="font-size: 14.38px; color: #787878">TODO优化</a> <a href="/tags/Transformer/" style="font-size: 14.38px; color: #787878">Transformer</a> <a href="/tags/hexo%E7%9B%B8%E5%85%B3/" style="font-size: 14.38px; color: #787878">hexo相关</a> <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" style="font-size: 17.38px; color: #383838">macOS基础操作</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 14.38px; color: #787878">二分查找</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" style="font-size: 14.38px; color: #787878">二叉搜索树</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 17px; color: #404040">二叉树</a> <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" style="font-size: 15.13px; color: #686868">优先队列</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 15.88px; color: #585858">位运算</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 14px; color: #808080">分治</a> <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" style="font-size: 15.13px; color: #686868">前缀和</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 17.75px; color: #303030">动态规划</a> <a href="/tags/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" style="font-size: 14px; color: #808080">双向链表</a> <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 15.88px; color: #585858">双指针</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 18.5px; color: #202020">哈希表</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 15.13px; color: #686868">回溯</a> <a href="/tags/%E5%A0%86/" style="font-size: 15.13px; color: #686868">堆</a> <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/" style="font-size: 14.38px; color: #787878">字典树</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 18.88px; color: #181818">字符串</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/" style="font-size: 14px; color: #808080">字符串匹配</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 14px; color: #808080">并查集</a> <a href="/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" style="font-size: 15.88px; color: #585858">广度优先搜索</a> <a href="/tags/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" style="font-size: 14px; color: #808080">归并排序</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 17.38px; color: #383838">排序</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 18.13px; color: #282828">数学</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 19.25px; color: #101010">数组</a> <a href="/tags/%E6%9E%9A%E4%B8%BE/" style="font-size: 14.75px; color: #707070">枚举</a> <a href="/tags/%E6%A0%88/" style="font-size: 15.13px; color: #686868">栈</a> <a href="/tags/%E6%A0%91/" style="font-size: 18.13px; color: #282828">树</a> <a href="/tags/%E6%A8%A1%E6%8B%9F/" style="font-size: 16.63px; color: #484848">模拟</a> <a href="/tags/%E6%B0%B4%E5%A1%98%E6%8A%BD%E6%A0%B7/" style="font-size: 14px; color: #808080">水塘抽样</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" style="font-size: 17.75px; color: #303030">深度优先搜索</a> <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" style="font-size: 15.13px; color: #686868">滑动窗口</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 15.88px; color: #585858">矩阵</a> <a href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 14px; color: #808080">组合数学</a> <a href="/tags/%E8%AE%A1%E6%95%B0/" style="font-size: 15.88px; color: #585858">计数</a> <a href="/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/" style="font-size: 14px; color: #808080">记忆化搜索</a> <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" style="font-size: 14px; color: #808080">论文笔记</a> <a href="/tags/%E8%AE%BE%E8%AE%A1/" style="font-size: 14.75px; color: #707070">设计</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 17.38px; color: #383838">贪心</a> <a href="/tags/%E9%80%92%E5%BD%92/" style="font-size: 14px; color: #808080">递归</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 15.5px; color: #606060">链表</a> <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/" style="font-size: 14px; color: #808080">随机化</a>
+        <a href="/tags/Dataset/" style="font-size: 14px; color: #808080">Dataset</a> <a href="/tags/Dialogue/" style="font-size: 14px; color: #808080">Dialogue</a> <a href="/tags/Dialogue-State-Tracking/" style="font-size: 14.71px; color: #717171">Dialogue State Tracking</a> <a href="/tags/EASY/" style="font-size: 19.65px; color: #080808">EASY</a> <a href="/tags/HARD/" style="font-size: 16.82px; color: #444">HARD</a> <a href="/tags/MEDIUM/" style="font-size: 20px; color: #000">MEDIUM</a> <a href="/tags/NLP/" style="font-size: 16.12px; color: #535353">NLP</a> <a href="/tags/TODO%E4%BC%98%E5%8C%96/" style="font-size: 14.35px; color: #787878">TODO优化</a> <a href="/tags/Transformer/" style="font-size: 14.35px; color: #787878">Transformer</a> <a href="/tags/hexo%E7%9B%B8%E5%85%B3/" style="font-size: 14.35px; color: #787878">hexo相关</a> <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" style="font-size: 17.18px; color: #3c3c3c">macOS基础操作</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 14.35px; color: #787878">二分查找</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" style="font-size: 14.71px; color: #717171">二叉搜索树</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 16.82px; color: #444">二叉树</a> <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" style="font-size: 15.06px; color: #696969">优先队列</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 16.12px; color: #535353">位运算</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 14px; color: #808080">分治</a> <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" style="font-size: 15.06px; color: #696969">前缀和</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 18.24px; color: #262626">动态规划</a> <a href="/tags/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" style="font-size: 14px; color: #808080">双向链表</a> <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 15.76px; color: #5a5a5a">双指针</a> <a href="/tags/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/" style="font-size: 14px; color: #808080">哈希函数</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 18.59px; color: #1e1e1e">哈希表</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 15.06px; color: #696969">回溯</a> <a href="/tags/%E5%A0%86/" style="font-size: 15.06px; color: #696969">堆</a> <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/" style="font-size: 14.71px; color: #717171">字典树</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 18.94px; color: #171717">字符串</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/" style="font-size: 14px; color: #808080">字符串匹配</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 14px; color: #808080">并查集</a> <a href="/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" style="font-size: 15.76px; color: #5a5a5a">广度优先搜索</a> <a href="/tags/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" style="font-size: 14px; color: #808080">归并排序</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 17.53px; color: #353535">排序</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 18.24px; color: #262626">数学</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 19.29px; color: #0f0f0f">数组</a> <a href="/tags/%E6%9E%9A%E4%B8%BE/" style="font-size: 15.06px; color: #696969">枚举</a> <a href="/tags/%E6%A0%88/" style="font-size: 15.06px; color: #696969">栈</a> <a href="/tags/%E6%A0%91/" style="font-size: 18.24px; color: #262626">树</a> <a href="/tags/%E6%A8%A1%E6%8B%9F/" style="font-size: 16.47px; color: #4b4b4b">模拟</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 14px; color: #808080">正则表达式</a> <a href="/tags/%E6%B0%B4%E5%A1%98%E6%8A%BD%E6%A0%B7/" style="font-size: 14px; color: #808080">水塘抽样</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" style="font-size: 17.88px; color: #2d2d2d">深度优先搜索</a> <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" style="font-size: 15.41px; color: #626262">滑动窗口</a> <a href="/tags/%E6%BB%9A%E5%8A%A8%E5%93%88%E5%B8%8C/" style="font-size: 14px; color: #808080">滚动哈希</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 16.12px; color: #535353">矩阵</a> <a href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 14px; color: #808080">组合数学</a> <a href="/tags/%E8%AE%A1%E6%95%B0/" style="font-size: 16.12px; color: #535353">计数</a> <a href="/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/" style="font-size: 14px; color: #808080">记忆化搜索</a> <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" style="font-size: 14px; color: #808080">论文笔记</a> <a href="/tags/%E8%AE%BE%E8%AE%A1/" style="font-size: 14.71px; color: #717171">设计</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 17.53px; color: #353535">贪心</a> <a href="/tags/%E9%80%92%E5%BD%92/" style="font-size: 14px; color: #808080">递归</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 15.41px; color: #626262">链表</a> <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/" style="font-size: 14px; color: #808080">随机化</a>
     </div>
 </div>
 
