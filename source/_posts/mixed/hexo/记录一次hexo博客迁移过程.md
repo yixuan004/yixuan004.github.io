@@ -2,7 +2,7 @@
 title: 记录一次hexo博客迁移过程
 date: 2021-12-05 23:53:36
 tags: 
-    - hexo相关
+    - hexo
 categories:
 	- Crsenal
 ---

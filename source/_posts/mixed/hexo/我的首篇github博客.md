@@ -2,7 +2,7 @@
 title: 我的首篇github博客!
 date: 2021-09-13 08:01:04
 tags: 
-    - hexo相关
+    - hexo
 categories:
 	- Crsenal
 ---

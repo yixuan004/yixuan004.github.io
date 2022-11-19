@@ -2,6 +2,7 @@
 title: python-ACM模式的输入输出
 date: 2022-03-23 10:45:31
 tags:
+	- LeetCode-python
 ---
 
 在笔试环节做题的时候，题目大多数情况会是以ACM模式的输入输出构造，
