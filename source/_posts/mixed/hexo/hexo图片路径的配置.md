@@ -29,6 +29,8 @@ https://blog.csdn.net/Strong997/article/details/97767929?spm=1001.2101.3001.6650
 
 ```shell
 npm install https://github.com/CodeFalling/hexo-asset-image --save
+
+npm install hexo-asset-image --save
 ```
 
 注意，这里很多其他博客提供的安装命令如下，但实际尝试的时候可能由于版本等问题，导致无法生效，这些命令可能不好使
