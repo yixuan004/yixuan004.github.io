@@ -51,3 +51,10 @@ $ conda activate myenv
 测试如下：
 
 ![](/images/2021-11-13-16-35-55.png)
+
+
+# 另外一种直接pip install的方式（from zkh）
+
+```shell
+pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113
+```
