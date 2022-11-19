@@ -49,13 +49,13 @@ Self-Attention with Relative Position Representations: https://arxiv.org/pdf/180
 
 这个是bert模型结构的embedding输入，也需要联合代码看一下这个过程是怎么实现的。
 
-![image-20220711110109758](/Users/curious/Library/Application Support/typora-user-images/image-20220711110109758.png)
+![image-20220711110109758](./BERT源代码阅读学习/image-20220711110109758.png)
 
 
 
 这里补充贴一张LUKE的图，虽然没看过但是看起来加了一个Entity Type Embedding，好像还是个比较有名的工作
 
-![image-20220712195033334](/Users/curious/Library/Application Support/typora-user-images/image-20220712195033334.png)
+![image-20220712195033334](./BERT源代码阅读学习/image-20220712195033334.png)
 
 ## 2. 代码学习
 
@@ -88,7 +88,7 @@ print(output)
 
 通过`model = BertModel.from_pretrained("./bert_base_uncased")`加载模型后，首先可以在这里调试model这个对象包含的内容，model是BertModel的实例化，模型结构主要由`model.embeddings `（BERTEmbeddings类对象），`model.encoder`（BertEncoder类对象），`model.pooler`（BertPooler对象）组成。点开后可以看到各个地方的模型结构与层数，之后会随着模型调试查看数据流向和数据维度的变化。
 
-![image-20220711135726421](/Users/curious/Library/Application Support/typora-user-images/image-20220711135726421.png)
+![image-20220711135726421](./BERT源代码阅读学习/image-20220711135726421.png)
 
 ##### · class BertEmbeddings层结构
 
@@ -194,7 +194,7 @@ https://zhuanlan.zhihu.com/p/121126531
 
 建模文本中的顺序关系必须要使用positional encoding吗？-> 不一定，只有使用位置不敏感的模型对文本数据进行建模的时候，才需要额外使用positional encoding；如果模型的输出会随着输入文本数据顺序的变化而变化，那么这个模型就是关于位置敏感的，反之则是位置不敏感的；
 
-![image-20220713092751251](/Users/curious/Library/Application Support/typora-user-images/image-20220713092751251.png)
+![image-20220713092751251](./BERT源代码阅读学习/image-20220713092751251.png)
 
 在常用的文本模型中，RNN类的就是关于位置敏感的，使用RNN类模型对文本数据建模的时候，模型结构天然考虑了文本中词与词之间的顺序关系。**而以attention机制为核心的transformer则是位置不敏感的，使用这一类位置不敏感的模型的时候需要额外加入positional encoding引入文本中词与词的顺序关系；**
 
@@ -204,7 +204,7 @@ https://zhuanlan.zhihu.com/p/121126531
 
 其中**absolute positional embedding（绝对位置编码）**是相对简单理解的，直接对不同位置随机初始化一个positional embedding，加到word embedding和token_type embedding上输入模型作为参数进行训练
 
-![image-20220711110109758](/Users/curious/Library/Application Support/typora-user-images/image-20220711110109758.png)
+![image-20220711110109758](./BERT源代码阅读学习/image-20220711110109758.png)
 
 另一种是**relative positional embedding（相对位置编码）**，首先motivation是不同位置的positional embedding固然不同，但是位置1和位置2的距离比位置3和位置10的距离更近，位置1 2和3 4距离都只差1，这些关于位置的**相对含义**模型通过绝对位置编码是否能够学习？绝对位置编码没有约束位置之间这些隐含关系，只能期待他隐式的学习到，所以是否有更合理的方法能够显式的让模型理解位置的相对关系？
 
@@ -259,7 +259,7 @@ if self.position_embedding_type == "relative_key" or self.position_embedding_typ
 - `position_ids_r`：初始化是一个例如[1, 14]的向量，存储的类似于[[0, 1, 2, 3, 4]]这样的
 - `distance`：初始化直接用`position_ids_l`-`position_ids_r`，这里直接广播减法，是一个[14, 14]维度的
 
-![image-20220713165208863](/Users/curious/Library/Application Support/typora-user-images/image-20220713165208863.png)
+![image-20220713165208863](./BERT源代码阅读学习/image-20220713165208863.png)
 
 因为这个地方是在attention这块来做的embedding，attention那边的scoreshape是[batch, head, seq_len, seq_len]的，代表query每个位置处对于key的注意力，那么可以在这里对query和key都搞positional embedding
 
@@ -267,7 +267,7 @@ if self.position_embedding_type == "relative_key" or self.position_embedding_typ
 
 <font color='red'>两个距离相隔最远是512，那么这样处理后能保证所有数字都是>=0的，因为离的最远的也就是512了，然后最远的将会到达1023那个感觉</font> 
 
-![image-20220713170145685](/Users/curious/Library/Application Support/typora-user-images/image-20220713170145685.png)
+![image-20220713170145685](./BERT源代码阅读学习/image-20220713170145685.png)
 
 positional_embedding由distance_embedding层后得到，distance_embedding层的传入参数是[512*2-1, 64 (即hidden//head_num)]也能理解了，因为词表大小是差不多0-1023的；；positional_embedding的shape是**[seq_len, seq_len, hidden]**的，如果是一个batch的话，那么应该是这个batch里面最大的那个seq_len？
 
@@ -479,7 +479,7 @@ class BertSelfOutput(nn.Module):
 
 ##### ·class BertAttention：被BertLayer调用
 
-<img src="/Users/curious/Library/Application Support/typora-user-images/image-20220712110214629.png" alt="image-20220712110214629" style="zoom:50%;" />
+<img src="./BERT源代码阅读学习/image-20220712110214629.png" alt="image-20220712110214629" style="zoom:50%;" />
 
 ###### 1) init
 
@@ -650,7 +650,7 @@ def __init__(self, config):
 
 在这里通过`config.num_hidden_layers`指定了这个`BertLayer`结构的层数，进一步详细查看`BertLayer`层的代码，应该对应的就是Transformer架构中如图所示的N×这个部分
 
-<img src="/Users/curious/Library/Application Support/typora-user-images/image-20220712093703201.png" alt="image-20220712093703201" style="zoom:50%;" />
+<img src="./BERT源代码阅读学习/image-20220712093703201.png" alt="image-20220712093703201" style="zoom:50%;" />
 
 
 
@@ -733,7 +733,7 @@ config = BertConfig()
 model = BertModel.from_pretrained("./bert_base_uncased")
 ```
 
-![image-20220711141124709](/Users/curious/Library/Application Support/typora-user-images/image-20220711141124709.png)
+![image-20220711141124709](./BERT源代码阅读学习/image-20220711141124709.png)
 
 加载model，也就是`BertModel.from_pretrained(pretrained_model_name_or_path)`对应的函数在如下路径，**这个地方只要是bert的模型结构，不管是bert-base还是bert-large**是都可以通过这里加载的，主要就是读取对应的**config.json文件和pytorch_model.bin这两个文件**：
 
@@ -786,7 +786,7 @@ def from_pretrained(cls, pretrained_model_name_or_path: Optional[Union[str, os.P
 
   <font color='red'>在后面看forward代码的时候，还要回来看一下这个地方</font> 
 
-  ![image-20220711172228802](/Users/curious/Library/Application Support/typora-user-images/image-20220711172228802.png)
+  ![image-20220711172228802](./BERT源代码阅读学习/image-20220711172228802.png)
 
 - `hidden_states`
 
@@ -794,7 +794,7 @@ def from_pretrained(cls, pretrained_model_name_or_path: Optional[Union[str, os.P
 
   这是中间层（隐层）tensor的output输出，<font color='red'>和output_attentions一样，这些内容既可以在from_pretrained中给带过去，**也可以直接写在config.json**文件里</font>
 
-  ![image-20220711173534108](/Users/curious/Library/Application Support/typora-user-images/image-20220711173534108.png)
+  ![image-20220711173534108](./BERT源代码阅读学习/image-20220711173534108.png)
 
 - 上面可能是一些相对常用的参数，暂时理解来说在`.from_pretrained("./bert_base_uncased")`这个方法中带的其他一些参数可以和config加参数起到同样的效果，也就证明这个方法用到了config.json这个文件
 
@@ -863,13 +863,13 @@ def from_pretrained(cls, pretrained_model_name_or_path: Optional[Union[str, os.P
 
   看了一下`cls.from_dict`，应该是这里最终返回了一个BertConfig类的对象，<font color='red'>这里字典前面加两个*号是将字典解开成为独立的元素作为形参</font> 
 
-  <img src="/Users/curious/Library/Application Support/typora-user-images/image-20220711232228890.png" alt="image-20220711232228890" style="zoom:50%;" />
+  <img src="./BERT源代码阅读学习/image-20220711232228890.png" alt="image-20220711232228890" style="zoom:50%;" />
 
 - 其次加载pytorch_model.bin文件
 
   通过在`config_path`目录下寻找文件，命中了`pytorch_model.bin`这个pytorch的checkpoint文件
 
-  ![image-20220711224750910](/Users/curious/Library/Application Support/typora-user-images/image-20220711224750910.png)
+  ![image-20220711224750910](./BERT源代码阅读学习/image-20220711224750910.png)
 
   找到这个文件后，这里做了一个和cache判断的操作，这个和huggingface这里实现可以到远程下载有关，如果过了这个函数后还是本地的路径，那就说明是用的本地的文件实现
 
@@ -890,7 +890,7 @@ def from_pretrained(cls, pretrained_model_name_or_path: Optional[Union[str, os.P
 
   因为是pytorch形式的checkpoint，在这里`load_state_dict()`
 
-  ![image-20220711233904281](/Users/curious/Library/Application Support/typora-user-images/image-20220711233904281.png)
+  ![image-20220711233904281](./BERT源代码阅读学习/image-20220711233904281.png)
 
   把`state_dict`传入这里，进一步进行处理，这里返回就会有`missing unexpect`这些
 
@@ -1098,9 +1098,9 @@ def from_pretrained(cls, pretrained_model_name_or_path: Optional[Union[str, os.P
 
 应该是这里的实例化把config给model传进去了，于是model需要的key可能少于、或者多于提供给他的key（pytorch_model.bin）,这里是一个`super().__init__()`，可能是调用到`nn.Module`这个上层了，然后依据传入的config不知道怎么操作，把层数什么的网络结构给拼上了；<font color='red'>另：也有可能是要加载到这个/Users/curious/opt/miniconda3/envs/venv2/lib/python3.9/site-packages/transformers/models/bert/modeling_bert.py里面的BertModel类，这样BertModel类是super代表的上层？</font> 
 
-![image-20220712001457966](/Users/curious/Library/Application Support/typora-user-images/image-20220712001457966.png)
+![image-20220712001457966](./BERT源代码阅读学习/image-20220712001457966.png)
 
-![image-20220712001307673](/Users/curious/Library/Application Support/typora-user-images/image-20220712001307673.png)
+![image-20220712001307673](./BERT源代码阅读学习/image-20220712001307673.png)
 
 ##### · 通过config加载空模型并设置seed
 
@@ -1114,11 +1114,11 @@ config = BertConfig()
 model = BertModel(config)
 ```
 
-![image-20220711141742912](/Users/curious/Library/Application Support/typora-user-images/image-20220711141742912.png)
+![image-20220711141742912](./BERT源代码阅读学习/image-20220711141742912.png)
 
 这里如果再次尝试加载空模型的时候，因为参数是随机初始化的，所以参数初始化结果可能有所不同，如下图所示
 
-![image-20220711142519040](/Users/curious/Library/Application Support/typora-user-images/image-20220711142519040.png)
+![image-20220711142519040](./BERT源代码阅读学习/image-20220711142519040.png)
 
 通过set_seed进行指定，可以保证每次加载空模型时初始化的参数是一样的，set_seed的代码段如下，（实际使用上来说其实不一定需要写成这种函数的方式，直接写个几行就可以）：
 
@@ -1200,7 +1200,7 @@ tokenizer的from_pretrain在这里
 
 > /Users/curious/opt/miniconda3/envs/venv2/lib/python3.9/site-packages/transformers/tokenization_utils_base.py
 
-![image-20220712122136461](/Users/curious/Library/Application Support/typora-user-images/image-20220712122136461.png)
+![image-20220712122136461](./BERT源代码阅读学习/image-20220712122136461.png)
 
 ```python
 @classmethod
@@ -1223,19 +1223,19 @@ def from_pretrained(cls, pretrained_model_name_or_path: Union[str, os.PathLike],
 
 tokenizer的作用就是把一句话按照vocab中转成一个id那个感觉，tokenizer.tokenize、tokenizer.convert_tokens_to_ids()和其反向的tokenizer_convert_ids_to_tokens比较常用；
 
-![image-20220712123154538](/Users/curious/Library/Application Support/typora-user-images/image-20220712123154538.png)
+![image-20220712123154538](./BERT源代码阅读学习/image-20220712123154538.png)
 
 ## 3. Transformer&BERT论文阅读中的重点记录
 
 ### 3.1 Attention is all you need
 
-![image-20220712214108979](/Users/curious/Library/Application Support/typora-user-images/image-20220712214108979.png)
+![image-20220712214108979](./BERT源代码阅读学习/image-20220712214108979.png)
 
-![image-20220712214133925](/Users/curious/Library/Application Support/typora-user-images/image-20220712214133925.png)
+![image-20220712214133925](./BERT源代码阅读学习/image-20220712214133925.png)
 
-![image-20220712214114211](/Users/curious/Library/Application Support/typora-user-images/image-20220712214114211.png)
+![image-20220712214114211](./BERT源代码阅读学习/image-20220712214114211.png)
 
-<img src="/Users/curious/Library/Application Support/typora-user-images/image-20220712214155672.png" alt="image-20220712214155672" style="zoom:50%;" />
+<img src="./BERT源代码阅读学习/image-20220712214155672.png" alt="image-20220712214155672" style="zoom:50%;" />
 
 就是那个指数，如果有一个特别大的，他softmax算出来就很趋向于1了
 
