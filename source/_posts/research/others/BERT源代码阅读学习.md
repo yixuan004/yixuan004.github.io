@@ -39,11 +39,11 @@ Self-Attention with Relative Position Representations: https://arxiv.org/pdf/180
 - <font color='red'>和同学讨论后补充：对于Transformer架构的信息，像T5这样的encoder-decoder模型，或者说像是一类依据文本生成文本的，比如翻译任务，那就是使用到整个Transformer架构，其中的encoder-decoder attention可以理解为我需要看着原来的文本来做生成，然后把query看做普通RNN架构中的x，这样x需要聚合来自全部输入文本的信息做attention；对于BERT这类就是只用到Encoder架构；对于GPT类的可能就只是用Decoder部分，里面就没有encoder-decoder attention那个部分了；</font> 
 
 
-<img src="./BERT源代码学习/image-20220711105616573.png" alt="image-20220711105616573" style="zoom:50%;" />
+<img src="./BERT-sourcecode-learning/image-20220711105616573.png" alt="image-20220711105616573" style="zoom:50%;" />
 
 #### 1.1.2 Multi-Head Self Attention
 
-![image-20220711105642016](./BERT源代码学习/image-20220711105642016.png)
+![image-20220711105642016](./BERT-sourcecode-learning/image-20220711105642016.png)
 
 #### 1.1.3 BERT Embedding
 
