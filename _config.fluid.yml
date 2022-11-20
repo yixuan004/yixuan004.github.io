@@ -525,6 +525,8 @@ index:
   post_sticky:
     enable: true
     icon: "iconfont icon-top"
+  
+  post_asset_folder: true
 
 
 #---------------------------
