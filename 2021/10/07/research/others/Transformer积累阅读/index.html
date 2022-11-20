@@ -325,13 +325,13 @@
 <p>当模型在处理每个单词的时候（输入语句的每个位置处），self-attention允许其关注输入语句的其他位置来寻求线索，并得出一种对于这个word更好的encoding</p>
 <p>如果对RNN足够熟悉，请考虑如何维护hidden state，使得RNN能够将其已处理的先前单词&#x2F;向量的表示形式与其正在处理的当前单词&#x2F;向量结合起来。self-attention是Transformer用来将其他相关单词的“理解”bake到我们当前正在处理的单词中的方法。<br><img src="/images/2021-10-11-15-48-30.png" srcset="/img/loading.gif" lazyload></p>
 <p>当我们在编码器#5（堆栈中的顶部编码器）中对单词“it”进行编码时，部分注意力机制将注意力集中在“动物”上，并将其表示的一部分烘焙到“it”的编码中。</p>
-<font color='red'>
+<font color="red">
 这里需要更加明确self-attention机制的输入输出分别是什么，从个人理解来说是3个输入，1个输出？
 </font>
 
 <h1 id="Self-Attention-in-Detail"><a href="#Self-Attention-in-Detail" class="headerlink" title="Self-Attention in Detail"></a>Self-Attention in Detail</h1><p>让我们先看看如何使用向量计算自我注意，然后继续看看它是如何实际实现的——使用矩阵</p>
 <p>计算self-attention的第一步是从编码器的每个输入向量中创建三个向量（在本例中，是每个单词的embedding），所以对于每个单词，我们创建Query vector，一个Key vector， 和一个Value vector。<strong>这些向量是通过将embedding乘以我们在训练过程中训练的三个矩阵来创建的</strong></p>
-<font color='red'>
+<font color="red">
 突然注意到768 / 64 = 12
 </font>
 
@@ -339,7 +339,7 @@
 <p>将x1乘以WQ权重矩阵生成q1，即与该单词相关联的“查询”向量。我们最终创建了输入句子中每个单词的“查询”、“键”和“值”投影。</p>
 <p>（差一张手画的图插进来）</p>
 <p>什么是query key value向量？</p>
-<font color='red'>
+<font color="red">
 根据师兄的解释，query感觉可以理解成一个自己的内容信息，而key理解成一个别人的信息，这样在和别人进行比较的时候就是上是用自己的q和别人所有的k进行比较
 </font>
 
@@ -371,7 +371,7 @@
 <p><img src="/images/2021-10-13-10-01-25.png" srcset="/img/loading.gif" lazyload></p>
 <p>这给我们留下了一点挑战，前馈层不需要八个矩阵，它需要一个矩阵（每个单词对应一个向量（自：这里说的是z？））。所以我们需要一种方法把这八个元素压缩成一个矩阵。</p>
 <p>我们怎么做？我们将矩阵合并（concatenate），然后将它们乘以一个额外的权重矩阵W^O。</p>
-<font color='red'>
+<font color="red">
 这里感觉是concate表示了的不行，还要把这些融合到一起才行？或者说要保证输入的X和输出的Z是shape相同的？
 multi-head如果是这样的操作的话就是一种增加参数量的作用？ 其亮点还主要在于“平权”的对待各个位置处，起到一种self-attention的作用。
 </font>
