@@ -1,0 +1,766 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="周赛综述&amp;总结： 这次手感还可以，在比赛时间做出了三个题，回看复盘的时候感觉当时状态可能确实好hhh，思路一路做下来没有中断的感觉。一些常见的操作包括filp一类的，还有就是下边这段代码可以直接取出来奇偶下标的！（实际是在280周赛复盘发现的） 12nums[::2]  # 取出偶数下标的valuenums[1::2]  # 取出奇数下标的value  还有个是index截断的重拼接可以使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="279场LeetCode周赛">
+<meta property="og:url" content="http://example.com/2022/02/07/algorithms/leetcode-weekly-contest/279%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="周赛综述&amp;总结： 这次手感还可以，在比赛时间做出了三个题，回看复盘的时候感觉当时状态可能确实好hhh，思路一路做下来没有中断的感觉。一些常见的操作包括filp一类的，还有就是下边这段代码可以直接取出来奇偶下标的！（实际是在280周赛复盘发现的） 12nums[::2]  # 取出偶数下标的valuenums[1::2]  # 取出奇数下标的value  还有个是index截断的重拼接可以使">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-07T08:41:48.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.886Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="数组">
+<meta property="article:tag" content="排序">
+<meta property="article:tag" content="EASY">
+<meta property="article:tag" content="MEDIUM">
+<meta property="article:tag" content="哈希表">
+<meta property="article:tag" content="设计">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>279场LeetCode周赛 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="279场LeetCode周赛"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-02-07 16:41" pubdate>
+          2022年2月7日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          49 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">279场LeetCode周赛</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>周赛综述&amp;总结：</p>
+<p>这次手感还可以，在比赛时间做出了三个题，回看复盘的时候感觉当时状态可能确实好hhh，思路一路做下来没有中断的感觉。一些常见的操作包括filp一类的，还有就是下边这段代码可以直接取出来奇偶下标的！（实际是在280周赛复盘发现的）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">nums[::<span class="hljs-number">2</span>]  <span class="hljs-comment"># 取出偶数下标的value</span><br>nums[<span class="hljs-number">1</span>::<span class="hljs-number">2</span>]  <span class="hljs-comment"># 取出奇数下标的value</span><br></code></pre></td></tr></table></figure>
+
+<p>还有个是index截断的重拼接可以使用下边这种方式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">s[index] + <span class="hljs-string">&#x27;&#x27;</span>.join(s[:index]) + <span class="hljs-string">&#x27;&#x27;</span>.join(s[index+<span class="hljs-number">1</span>:])<br></code></pre></td></tr></table></figure>
+
+<p>第一题：印象比较深的是要把奇数偶数下标的分开拍，注意审题的感觉；</p>
+<p>第二题：也是一个排序的思路，可以分大于0小于0两种情况分类讨论，还是很容易区分状态的；</p>
+<p>第三题：一种设计题的思路，第一次很简单的做很快就超时了，超时后复盘发现可以用一些标识为来进行一些标志，有一个filp操作，标志出filp_status后，其他的操作都可以通过cnt直接O(1)的返回了，做题的时候状态比较好，感觉这个题还是没那么好想，也可能是做的时候根据badcase发现了优化思路吧；</p>
+<p>第四题：鸽！</p>
+<span id="more"></span>
+
+<h1 id="第一题：2164-对奇偶下标分别排序"><a href="#第一题：2164-对奇偶下标分别排序" class="headerlink" title="第一题：2164.对奇偶下标分别排序"></a>第一题：2164.对奇偶下标分别排序</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sort-even-and-odd-indices-independently/">题目链接</a></p>
+<h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个下标从 <strong>0</strong> 开始的整数数组 <code>nums</code> 。根据下述规则重排 <code>nums</code> 中的值：</p>
+<ol>
+<li>按 非递增 顺序排列 <code>nums</code> <strong>奇数下标</strong> 上的所有值。</li>
+</ol>
+<ul>
+<li>举个例子，如果排序前 <code>nums = [4,1,2,3]</code> ，对奇数下标的值排序后变为 <code>[4,3,2,1]</code> 。奇数下标 <code>1</code> 和 <code>3</code> 的值按照非递增顺序重排。</li>
+</ul>
+<ol start="2">
+<li>按 非递减 顺序排列 <code>nums</code> <strong>偶数下标</strong> 上的所有值。</li>
+</ol>
+<ul>
+<li>举个例子，如果排序前 <code>nums = [4,1,2,3]</code> ，对偶数下标的值排序后变为 <code>[2,1,4,3]</code> 。偶数下标 <code>0</code> 和 <code>2</code> 的值按照非递减顺序重排。</li>
+</ul>
+<p>返回重排 <code>nums</code> 的值之后形成的数组。</p>
+<p>示例1：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs dns">输入：nums = [<span class="hljs-number">4,1,2,3</span>]<br>输出：[<span class="hljs-number">2,3,4,1</span>]<br>解释：<br>首先，按非递增顺序重排奇数下标（<span class="hljs-number">1</span> 和 <span class="hljs-number">3</span>）的值。<br>所以，nums 从 [<span class="hljs-number">4,1,2,3</span>] 变为 [<span class="hljs-number">4,3,2,1</span>] 。<br>然后，按非递减顺序重排偶数下标（<span class="hljs-number">0</span> 和 <span class="hljs-number">2</span>）的值。<br>所以，nums 从 [<span class="hljs-number">4,1,2,3</span>] 变为 [<span class="hljs-number">2,3,4,1</span>] 。<br>因此，重排之后形成的数组是 [<span class="hljs-number">2,3,4,1</span>] 。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs inform7">输入：nums = <span class="hljs-comment">[2,1]</span><br>输出：<span class="hljs-comment">[2,1]</span><br>解释：<br>由于只有一个奇数下标和一个偶数下标，所以不会发生重排。<br>形成的结果数组是 <span class="hljs-comment">[2,1]</span> ，和初始数组一样。 <br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li>1 &lt;&#x3D; nums.length &lt;&#x3D; 100</li>
+<li>1 &lt;&#x3D; nums[i] &lt;&#x3D; 100</li>
+</ul>
+<h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>这个题主要是审题，开始审题错了还被坑了一回，注意是奇偶数下标这样的。</p>
+<p>然后就是280场周赛get到的一个技巧，用下边这个代码操作可以把奇数偶数间隔的取出来</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">nums[::<span class="hljs-number">2</span>]  <span class="hljs-comment"># 取出偶数下标的value</span><br>nums[<span class="hljs-number">1</span>::<span class="hljs-number">2</span>]  <span class="hljs-comment"># 取出奇数下标的value</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">sortEvenOdd</span>(<span class="hljs-params">self, nums</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type nums: List[int]</span><br><span class="hljs-string">        :rtype: List[int]</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        o_index = nums[::<span class="hljs-number">2</span>]<br>        j_index = nums[<span class="hljs-number">1</span>::<span class="hljs-number">2</span>]<br>        o_index.sort()<br>        j_index.sort(key=<span class="hljs-keyword">lambda</span> x: -x)<br><br>        result = []<br>        j = <span class="hljs-number">0</span><br>        k = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums)):<br>            <span class="hljs-keyword">if</span> i % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>:<br>                result.append(o_index[j])<br>                j += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                result.append(j_index[k])<br>                k += <span class="hljs-number">1</span><br>        <br>        <span class="hljs-keyword">return</span> result<br></code></pre></td></tr></table></figure>
+
+
+<h1 id="第二题：2165-重排数字的最小值"><a href="#第二题：2165-重排数字的最小值" class="headerlink" title="第二题：2165.重排数字的最小值"></a>第二题：2165.重排数字的最小值</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/smallest-value-of-the-rearranged-number/">题目链接</a></p>
+<h2 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个整数 <code>num</code> 。<strong>重排</strong> <code>num</code> 中的各位数字，使其值 <strong>最小化</strong> 且不含 <strong>任何</strong> 前导零。</p>
+<p>返回不含前导零且值最小的重排数字。</p>
+<p>注意，重排各位数字后，<code>num</code> 的符号不会改变。</p>
+<p>示例1：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dns">输入：num = <span class="hljs-number">310</span><br>输出：<span class="hljs-number">103</span><br>解释：<span class="hljs-number">310</span> 中各位数字的可行排列有：<span class="hljs-number">013、031</span>、<span class="hljs-number">103、130、301</span>、<span class="hljs-number">310</span> 。<br>不含任何前导零且值最小的重排数字是 <span class="hljs-number">103</span> 。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs subunit">输入：num = <span class="hljs-string">-7605</span><br>输出：<span class="hljs-string">-7650</span><br>解释：<span class="hljs-string">-7605</span> 中各位数字的部分可行排列为：<span class="hljs-string">-7650</span>、<span class="hljs-string">-6705</span>、<span class="hljs-string">-5076</span>、<span class="hljs-string">-0567</span>。<br>不含任何前导零且值最小的重排数字是 <span class="hljs-string">-7650</span> 。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li><code>-10^15 &lt;= num &lt;= 10^15</code></li>
+</ul>
+<h2 id="分析和解答-1"><a href="#分析和解答-1" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>要分开处理正数和负数的情况，然后贪心思路的感觉。在str和int类型之间来回转化。</p>
+<p>如果是正数的处理要稍微复杂一点点，就是第一位不能以0起头，要选择一个不是0的index作为起头。</p>
+<p>注意列表的拼接，可以使用如下的操作方式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">s[index] + <span class="hljs-string">&#x27;&#x27;</span>.join(s[:index]) + <span class="hljs-string">&#x27;&#x27;</span>.join(s[index+<span class="hljs-number">1</span>:]<br></code></pre></td></tr></table></figure>
+
+<p>题目解答如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">smallestNumber</span>(<span class="hljs-params">self, num</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type num: int</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        r_list = []<br><br>        <span class="hljs-keyword">if</span> num &lt; <span class="hljs-number">0</span>:<br>            s = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">str</span>(-num))<br>            s.sort(key=<span class="hljs-keyword">lambda</span> x: -<span class="hljs-built_in">int</span>(x))<br>            <span class="hljs-comment"># 选一个最大的（第一个就是），进行重组</span><br>            return_int = -<span class="hljs-built_in">int</span>(<span class="hljs-string">&#x27;&#x27;</span>.join(s))<br>            <span class="hljs-comment"># print(return_int)</span><br>            <br>        <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># num &gt;= 0</span><br>            s = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">str</span>(num))<br>            s.sort()<br>            <br>            index = -<span class="hljs-number">1</span><br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(s)):<br>                <span class="hljs-keyword">if</span> <span class="hljs-built_in">int</span>(s[i]) != <span class="hljs-number">0</span>:<br>                    index = i<br>                    <span class="hljs-keyword">break</span><br>            <span class="hljs-built_in">print</span>(index)<br>            return_int = <span class="hljs-built_in">int</span>(s[index] + <span class="hljs-string">&#x27;&#x27;</span>.join(s[:index]) + <span class="hljs-string">&#x27;&#x27;</span>.join(s[index+<span class="hljs-number">1</span>:]))<br>            <span class="hljs-comment"># print(return_int)</span><br>    <br>        <span class="hljs-keyword">return</span> return_int<br></code></pre></td></tr></table></figure>
+
+
+<h1 id="第三题：2166-设计位集"><a href="#第三题：2166-设计位集" class="headerlink" title="第三题：2166.设计位集"></a>第三题：2166.设计位集</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/design-bitset/">题目链接</a></p>
+<h2 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h2><p><strong>位集 Bitset</strong> 是一种能以紧凑形式存储位的数据结构。</p>
+<p>请你实现 <code>Bitset</code> 类。</p>
+<ul>
+<li><code>Bitset(int size)</code> 用 <code>size</code> 个位初始化 Bitset ，所有位都是 <code>0</code> 。</li>
+<li><code>void fix(int idx)</code> 将下标为 <code>idx</code> 的位上的值更新为 <code>1</code> 。如果值已经是 <code>1</code> ，则不会发生任何改变。</li>
+<li><code>void unfix(int idx)</code> 将下标为 <code>idx</code> 的位上的值更新为 <code>0</code> 。如果值已经是 <code>0</code> ，则不会发生任何改变。</li>
+<li><code>void flip()</code> 翻转 Bitset 中每一位上的值。换句话说，所有值为 <code>0</code> 的位将会变成 <code>1</code> ，反之亦然。</li>
+<li><code>boolean all()</code> 检查 Bitset 中 <strong>每一位</strong> 的值是否都是 <code>1</code> 。如果满足此条件，返回 <code>true</code> ；否则，返回 <code>false</code> 。</li>
+<li><code>boolean one()</code> 检查 Bitset 中 是否 <strong>至少一位</strong> 的值是 <code>1</code> 。如果满足此条件，返回 <code>true</code> ；否则，返回 <code>false</code> 。</li>
+<li><code>int count()</code> 返回 Bitset 中值为 1 的位的 <strong>总数</strong> 。</li>
+<li><code>String toString()</code> 返回 Bitset 的当前组成情况。注意，在结果字符串中，第 <code>i</code> 个下标处的字符应该与 Bitset 中的第 <code>i</code> 位一致。</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs awk">输入<br>[<span class="hljs-string">&quot;Bitset&quot;</span>, <span class="hljs-string">&quot;fix&quot;</span>, <span class="hljs-string">&quot;fix&quot;</span>, <span class="hljs-string">&quot;flip&quot;</span>, <span class="hljs-string">&quot;all&quot;</span>, <span class="hljs-string">&quot;unfix&quot;</span>, <span class="hljs-string">&quot;flip&quot;</span>, <span class="hljs-string">&quot;one&quot;</span>, <span class="hljs-string">&quot;unfix&quot;</span>, <span class="hljs-string">&quot;count&quot;</span>, <span class="hljs-string">&quot;toString&quot;</span>]<br>[[<span class="hljs-number">5</span>], [<span class="hljs-number">3</span>], [<span class="hljs-number">1</span>], [], [], [<span class="hljs-number">0</span>], [], [], [<span class="hljs-number">0</span>], [], []]<br>输出<br>[null, null, null, null, false, null, null, true, null, <span class="hljs-number">2</span>, <span class="hljs-string">&quot;01010&quot;</span>]<br><br>解释<br>Bitset bs = new Bitset(<span class="hljs-number">5</span>); <span class="hljs-regexp">//</span> bitset = <span class="hljs-string">&quot;00000&quot;</span>.<br>bs.fix(<span class="hljs-number">3</span>);     <span class="hljs-regexp">//</span> 将 idx = <span class="hljs-number">3</span> 处的值更新为 <span class="hljs-number">1</span> ，此时 bitset = <span class="hljs-string">&quot;00010&quot;</span> 。<br>bs.fix(<span class="hljs-number">1</span>);     <span class="hljs-regexp">//</span> 将 idx = <span class="hljs-number">1</span> 处的值更新为 <span class="hljs-number">1</span> ，此时 bitset = <span class="hljs-string">&quot;01010&quot;</span> 。<br>bs.flip();     <span class="hljs-regexp">//</span> 翻转每一位上的值，此时 bitset = <span class="hljs-string">&quot;10101&quot;</span> 。<br>bs.all();      <span class="hljs-regexp">//</span> 返回 False ，bitset 中的值不全为 <span class="hljs-number">1</span> 。<br>bs.unfix(<span class="hljs-number">0</span>);   <span class="hljs-regexp">//</span> 将 idx = <span class="hljs-number">0</span> 处的值更新为 <span class="hljs-number">0</span> ，此时 bitset = <span class="hljs-string">&quot;00101&quot;</span> 。<br>bs.flip();     <span class="hljs-regexp">//</span> 翻转每一位上的值，此时 bitset = <span class="hljs-string">&quot;11010&quot;</span> 。<br>bs.one();      <span class="hljs-regexp">//</span> 返回 True ，至少存在一位的值为 <span class="hljs-number">1</span> 。<br>bs.unfix(<span class="hljs-number">0</span>);   <span class="hljs-regexp">//</span> 将 idx = <span class="hljs-number">0</span> 处的值更新为 <span class="hljs-number">0</span> ，此时 bitset = <span class="hljs-string">&quot;01010&quot;</span> 。<br>bs.count();    <span class="hljs-regexp">//</span> 返回 <span class="hljs-number">2</span> ，当前有 <span class="hljs-number">2</span> 位的值为 <span class="hljs-number">1</span> 。<br>bs.toString(); <span class="hljs-regexp">//</span> 返回 <span class="hljs-string">&quot;01010&quot;</span> ，即 bitset 的当前组成情况。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li><code>1 &lt;= size &lt;= 10^5</code></li>
+<li><code>0 &lt;= idx &lt;= size - 1</code></li>
+<li>至多调用 <code>fix</code>、<code>unfix</code>、<code>flip</code>、<code>all</code>、<code>one</code>、<code>count</code> 和 <code>toString</code> 方法 总共 <code>10^5</code> 次</li>
+<li>至少调用 <code>all</code>、<code>one</code>、<code>count</code> 或 <code>toString</code> 方法一次</li>
+<li>至多调用 <code>toString</code> 方法 <code>5</code> 次</li>
+</ul>
+<h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>要通过一个filp的操作把很多操作都变成O(1)的，</p>
+<ul>
+<li>fix和unfix的操作因为是数组角标的操作，所以是O(1)的，但是注意这个操作要根据filp的状态来决定</li>
+<li>filp直接把self.filp_status修改了就行O(1)</li>
+<li>all、one、count根据cnt值和filp_status共同确定也可以O(1)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Bitset</span>(<span class="hljs-title class_ inherited__">object</span>):<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, size</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type size: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># 都放在初始化里？</span><br>        self.bs = [<span class="hljs-number">0</span> <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(size)]<br>        self.cnt = <span class="hljs-number">0</span><br>        self.filp_status = <span class="hljs-number">0</span><br>        <br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">fix</span>(<span class="hljs-params">self, idx</span>):  <span class="hljs-comment"># 这个没的改了</span><br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type idx: int</span><br><span class="hljs-string">        :rtype: None</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">if</span> self.bs[idx] != <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> self.filp_status == <span class="hljs-number">0</span>:<br>            self.bs[idx] = <span class="hljs-number">1</span><br>            self.cnt += <span class="hljs-number">1</span>    <br>        <span class="hljs-keyword">elif</span> self.filp_status == <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> self.bs[idx] != <span class="hljs-number">0</span>:<br>            self.bs[idx] = <span class="hljs-number">0</span><br>            self.cnt += <span class="hljs-number">1</span><br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">unfix</span>(<span class="hljs-params">self, idx</span>):  <span class="hljs-comment"># 这个没的改了</span><br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type idx: int</span><br><span class="hljs-string">        :rtype: None</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">if</span> self.bs[idx] == <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> self.filp_status == <span class="hljs-number">0</span>:<br>            self.bs[idx] = <span class="hljs-number">0</span><br>            self.cnt -= <span class="hljs-number">1</span><br>        <span class="hljs-keyword">elif</span> self.filp_status == <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> self.bs[idx] != <span class="hljs-number">1</span>:<br>            self.bs[idx] = <span class="hljs-number">1</span><br>            self.cnt -= <span class="hljs-number">1</span><br><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">flip</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :rtype: None</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># 翻转了</span><br>        <span class="hljs-keyword">if</span> self.filp_status == <span class="hljs-number">0</span>:<br>            self.filp_status = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">else</span>:<br>            self.filp_status = <span class="hljs-number">0</span><br>        self.cnt = <span class="hljs-built_in">len</span>(self.bs) - self.cnt<br><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">all</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :rtype: bool</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">if</span> self.cnt == <span class="hljs-built_in">len</span>(self.bs):<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        <br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">one</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :rtype: bool</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">if</span> self.cnt &gt;= <span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        <br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">count</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">return</span> self.cnt<br>        <br>        <br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">toString</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :rtype: str</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">if</span> self.filp_status == <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>.join([<span class="hljs-built_in">str</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> self.bs])<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>.join([<span class="hljs-built_in">str</span>(<span class="hljs-built_in">abs</span>(<span class="hljs-number">1</span>-x)) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> self.bs])<br><br><span class="hljs-comment"># Your Bitset object will be instantiated and called as such:</span><br><span class="hljs-comment"># obj = Bitset(size)</span><br><span class="hljs-comment"># obj.fix(idx)</span><br><span class="hljs-comment"># obj.unfix(idx)</span><br><span class="hljs-comment"># obj.flip()</span><br><span class="hljs-comment"># param_4 = obj.all()</span><br><span class="hljs-comment"># param_5 = obj.one()</span><br><span class="hljs-comment"># param_6 = obj.count()</span><br><span class="hljs-comment"># param_7 = obj.toString()</span><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LeetCode-python/" class="category-chain-item">LeetCode-python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/" class="category-chain-item">LeetCode周赛</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E7%BB%84/">#数组</a>
+      
+        <a href="/tags/%E6%8E%92%E5%BA%8F/">#排序</a>
+      
+        <a href="/tags/EASY/">#EASY</a>
+      
+        <a href="/tags/MEDIUM/">#MEDIUM</a>
+      
+        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">#哈希表</a>
+      
+        <a href="/tags/%E8%AE%BE%E8%AE%A1/">#设计</a>
+      
+        <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>279场LeetCode周赛</div>
+      <div>http://example.com/2022/02/07/algorithms/leetcode-weekly-contest/279场LeetCode周赛/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年2月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/02/14/algorithms/leetcode-weekly-contest/280%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/" title="280场LeetCode周赛">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">280场LeetCode周赛</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/23/algorithms/leetcode-weekly-contest/277%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/" title="277场LeetCode周赛">
+                        <span class="hidden-mobile">277场LeetCode周赛</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

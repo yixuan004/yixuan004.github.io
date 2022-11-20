@@ -1,0 +1,781 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="周赛综述&amp;总结： 久违的前1000名了，这次能排的稍微靠前点在于前三个题特别快的就做出来了，可惜第四个题没做出来，要不说不定能到前500呢hh~ 上周做了一回笔试题，今天再看周赛题还有点陌生了，也可能是这种陌生感让自己做快了一些吧，另外还是喜欢描述比较短的题； 感觉就是状态好+题目对着自己常做的思路吧，也可能和周中稍微做了几个题有些关系，前三个题描述还都不是很简单，但是做出来的都比自己预期">
+<meta property="og:type" content="article">
+<meta property="og:title" content="291场LeetCode周赛">
+<meta property="og:url" content="http://example.com/2022/05/02/algorithms/leetcode-weekly-contest/291%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="周赛综述&amp;总结： 久违的前1000名了，这次能排的稍微靠前点在于前三个题特别快的就做出来了，可惜第四个题没做出来，要不说不定能到前500呢hh~ 上周做了一回笔试题，今天再看周赛题还有点陌生了，也可能是这种陌生感让自己做快了一些吧，另外还是喜欢描述比较短的题； 感觉就是状态好+题目对着自己常做的思路吧，也可能和周中稍微做了几个题有些关系，前三个题描述还都不是很简单，但是做出来的都比自己预期">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/2022-05-02-09-13-42.png">
+<meta property="og:image" content="http://example.com/images/2022-05-02-10-28-47.png">
+<meta property="og:image" content="http://example.com/images/2022-05-02-10-29-13.png">
+<meta property="article:published_time" content="2022-05-02T01:07:10.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.887Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="数组">
+<meta property="article:tag" content="EASY">
+<meta property="article:tag" content="MEDIUM">
+<meta property="article:tag" content="字符串">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="HARD">
+<meta property="article:tag" content="字典树">
+<meta property="article:tag" content="哈希表">
+<meta property="article:tag" content="滑动窗口">
+<meta property="article:tag" content="枚举">
+<meta property="article:tag" content="哈希函数">
+<meta property="article:tag" content="滚动哈希">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/2022-05-02-09-13-42.png">
+  
+  
+  
+  <title>291场LeetCode周赛 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="291场LeetCode周赛"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-05-02 09:07" pubdate>
+          2022年5月2日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          47 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">291场LeetCode周赛</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>周赛综述&amp;总结：</p>
+<p>久违的前1000名了，这次能排的稍微靠前点在于前三个题特别快的就做出来了，可惜第四个题没做出来，要不说不定能到前500呢hh~ 上周做了一回笔试题，今天再看周赛题还有点陌生了，也可能是这种陌生感让自己做快了一些吧，另外还是喜欢描述比较短的题；</p>
+<p>感觉就是状态好+题目对着自己常做的思路吧，也可能和周中稍微做了几个题有些关系，前三个题描述还都不是很简单，但是做出来的都比自己预期的快一些，第四个题上来方向又走偏了，如果走到数学规律上面的话感觉可能还有戏，这个题是个“贡献”类的思路，比较巧妙</p>
+<p>第一题：毕竟第一题，直接暴力每个位置比较+列表拼接join就可以了，注意最后的返回值是个字符串，室友大佬后来还提醒说这个题中间如果转int处理可能会爆，看来是用python正好就把这个坑给避开了；</p>
+<p>第二题：做一个哈希表，每个数字映射到他出现过位置的一个列表，然后遍历这个哈希表，看看区间长度比较下找个min的就可以了；</p>
+<p>第三题：这个题先判断每个位置是否可以被p整除，然后根据这个做一个新的列表，能被p整除的就是1，不能被p整除的就是0，之后按照他这个子数组的定义来遍历（就是j要从i开始遍历），去重的话可以用tuple的子数组作为key，然后就是对每个区间sum就可以了；</p>
+<p>第四题：一道计算“贡献”的题目，自己一开始想的有点偏，贡献类的题目感觉不能从完全全局来说，要考虑每个字符在全局上的贡献，这个题也是第一次遇到，感觉算法还是很神奇的，具体内容写在博客里了；</p>
+<span id="more"></span>
+
+<p>希望下次前1000名来得快一点，这次确实是题简单了</p>
+<p><img src="/images/2022-05-02-09-13-42.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="第一题：6047-移除指定数字得到的最大结果"><a href="#第一题：6047-移除指定数字得到的最大结果" class="headerlink" title="第一题：6047.移除指定数字得到的最大结果"></a>第一题：6047.移除指定数字得到的最大结果</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-digit-from-number-to-maximize-result/">题目链接</a></p>
+<h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个表示某个正整数的字符串 <code>number</code> 和一个字符 <code>digit</code> 。</p>
+<p>从 <code>number</code> 中 <strong>恰好</strong> 移除 <strong>一个</strong> 等于 <code>digit</code> 的字符后，找出并返回按 <strong>十进制</strong> 表示 <strong>最大</strong> 的结果字符串。生成的测试用例满足 <code>digit</code> 在 <code>number</code> 中出现至少一次。</p>
+<p>示例1：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs arcade">输入：<span class="hljs-built_in">number</span> = <span class="hljs-string">&quot;123&quot;</span>, digit = <span class="hljs-string">&quot;3&quot;</span><br>输出：<span class="hljs-string">&quot;12&quot;</span><br>解释：<span class="hljs-string">&quot;123&quot;</span> 中只有一个 <span class="hljs-string">&#x27;3&#x27;</span> ，在移除 <span class="hljs-string">&#x27;3&#x27;</span> 之后，结果为 <span class="hljs-string">&quot;12&quot;</span> 。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs arcade">输入：<span class="hljs-built_in">number</span> = <span class="hljs-string">&quot;1231&quot;</span>, digit = <span class="hljs-string">&quot;1&quot;</span><br>输出：<span class="hljs-string">&quot;231&quot;</span><br>解释：可以移除第一个 <span class="hljs-string">&#x27;1&#x27;</span> 得到 <span class="hljs-string">&quot;231&quot;</span> 或者移除第二个 <span class="hljs-string">&#x27;1&#x27;</span> 得到 <span class="hljs-string">&quot;123&quot;</span> 。<br>由于 <span class="hljs-number">231</span> &gt; <span class="hljs-number">123</span> ，返回 <span class="hljs-string">&quot;231&quot;</span> 。<br></code></pre></td></tr></table></figure>
+
+<p>示例3：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs arcade">输入：<span class="hljs-built_in">number</span> = <span class="hljs-string">&quot;551&quot;</span>, digit = <span class="hljs-string">&quot;5&quot;</span><br>输出：<span class="hljs-string">&quot;51&quot;</span><br>解释：可以从 <span class="hljs-string">&quot;551&quot;</span> 中移除第一个或者第二个 <span class="hljs-string">&#x27;5&#x27;</span> 。<br>两种方案的结果都是 <span class="hljs-string">&quot;51&quot;</span> 。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li><code>2 &lt;= number.length &lt;= 100</code></li>
+<li><code>number</code> 由数字 <code>&#39;1&#39;</code> 到 <code>&#39;9&#39;</code> 组成</li>
+<li><code>digit</code> 是 <code>&#39;1&#39;</code> 到 <code>&#39;9&#39;</code> 中的一个数字</li>
+<li><code>digit</code> 在 <code>number</code> 中出现至少一次</li>
+</ul>
+<h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>毕竟第一题，直接暴力每个位置比较+列表拼接join就可以了，注意最后的返回值是个字符串，室友大佬后来还提醒说这个题中间如果转int处理可能会爆，看来是用python正好就把这个坑给避开了；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">removeDigit</span>(<span class="hljs-params">self, number, digit</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type number: str</span><br><span class="hljs-string">        :type digit: str</span><br><span class="hljs-string">        :rtype: str</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        res = -<span class="hljs-number">1</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(number)):<br>            <span class="hljs-keyword">if</span> number[i] == digit:<br>                tmp_list = <span class="hljs-string">&#x27;&#x27;</span>.join(number[:i] + number[i+<span class="hljs-number">1</span>:])<br>                res = <span class="hljs-built_in">max</span>(res, <span class="hljs-built_in">int</span>(tmp_list))<br>        <br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">str</span>(res)<br></code></pre></td></tr></table></figure>
+
+
+<h1 id="第二题：6048-必须拿起的最小连续卡牌数"><a href="#第二题：6048-必须拿起的最小连续卡牌数" class="headerlink" title="第二题：6048.必须拿起的最小连续卡牌数"></a>第二题：6048.必须拿起的最小连续卡牌数</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-consecutive-cards-to-pick-up/">题目链接</a></p>
+<h2 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个整数数组 <code>cards</code> ，其中 <code>cards[i]</code> 表示第 <code>i</code> 张卡牌的 <strong>值</strong> 。如果两张卡牌的值相同，则认为这一对卡牌 <strong>匹配</strong> 。</p>
+<p>返回你必须拿起的最小连续卡牌数，以使在拿起的卡牌中有一对匹配的卡牌。如果无法得到一对匹配的卡牌，返回 <code>-1</code> 。</p>
+<p>示例1：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dns">输入：cards = [<span class="hljs-number">3,4,2,3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">7</span>]<br>输出：<span class="hljs-number">4</span><br>解释：拿起卡牌 [<span class="hljs-number">3,4,2,3</span>] 将会包含一对值为 <span class="hljs-number">3</span> 的匹配卡牌。注意，拿起 [<span class="hljs-number">4,2,3,4</span>] 也是最优方案。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dns">输入：cards = [<span class="hljs-number">1,0,5,3</span>]<br>输出：-<span class="hljs-number">1</span><br>解释：无法找出含一对匹配卡牌的一组连续卡牌。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li><code>1 &lt;= cards.length &lt;= 10^5</code></li>
+<li><code>0 &lt;= cards[i] &lt;= 10^6</code></li>
+</ul>
+<h2 id="分析和解答-1"><a href="#分析和解答-1" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>做一个哈希表，每个数字映射到他出现过位置的一个列表，然后遍历这个哈希表，看看区间长度比较下找个min的就可以了，还是比较好想到这个思路的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">minimumCardPickup</span>(<span class="hljs-params">self, cards</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type cards: List[int]</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> defaultdict<br>        tmp_dict = defaultdict(<span class="hljs-built_in">list</span>)<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(cards)):<br>            tmp_dict[cards[i]].append(i)<br>        <br>        <span class="hljs-comment"># print(tmp_dict)</span><br>        res = <span class="hljs-number">1e9</span><br>        <span class="hljs-keyword">for</span> value <span class="hljs-keyword">in</span> tmp_dict.values():<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(value) &lt; <span class="hljs-number">2</span>:<br>                <span class="hljs-keyword">continue</span><br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(value)-<span class="hljs-number">1</span>):<br>                res = <span class="hljs-built_in">min</span>(res, value[j+<span class="hljs-number">1</span>]-value[j])<br>        <br>        <span class="hljs-keyword">if</span> res != <span class="hljs-number">1e9</span>:<br>            <span class="hljs-keyword">return</span> res+ <span class="hljs-number">1</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+
+<h1 id="第三题：6049-含最多-K-个可整除元素的子数组"><a href="#第三题：6049-含最多-K-个可整除元素的子数组" class="headerlink" title="第三题：6049.含最多 K 个可整除元素的子数组"></a>第三题：6049.含最多 K 个可整除元素的子数组</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/k-divisible-elements-subarrays/">题目链接</a></p>
+<h2 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个整数数组 <code>nums</code> 和两个整数 <code>k</code> 和 <code>p</code> ，找出并返回满足要求的不同的子数组数，要求子数组中最多 <code>k</code> 个可被 <code>p</code> 整除的元素。</p>
+<p>如果满足下述条件之一，则认为数组 <code>nums1</code> 和 <code>nums2</code> 是 <strong>不同</strong> 数组：</p>
+<ul>
+<li>两数组长度 <strong>不同</strong> ，或者</li>
+<li>存在 <strong>至少</strong> 一个下标 <code>i</code> 满足 <code>nums1[i] != nums2[i]</code> 。</li>
+</ul>
+<p><strong>子数组</strong> 定义为：数组中的连续元素组成的一个 <strong>非空</strong> 序列。</p>
+<p>示例1：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs stylus">输入：nums = <span class="hljs-selector-attr">[2,3,3,2,2]</span>, k = <span class="hljs-number">2</span>, <span class="hljs-selector-tag">p</span> = <span class="hljs-number">2</span><br>输出：<span class="hljs-number">11</span><br>解释：<br>位于下标 <span class="hljs-number">0</span>、<span class="hljs-number">3</span> 和 <span class="hljs-number">4</span> 的元素都可以被 <span class="hljs-selector-tag">p</span> = <span class="hljs-number">2</span> 整除。<br>共计 <span class="hljs-number">11</span> 个不同子数组都满足最多含 k = <span class="hljs-number">2</span> 个可以被 <span class="hljs-number">2</span> 整除的元素：<br><span class="hljs-selector-attr">[2]</span>、<span class="hljs-selector-attr">[2,3]</span>、<span class="hljs-selector-attr">[2,3,3]</span>、<span class="hljs-selector-attr">[2,3,3,2]</span>、<span class="hljs-selector-attr">[3]</span>、<span class="hljs-selector-attr">[3,3]</span>、<span class="hljs-selector-attr">[3,3,2]</span>、<span class="hljs-selector-attr">[3,3,2,2]</span>、<span class="hljs-selector-attr">[3,2]</span>、<span class="hljs-selector-attr">[3,2,2]</span> 和 <span class="hljs-selector-attr">[2,2]</span> 。<br>注意，尽管子数组 <span class="hljs-selector-attr">[2]</span> 和 <span class="hljs-selector-attr">[3]</span> 在 nums 中出现不止一次，但统计时只计数一次。<br>子数组 <span class="hljs-selector-attr">[2,3,3,2,2]</span> 不满足条件，因为其中有 <span class="hljs-number">3</span> 个元素可以被 <span class="hljs-number">2</span> 整除。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：nums = [1,2,3,4], k = 4, p = 1<br>输出：10<br>解释：<br>nums 中的所有元素都可以被 p =<span class="hljs-number"> 1 </span>整除。<br>此外，nums 中的每个子数组都满足最多<span class="hljs-number"> 4 </span>个元素可以被<span class="hljs-number"> 1 </span>整除。<br>因为所有子数组互不相同，因此满足所有限制条件的子数组总数为<span class="hljs-number"> 10 </span>。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li>1 &lt;&#x3D; nums.length &lt;&#x3D; 200</li>
+<li>1 &lt;&#x3D; nums[i], p &lt;&#x3D; 200</li>
+<li>1 &lt;&#x3D; k &lt;&#x3D; nums.length</li>
+</ul>
+<h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>这个题先判断每个位置是否可以被p整除，然后根据这个做一个新的列表，能被p整除的就是1，不能被p整除的就是0，之后按照他这个子数组的定义来遍历（就是j要从i开始遍历），去重的话可以用tuple的子数组作为key，然后就是对每个区间sum就可以了；</p>
+<p>另外还想说这个子字符串好有意思啊，他不是2^n那种遍历方法的，而是j&#x3D;i那种双重for循环的，看了眼数据范围还在想要不要搞2^n做法呢</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">countDistinct</span>(<span class="hljs-params">self, nums, k, p</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type nums: List[int]</span><br><span class="hljs-string">        :type k: int</span><br><span class="hljs-string">        :type p: int</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># preprocess</span><br>        cnt_list = []<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums)):<br>            <span class="hljs-keyword">if</span> nums[i] % p == <span class="hljs-number">0</span>:<br>                cnt_list.append(<span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">else</span>:<br>                cnt_list.append(<span class="hljs-number">0</span>)<br>        <span class="hljs-comment"># print(&quot;cnt_list: &quot;, cnt_list)</span><br>            <br>        <br>        res = <span class="hljs-number">0</span><br>        <span class="hljs-comment"># from collections import defaultdict</span><br>        hash_set = &#123;&#125;<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums)):<br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(i, <span class="hljs-built_in">len</span>(nums)):<br>                tmp_list = nums[i:j+<span class="hljs-number">1</span>]<br>                <span class="hljs-keyword">if</span> hash_set.get(<span class="hljs-built_in">tuple</span>(tmp_list)) <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>                    <span class="hljs-keyword">continue</span><br>                hash_set[<span class="hljs-built_in">tuple</span>(tmp_list)] = <span class="hljs-number">1</span><br>                tmp = <span class="hljs-built_in">sum</span>(cnt_list[i:j+<span class="hljs-number">1</span>])<br>                <span class="hljs-keyword">if</span> tmp &lt;= k:<br>                    res += <span class="hljs-number">1</span><br>                <br>                <br>                <br>                <span class="hljs-comment"># print(tmp_list)</span><br>        <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
+
+
+<h1 id="第四题：6050-字符串的总引力"><a href="#第四题：6050-字符串的总引力" class="headerlink" title="第四题：6050.字符串的总引力"></a>第四题：6050.字符串的总引力</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/total-appeal-of-a-string/">题目链接</a></p>
+<h2 id="题目大意-3"><a href="#题目大意-3" class="headerlink" title="题目大意"></a>题目大意</h2><p>字符串的 <strong>引力</strong> 定义为：字符串中 <strong>不同</strong> 字符的数量。</p>
+<ul>
+<li>例如，<code>&quot;abbca&quot;</code> 的引力为 <code>3</code> ，因为其中有 3 个不同字符 <code>&#39;a&#39;</code>、<code>&#39;b&#39;</code> 和 <code>&#39;c&#39;</code> 。</li>
+</ul>
+<p>给你一个字符串 <code>s</code> ，返回 <strong>其所有子字符串的总引力</strong> 。</p>
+<p><strong>子字符串</strong> 定义为：字符串中的一个连续字符序列。</p>
+<h2 id="分析和解答-3"><a href="#分析和解答-3" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>一道计算“贡献”的题目，自己一开始想的有点偏，贡献类的题目感觉不能从完全全局来说，要考虑每个字符在全局上的贡献，这个题也是第一次遇到，感觉算法还是很神奇的，自己举的例子是下边这个图这样，这样能按照每个字符，来统计每个字符的贡献度：</p>
+<p>非重复情况：<br><img src="/images/2022-05-02-10-28-47.png" srcset="/img/loading.gif" lazyload></p>
+<p>重复情况：<br><img src="/images/2022-05-02-10-29-13.png" srcset="/img/loading.gif" lazyload></p>
+<p>另外还想再次说这个子字符串好有意思啊，他不是2^n那种遍历方法的，而是j&#x3D;i那种双重for循环的，看了眼数据范围还在想要不要搞2^n做法呢</p>
+<p>正确解答方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">appealSum</span>(<span class="hljs-params">self, s</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type s: str</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># 一种每个字符贡献度的思想，还是很有特点的</span><br>        res = <span class="hljs-number">0</span><br>        char_dict = &#123;&#125;<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(s)):<br>            <span class="hljs-keyword">if</span> char_dict.get(s[i]) <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>                res += (i + <span class="hljs-number">1</span>) * (<span class="hljs-built_in">len</span>(s)-i)<br>            <span class="hljs-keyword">else</span>:<br>                res += (i - char_dict[s[i]]) * (<span class="hljs-built_in">len</span>(s) - i)<br>            char_dict[s[i]] = i<br>        <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
+
+<p>这里也额外把自己当时写的暴力方法附上，一位缩减了时间复杂度，实际上像个小丑哈哈哈哈哈哈哈哈，dp了但没完全dp</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">appealSum</span>(<span class="hljs-params">self, s</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type s: str</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        res = <span class="hljs-number">0</span><br>        d1 = &#123;&#125;<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(s)):<br>            d1[i] = &#123;s[i]: <span class="hljs-number">1</span>&#125;<br>            res += <span class="hljs-number">1</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;init: &quot;</span>, d1)<br>        <br>        <br>        res_d = &#123;&#125;<br>        <br>        <span class="hljs-comment"># 这里感觉是一个base基础上的dp，每次要取几位，有点不像平常的遍历思路1</span><br>        <span class="hljs-comment"># 现在要开始每次取两位</span><br>        <span class="hljs-keyword">for</span> l <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>, <span class="hljs-built_in">len</span>(s)+<span class="hljs-number">1</span>):<br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(s)-l+<span class="hljs-number">1</span>):<br>                <span class="hljs-comment"># base</span><br>                base = s[i:i+l-<span class="hljs-number">1</span>]<br>                <span class="hljs-comment"># print(&quot;base: &quot;, base)</span><br>                <br>                <span class="hljs-comment"># now（要不要给他加一个标识？）</span><br>                tmp_s = s[i:i+l]<br>                <span class="hljs-comment"># print(&quot;tmp_s: &quot;, tmp_s)</span><br>                <br>                <span class="hljs-comment"># 增量</span><br>                upper = tmp_s[<span class="hljs-built_in">len</span>(base):]<br>                <span class="hljs-comment"># print(&quot;upper: &quot;, upper)</span><br>                <br>                <span class="hljs-comment"># 查看upper在不在</span><br>                <span class="hljs-keyword">if</span> d1[i].get(upper) <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:  <span class="hljs-comment"># 不在，这样是一种累加的</span><br>                    d1[i][tmp_s] = d1[i][base] + <span class="hljs-number">1</span><br>                    d1[i][upper] = <span class="hljs-number">1</span><br>                    res += d1[i][tmp_s]<br>                <span class="hljs-keyword">else</span>:<br>                    d1[i][tmp_s] = d1[i][base]<br>                    res += d1[i][tmp_s]<br>                    <br>                    <span class="hljs-comment"># continue</span><br>                    <span class="hljs-comment"># res += d1[i][upper]</span><br>                    <span class="hljs-comment"># d1[i][upper] = d1[i][upper] + 1</span><br>                    <span class="hljs-comment"># continue</span><br>                <br>        <span class="hljs-comment"># print(d1)</span><br>        <br>        <span class="hljs-comment"># print(res)</span><br>        <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LeetCode-python/" class="category-chain-item">LeetCode-python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/" class="category-chain-item">LeetCode周赛</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E7%BB%84/">#数组</a>
+      
+        <a href="/tags/EASY/">#EASY</a>
+      
+        <a href="/tags/MEDIUM/">#MEDIUM</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">#字符串</a>
+      
+        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
+      
+        <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
+      
+        <a href="/tags/HARD/">#HARD</a>
+      
+        <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">#字典树</a>
+      
+        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">#哈希表</a>
+      
+        <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">#滑动窗口</a>
+      
+        <a href="/tags/%E6%9E%9A%E4%B8%BE/">#枚举</a>
+      
+        <a href="/tags/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/">#哈希函数</a>
+      
+        <a href="/tags/%E6%BB%9A%E5%8A%A8%E5%93%88%E5%B8%8C/">#滚动哈希</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>291场LeetCode周赛</div>
+      <div>http://example.com/2022/05/02/algorithms/leetcode-weekly-contest/291场LeetCode周赛/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年5月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/05/04/algorithms/leetcode-weekly-contest/273-283%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B%E6%80%BB%E7%BB%93/" title="273-283场LeetCode周赛总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">273-283场LeetCode周赛总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/30/algorithms/leetcode-python/687-%E6%9C%80%E9%95%BF%E5%90%8C%E5%80%BC%E8%B7%AF%E5%BE%84-python/" title="687.最长同值路径-python">
+                        <span class="hidden-mobile">687.最长同值路径-python</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

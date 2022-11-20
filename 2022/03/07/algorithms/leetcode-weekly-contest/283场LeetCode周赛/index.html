@@ -1,0 +1,774 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="周赛综述&amp;总结： 这次感觉就是从头卡到尾哈哈哈，每个题或多或少都卡了一下，感觉近几次做题真的思想越来越僵化了，也可能和太久没写代码了有关吧，2月轻松了一个月，3月开始真的忙碌了hhh，等哪天闲下来要完整总结下做题用到的一些常用结构了； 看了下有写笔记的是273到283，算上新年鸽了一次正好十次，感觉可以十次总结下，之后找时间先写个新的博客~ 第一题：上来就不顺了下，要考虑python怎么做">
+<meta property="og:type" content="article">
+<meta property="og:title" content="283场LeetCode周赛">
+<meta property="og:url" content="http://example.com/2022/03/07/algorithms/leetcode-weekly-contest/283%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="周赛综述&amp;总结： 这次感觉就是从头卡到尾哈哈哈，每个题或多或少都卡了一下，感觉近几次做题真的思想越来越僵化了，也可能和太久没写代码了有关吧，2月轻松了一个月，3月开始真的忙碌了hhh，等哪天闲下来要完整总结下做题用到的一些常用结构了； 看了下有写笔记的是273到283，算上新年鸽了一次正好十次，感觉可以十次总结下，之后找时间先写个新的博客~ 第一题：上来就不顺了下，要考虑python怎么做">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/2022-03-07-19-17-22.png">
+<meta property="og:image" content="http://example.com/images/2022-03-07-19-19-50.png">
+<meta property="og:image" content="http://example.com/images/2022-03-07-19-40-30.png">
+<meta property="og:image" content="http://example.com/images/2022-03-07-19-41-17.png">
+<meta property="article:published_time" content="2022-03-07T10:35:08.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.886Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="数组">
+<meta property="article:tag" content="排序">
+<meta property="article:tag" content="EASY">
+<meta property="article:tag" content="MEDIUM">
+<meta property="article:tag" content="字符串">
+<meta property="article:tag" content="树">
+<meta property="article:tag" content="深度优先搜索">
+<meta property="article:tag" content="广度优先搜索">
+<meta property="article:tag" content="二叉树">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="哈希表">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/2022-03-07-19-17-22.png">
+  
+  
+  
+  <title>283场LeetCode周赛 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="283场LeetCode周赛"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-03-07 18:35" pubdate>
+          2022年3月7日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          44 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">283场LeetCode周赛</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>周赛综述&amp;总结：</p>
+<p>这次感觉就是从头卡到尾哈哈哈，每个题或多或少都卡了一下，感觉近几次做题真的思想越来越僵化了，也可能和太久没写代码了有关吧，2月轻松了一个月，3月开始真的忙碌了hhh，等哪天闲下来要完整总结下做题用到的一些常用结构了；</p>
+<p>看了下有写笔记的是273到283，算上新年鸽了一次正好十次，感觉可以十次总结下，之后找时间先写个新的博客~</p>
+<p>第一题：上来就不顺了下，要考虑python怎么做这种字符串的操作，查了一下才知道<code>ord()</code>可以把字母转化为ASCII表，然后再用<code>chr()</code>把ASCII字符转换回串，然后实际上是一个简单的二重循环遍历；</p>
+<p>第二题：这个题就感受到上难度了hhh，一上来必然很容易想到暴力遍历法，然后看了下数据范围估计超时间复杂度了，之后就是一个想优化的过程，大佬提了下排序后倒是能想到思路，就是直接用求和公式统计下差，然后最后看看全都补完了还剩多少个剩余的，剩余的其实就是现有max+1在往后求和k个就行了，中间写起来细节感觉很多，还是被坑了不少的。另外还有一个哨兵机制，能简化下第一个位置的计算的感觉？；</p>
+<p>第三题：好像还是在周赛里第一次见到这种构建的题，这次想到的比较慢，以后应该想构建题就直接搞哈希表（mapping），开始是一种超级暴力的思路，每次找一个节点，都去dfs一遍看看能不能插入，能插入就插入，不能插入就下一个，但实际上mapping后每个value都能找到对应的节点，这样插入的时候实际上就是把“地址”拼接在一起了；</p>
+<p>第四题：鸽了鸽了；</p>
+<span id="more"></span>
+
+<h1 id="第一题：2194-Excel表中某个范围内的单元格"><a href="#第一题：2194-Excel表中某个范围内的单元格" class="headerlink" title="第一题：2194.Excel表中某个范围内的单元格"></a>第一题：2194.Excel表中某个范围内的单元格</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/cells-in-a-range-on-an-excel-sheet/">题目链接</a></p>
+<h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>Excel 表中的一个单元格 <code>(r, c)</code> 会以字符串 <code>&quot;&lt;col&gt;&lt;row&gt;&quot;</code> 的形式进行表示，其中：</p>
+<ul>
+<li><code>&lt;col&gt;</code> 即单元格的列号 <code>c</code> 。用英文字母表中的 <strong>字母</strong> 标识。<ul>
+<li>例如，第 <code>1</code> 列用 <code>&#39;A&#39;</code> 表示，第 <code>2</code> 列用 <code>&#39;B&#39;</code> 表示，第 <code>3</code> 列用 <code>&#39;C&#39;</code> 表示，以此类推。</li>
+</ul>
+</li>
+<li><code>&lt;row&gt;</code> 即单元格的行号 <code>r</code> 。第 <code>r</code> 行就用 整数 <code>r</code> 标识。</li>
+</ul>
+<p>给你一个格式为 <code>&quot;&lt;col1&gt;&lt;row1&gt;:&lt;col2&gt;&lt;row2&gt;&quot;</code> 的字符串 <code>s</code> ，其中 <code>&lt;col1&gt;</code> 表示 <code>c1</code> 列，<code>&lt;row1&gt;</code> 表示 <code>r1</code> 行，<code>&lt;col2&gt;</code> 表示 <code>c2</code> 列，<code>&lt;row2&gt;</code> 表示 <code>r2</code> 行，并满足 <code>r1 &lt;= r2</code> 且 <code>c1 &lt;= c2</code> 。</p>
+<p>找出所有满足 <code>r1 &lt;= x &lt;= r2</code> 且 <code>c1 &lt;= y &lt;= c2</code> 的单元格，并以列表形式返回。单元格应该按前面描述的格式用 <strong>字符串</strong> 表示，并以 <strong>非递减</strong> 顺序排列（先按列排，再按行排）。</p>
+<p>示例1：<br><img src="/images/2022-03-07-19-17-22.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs prolog">输入：s = <span class="hljs-string">&quot;K1:L2&quot;</span><br>输出：[<span class="hljs-string">&quot;K1&quot;</span>,<span class="hljs-string">&quot;K2&quot;</span>,<span class="hljs-string">&quot;L1&quot;</span>,<span class="hljs-string">&quot;L2&quot;</span>]<br>解释：<br>上图显示了列表中应该出现的单元格。<br>红色箭头指示单元格的出现顺序。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：<br><img src="/images/2022-03-07-19-19-50.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs prolog">输入：s = <span class="hljs-string">&quot;A1:F1&quot;</span><br>输出：[<span class="hljs-string">&quot;A1&quot;</span>,<span class="hljs-string">&quot;B1&quot;</span>,<span class="hljs-string">&quot;C1&quot;</span>,<span class="hljs-string">&quot;D1&quot;</span>,<span class="hljs-string">&quot;E1&quot;</span>,<span class="hljs-string">&quot;F1&quot;</span>]<br>解释：<br>上图显示了列表中应该出现的单元格。 <br>红色箭头指示单元格的出现顺序。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li><code>s.length == 5</code></li>
+<li><code>&#39;A&#39; &lt;= s[0] &lt;= s[3] &lt;= &#39;Z&#39;</code></li>
+<li><code>&#39;1&#39; &lt;= s[1] &lt;= s[4] &lt;= &#39;9&#39;</code></li>
+<li><code>s</code> 由大写英文字母、数字、和 <code>&#39;:&#39;</code> 组成</li>
+</ul>
+<h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p><code>ord(&quot;a&quot;)</code>是把一个字符转化为ASCII码表示，例如该句会输出<code>97</code></p>
+<p><code>chr(97)</code>是把一个ASCII码（或者也不一定，就是数字）转化为字符表示，例如该句会输出<code>a</code></p>
+<p>知道上边两个操作后怎么遍历就不是难事了，代码如下所示</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">cellsInRange</span>(<span class="hljs-params">self, s</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type s: str</span><br><span class="hljs-string">        :rtype: List[str]</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        s_1 = s[<span class="hljs-number">0</span>]<br>        n_1 = s[<span class="hljs-number">1</span>]<br>        s_2 = s[<span class="hljs-number">3</span>]<br>        n_2 = s[<span class="hljs-number">4</span>]<br>        <br>        res = []<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">ord</span>(s_1), <span class="hljs-built_in">ord</span>(s_2)+<span class="hljs-number">1</span>):<br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">int</span>(n_1), <span class="hljs-built_in">int</span>(n_2)+<span class="hljs-number">1</span>):<br>                <span class="hljs-comment"># print(chr(i))</span><br>                <span class="hljs-comment"># print(str(j))</span><br>                res.append(<span class="hljs-string">&quot;&quot;</span>.join([<span class="hljs-built_in">chr</span>(i), <span class="hljs-built_in">str</span>(j)])) <br>                <br>        <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
+
+
+<h1 id="第二题：6017-向数组中追加K个整数"><a href="#第二题：6017-向数组中追加K个整数" class="headerlink" title="第二题：6017.向数组中追加K个整数"></a>第二题：6017.向数组中追加K个整数</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/append-k-integers-with-minimal-sum/">题目链接</a></p>
+<h2 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个整数数组 <code>nums</code> 和一个整数 <code>k</code> 。请你向 nums 中追加 k 个 未 出现在 nums 中的、<strong>互不相同</strong> 的 <strong>正</strong> 整数，并使结果数组的元素和 <strong>最小</strong> 。</p>
+<p>返回追加到 <code>nums</code> 中的 <code>k</code> 个整数之和。</p>
+<p>示例1：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：nums = [1,4,25,10,25], k = 2<br>输出：5<br>解释：在该解法中，向数组中追加的两个互不相同且未出现的正整数是<span class="hljs-number"> 2 </span>和<span class="hljs-number"> 3 </span>。<br>nums 最终元素和为<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 4 </span>+<span class="hljs-number"> 25 </span>+<span class="hljs-number"> 10 </span>+<span class="hljs-number"> 25 </span>+<span class="hljs-number"> 2 </span>+<span class="hljs-number"> 3 </span>=<span class="hljs-number"> 70 </span>，这是所有情况中的最小值。<br>所以追加到数组中的两个整数之和是<span class="hljs-number"> 2 </span>+<span class="hljs-number"> 3 </span>=<span class="hljs-number"> 5 </span>，所以返回<span class="hljs-number"> 5 </span>。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：nums = [5,6], k = 6<br>输出：25<br>解释：在该解法中，向数组中追加的两个互不相同且未出现的正整数是<span class="hljs-number"> 1 </span>、2 、3 、4 、7 和<span class="hljs-number"> 8 </span>。<br>nums 最终元素和为<span class="hljs-number"> 5 </span>+<span class="hljs-number"> 6 </span>+<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 2 </span>+<span class="hljs-number"> 3 </span>+<span class="hljs-number"> 4 </span>+<span class="hljs-number"> 7 </span>+<span class="hljs-number"> 8 </span>=<span class="hljs-number"> 36 </span>，这是所有情况中的最小值。<br>所以追加到数组中的两个整数之和是<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 2 </span>+<span class="hljs-number"> 3 </span>+<span class="hljs-number"> 4 </span>+<span class="hljs-number"> 7 </span>+<span class="hljs-number"> 8 </span>=<span class="hljs-number"> 25 </span>，所以返回<span class="hljs-number"> 25 </span>。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 10^5</code></li>
+<li><code>1 &lt;= nums[i], k &lt;= 10^9</code></li>
+</ul>
+<h2 id="分析和解答-1"><a href="#分析和解答-1" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>这个题就感受到上难度了hhh，一上来必然很容易想到暴力遍历法，然后看了下数据范围估计超时间复杂度了</p>
+<p>之后就是一个想优化的过程，大佬提了下排序后倒是能想到思路，就是直接用求和公式统计下差，然后最后看看全都补完了还剩多少个剩余的，剩余的其实就是现有max+1在往后求和k个就行了</p>
+<p>中间写起来细节感觉很多，还是被坑了不少的。</p>
+<p>另外还有一个哨兵机制，能简化下第一个位置的计算的感觉？；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">minimalKSum</span>(<span class="hljs-params">self, nums, k</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type nums: List[int]</span><br><span class="hljs-string">        :type k: int</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        orig_k = k<br>        <span class="hljs-comment"># res = sum(nums)</span><br>        res = <span class="hljs-number">0</span><br>        nums.append(<span class="hljs-number">0</span>)<br>        nums.sort()<br>        <span class="hljs-comment"># print(nums)</span><br>        <br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(nums)):<br>            tmp = nums[i] - nums[i-<span class="hljs-number">1</span>]  - <span class="hljs-number">1</span>  <span class="hljs-comment"># 差</span><br>            <span class="hljs-comment"># print(tmp)</span><br>            <span class="hljs-keyword">if</span> k &gt; tmp:<br>                <span class="hljs-comment"># 求和tmp个</span><br>                <span class="hljs-keyword">if</span> (nums[i] - <span class="hljs-number">1</span>) &gt;= nums[i-<span class="hljs-number">1</span>] + <span class="hljs-number">1</span>:  <br>                    res += (((nums[i-<span class="hljs-number">1</span>] + <span class="hljs-number">1</span>) +  (nums[i] - <span class="hljs-number">1</span>)) * tmp) // <span class="hljs-number">2</span><br>                    <span class="hljs-comment"># print(&#x27;a&#x27;, nums[i-1] + 1, nums[i] - 1)</span><br>                    k -= tmp<br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-comment"># 求和k个</span><br>                res += (((nums[i-<span class="hljs-number">1</span>] + <span class="hljs-number">1</span>) +  (nums[i-<span class="hljs-number">1</span>] + k)) * k) // <span class="hljs-number">2</span><br>                <span class="hljs-comment"># print(&#x27;b&#x27;, nums[i-1] + 1,nums[i-1] + k)</span><br>                k -= tmp<br>                <span class="hljs-keyword">break</span><br>          <br>        <span class="hljs-comment"># print(res)</span><br>        <span class="hljs-comment"># print(k)</span><br>        <span class="hljs-keyword">if</span> k &gt; <span class="hljs-number">0</span>:  <span class="hljs-comment"># 某些问题？</span><br>            <span class="hljs-comment"># 如果全部中间不够了</span><br>            res += (<span class="hljs-built_in">max</span>(nums) + <span class="hljs-number">1</span> + <span class="hljs-built_in">max</span>(nums) + k) * k // <span class="hljs-number">2</span><br>            <br>        <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
+
+
+<h1 id="第三题：2196-根据描述创建二叉树"><a href="#第三题：2196-根据描述创建二叉树" class="headerlink" title="第三题：2196.根据描述创建二叉树"></a>第三题：2196.根据描述创建二叉树</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/create-binary-tree-from-descriptions/">题目链接</a></p>
+<h2 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个二维整数数组 descriptions ，其中 descriptions[i] &#x3D; [parenti, childi, isLefti] 表示 parenti 是 childi 在 二叉树 中的 父节点，二叉树中各节点的值 互不相同 。此外：</p>
+<ul>
+<li>如果 isLefti &#x3D;&#x3D; 1 ，那么 childi 就是 parenti 的左子节点。</li>
+<li>如果 isLefti &#x3D;&#x3D; 0 ，那么 childi 就是 parenti 的右子节点。</li>
+</ul>
+<p>请你根据 <code>descriptions</code> 的描述来构造二叉树并返回其 <strong>根节点</strong> 。</p>
+<p>测试用例会保证可以构造出 <strong>有效</strong> 的二叉树。</p>
+<p>示例1：<br><img src="/images/2022-03-07-19-40-30.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs inform7">输入：descriptions = <span class="hljs-comment">[<span class="hljs-comment">[20,15,1]</span>,<span class="hljs-comment">[20,17,0]</span>,<span class="hljs-comment">[50,20,1]</span>,<span class="hljs-comment">[50,80,0]</span>,<span class="hljs-comment">[80,19,1]</span>]</span><br>输出：<span class="hljs-comment">[50,20,80,15,17,19]</span><br>解释：根节点是值为 50 的节点，因为它没有父节点。<br>结果二叉树如上图所示。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：<br><img src="/images/2022-03-07-19-41-17.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs inform7">输入：descriptions = <span class="hljs-comment">[<span class="hljs-comment">[1,2,1]</span>,<span class="hljs-comment">[2,3,0]</span>,<span class="hljs-comment">[3,4,1]</span>]</span><br>输出：<span class="hljs-comment">[1,2,null,null,3,4]</span><br>解释：根节点是值为 1 的节点，因为它没有父节点。 <br>结果二叉树如上图所示。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li><code>1 &lt;= descriptions.length &lt;= 10^4</code></li>
+<li><code>descriptions[i].length == 3</code></li>
+<li><code>1 &lt;= parenti, childi &lt;= 10^5</code></li>
+<li><code>0 &lt;= isLefti &lt;= 1</code></li>
+<li><code>descriptions</code> 所描述的二叉树是一棵有效二叉树</li>
+</ul>
+<h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>好像还是在周赛里第一次见到这种构建的题，这次想到的比较慢，以后应该想构建题就直接搞哈希表（mapping）</p>
+<p>开始是一种超级暴力的思路，每次找一个节点，都去dfs一遍看看能不能插入，能插入就插入，不能插入就下一个</p>
+<p>但实际上mapping后每个value都能找到对应的节点，这样插入的时候实际上就是把“地址”拼接在一起了；</p>
+<p>两轮，第一轮存节点+直接建树，然后第二轮找root作为返回；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Definition for a binary tree node.</span><br><span class="hljs-comment"># class TreeNode(object):</span><br><span class="hljs-comment">#     def __init__(self, val=0, left=None, right=None):</span><br><span class="hljs-comment">#         self.val = val</span><br><span class="hljs-comment">#         self.left = left</span><br><span class="hljs-comment">#         self.right = right</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">createBinaryTree</span>(<span class="hljs-params">self, descriptions</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type descriptions: List[List[int]]</span><br><span class="hljs-string">        :rtype: Optional[TreeNode]</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">pre_insert</span>(<span class="hljs-params">root, item</span>):<br>            <span class="hljs-keyword">if</span> root <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>            <br>            <span class="hljs-keyword">if</span> root.val == item[<span class="hljs-number">0</span>]:<br>                <span class="hljs-comment"># pre_insert(root, )</span><br>                <span class="hljs-keyword">if</span> item[<span class="hljs-number">2</span>] == <span class="hljs-number">1</span>:<br>                    root.left = TreeNode(val=item[<span class="hljs-number">1</span>])<br>                <span class="hljs-keyword">else</span>:<br>                    root.right = TreeNode(val=item[<span class="hljs-number">1</span>])<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>            <br>            <span class="hljs-keyword">return</span> pre_insert(root.left, item) <span class="hljs-keyword">or</span> pre_insert(root.right, item)<br>        <br>        <br>        mapping = &#123;&#125;<br>        have_father = &#123;&#125;<br>        root = <span class="hljs-literal">None</span><br>        <br>        <span class="hljs-keyword">for</span> i, des <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(descriptions):<br>            <br>            <span class="hljs-keyword">if</span> mapping.get(des[<span class="hljs-number">0</span>]) <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>                mapping[des[<span class="hljs-number">0</span>]] = TreeNode(val=des[<span class="hljs-number">0</span>])<br>            <span class="hljs-keyword">if</span> mapping.get(des[<span class="hljs-number">1</span>]) <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:  <br>                mapping[des[<span class="hljs-number">1</span>]] = TreeNode(val=des[<span class="hljs-number">1</span>])<br>            <br>            <span class="hljs-comment"># 边记录边建树</span><br>            <span class="hljs-keyword">if</span> des[<span class="hljs-number">2</span>] == <span class="hljs-number">1</span>:<br>                mapping[des[<span class="hljs-number">0</span>]].left = mapping[des[<span class="hljs-number">1</span>]]  <br>            <span class="hljs-keyword">else</span>:<br>                mapping[des[<span class="hljs-number">0</span>]].right = mapping[des[<span class="hljs-number">1</span>]]<br>            <br>            have_father[des[<span class="hljs-number">1</span>]] = <span class="hljs-literal">True</span><br>        <br>        <br>        <span class="hljs-comment"># print(have_father)</span><br>        <br>        <br>        <span class="hljs-keyword">for</span> i, des <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(descriptions):<br>            <span class="hljs-keyword">if</span> have_father.get(des[<span class="hljs-number">0</span>]) <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>                <span class="hljs-keyword">return</span> mapping[des[<span class="hljs-number">0</span>]]<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LeetCode-python/" class="category-chain-item">LeetCode-python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/" class="category-chain-item">LeetCode周赛</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E7%BB%84/">#数组</a>
+      
+        <a href="/tags/%E6%8E%92%E5%BA%8F/">#排序</a>
+      
+        <a href="/tags/EASY/">#EASY</a>
+      
+        <a href="/tags/MEDIUM/">#MEDIUM</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">#字符串</a>
+      
+        <a href="/tags/%E6%A0%91/">#树</a>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">#深度优先搜索</a>
+      
+        <a href="/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">#广度优先搜索</a>
+      
+        <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">#二叉树</a>
+      
+        <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
+      
+        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">#哈希表</a>
+      
+        <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>283场LeetCode周赛</div>
+      <div>http://example.com/2022/03/07/algorithms/leetcode-weekly-contest/283场LeetCode周赛/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年3月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/07/algorithms/leetcode-python/39-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C-python/" title="39.组合总和-python">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">39.组合总和-python</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/28/macOS%E5%8F%8ALinux-%E8%A7%A6%E6%8E%A7%E6%9D%BF%E5%B7%A6%E5%8F%B3%E6%BB%91%E5%8A%A8%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/" title="macOS及Linux-触控板左右滑动失效问题">
+                        <span class="hidden-mobile">macOS及Linux-触控板左右滑动失效问题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

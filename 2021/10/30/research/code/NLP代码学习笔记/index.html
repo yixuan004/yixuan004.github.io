@@ -1,0 +1,748 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="记录一些代码中常用的操作说明及bug解决记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NLP代码学习笔记">
+<meta property="og:url" content="http://example.com/2021/10/30/research/code/NLP%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="记录一些代码中常用的操作说明及bug解决记录">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-30T07:36:19.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.892Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="NLP">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>NLP代码学习笔记 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="NLP代码学习笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-10-30 15:36" pubdate>
+          2021年10月30日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          83 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">NLP代码学习笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>记录一些代码中常用的操作说明及bug解决记录</p>
+<span id="more"></span>
+
+<h1 id="nn-Embedding-from-pretrained"><a href="#nn-Embedding-from-pretrained" class="headerlink" title="nn.Embedding.from_pretrained"></a>nn.Embedding.from_pretrained</h1><p>整个代码的上下文是在做label_ids和slot_ids的embedding</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">initialize_slot_value_lookup</span>(<span class="hljs-params">self, label_ids, slot_ids</span>):<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    self.sv_encoder = BertForUtteranceEncoding.from_pretrained(</span><br><span class="hljs-string">            os.path.join(args.bert_dir, &#x27;bert-base-uncased&#x27;)</span><br><span class="hljs-string">        )</span><br><span class="hljs-string">    # 作者把调用sv_encoder的部分fix住</span><br><span class="hljs-string">    for p in self.sv_encoder.bert.parameters():</span><br><span class="hljs-string">        p.requires_grad = False</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    self.sv_encoder.<span class="hljs-built_in">eval</span>() <span class="hljs-comment"># 切换到evaluate模式</span><br><br>    <span class="hljs-comment"># Slot encoding，这个是fix住的部分</span><br>    slot_type_ids = torch.zeros(slot_ids.size(), dtype=torch.long).to(self.device) <span class="hljs-comment"># 初始化一个空的slot_type_ids</span><br>    slot_mask = slot_ids &gt; <span class="hljs-number">0</span><br>    hid_slot, _ = self.sv_encoder(slot_ids.view(-<span class="hljs-number">1</span>, self.max_label_length),<br>                                    slot_type_ids.view(-<span class="hljs-number">1</span>, self.max_label_length),<br>                                    slot_mask.view(-<span class="hljs-number">1</span>, self.max_label_length),<br>                                    output_all_encoded_layers=<span class="hljs-literal">False</span>) <span class="hljs-comment"># 获取CLS的token，hidden的</span><br>    hid_slot = hid_slot[:, <span class="hljs-number">0</span>, :] <span class="hljs-comment"># 博客中指出，这样的操作是在获取CLStoken，而CLStoken是用来进行分类的，也一般被认为是整句话的embedding</span><br>    hid_slot = hid_slot.detach()<br>    self.slot_lookup = nn.Embedding.from_pretrained(hid_slot, freeze=<span class="hljs-literal">True</span>) <span class="hljs-comment"># slot的embedding结果，是不可以训练的</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="报在同时使用cpu和gpu的错误"><a href="#报在同时使用cpu和gpu的错误" class="headerlink" title="报在同时使用cpu和gpu的错误"></a>报在同时使用cpu和gpu的错误</h1><p>报在同时使用cpu和gpu的错误除了tensor要tensor.to(device)以外，model也要.to(device)，否则可能会报在同时使用cpu和gpu的错误</p>
+<h1 id="pytorch中判断两个tensor是否相等"><a href="#pytorch中判断两个tensor是否相等" class="headerlink" title="pytorch中判断两个tensor是否相等"></a>pytorch中判断两个tensor是否相等</h1><ol>
+<li><p>tensor.equal()方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 该方法用于比较两个tensor是否一样，一样则返回True否则为False</span><br>a = torch.tensor([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>])<br>b = torch.tensor([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>])<br><span class="hljs-built_in">print</span>(a.equal(b))    <span class="hljs-comment"># 返回True</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>tensor.eq()方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 该方法用于主元素比较是否相等，相等则在对应位置返回True，否则为False</span><br>a = torch.tensor([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>])<br>b = torch.tensor([<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">3</span>])<br><span class="hljs-built_in">print</span>(a.eq(b))  <span class="hljs-comment"># 返回tensor([False,True,False,True]),与a==b返回的结果一样</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="pytorch输出整个tensor的方法"><a href="#pytorch输出整个tensor的方法" class="headerlink" title="pytorch输出整个tensor的方法"></a>pytorch输出整个tensor的方法</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">torch.set_printoptions(profile=<span class="hljs-string">&quot;full&quot;</span>)<br><span class="hljs-built_in">print</span>(x) <span class="hljs-comment"># prints the whole tensor</span><br>torch.set_printoptions(profile=<span class="hljs-string">&quot;default&quot;</span>) <span class="hljs-comment"># reset</span><br><span class="hljs-built_in">print</span>(x) <span class="hljs-comment"># prints the truncated tensor</span><br></code></pre></td></tr></table></figure>
+<p>在这样的输出下，之后就可以写到文件里了</p>
+<h1 id="tensor-x3D-tensor-0-0"><a href="#tensor-x3D-tensor-0-0" class="headerlink" title="tensor &#x3D; tensor[0, :, 0]"></a>tensor &#x3D; tensor[0, :, 0]</h1><p>这种操作可能代表着仅需要获取bert的cls token的embedding结果，也被认为是整句话的embedding</p>
+<h1 id="contigous-view"><a href="#contigous-view" class="headerlink" title=".contigous().view()"></a>.contigous().view()</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">.contigous().view()<br></code></pre></td></tr></table></figure>
+<p>有些tensor并不是占用一整块内存，而是由不同的数据块组成，而tensor的view()操作依赖于内存是整块的，这时只需要执行contigous()这个函数，把tensor变成在内存中连续分布的形式，再使用view。</p>
+<p>Pytorch0.4中，增加了一个reshape函数，就相当于contigous().view()的功能了！</p>
+<h1 id="pytorch常用的张量操作及归一化算法实现"><a href="#pytorch常用的张量操作及归一化算法实现" class="headerlink" title="pytorch常用的张量操作及归一化算法实现"></a>pytorch常用的张量操作及归一化算法实现</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/76255917">https://zhuanlan.zhihu.com/p/76255917</a></p>
+</blockquote>
+<h1 id="squeeze-和-unsqueeze"><a href="#squeeze-和-unsqueeze" class="headerlink" title=".squeeze() 和 .unsqueeze()"></a>.squeeze() 和 .unsqueeze()</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">.squeeze()<br>.unsqueeze()<br></code></pre></td></tr></table></figure>
+<p>squeeze()为压缩的意思，即去掉维度数为1的dim，默认是去掉所有为1的，但是也可以自己指定，但如果指定的维度不为1则不会发生任何改变。</p>
+<p>unsqueeze(dim)则与squeeze(dim)正好相反，为添加一个维度的作用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># print(&quot;hidden.shape: &quot;, hidden.shape) # torch.Size([96, 1, 768]</span><br>hidden = hidden.squeeze() <span class="hljs-comment"># .squeeze()舍弃维度</span><br><span class="hljs-comment"># print(&quot;after .squeeze(), hidden.shape: &quot;, hidden.shape) # torch.Size([96, 768])</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="nn-GRU-与-nn-LSTM"><a href="#nn-GRU-与-nn-LSTM" class="headerlink" title="nn.GRU 与 nn.LSTM"></a>nn.GRU 与 nn.LSTM</h1><p>循环神经网络是一种能够自适应的变长网络，能够对带有上下文的连续序列很好地进行编码</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/torch.html">https://pytorch.org/docs/stable/torch.html</a></p>
+</blockquote>
+<h2 id="基本文档说明"><a href="#基本文档说明" class="headerlink" title="基本文档说明"></a>基本文档说明</h2><p><strong>参数设置</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python">input_size: 单个LSTM神经元的输入维度<br>hidden_size: 单个LSTM神经元的隐含层输出维度<br>num_layers: LSTM的层数，这里指的是叠起来的层数，而不是展开的层数，展开是自适应的。<br>bias: 计算过程中是否需要偏置<br>batch_first: batch是否位于第一个维度，很多时候容易混淆，将在之后进一步解释<br>dropout: 其中每一层输出的dropout概率，默认为<span class="hljs-number">0</span>即不进行dropout，需要注意的一点是最后一层的输出是不会加上dropout概率的。也就是说，当只用到一层LSTM的时候，这个参数是不起作用的。<br>bidirectional: 是否双向，当设置为<span class="hljs-literal">True</span>的时候，输出会为将双向LSTM的输出进行拼接，输出的feature size会增加一倍<br>proj_size: 很多博客中都没有解释，用到的时候可能需要参考 <span class="hljs-comment"># https://pytorch.org/docs/stable/generated/torch.nn.LSTM.html#torch.nn.LSTM</span><br><br>self.nbt = nn.LSTM(input_size=self.bert_output_dim,<br>                              hidden_size=self.hidden_dim,<br>                              num_layers=self.rnn_num_layers,<br>                              dropout=self.hidden_dropout_prob,<br>                              batch_first=<span class="hljs-literal">True</span>)<br><br>self.nbt = nn.GRU(input_size=self.bert_output_dim,<br>                              hidden_size=self.hidden_dim, <span class="hljs-comment"># args.hidden_dim</span><br>                              num_layers=self.rnn_num_layers,<br>                              dropout=self.hidden_dropout_prob,<br>                              batch_first=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>Inputs</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">input</span>: <span class="hljs-built_in">input</span>, (h_0, c_0)<br><br><span class="hljs-built_in">input</span>: 当batch_first = <span class="hljs-literal">False</span>的时候(L, N, H_in)，当batch_first=<span class="hljs-literal">True</span>的时候(N, L, H_in)<br>h_0: (D*num_layers, N, H_out)，containing the initial hidden state <span class="hljs-keyword">for</span> each element <span class="hljs-keyword">in</span> the batch. Defaults to zeros <span class="hljs-keyword">if</span> (h_0, c_0) <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> provided.<br>c_0: (D*num_layers, N, H_cell)，containing the initial cell state <span class="hljs-keyword">for</span> each element <span class="hljs-keyword">in</span> the batch. Defaults to zeros <span class="hljs-keyword">if</span> (h_0, c_0) <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> provided.<br><br>其中：<br>    N是batch_size<br>    L是每句话的长度<br>    如果使用双向LSTM则D是<span class="hljs-number">2</span>，否则是<span class="hljs-number">1</span><br>    H_in是输入的hiddendim（例如是bert的输出<span class="hljs-number">768</span>）<br>    H_cell是LSTM内部的hidden_size<br>    H_out和输入参数中的proj_size相关，但基本可以理解为就是hidden_size，<br></code></pre></td></tr></table></figure>
+
+<p><strong>Outputs</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">Outputs: output, (h_n, c_n)<br><br>output: 当batch_first=<span class="hljs-literal">False</span>的时候是(L, N, D*H_out)，当batch_first=<span class="hljs-literal">True</span>的时候是(N, L, D*H_out)，其中包括了LSTM最后一层的输出h_t，对于每个t时刻。在PackedSequence相关上还有其他的操作，不过暂时就先不管了<br>h_n: (D*num_layers, N, H_out)包含了每个batch中最后的一个hidden state的element<br>c_n: (D*num_layersm N, H_cell)包含了最后一个cell的state，对于每个batch的最后一个element？<br></code></pre></td></tr></table></figure>
+
+<h2 id="关于循环神经网络"><a href="#关于循环神经网络" class="headerlink" title="关于循环神经网络"></a>关于循环神经网络</h2><h3 id="关于输入输出的三个维度"><a href="#关于输入输出的三个维度" class="headerlink" title="关于输入输出的三个维度"></a>关于输入输出的三个维度</h3><p>自：维度在tensor的变化中始终是最关键的部分，怎么理解维度背后的含义？</p>
+<p>对于输入输出，我们首先需要注意是传给的网络输出必须是三维的<br>其中每个维度代表的意思，我们习惯的方式是[batch_size, sequence_length, feature_size]<br>具体来说，假如输入的是句子的话，每个维度的含义就是：</p>
+<p>[一次投入到网络中的句子的条数，句子的长度，句子中每个单词对应的向量维度]</p>
+<p>自：在SUMBT代码中，这里的输入该怎么一步步的理解</p>
+<h3 id="关于batch-first"><a href="#关于batch-first" class="headerlink" title="关于batch first"></a>关于batch first</h3><p>这个是一个非常有趣的参数，他能够将输入的形式变为我们习惯的[batch_size, seq_len, feature_size]</p>
+<p>也就是说原本输入参数的形式是[seq_len, batch_size, feature_size]可以视作原本为一列一句话，现在给我们改成了更习惯的一行一句话</p>
+<p>更通俗的来说，就是原本一行为一个句子，变成每一列为一个句子，其实设置了batch_first，也不过是在内部也是使用了第1维度和第2维度的转置操作来变成初始形式</p>
+<p>在SUMBT中怎么理解这个事情？……</p>
+<h1 id="DST任务中的slot-accuracy和joint-accuracy"><a href="#DST任务中的slot-accuracy和joint-accuracy" class="headerlink" title="DST任务中的slot_accuracy和joint_accuracy"></a>DST任务中的slot_accuracy和joint_accuracy</h1><p>slot_accuracy:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">acc_slot = torch.<span class="hljs-built_in">sum</span>(accuracy, <span class="hljs-number">0</span>).<span class="hljs-built_in">float</span>() / torch.<span class="hljs-built_in">sum</span>(labels.view(-<span class="hljs-number">1</span>, slot_dim) &gt; -<span class="hljs-number">1</span>, <span class="hljs-number">0</span>).<span class="hljs-built_in">float</span>()<br></code></pre></td></tr></table></figure>
+<p>个人总结：按照三个槽分别算，对的除以总的（需要去除padding）就是slot_accuracy</p>
+<p>joint_accuracy:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">acc = <span class="hljs-built_in">sum</span>(torch.<span class="hljs-built_in">sum</span>(accuracy, <span class="hljs-number">1</span>) / slot_dim).<span class="hljs-built_in">float</span>() / torch.<span class="hljs-built_in">sum</span>(labels[:, :, <span class="hljs-number">0</span>].view(-<span class="hljs-number">1</span>) &gt; -<span class="hljs-number">1</span>, <span class="hljs-number">0</span>).<span class="hljs-built_in">float</span>() <span class="hljs-comment"># joint accuracy</span><br></code></pre></td></tr></table></figure>
+<p>个人总结：每轮对话的算成一个，例如在每轮对话中有3个槽，对了2个，该轮对话就是0.66，之后把所有轮对话的加在一起，除以对话的有效轮数就是joint_accuracy</p>
+<h1 id="tqdm中的desc参数"><a href="#tqdm中的desc参数" class="headerlink" title="tqdm中的desc参数"></a>tqdm中的desc参数</h1><p>这里desc参数是进度条的前缀名称</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">tqdm(dev_dataloader, desc=<span class="hljs-string">&quot;Validation&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h1 id="tensorboard的使用"><a href="#tensorboard的使用" class="headerlink" title="tensorboard的使用"></a>tensorboard的使用</h1><p>看起来tensorboard和tensorboardX不是一个东西？ 所以需要使用pip install进行安装(venv环境下)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">pip install tensorboard</span><br>...<br>(venvsumbt) lyx@h1:/hdd1/lyx$ tensorboard<br>TensorFlow installation not found - running with reduced feature set.<br>Error: A logdir or db must be specified. For example `tensorboard --logdir mylogdir` or `tensorboard --db sqlite:~/.tensorboard.db`. Run `tensorboard --helpfull` for details and examples.<br></code></pre></td></tr></table></figure>
+
+<p>使用方法如下（SUMBT-lyx为例）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">(venvsumbt) lyx@h1:/hdd1/lyx/SUMBT-lyx$ tensorboard --logdir=&#x27;SUMBT-lyx/tensorboard/output&#x27;<br>TensorFlow installation not found - running with reduced feature set.<br><br>NOTE: Using experimental fast data loading logic. To disable, pass<br>    &quot;--load_fast=false&quot; and report issues on GitHub. More details:<br>    https://github.com/tensorflow/tensorboard/issues/4784<br><br>Serving TensorBoard on localhost; to expose to the network, use a proxy or pass --bind_all<br>TensorBoard 2.7.0 at http://localhost:6007/ (Press CTRL+C to quit)<br></code></pre></td></tr></table></figure>
+
+<p>此时还需要配合一条端口转发命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ssh lyx@xxx.xxx.xxx.xxx -L 6007:localhost:6007<br></code></pre></td></tr></table></figure>
+
+<p>注意要在训练前另开一个bash执行如下，然后再开启训练，否则可能会出现tensorboard没有显示的情况<br>使用绝对路径！</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">tensorboard --logdir=/hdd1/lyx/SUMBT-lyx/tensorboard/ckpt-output<br><br>tensorboard --logdir=/hdd1/lyx/SUMBT-lyx/tensorboard/20211020-1152-lyx测试<br></code></pre></td></tr></table></figure>
+
+<h1 id="TensorDataset，SequentialSampler，Dataloader相关"><a href="#TensorDataset，SequentialSampler，Dataloader相关" class="headerlink" title="TensorDataset，SequentialSampler，Dataloader相关"></a>TensorDataset，SequentialSampler，Dataloader相关</h1><p>Reference:</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/data.html?highlight=sequentialsampler#torch.utils.data.SequentialSampler">https://pytorch.org/docs/stable/data.html?highlight=sequentialsampler#torch.utils.data.SequentialSampler</a></p>
+</blockquote>
+<p>在代码中看到：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">xxx_sampler = SequentialSampler(xxx_data)  <span class="hljs-keyword">or</span> RandomSampler(xxx_data)<br>xxx_dataloader = DataLoader(xxx_data, sampler=xxx_sampler, batch_size=...)<br></code></pre></td></tr></table></figure>
+
+<p>自：一般来说在训练过程中使用RandomSampler，dev和test过程中使用SequentialSampler，</p>
+<p>在DST任务中因为和上下文一些状态有关，所以是不是只能顺序采样</p>
+<h2 id="CLASS-torch-utils-data-SequentialSampler-data-source"><a href="#CLASS-torch-utils-data-SequentialSampler-data-source" class="headerlink" title="CLASS torch.utils.data.SequentialSampler(data_source)"></a>CLASS torch.utils.data.SequentialSampler(data_source)</h2><p>按顺序采样元素，始终按相同顺序采样（构建一个迭代器）</p>
+<p>源代码是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">SequentialSampler</span>(Sampler[<span class="hljs-built_in">int</span>]):<br>    <span class="hljs-string">r&quot;&quot;&quot;Samples elements sequentially, always in the same order.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Args:</span><br><span class="hljs-string">        data_source (Dataset): dataset to sample from</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    data_source: Sized<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, data_source: Sized</span>) -&gt; <span class="hljs-literal">None</span>:<br>        self.data_source = data_source<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__iter__</span>(<span class="hljs-params">self</span>) -&gt; Iterator[<span class="hljs-built_in">int</span>]:<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">iter</span>(<span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(self.data_source)))<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__len__</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.data_source)<br></code></pre></td></tr></table></figure>
+
+<h2 id="CLASS-torch-utils-data-RandomSampler-data-source-replacement-x3D-False-num-samples-x3D-None-generator-x3D-None"><a href="#CLASS-torch-utils-data-RandomSampler-data-source-replacement-x3D-False-num-samples-x3D-None-generator-x3D-None" class="headerlink" title="CLASS torch.utils.data.RandomSampler(data_source, replacement&#x3D;False, num_samples&#x3D;None, generator&#x3D;None)"></a>CLASS torch.utils.data.RandomSampler(data_source, replacement&#x3D;False, num_samples&#x3D;None, generator&#x3D;None)</h2><p>随机抽取元素样本。如果没有替换，则从无序数据集中采样。如果使用替换，则用户可以指定要绘制的样本数</p>
+<p>源代码见：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/_modules/torch/utils/data/sampler.html#RandomSampler">https://pytorch.org/docs/stable/_modules/torch/utils/data/sampler.html#RandomSampler</a></p>
+</blockquote>
+<h1 id="np-prod"><a href="#np-prod" class="headerlink" title="np.prod()"></a>np.prod()</h1><p>Reference: </p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40522801/article/details/106578775">https://blog.csdn.net/weixin_40522801/article/details/106578775</a></p>
+</blockquote>
+<p>np.prod()用来计算所有元素的乘积，pro应该是product的简写，开始的时候不是很明白为什么在计算acc的时候会使用np.prod这个函数，后来发现这个是在计算jointacc上的很好用的函数，因为对于jointacc来说一轮中只要有一个错就算错了</p>
+<p>下边这个代码展示了一个JointGA的计算方式，注意在fuzz模式下，可能出现不是1的单轮jointacc值，但是还会有一种越乘越小的感觉</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Joint goal accuracy.</span><br>goal_acc[JOINT_GOAL_ACCURACY] = np.prod(list_acc) <span class="hljs-keyword">if</span> list_acc <span class="hljs-keyword">else</span> NAN_VAL<br></code></pre></td></tr></table></figure>
+
+<h1 id="fuzz-token-sort-ratio"><a href="#fuzz-token-sort-ratio" class="headerlink" title="fuzz.token_sort_ratio()"></a>fuzz.token_sort_ratio()</h1><p>在对于DST任务non-categorical槽进行评价的时候，很多方法中会使用fuzz这个模式匹配，代码如下，其中str_ref（erence）是真值字符串，str_hyp（othesis）是预测的那个字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">match_score = fuzz.token_sort_ratio(str_ref, str_hyp) / <span class="hljs-number">100.0</span><br></code></pre></td></tr></table></figure>
+
+<p>解读下fuzz.token_sort_ratio这个函数，在源代码中调用顺序如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">token_sort_ratio</span>(<span class="hljs-params">s1, s2, force_ascii=<span class="hljs-literal">True</span>, full_process=<span class="hljs-literal">True</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Return a measure of the sequences&#x27; similarity between 0 and 100</span><br><span class="hljs-string">    but sorting the token before comparing.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> _token_sort(s1, s2, partial=<span class="hljs-literal">False</span>, force_ascii=force_ascii, full_process=full_process)<br><br><span class="hljs-meta">@utils.check_for_none</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">_token_sort</span>(<span class="hljs-params">s1, s2, partial=<span class="hljs-literal">True</span>, force_ascii=<span class="hljs-literal">True</span>, full_process=<span class="hljs-literal">True</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    自己注释：按照token进行排序</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    sorted1 = _process_and_sort(s1, force_ascii, full_process=full_process)<br>    sorted2 = _process_and_sort(s2, force_ascii, full_process=full_process)<br><br>    <span class="hljs-keyword">if</span> partial:<br>        <span class="hljs-keyword">return</span> partial_ratio(sorted1, sorted2)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> ratio(sorted1, sorted2)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">_process_and_sort</span>(<span class="hljs-params">s, force_ascii, full_process=<span class="hljs-literal">True</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Return a cleaned string with token sorted</span><br><span class="hljs-string">    返回一个按照token排序的干净的string，这里这个干净就是调用full_process</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># pull tokens</span><br>    ts = utils.full_process(s, force_ascii=force_ascii) <span class="hljs-keyword">if</span> full_process <span class="hljs-keyword">else</span> s<br>    tokens = ts.split()<br><br>    <span class="hljs-comment"># sort tokens and join</span><br>    sorted_string = <span class="hljs-string">u&quot; &quot;</span>.join(<span class="hljs-built_in">sorted</span>(tokens))<br>    <span class="hljs-keyword">return</span> sorted_string.strip()<br><br><span class="hljs-comment"># utils.full_process</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">full_process</span>(<span class="hljs-params">s, force_ascii=<span class="hljs-literal">False</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Process string by</span><br><span class="hljs-string">        -- removing all but letters and numbers</span><br><span class="hljs-string">        -- trim whitespace</span><br><span class="hljs-string">        -- force to lower case</span><br><span class="hljs-string">        if force_ascii == True, force convert to ascii</span><br><span class="hljs-string">    这里是几种字符过滤方式，    </span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> force_ascii:<br>        s = asciidammit(s)<br>    <span class="hljs-comment"># Keep only Letters and Numbers (see Unicode docs).</span><br>    string_out = StringProcessor.replace_non_letters_non_numbers_with_whitespace(s) <span class="hljs-comment"># 用空格替代所有不是字母和数字的</span><br>    <span class="hljs-comment"># Force into lowercase.</span><br>    string_out = StringProcessor.to_lower_case(string_out)<br>    <span class="hljs-comment"># Remove leading and trailing whitespaces.</span><br>    string_out = StringProcessor.strip(string_out)<br>    <span class="hljs-keyword">return</span> string_out<br></code></pre></td></tr></table></figure>
+
+<p>首先把一个字符串不是字母、数字的字符都用空格替换并转化成小写，然后按照空格切分后进行排序，排序后按照字符级别计算编辑距离比。</p>
+<p>编辑距离比的计算方式是：(len(str1)+len(str2)-编辑距离) &#x2F; (len(str1)+len(str2))</p>
+<p>例如：<br>“Curious San Francisco”（字符含空格长度为21） 和 “San Francisco”（字符不含空格长度为13），编辑距离为8<br>(21 + 13 - 8) &#x2F; (21 + 13) &#x3D; 0.7647</p>
+<p>“CuriousAAA San Francisco”（字符含空格长度为24） 和 “San Francisco”（字符不含空格长度为13），编辑距离为11<br>(24 + 13 - 11) &#x2F; (24 + 13) &#x3D; 0.7027</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/NLP/" class="category-chain-item">NLP</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/NLP/">#NLP</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>NLP代码学习笔记</div>
+      <div>http://example.com/2021/10/30/research/code/NLP代码学习笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年10月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/10/%E8%AE%B0%E5%BD%95%E6%9C%8D%E5%8A%A1%E5%99%A8miniconda%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" title="记录服务器miniconda配置虚拟环境">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">记录服务器miniconda配置虚拟环境</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/28/macOS%E5%8F%8ALinux-%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E4%B8%AA%E6%95%B0/" title="macOS及Linux-统计文件夹下的文件目录个数">
+                        <span class="hidden-mobile">macOS及Linux-统计文件夹下的文件目录个数</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

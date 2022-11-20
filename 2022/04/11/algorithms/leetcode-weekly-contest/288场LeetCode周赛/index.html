@@ -1,0 +1,746 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="周赛综述&amp;总结： 上一周清明节扫墓鸽了一周，这周又回来了~ 周中尝试做了一个笔试题找了下思路的手感，然后发现leetcode说不定隔一阵做一次手感会更好哈哈哈。这次的前三个题感觉都是很快就有思路的，然后感觉自己做的顺手程度和代码的变量命名关系很大，如果变量命名的很顺利，那说明这次周赛可能就会很顺利了； 另外来说的话周赛确实要总结下数据结构，感觉前三题都是各种数据结构几乎差不多就能做出来了，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="288场LeetCode周赛">
+<meta property="og:url" content="http://example.com/2022/04/11/algorithms/leetcode-weekly-contest/288%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="周赛综述&amp;总结： 上一周清明节扫墓鸽了一周，这周又回来了~ 周中尝试做了一个笔试题找了下思路的手感，然后发现leetcode说不定隔一阵做一次手感会更好哈哈哈。这次的前三个题感觉都是很快就有思路的，然后感觉自己做的顺手程度和代码的变量命名关系很大，如果变量命名的很顺利，那说明这次周赛可能就会很顺利了； 另外来说的话周赛确实要总结下数据结构，感觉前三题都是各种数据结构几乎差不多就能做出来了，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-11T14:15:10.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.887Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="数组">
+<meta property="article:tag" content="排序">
+<meta property="article:tag" content="堆">
+<meta property="article:tag" content="优先队列">
+<meta property="article:tag" content="EASY">
+<meta property="article:tag" content="MEDIUM">
+<meta property="article:tag" content="字符串">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="枚举">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>288场LeetCode周赛 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="288场LeetCode周赛"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-04-11 22:15" pubdate>
+          2022年4月11日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          60 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">288场LeetCode周赛</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>周赛综述&amp;总结：</p>
+<p>上一周清明节扫墓鸽了一周，这周又回来了~ 周中尝试做了一个笔试题找了下思路的手感，然后发现leetcode说不定隔一阵做一次手感会更好哈哈哈。这次的前三个题感觉都是很快就有思路的，然后感觉自己做的顺手程度和代码的变量命名关系很大，如果变量命名的很顺利，那说明这次周赛可能就会很顺利了；</p>
+<p>另外来说的话周赛确实要总结下数据结构，感觉前三题都是各种数据结构几乎差不多就能做出来了，而且要熟悉各个数据结构的时间复杂度，像这次的第三题实际上堆的想法是在脑子里一闪而过的，但是没有深思考下去就放弃了，有点可惜；</p>
+<p>这次还积累到一个很坑的地方，就是除【1e9+7】和除【1000000007还有除10**9+7】可能是有精度问题的！！！最后比赛结束后才因为精度问题把这个题改过了做出来，实在是太坑了，或者说可能要用int把1e9+7转一下吧</p>
+<p>第一题：比较水，奇偶位置（交错位置）分开靠考虑的题遇到过好几次了，这种题就纯是锻炼手速和快速思路，应该写的再快一点的；</p>
+<p>第二题：加括号一个比较恶心的题，这种题就是角标要算来算去调来调去，然后又要考虑边界情况的，这次还没看清楚输出结果，以为是要输出那个最小可能数字，没想到是输出表达式还坑了一下。这个题如果给初学者做估计对双重循环的理解能更进一步吧；</p>
+<p>第三题：根据数学积累还是能想到把数字均匀散开的时候乘积最大的，就像评论区说的就和周长固定的时候，什么时候矩形的面积最大一样，自己的想法是把每个地方均匀散开（向下一个数字补齐），排序后使用一种类似于前缀的思想简化时间复杂度，然后算长度来做乘法；另外大佬的heap（优先队列）做法实在是太眼前一亮了，没想到根据k的数据范围可以直接这么暴力，这样一下就简化很多了；另外就是大数精度的问题了，发现这个bug是因为这么多数乘在一起，不能就和标准答案差几吧；</p>
+<p>第四题：未来有机会再试了TAT（周常鸽第四题）；</p>
+<span id="more"></span>
+
+<h1 id="第一题：2231-按奇偶性交换后的最大数字"><a href="#第一题：2231-按奇偶性交换后的最大数字" class="headerlink" title="第一题：2231.按奇偶性交换后的最大数字"></a>第一题：2231.按奇偶性交换后的最大数字</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/largest-number-after-digit-swaps-by-parity/">题目链接</a></p>
+<h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个正整数 <code>num</code> 。你可以交换 <code>num</code> 中 <strong>奇偶性</strong> 相同的任意两位数字（即，都是奇数或者偶数）。</p>
+<p>返回交换 <strong>任意</strong> 次之后 <code>num</code> 的 <strong>最大</strong> 可能值。</p>
+<p>示例1：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：num = 1234<br>输出：3412<br>解释：交换数字<span class="hljs-number"> 3 </span>和数字<span class="hljs-number"> 1 </span>，结果得到<span class="hljs-number"> 3214 </span>。<br>交换数字<span class="hljs-number"> 2 </span>和数字<span class="hljs-number"> 4 </span>，结果得到<span class="hljs-number"> 3412 </span>。<br>注意，可能存在其他交换序列，但是可以证明<span class="hljs-number"> 3412 </span>是最大可能值。<br>注意，不能交换数字<span class="hljs-number"> 4 </span>和数字<span class="hljs-number"> 1 </span>，因为它们奇偶性不同。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：num = 65875<br>输出：87655<br>解释：交换数字<span class="hljs-number"> 8 </span>和数字<span class="hljs-number"> 6 </span>，结果得到<span class="hljs-number"> 85675 </span>。<br>交换数字<span class="hljs-number"> 5 </span>和数字<span class="hljs-number"> 7 </span>，结果得到<span class="hljs-number"> 87655 </span>。<br>注意，可能存在其他交换序列，但是可以证明<span class="hljs-number"> 87655 </span>是最大可能值。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li><code>1 &lt;= num &lt;= 10^9</code></li>
+</ul>
+<h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>比较水，奇偶位置（交错位置）分开靠考虑的题遇到过好几次了，这种题就纯是锻炼手速和快速思路，应该写的再快一点的；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">largestInteger</span>(<span class="hljs-params">self, num</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type num: int</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <br>        nums = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">str</span>(num))<br>        <br>        tmp = [<span class="hljs-number">0</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums))]  <span class="hljs-comment"># 记录角标奇偶性</span><br>        oushu = []<br>        jishu = []<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums)):<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">int</span>(nums[i]) % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>:<br>                tmp[i] = <span class="hljs-number">0</span><br>                oushu.append(<span class="hljs-built_in">int</span>(nums[i]))<br>            <span class="hljs-keyword">else</span>:<br>                tmp[i] = <span class="hljs-number">1</span><br>                jishu.append(<span class="hljs-built_in">int</span>(nums[i]))<br>        <br>        <br>        <span class="hljs-comment"># 贪心</span><br>        k = <span class="hljs-number">0</span><br>        jishu.sort(reverse=<span class="hljs-literal">True</span>)<br>        <br>        j = <span class="hljs-number">0</span><br>        oushu.sort(reverse=<span class="hljs-literal">True</span>)<br>        <br>        <br>        <br>        res = []<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums)):<br>            <span class="hljs-keyword">if</span> tmp[i] == <span class="hljs-number">0</span>:<br>                res.append(oushu[j])<br>                j += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                res.append(jishu[k])<br>                k += <span class="hljs-number">1</span><br>        res = [<span class="hljs-built_in">str</span>(item) <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> res]<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">int</span>(<span class="hljs-string">&#x27;&#x27;</span>.join(res))<br></code></pre></td></tr></table></figure>
+
+
+<h1 id="第二题：2232-向表达式添加括号后的最小结果"><a href="#第二题：2232-向表达式添加括号后的最小结果" class="headerlink" title="第二题：2232.向表达式添加括号后的最小结果"></a>第二题：2232.向表达式添加括号后的最小结果</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimize-result-by-adding-parentheses-to-expression/">题目链接</a></p>
+<h2 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个下标从 <strong>0</strong> 开始的字符串 <code>expression</code> ，格式为 <code>&quot;&lt;num1&gt;+&lt;num2&gt;&quot;</code> ，其中 <code>&lt;num1&gt;</code> 和 <code>&lt;num2&gt;</code> 表示正整数。</p>
+<p>请你向 <code>expression</code> 中添加一对括号，使得在添加之后， <code>expression</code> 仍然是一个有效的数学表达式，并且计算后可以得到 <strong>最小</strong> 可能值。左括号 <strong>必须</strong> 添加在 <code>&#39;+&#39;</code> 的左侧，而右括号必须添加在 <code>&#39;+&#39;</code> 的右侧。</p>
+<p>返回添加一对括号后形成的表达式 <code>expression</code> ，且满足 <code>expression</code> 计算得到 <strong>最小</strong> 可能值。如果存在多个答案都能产生相同结果，返回任意一个答案。</p>
+<p>生成的输入满足：<code>expression</code> 的原始值和添加满足要求的任一对括号之后 <code>expression</code> 的值，都符合 32-bit 带符号整数范围。</p>
+<p>示例1：</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mel">输入：<span class="hljs-keyword">expression</span> = <span class="hljs-string">&quot;247+38&quot;</span><br>输出：<span class="hljs-string">&quot;2(47+38)&quot;</span><br>解释：表达式计算得到 <span class="hljs-number">2</span> * (<span class="hljs-number">47</span> + <span class="hljs-number">38</span>) = <span class="hljs-number">2</span> * <span class="hljs-number">85</span> = <span class="hljs-number">170</span> 。<br>注意 <span class="hljs-string">&quot;2(4)7+38&quot;</span> 不是有效的结果，因为右括号必须添加在 <span class="hljs-string">&#x27;+&#x27;</span> 的右侧。<br>可以证明 <span class="hljs-number">170</span> 是最小可能值。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：expression = &quot;12+34&quot;<br>输出：&quot;1(2+3)4&quot;<br>解释：表达式计算得到<span class="hljs-number"> 1 </span>* (2 + 3) *<span class="hljs-number"> 4 </span>=<span class="hljs-number"> 1 </span>*<span class="hljs-number"> 5 </span>*<span class="hljs-number"> 4 </span>=<span class="hljs-number"> 20 </span>。<br></code></pre></td></tr></table></figure>
+
+<p>示例3：</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mel">输入：<span class="hljs-keyword">expression</span> = <span class="hljs-string">&quot;999+999&quot;</span><br>输出：<span class="hljs-string">&quot;(999+999)&quot;</span><br>解释：表达式计算得到 <span class="hljs-number">999</span> + <span class="hljs-number">999</span> = <span class="hljs-number">1998</span> 。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li><code>3 &lt;= expression.length &lt;= 10</code></li>
+<li><code>expression</code> 仅由数字 <code>&#39;1&#39;</code> 到 <code>&#39;9&#39;</code> 和 <code>&#39;+&#39;</code> 组成</li>
+<li><code>expression</code> 由数字开始和结束</li>
+<li><code>expression</code> 恰好仅含有一个 <code>&#39;+&#39;</code>.</li>
+<li><code>expression</code> 的原始值和添加满足要求的任一对括号之后 expression 的值，都符合 32-bit 带符号整数范围</li>
+</ul>
+<h2 id="分析和解答-1"><a href="#分析和解答-1" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>加括号一个比较恶心的题，这种题就是角标要算来算去调来调去，然后又要考虑边界情况的，这次还没看清楚输出结果，以为是要输出那个最小可能数字，没想到是输出表达式还坑了一下。这个题如果给初学者做估计对双重循环的理解能更进一步吧；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">minimizeResult</span>(<span class="hljs-params">self, expression</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type expression: str</span><br><span class="hljs-string">        :rtype: str</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># 遍历每个可添加位置，然后找一个最小的</span><br>        <br>        <br>        expression_list = expression.split(<span class="hljs-string">&#x27;+&#x27;</span>)<br>        left_list = <span class="hljs-built_in">list</span>(expression_list[<span class="hljs-number">0</span>])<br>        right_list = <span class="hljs-built_in">list</span>(expression_list[<span class="hljs-number">1</span>])<br>        <br>        <span class="hljs-comment"># print(left_list)</span><br>        <span class="hljs-comment"># print(right_list)</span><br>        <br>        <br>        tmp_res = -<span class="hljs-number">1</span><br>        min_res = <span class="hljs-number">1e9</span><br>        <br>        <br>        <span class="hljs-comment"># left</span><br>        <span class="hljs-comment"># 哨兵</span><br>        left_res = <span class="hljs-number">0</span><br>        right_res = <span class="hljs-built_in">len</span>(right_list)-<span class="hljs-number">1</span><br>        min_res = <span class="hljs-built_in">int</span>(<span class="hljs-string">&#x27;&#x27;</span>.join(left_list)) + <span class="hljs-built_in">int</span>(<span class="hljs-string">&#x27;&#x27;</span>.join(right_list))<br>        <br>        <br>        <br>        <span class="hljs-comment"># min_res = min(min_res, int(&#x27;&#x27;.join(left_list[:1])) * (int(&#x27;&#x27;.join(left_list[1:])) + int(&#x27;&#x27;.join(right_list))))</span><br>        <span class="hljs-comment"># min_res = min(min_res, (int(&#x27;&#x27;.join(left_list)) + int(&#x27;&#x27;.join(right_list[:len(right_list)-1]))) * int(&#x27;&#x27;.join(right_list[len(right_list)-1:])))</span><br>        <br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(left_list)):  <span class="hljs-comment"># i代表插在前边</span><br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(right_list)):  <span class="hljs-comment"># j代表插在后边</span><br>                <span class="hljs-comment"># if i != 0 and j != len(right_list) - 1:</span><br>                    <br>                pre = <span class="hljs-built_in">int</span>(<span class="hljs-string">&#x27;&#x27;</span>.join(left_list[:i])) <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(<span class="hljs-string">&#x27;&#x27;</span>.join(left_list[:i])) <span class="hljs-keyword">else</span> <span class="hljs-number">1</span><br>                inter = (<span class="hljs-built_in">int</span>(<span class="hljs-string">&#x27;&#x27;</span>.join(left_list[i:])) + <span class="hljs-built_in">int</span>(<span class="hljs-string">&#x27;&#x27;</span>.join(right_list[:j+<span class="hljs-number">1</span>])))<br>                last = <span class="hljs-built_in">int</span>(<span class="hljs-string">&#x27;&#x27;</span>.join(right_list[j+<span class="hljs-number">1</span>:])) <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(<span class="hljs-string">&#x27;&#x27;</span>.join(right_list[j+<span class="hljs-number">1</span>:])) <span class="hljs-keyword">else</span> <span class="hljs-number">1</span><br><br><br>                tmp_res = pre * inter * last<br><br>                <span class="hljs-keyword">if</span> tmp_res &lt; min_res:<br>                    min_res = tmp_res<br>                    left_res = i<br>                    right_res = j<br>                    <br>                        <br>                    <span class="hljs-comment"># min_res = min(min_res, tmp_res)</span><br>                  <br>                    <br>                    <span class="hljs-comment"># print(left_list[:i])</span><br>                    <span class="hljs-comment"># print(left_list[i:])</span><br>                    <span class="hljs-comment"># print(right_list[:j+1])</span><br>                    <span class="hljs-comment"># print(right_list[j+1:])</span><br>                    <span class="hljs-comment"># assert False</span><br>        <span class="hljs-comment"># print(left_res, right_res)</span><br>        <br>        left_list.insert(left_res, <span class="hljs-string">&#x27;(&#x27;</span>)<br>        right_list.insert(right_res+<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;)&#x27;</span>)<br>        res_list = left_list + [<span class="hljs-string">&#x27;+&#x27;</span>] + right_list<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>.join(res_list)    <br></code></pre></td></tr></table></figure>
+
+
+<h1 id="第三题：2233-K-次增加后的最大乘积"><a href="#第三题：2233-K-次增加后的最大乘积" class="headerlink" title="第三题：2233.K 次增加后的最大乘积"></a>第三题：2233.K 次增加后的最大乘积</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-product-after-k-increments/">题目链接</a></p>
+<h2 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个非负整数数组 <code>nums</code> 和一个整数 <code>k</code> 。每次操作，你可以选择 <code>nums</code> 中 <strong>任一</strong> 元素并将它 <strong>增加</strong> <code>1</code> 。</p>
+<p>请你返回 <strong>至多</strong> <code>k</code> 次操作后，能得到的 <code>nums</code> 的 <strong>最大乘积</strong> 。由于答案可能很大，请你将答案对 <code>10^9 + 7</code> 取余后返回。</p>
+<p>示例1：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：nums = [0,4], k = 5<br>输出：20<br>解释：将第一个数增加<span class="hljs-number"> 5 </span>次。<br>得到 nums = [5, 4] ，乘积为<span class="hljs-number"> 5 </span>*<span class="hljs-number"> 4 </span>=<span class="hljs-number"> 20 </span>。<br>可以证明<span class="hljs-number"> 20 </span>是能得到的最大乘积，所以我们返回<span class="hljs-number"> 20 </span>。<br>存在其他增加 nums 的方法，也能得到最大乘积。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：nums = [6,3,3,2], k = 2<br>输出：216<br>解释：将第二个数增加<span class="hljs-number"> 1 </span>次，将第四个数增加<span class="hljs-number"> 1 </span>次。<br>得到 nums = [6, 4, 3, 3] ，乘积为<span class="hljs-number"> 6 </span>*<span class="hljs-number"> 4 </span>*<span class="hljs-number"> 3 </span>*<span class="hljs-number"> 3 </span>=<span class="hljs-number"> 216 </span>。<br>可以证明<span class="hljs-number"> 216 </span>是能得到的最大乘积，所以我们返回<span class="hljs-number"> 216 </span>。<br>存在其他增加 nums 的方法，也能得到最大乘积。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li><code>1 &lt;= nums.length, k &lt;= 10^5</code></li>
+<li><code>0 &lt;= nums[i] &lt;= 10^6</code></li>
+</ul>
+<h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>根据数学积累还是能想到把数字均匀散开的时候乘积最大的，就像评论区说的就和周长固定的时候，什么时候矩形的面积最大一样，自己的想法是把每个地方均匀散开（向下一个数字补齐），排序后使用一种类似于前缀的思想简化时间复杂度，然后算长度来做乘法；另外大佬的heap（优先队列）做法实在是太眼前一亮了，没想到根据k的数据范围可以直接这么暴力，这样一下就简化很多了；另外就是大数精度的问题了，发现这个bug是因为这么多数乘在一起，不能就和标准答案差几吧；</p>
+<p>自己的算法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">maximumProduct</span>(<span class="hljs-params">self, nums, k</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type nums: List[int]</span><br><span class="hljs-string">        :type k: int</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># test = [43, 57, 60, 70, 72, 84, 86, 92]</span><br>        <span class="hljs-comment"># ttt_1 = 1</span><br>        <span class="hljs-comment"># for i in range(len(test)):</span><br>        <span class="hljs-comment">#     ttt_1 *= (test[i] % (1e9+7))</span><br>        <span class="hljs-comment"># print(&quot;ttt_1: &quot;, ttt_1%(1e9+7))</span><br>        <br>        c = <span class="hljs-number">1000000007</span> <span class="hljs-comment"># 这里换成1e9 + 7就过不了</span><br>        <br>        <span class="hljs-comment"># 平均了乘积最大，好像有前缀和那感觉</span><br>        nums.sort()  <span class="hljs-comment"># 从小到大排序</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;nums: &quot;</span>, nums)<br>        tmp_idx = -<span class="hljs-number">1</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums)-<span class="hljs-number">1</span>):<br>            <span class="hljs-keyword">if</span> nums[i] &lt; nums[i+<span class="hljs-number">1</span>]:<br>                <span class="hljs-comment"># 这里还是有问题？</span><br>                <span class="hljs-comment"># print(&quot;k: &quot;, k)</span><br>                <span class="hljs-comment"># print(&quot;(nums[i+1] - nums[i]) * i: &quot;, (nums[i+1] - nums[i]) * (i+1))</span><br>                <span class="hljs-keyword">if</span> k &gt; (nums[i+<span class="hljs-number">1</span>] - nums[i]) * (i+<span class="hljs-number">1</span>):<br>                    k -= (nums[i+<span class="hljs-number">1</span>] - nums[i]) * (i+<span class="hljs-number">1</span>)<br>                    nums[i] = nums[i+<span class="hljs-number">1</span>]<br>                    <br>                <span class="hljs-keyword">else</span>:<br>                    tmp_idx = i<br>                    <span class="hljs-keyword">break</span><br>        <span class="hljs-comment"># print(&quot;first nums: &quot;, nums)</span><br>        <span class="hljs-comment"># print(&quot;tmp_idx: &quot;, tmp_idx)</span><br>        <span class="hljs-comment"># print(&quot;k:&quot;, k)</span><br>        <br>        <span class="hljs-keyword">if</span> tmp_idx == -<span class="hljs-number">1</span>:<br>            <span class="hljs-comment"># 把剩余的k均匀展开到各个地方</span><br>            bias = k // <span class="hljs-built_in">len</span>(nums)  <span class="hljs-comment"># 每个能增加几</span><br>            k -= bias * <span class="hljs-built_in">len</span>(nums)<br>            <span class="hljs-comment"># print((nums[0] + bias + 1)**k)</span><br>            <span class="hljs-comment"># print((nums[0] + bias)**(len(nums) - k))</span><br>            <br>            <span class="hljs-comment"># res = ((nums[-1] + bias + 1)**k)  *  ((nums[-1] + bias)**(len(nums) - k))</span><br>            <span class="hljs-comment"># 下边两行替代</span><br>            res = <span class="hljs-number">1</span><br>            a1 = (nums[-<span class="hljs-number">1</span>] + bias + <span class="hljs-number">1</span>)<br>            a2 = (nums[-<span class="hljs-number">1</span>] + bias)<br>            <span class="hljs-keyword">for</span> kl <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(k):<br>                res  = ((res % c) * (a1 % c)) % c<br>            <span class="hljs-keyword">for</span> kl <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums) - k):<br>                res  = ((res % c) * (a2 % c)) % c<br>            <br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-comment"># print(&quot;nums: &quot;, nums)</span><br>            <span class="hljs-comment"># print(&quot;nums[tmp_idx+1:]: &quot;, nums[tmp_idx+1:])</span><br>            res = <span class="hljs-number">1</span><br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(tmp_idx+<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(nums)):<br>                res = ((res%c) * (nums[i]%c)) % c<br>            <br>            t_nums = copy.deepcopy(nums[:tmp_idx+<span class="hljs-number">1</span>])<br>            <span class="hljs-comment"># print(&quot;t_nums: &quot;, t_nums)</span><br>            <br>            bias = k // <span class="hljs-built_in">len</span>(t_nums)  <span class="hljs-comment"># 每个能增加几</span><br>            k -= bias * <span class="hljs-built_in">len</span>(t_nums)<br>            <br>            t_res =  <span class="hljs-number">1</span><br>            a1 = (t_nums[-<span class="hljs-number">1</span>] + bias + <span class="hljs-number">1</span>)<br>            a2 = (t_nums[-<span class="hljs-number">1</span>] + bias)<br>            <span class="hljs-comment"># t_res = ((t_nums[-1] + bias + 1)**k)  *  ((t_nums[-1] + bias)**(len(t_nums) - k))</span><br>            <span class="hljs-keyword">for</span> kl <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(k):<br>                t_res  = ((t_res % c) * (a1 % c)) % c<br>            <span class="hljs-keyword">for</span> kl <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(t_nums) - k):<br>                t_res  = ((t_res % c) * (a2 % c)) % c<br>            <br>            res = ((res%c) * (t_res%c)) % c<br>        <br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">int</span>(res)<br></code></pre></td></tr></table></figure>
+
+
+<p>抄大佬的堆的思路：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">maximumProduct</span>(<span class="hljs-params">self, nums, k</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type nums: List[int]</span><br><span class="hljs-string">        :type k: int</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        c = <span class="hljs-number">1000000007</span> <span class="hljs-comment"># 这里换成1e9 + 7就过不了</span><br>        <span class="hljs-keyword">import</span> heapq<br>        heapq.heapify(nums)<br>        <br>        <span class="hljs-comment"># 直接暴力模拟，k &lt; 10^5</span><br>        <span class="hljs-keyword">while</span> k &gt; <span class="hljs-number">0</span>:<br>            tmp = heapq.heappop(nums)<br>            heapq.heappush(nums, tmp+<span class="hljs-number">1</span>)<br>            k -= <span class="hljs-number">1</span><br>        <br>        res = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums)):<br>            res = ((res%c) * (nums[i]%c)) % c<br>        <br>        <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LeetCode-python/" class="category-chain-item">LeetCode-python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/" class="category-chain-item">LeetCode周赛</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E7%BB%84/">#数组</a>
+      
+        <a href="/tags/%E6%8E%92%E5%BA%8F/">#排序</a>
+      
+        <a href="/tags/%E5%A0%86/">#堆</a>
+      
+        <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">#优先队列</a>
+      
+        <a href="/tags/EASY/">#EASY</a>
+      
+        <a href="/tags/MEDIUM/">#MEDIUM</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">#字符串</a>
+      
+        <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
+      
+        <a href="/tags/%E6%9E%9A%E4%B8%BE/">#枚举</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>288场LeetCode周赛</div>
+      <div>http://example.com/2022/04/11/algorithms/leetcode-weekly-contest/288场LeetCode周赛/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年4月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/04/18/algorithms/leetcode-weekly-contest/289%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/" title="289场LeetCode周赛">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">289场LeetCode周赛</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/27/algorithms/leetcode-weekly-contest/286%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/" title="286场LeetCode周赛">
+                        <span class="hidden-mobile">286场LeetCode周赛</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

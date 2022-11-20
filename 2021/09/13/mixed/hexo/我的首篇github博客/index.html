@@ -1,0 +1,691 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="何老版推荐的github.io+hexo好用啊 个人代码管理+笔记博客什么的都可以写在github这里了 主要写了hexo + github.io的双分支部署说明和步骤，以及本地运维和新建修改，切换主题等操作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的首篇github博客!">
+<meta property="og:url" content="http://example.com/2021/09/13/mixed/hexo/%E6%88%91%E7%9A%84%E9%A6%96%E7%AF%87github%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="何老版推荐的github.io+hexo好用啊 个人代码管理+笔记博客什么的都可以写在github这里了 主要写了hexo + github.io的双分支部署说明和步骤，以及本地运维和新建修改，切换主题等操作。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-13T00:01:04.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.892Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>我的首篇github博客! - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="我的首篇github博客!"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-09-13 08:01" pubdate>
+          2021年9月13日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">我的首篇github博客!</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><strong>何老版推荐的github.io+hexo好用啊</strong></p>
+<p><strong>个人代码管理+笔记博客什么的都可以写在github这里了</strong></p>
+<p>主要写了hexo + github.io的双分支部署说明和步骤，以及本地运维和新建修改，切换主题等操作。</p>
+<span id="more"></span>
+
+<p>References：</p>
+<blockquote>
+<p>简易部署相关：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/390f202c5b0e">https://www.jianshu.com/p/390f202c5b0e</a><br>多分支部署相关：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sherlockyb/article/details/94180548">https://blog.csdn.net/sherlockyb/article/details/94180548</a><br>切换主题相关：<a target="_blank" rel="noopener" href="https://github.com/stkevintan/hexo-theme-material-flow">https://github.com/stkevintan/hexo-theme-material-flow</a> </p>
+</blockquote>
+<h2 id="1-hexo-github-io的双分支部署的说明"><a href="#1-hexo-github-io的双分支部署的说明" class="headerlink" title="1. hexo + github.io的双分支部署的说明"></a>1. hexo + github.io的双分支部署的说明</h2><p>简易部署带来的问题：</p>
+<p>如果使用简单的hexo配置，那么本地的一些md等文件将丢失，所以现在有master（存储hexo生成的）和coding-pages（静态的）两个分支；</p>
+<p>master用来存储hexo生成的+yixuan004.github.io页面显示的内容（html），而coding-pages存放了一些原本的markdown文件，还有一些_config.yml等，这样如果未来某一天本地环境崩溃了，还可以很快的git clone恢复；</p>
+<h2 id="2-hexo-github-io的双分支部署步骤"><a href="#2-hexo-github-io的双分支部署步骤" class="headerlink" title="2. hexo + github.io的双分支部署步骤"></a>2. hexo + github.io的双分支部署步骤</h2><ol>
+<li><p>在github建立一个包含README.md的项目，命名为 username.github.io，主分支为master分支；</p>
+</li>
+<li><p>直接在github branch的位置处新建一个coding-pages分支，并将其设置为默认分支。此时master分支和coding-pages分支应该都会有一个README.md文件，但实际上是不需要的，在后边可能需要用强制推分支的方法把这个README覆盖掉</p>
+</li>
+<li><p>在本地的一个文件夹中（例如yixuan004.github.io文件夹）中初始化一个hexo项目</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">hexo init</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>将本地的hexo项目与远程仓库关联，在本地的那个地方使用git init生成隐藏的.git文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git init</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>在之后通过如下命令将远程的那个git关联上的感觉</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git remote add origin https://github.com/yixuan004/yixuan004.github.io.git</span><br></code></pre></td></tr></table></figure>
+
+<p>在之后，由于远程的默认分支是coding-pages，所以本地也需要新建一个coding-pages分支（<strong>注：本地的操作因为仅需要向coding-pages同步，所以本地工作也要切换到这个分支的感觉</strong>）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git checkout -b coding-pages</span><br></code></pre></td></tr></table></figure>
+
+<p>由于远程之前可能有一个没什么用处的README，这里可以使用强制推的方法解决，但这个应该不是合理的解决办法，只是自己用来省事解决一下了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">把本地的所有内容都加入git（hexo会自动生成一个git init，那些内容每次可能hexo clean会clean掉，所以要忽略那些）</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">git add .</span> <br><span class="hljs-meta prompt_">$ </span><span class="language-bash">git commit -m <span class="hljs-string">&quot;update ...&quot;</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">git push -u origin coding-pages -f</span><br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li><p>安装hexo向git推送的包（在文件夹下操作）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">npm install hexo-deployer-git --save</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>修改hexo项目中的_config.yml，这里要写上master分支，因为貌似hexo在github.io上默认显示master分支的内容</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># Deployment</span><br><span class="hljs-comment">## Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="hljs-attr">deploy:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">git</span><br>  <span class="hljs-attr">repo:</span> <span class="hljs-string">https://github.com/yixuan004/yixuan004.github.io</span><br>  <span class="hljs-attr">branch:</span> <span class="hljs-string">master</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>推送相关（联合第4步使用）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git add .</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">git commit -m <span class="hljs-string">&quot;update ...&quot;</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">git push origin coding-pages</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">hexo clean <span class="hljs-comment"># 这个步骤放在第一步也可以，但是感觉有gitignore在应该这样就可以了</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">hexo g</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">hexo d</span><br></code></pre></td></tr></table></figure>
+<p><strong>个人感觉远程的master分支是通过这个hexo自动推送，而远程的coding-pages分支是自己手工推送的感觉</strong></p>
+</li>
+</ol>
+<h2 id="3-hexo-github-io的本地操作说明"><a href="#3-hexo-github-io的本地操作说明" class="headerlink" title="3. hexo + github.io的本地操作说明"></a>3. hexo + github.io的本地操作说明</h2><h3 id="3-1-新增博客文章"><a href="#3-1-新增博客文章" class="headerlink" title="3.1 新增博客文章"></a>3.1 新增博客文章</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo new [文章名称]<br></code></pre></td></tr></table></figure>
+<p>在这之后，会在source&#x2F;_posts目录下生成[文章名称].md文件，对其进行编写即可进行博客书写，注意在最开始会自动生成如下内容，可以通过自己编辑增加tags和categories</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs markdown">---<br>title: 我的首篇github博客!<br>date: 2021-09-13 08:01:04<br>tags: <br><span class="hljs-bullet">    -</span> hexo相关<br>categories:<br><span class="hljs-section">    - 编程开发</span><br><span class="hljs-section">---</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-2-本地修改运维操作"><a href="#3-2-本地修改运维操作" class="headerlink" title="3.2 本地修改运维操作"></a>3.2 本地修改运维操作</h3><p>在本地完成一些修改后，建议顺序执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">git add .</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">git commit -m <span class="hljs-string">&quot;update ...&quot;</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">git push origin coding-pages</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">hexo clean</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">hexo g</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">hexo d</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="4-切换hexo主题"><a href="#4-切换hexo主题" class="headerlink" title="4. 切换hexo主题"></a>4. 切换hexo主题</h2><p>可参考：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/stkevintan/hexo-theme-material-flow">https://github.com/stkevintan/hexo-theme-material-flow</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Crsenal/" class="category-chain-item">Crsenal</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/hexo/">#hexo</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>我的首篇github博客!</div>
+      <div>http://example.com/2021/09/13/mixed/hexo/我的首篇github博客/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年9月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/09/13/MultiWOZ%E6%95%B0%E6%8D%AE%E9%9B%86%E5%AD%A6%E4%B9%A0/" title="MultiWOZ数据集学习">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MultiWOZ数据集学习</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,745 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="周赛综述&amp;总结： 依旧是前两个题很简单，然后第三题直接卡到死的节奏，感觉近几次周赛第三题感觉都不是很好，可能需要阶段性的复习一下？ 总结下来的话算法似乎都是在可以知道范围内的，比如这次题印象比较深的就是要正确理解题意或者说不要走到和题意错误的路上，有些题可能需要灵光一现用一些广泛用的Coutner、二分、前缀和、有限队列单调栈类的，有些题可能写着写着会有思路吧。 总之感觉刷题这个事还是要持">
+<meta property="og:type" content="article">
+<meta property="og:title" content="281场LeetCode周赛">
+<meta property="og:url" content="http://example.com/2022/02/27/algorithms/leetcode-weekly-contest/281%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="周赛综述&amp;总结： 依旧是前两个题很简单，然后第三题直接卡到死的节奏，感觉近几次周赛第三题感觉都不是很好，可能需要阶段性的复习一下？ 总结下来的话算法似乎都是在可以知道范围内的，比如这次题印象比较深的就是要正确理解题意或者说不要走到和题意错误的路上，有些题可能需要灵光一现用一些广泛用的Coutner、二分、前缀和、有限队列单调栈类的，有些题可能写着写着会有思路吧。 总之感觉刷题这个事还是要持">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/2022-02-27-22-48-01.png">
+<meta property="og:image" content="http://example.com/images/2022-02-27-22-48-28.png">
+<meta property="article:published_time" content="2022-02-27T11:12:42.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.886Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="模拟">
+<meta property="article:tag" content="堆">
+<meta property="article:tag" content="优先队列">
+<meta property="article:tag" content="EASY">
+<meta property="article:tag" content="MEDIUM">
+<meta property="article:tag" content="字符串">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="链表">
+<meta property="article:tag" content="计数">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/2022-02-27-22-48-01.png">
+  
+  
+  
+  <title>281场LeetCode周赛 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="281场LeetCode周赛"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-02-27 19:12" pubdate>
+          2022年2月27日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          38 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">281场LeetCode周赛</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>周赛综述&amp;总结：</p>
+<p>依旧是前两个题很简单，然后第三题直接卡到死的节奏，感觉近几次周赛第三题感觉都不是很好，可能需要阶段性的复习一下？</p>
+<p>总结下来的话算法似乎都是在可以知道范围内的，比如这次题印象比较深的就是要正确理解题意或者说不要走到和题意错误的路上，有些题可能需要灵光一现用一些广泛用的Coutner、二分、前缀和、有限队列单调栈类的，有些题可能写着写着会有思路吧。</p>
+<p>总之感觉刷题这个事还是要持续进行，总有瓶颈也总需要突破，冲！</p>
+<p>第一题：看到<code>n &lt; 1000</code>感觉就直接暴力模拟就行了，模拟起来还是相对简单的，python对字符的操作太方便了；</p>
+<p>第二题：一个链表的操作题，很简单就能搞定了，纯链表题现在感觉没有太难的；</p>
+<p>第三题：这个题这次又卡的时间太长了，开始想的是排序后原地交换的思路，然后感觉就思维掉到一个坑里边了，一直在排序后原地交换一些细节条件里考虑来考虑去。后来大佬提醒说可以用Counter后排序贪心的思路，感觉这个思路一下就简单并且明确了；</p>
+<p>第四题：鸽了鸽了。</p>
+<span id="more"></span>
+
+<h1 id="第一题：2180-统计各位数字之和为偶数的整数个数"><a href="#第一题：2180-统计各位数字之和为偶数的整数个数" class="headerlink" title="第一题：2180.统计各位数字之和为偶数的整数个数"></a>第一题：2180.统计各位数字之和为偶数的整数个数</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/count-integers-with-even-digit-sum/">题目链接</a></p>
+<h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个正整数 <code>num</code> ，请你统计并返回 <strong>小于或等于</strong> <code>num</code> 且各位数字之和为 <strong>偶数</strong> 的正整数的数目。</p>
+<p>正整数的 <strong>各位数字之和</strong> 是其所有位上的对应数字相加的结果。</p>
+<p>示例1：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：num = 4<br>输出：2<br>解释：<br>只有<span class="hljs-number"> 2 </span>和<span class="hljs-number"> 4 </span>满足小于等于<span class="hljs-number"> 4 </span>且各位数字之和为偶数。 <br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dns">输入：num = <span class="hljs-number">30</span><br>输出：<span class="hljs-number">14</span><br>解释：<br>只有 <span class="hljs-number">14</span> 个整数满足小于等于 <span class="hljs-number">30</span> 且各位数字之和为偶数，分别是： <br><span class="hljs-number">2、4、6、8</span>、<span class="hljs-number">11、13、15、17</span>、<span class="hljs-number">19、20、22、24</span>、<span class="hljs-number">26</span> 和 <span class="hljs-number">28</span> 。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li><code>1 &lt;= num &lt;= 1000</code></li>
+</ul>
+<h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>考虑到数据范围的1000，直接暴力就可以了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">countEven</span>(<span class="hljs-params">self, num</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type num: int</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">judge</span>(<span class="hljs-params">n</span>):<br>            res = <span class="hljs-number">0</span><br>            str_n = <span class="hljs-built_in">str</span>(n)<br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(str_n)):<br>                res += <span class="hljs-built_in">int</span>(str_n[i])<br>            <span class="hljs-keyword">return</span> res % <span class="hljs-number">2</span> == <span class="hljs-number">0</span><br>        <br>        res = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, num+<span class="hljs-number">1</span>):<br>            <span class="hljs-keyword">if</span> judge(i):<br>                res += <span class="hljs-number">1</span><br>        <br>        <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
+
+
+<h1 id="第二题：2181-合并零之间的节点"><a href="#第二题：2181-合并零之间的节点" class="headerlink" title="第二题：2181.合并零之间的节点"></a>第二题：2181.合并零之间的节点</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-nodes-in-between-zeros/">题目链接</a></p>
+<h2 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个链表的头节点 <code>head</code> ，该链表包含由 <code>0</code> 分隔开的一连串整数。链表的 <strong>开端</strong> 和 <strong>末尾</strong> 的节点都满足 <code>Node.val == 0</code> 。</p>
+<p>对于每两个相邻的 &#96;&#96;&#96;0&#96;&#96; ，请你将它们之间的所有节点合并成一个节点，其值是所有已合并节点的值之和。然后将所有 0 移除，修改后的链表不应该含有任何 0 。</p>
+<p>返回修改后链表的头节点 <code>head</code> 。</p>
+<p>示例1：<br><img src="/images/2022-02-27-22-48-01.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：head = [0,3,1,0,4,5,2,0]<br>输出：[4,11]<br>解释：<br>上图表示输入的链表。修改后的链表包含：<br>- 标记为绿色的节点之和：3 +<span class="hljs-number"> 1 </span>= 4<br>- 标记为红色的节点之和：4 +<span class="hljs-number"> 5 </span>+<span class="hljs-number"> 2 </span>= 11<br></code></pre></td></tr></table></figure>
+
+<p>示例2：<br><img src="/images/2022-02-27-22-48-28.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">输入：head = [0,1,0,3,0,2,2,0]<br>输出：[1,3,4]<br>解释：<br>上图表示输入的链表。修改后的链表包含：<br><span class="hljs-bullet">- </span>标记为绿色的节点之和：1 = 1<br><span class="hljs-bullet">- </span>标记为红色的节点之和：3 = 3<br><span class="hljs-bullet">- </span>标记为黄色的节点之和：2 + 2 = 4<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li>列表中的节点数目在范围 <code>[3, 2 * 10^5]</code> 内</li>
+<li><code>0 &lt;= Node.val &lt;= 1000</code></li>
+<li><strong>不</strong> 存在连续两个 <code>Node.val == 0</code> 的节点</li>
+<li>链表的 <strong>开端</strong> 和 <strong>末尾</strong> 节点都满足 <code>Node.val == 0</code></li>
+</ul>
+<h2 id="分析和解答-1"><a href="#分析和解答-1" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>看起来提示里很多条件都是避免特殊情况用的，链表题比较复杂的地方在于经常有一些很极端的case只能靠测试样例来debug，很难一次想到，这个题没有这个问题不过也需要注意下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Definition for singly-linked list.</span><br><span class="hljs-comment"># class ListNode(object):</span><br><span class="hljs-comment">#     def __init__(self, val=0, next=None):</span><br><span class="hljs-comment">#         self.val = val</span><br><span class="hljs-comment">#         self.next = next</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">mergeNodes</span>(<span class="hljs-params">self, head</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type head: Optional[ListNode]</span><br><span class="hljs-string">        :rtype: Optional[ListNode]</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        new_head = ListNode(val=<span class="hljs-number">0</span>, <span class="hljs-built_in">next</span>=<span class="hljs-literal">None</span>)<br>        q = new_head<br><br>        tmp = <span class="hljs-number">0</span><br>        head = head.<span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">while</span> head <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-keyword">if</span> head.val == <span class="hljs-number">0</span>:<br>                tmp_node = ListNode(val=tmp)<br>                q.<span class="hljs-built_in">next</span> = tmp_node<br>                q = q.<span class="hljs-built_in">next</span><br>                tmp = <span class="hljs-number">0</span><br>            <span class="hljs-keyword">else</span>:<br>                tmp += head.val<br><br>            head = head.<span class="hljs-built_in">next</span><br><br>        <span class="hljs-keyword">return</span> new_head.<span class="hljs-built_in">next</span><br></code></pre></td></tr></table></figure>
+
+
+<h1 id="第三题：2182-构造限制重复的字符串"><a href="#第三题：2182-构造限制重复的字符串" class="headerlink" title="第三题：2182.构造限制重复的字符串"></a>第三题：2182.构造限制重复的字符串</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/construct-string-with-repeat-limit/">题目链接</a></p>
+<h2 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个字符串 <code>s</code> 和一个整数 <code>repeatLimit</code> ，用 <code>s</code> 中的字符构造一个新字符串 <code>repeatLimitedString</code> ，使任何字母 <strong>连续</strong> 出现的次数都不超过 <code>repeatLimit</code> 次。你不必使用 <code>s</code> 中的全部字符。</p>
+<p>返回 <strong>字典序最大的</strong> <code>repeatLimitedString</code> 。</p>
+<p>如果在字符串 <code>a</code> 和 <code>b</code> 不同的第一个位置，字符串 <code>a</code> 中的字母在字母表中出现时间比字符串 <code>b</code> 对应的字母晚，则认为字符串 <code>a</code> 比字符串 <code>b</code> <strong>字典序更大</strong> 。如果字符串中前 <code>min(a.length, b.length)</code> 个字符都相同，那么较长的字符串字典序更大。</p>
+<p>示例1：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs 1c">输入：s = <span class="hljs-string">&quot;cczazcc&quot;</span>, repeatLimit = <span class="hljs-number">3</span><br>输出：<span class="hljs-string">&quot;zzcccac&quot;</span><br>解释：使用 s 中的所有字符来构造 repeatLimitedString <span class="hljs-string">&quot;zzcccac&quot;</span>。<br>字母 &#x27;a&#x27; 连续出现至多 <span class="hljs-number">1</span> 次。<br>字母 &#x27;c&#x27; 连续出现至多 <span class="hljs-number">3</span> 次。<br>字母 &#x27;z&#x27; 连续出现至多 <span class="hljs-number">2</span> 次。<br>因此，没有字母连续出现超过 repeatLimit 次，字符串是一个有效的 repeatLimitedString 。<br>该字符串是字典序最大的 repeatLimitedString ，所以返回 <span class="hljs-string">&quot;zzcccac&quot;</span> 。<br>注意，尽管 <span class="hljs-string">&quot;zzcccca&quot;</span> 字典序更大，但字母 &#x27;c&#x27; 连续出现超过 <span class="hljs-number">3</span> 次，所以它不是一个有效的 repeatLimitedString 。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs 1c">输入：s = <span class="hljs-string">&quot;aababab&quot;</span>, repeatLimit = <span class="hljs-number">2</span><br>输出：<span class="hljs-string">&quot;bbabaa&quot;</span><br>解释：<br>使用 s 中的一些字符来构造 repeatLimitedString <span class="hljs-string">&quot;bbabaa&quot;</span>。 <br>字母 &#x27;a&#x27; 连续出现至多 <span class="hljs-number">2</span> 次。 <br>字母 &#x27;b&#x27; 连续出现至多 <span class="hljs-number">2</span> 次。 <br>因此，没有字母连续出现超过 repeatLimit 次，字符串是一个有效的 repeatLimitedString 。 <br>该字符串是字典序最大的 repeatLimitedString ，所以返回 <span class="hljs-string">&quot;bbabaa&quot;</span> 。 <br>注意，尽管 <span class="hljs-string">&quot;bbabaaa&quot;</span> 字典序更大，但字母 &#x27;a&#x27; 连续出现超过 <span class="hljs-number">2</span> 次，所以它不是一个有效的 repeatLimitedString 。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li>1 &lt;&#x3D; repeatLimit &lt;&#x3D; s.length &lt;&#x3D; 10^5</li>
+<li><code>s</code>由小写英文字母组成</li>
+</ul>
+<h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>这个题现场做的时候又做了好久好久，最后还是gg了，当时主要考虑的是一种排序后交换的思路，但是交换的思路最后就越换越乱，比如换完了后在那个位置的“指针”是否要++这样的；</p>
+<p>后来大佬给了一种Counter计数排序后贪心的思路感觉能想到的话代码实现就比较简单了，每次取最头的元素，然后取够个数了后就交替取一个下一个，如果没有下一个就代表已经取不了了，这样实际上有一种类似于队列的小思想在里边</p>
+<p>另外删除列表中的一个元素可以用<code>del tmp[i]</code>这样的操作来做</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">repeatLimitedString</span>(<span class="hljs-params">self, s, repeatLimit</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type s: str</span><br><span class="hljs-string">        :type repeatLimit: int</span><br><span class="hljs-string">        :rtype: str</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># 还是要多锻炼多总结思路hhh</span><br>        <span class="hljs-comment"># 一种贪心算法的思想，Counter后排序，然后相对贪心一点的拿就行了</span><br>        <span class="hljs-comment"># 开始的思路想的是排序后有一种原地交换的感觉，但后来还是换着换着就乱了</span><br>        <br>        counter_s = Counter(s)<br>        <span class="hljs-comment"># print(counter_s)</span><br>        counter_s_list = <span class="hljs-built_in">sorted</span>([<span class="hljs-built_in">list</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> counter_s.items()], key=<span class="hljs-keyword">lambda</span> x: x[<span class="hljs-number">0</span>])<br>        counter_s_list.reverse()<br>        <span class="hljs-comment"># print(counter_s_list)</span><br><br>        result = []<br>        <span class="hljs-keyword">while</span> <span class="hljs-built_in">len</span>(counter_s_list):  <span class="hljs-comment"># 循环直到为空为止，这里不用循环变量i，直接用0就行了</span><br>            <span class="hljs-keyword">if</span> counter_s_list[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] &lt;= repeatLimit:<br>                result.append(counter_s_list[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] * counter_s_list[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>])<br>                counter_s_list = counter_s_list[<span class="hljs-number">1</span>:]<br>            <span class="hljs-keyword">else</span>:<br>                result.append(counter_s_list[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] * repeatLimit)<br>                counter_s_list[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] -= repeatLimit<br>                <span class="hljs-keyword">if</span> counter_s_list[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] &gt; <span class="hljs-number">0</span>: <span class="hljs-comment"># 如果还有的话，如果此时列表就1个了，就结束，否则和下一个交换</span><br>                    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(counter_s_list) &gt; <span class="hljs-number">1</span>:<br>                        result.append(counter_s_list[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>])<br>                        counter_s_list[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] -= <span class="hljs-number">1</span><br>                        <span class="hljs-keyword">if</span> counter_s_list[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] == <span class="hljs-number">0</span>:<br>                            <span class="hljs-comment"># counter_s_list = counter_s_list[:1] + counter_s_list[2:]  # 去掉，这里写的其实不够简化</span><br>                            <span class="hljs-keyword">del</span> counter_s_list[<span class="hljs-number">1</span>]<br>                    <span class="hljs-keyword">else</span>:<br>                        <span class="hljs-keyword">break</span><br><br>        <br>        <span class="hljs-comment"># print(result)</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>.join(result)<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LeetCode-python/" class="category-chain-item">LeetCode-python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/" class="category-chain-item">LeetCode周赛</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%A8%A1%E6%8B%9F/">#模拟</a>
+      
+        <a href="/tags/%E5%A0%86/">#堆</a>
+      
+        <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">#优先队列</a>
+      
+        <a href="/tags/EASY/">#EASY</a>
+      
+        <a href="/tags/MEDIUM/">#MEDIUM</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">#字符串</a>
+      
+        <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
+      
+        <a href="/tags/%E9%93%BE%E8%A1%A8/">#链表</a>
+      
+        <a href="/tags/%E8%AE%A1%E6%95%B0/">#计数</a>
+      
+        <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>281场LeetCode周赛</div>
+      <div>http://example.com/2022/02/27/algorithms/leetcode-weekly-contest/281场LeetCode周赛/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年2月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/02/27/algorithms/leetcode-weekly-contest/282%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/" title="282场LeetCode周赛">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">282场LeetCode周赛</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/21/algorithms/leetcode-python/78-%E5%AD%90%E9%9B%86-python/" title="78.子集-python">
+                        <span class="hidden-mobile">78.子集-python</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,755 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="周赛综述&amp;总结： 这周三个题还是相对友善一点点的：第一题读题有些困难hhh读好了一些角标标记的操作就可以了；第二题感觉一下想过去就是个哈希表记录，感觉也是状态好才能现场写出来吧；第三题需要考虑很多种case是个比较细节的题，感觉还是模拟为主。总结来说这周还都属于是一下想过去有思路的题，希望未来能进一步保持啊啊啊啊啊； 第一题：角标的基础题，感觉读明白题后很快就做出来了，注意需要一个绝对值">
+<meta property="og:type" content="article">
+<meta property="og:title" content="284场LeetCode周赛">
+<meta property="og:url" content="http://example.com/2022/03/13/algorithms/leetcode-weekly-contest/284%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="周赛综述&amp;总结： 这周三个题还是相对友善一点点的：第一题读题有些困难hhh读好了一些角标标记的操作就可以了；第二题感觉一下想过去就是个哈希表记录，感觉也是状态好才能现场写出来吧；第三题需要考虑很多种case是个比较细节的题，感觉还是模拟为主。总结来说这周还都属于是一下想过去有思路的题，希望未来能进一步保持啊啊啊啊啊； 第一题：角标的基础题，感觉读明白题后很快就做出来了，注意需要一个绝对值">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/2022-03-13-22-25-47.png">
+<meta property="og:image" content="http://example.com/images/2022-03-13-22-26-06.png">
+<meta property="article:published_time" content="2022-03-13T13:43:04.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.887Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="模拟">
+<meta property="article:tag" content="数组">
+<meta property="article:tag" content="EASY">
+<meta property="article:tag" content="MEDIUM">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="哈希表">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/2022-03-13-22-25-47.png">
+  
+  
+  
+  <title>284场LeetCode周赛 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="284场LeetCode周赛"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-03-13 21:43" pubdate>
+          2022年3月13日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          46 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">284场LeetCode周赛</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>周赛综述&amp;总结：</p>
+<p>这周三个题还是相对友善一点点的：第一题读题有些困难hhh读好了一些角标标记的操作就可以了；第二题感觉一下想过去就是个哈希表记录，感觉也是状态好才能现场写出来吧；第三题需要考虑很多种case是个比较细节的题，感觉还是模拟为主。总结来说这周还都属于是一下想过去有思路的题，希望未来能进一步保持啊啊啊啊啊；</p>
+<p>第一题：角标的基础题，感觉读明白题后很快就做出来了，注意需要一个绝对值 <code>abs</code> 就可以了；</p>
+<p>第二题：一眼看过去大概就能识别到是一个需要记录的题，主要是一些反向哈希的策略，实际上只要在写的时候不断完善程序逻辑基本就能做出来了，注意字典的key可以是元组（tuple）；</p>
+<p>第三题：这个题感觉还是case比较多，感觉自己还是一种模拟的思路吧，感觉通过这个题积累的一些周赛思路是有些边界条件或者极端case完全是可以单独处理的（比如这个题数组长度为1的时候），尝试融合到通用case里反而会增加难度，另外看这个题的做题思路可能和其他人不太一样，好像有更加数学的解法。另外实际上是看到 <code>nums</code> 的长度是 <code>10^5</code> 的时候就感觉可以模拟了，然后 <code>k</code> 比这个大就说明可能会有一部分相对特殊的case；</p>
+<p>第四题：未来有机会再试了TAT（周常鸽第四题）；</p>
+<span id="more"></span>
+
+<h1 id="第一题：6031-找出数组中的所有-K-近邻下标"><a href="#第一题：6031-找出数组中的所有-K-近邻下标" class="headerlink" title="第一题：6031.找出数组中的所有 K 近邻下标"></a>第一题：6031.找出数组中的所有 K 近邻下标</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-all-k-distant-indices-in-an-array/">题目链接</a></p>
+<h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个下标从 <strong>0</strong> 开始的整数数组 <code>nums</code> 和两个整数 <code>key</code> 和 <code>k</code> 。<strong>K 近邻下标</strong> 是 <code>nums</code> 中的一个下标 <code>i</code> ，并满足至少存在一个下标 <code>j</code> 使得 <code>|i - j| &lt;= k</code> 且 <code>nums[j] == key</code> 。</p>
+<p>以列表形式返回按 <strong>递增顺序</strong> 排序的所有 K 近邻下标。</p>
+<p>示例1：</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs coq">输入：nums = [<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">9</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">9</span>,<span class="hljs-number">5</span>], key = <span class="hljs-number">9</span>, k = <span class="hljs-number">1</span><br>输出：[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>]<br>解释：因此，nums[<span class="hljs-number">2</span>] == key 且 nums[<span class="hljs-number">5</span>] == key 。<br>- 对下标 <span class="hljs-number">0</span> ，|<span class="hljs-type">0</span> - <span class="hljs-number">2</span>| <span class="hljs-type">&gt; k</span> 且 |<span class="hljs-type">0</span> - <span class="hljs-number">5</span>| <span class="hljs-type">&gt; k</span> ，所以不存在 j 使得 |<span class="hljs-type">0</span> - j| <span class="hljs-type">&lt;= k</span> 且 nums[j] == key 。所以 <span class="hljs-number">0</span> 不是一个 K 近邻下标。<br>- 对下标 <span class="hljs-number">1</span> ，|<span class="hljs-type">1</span> - <span class="hljs-number">2</span>| <span class="hljs-type">&lt;= k</span> 且 nums[<span class="hljs-number">2</span>] == key ，所以 <span class="hljs-number">1</span> 是一个 K 近邻下标。<br>- 对下标 <span class="hljs-number">2</span> ，|<span class="hljs-type">2</span> - <span class="hljs-number">2</span>| <span class="hljs-type">&lt;= k</span> 且 nums[<span class="hljs-number">2</span>] == key ，所以 <span class="hljs-number">2</span> 是一个 K 近邻下标。<br>- 对下标 <span class="hljs-number">3</span> ，|<span class="hljs-type">3</span> - <span class="hljs-number">2</span>| <span class="hljs-type">&lt;= k</span> 且 nums[<span class="hljs-number">2</span>] == key ，所以 <span class="hljs-number">3</span> 是一个 K 近邻下标。<br>- 对下标 <span class="hljs-number">4</span> ，|<span class="hljs-type">4</span> - <span class="hljs-number">5</span>| <span class="hljs-type">&lt;= k</span> 且 nums[<span class="hljs-number">5</span>] == key ，所以 <span class="hljs-number">4</span> 是一个 K 近邻下标。<br>- 对下标 <span class="hljs-number">5</span> ，|<span class="hljs-type">5</span> - <span class="hljs-number">5</span>| <span class="hljs-type">&lt;= k</span> 且 nums[<span class="hljs-number">5</span>] == key ，所以 <span class="hljs-number">5</span> 是一个 K 近邻下标。<br>- 对下标 <span class="hljs-number">6</span> ，|<span class="hljs-type">6</span> - <span class="hljs-number">5</span>| <span class="hljs-type">&lt;= k</span> 且 nums[<span class="hljs-number">5</span>] == key ，所以 <span class="hljs-number">6</span> 是一个 K 近邻下标。<br>因此，按递增顺序返回 [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>] 。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs inform7">输入：nums = <span class="hljs-comment">[2,2,2,2,2]</span>, key = 2, k = 2<br>输出：<span class="hljs-comment">[0,1,2,3,4]</span><br>解释：对 nums 的所有下标 i ，总存在某个下标 j 使得 |i - j| &lt;= k 且 nums<span class="hljs-comment">[j]</span> == key ，所以每个下标都是一个 K 近邻下标。 <br>因此，返回 <span class="hljs-comment">[0,1,2,3,4]</span> 。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 1000</code></li>
+<li><code>1 &lt;= nums[i] &lt;= 1000</code></li>
+<li><code>key</code> 是数组 <code>nums</code> 中的一个整数</li>
+<li><code>1 &lt;= k &lt;= nums.length</code></li>
+</ul>
+<h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>角标的基础题，感觉读明白题后很快就做出来了，注意需要一个绝对值 <code>abs</code> 就可以了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">findKDistantIndices</span>(<span class="hljs-params">self, nums, key, k</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type nums: List[int]</span><br><span class="hljs-string">        :type key: int</span><br><span class="hljs-string">        :type k: int</span><br><span class="hljs-string">        :rtype: List[int]</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <br>        tmp = []<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums)):<br>            <span class="hljs-keyword">if</span> nums[i] == key:<br>                tmp.append(i)<br>        <span class="hljs-built_in">print</span>(tmp)<br><br>        res = []<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums)):<br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(tmp)):<br>                <span class="hljs-keyword">if</span> <span class="hljs-built_in">abs</span>(i - tmp[j]) &lt;= k:<br>                    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;i, j: &quot;</span>, i,j)<br>                    res.append(i)<br>                    <span class="hljs-keyword">break</span><br>        <span class="hljs-comment"># print(res)</span><br>        <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
+
+
+<h1 id="第二题：5203-统计可以提取的工件"><a href="#第二题：5203-统计可以提取的工件" class="headerlink" title="第二题：5203.统计可以提取的工件"></a>第二题：5203.统计可以提取的工件</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/count-artifacts-that-can-be-extracted/">题目链接</a></p>
+<h2 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h2><p>存在一个 <code>n x n</code> 大小、下标从 <strong>0</strong> 开始的网格，网格中埋着一些工件。给你一个整数 <code>n</code> 和一个下标从 <strong>0</strong> 开始的二维整数数组 <code>artifacts</code> ，<code>artifacts</code> 描述了矩形工件的位置，其中 <code>artifacts[i] = [r1i, c1i, r2i, c2i]</code> 表示第 <code>i</code> 个工件在子网格中的填埋情况：</p>
+<ul>
+<li><code>(r1i, c1i)</code> 是第 <code>i</code> 个工件 <strong>左上</strong> 单元格的坐标，且</li>
+<li><code>(r2i, c2i)</code> 是第 <code>i</code> 个工件 <strong>右下</strong> 单元格的坐标。</li>
+</ul>
+<p>你将会挖掘网格中的一些单元格，并清除其中的填埋物。如果单元格中埋着工件的一部分，那么该工件这一部分将会裸露出来。如果一个工件的所有部分都都裸露出来，你就可以提取该工件。</p>
+<p>给你一个下标从 <strong>0</strong> 开始的二维整数数组 <code>dig</code> ，其中 <code>dig[i] = [ri, ci]</code> 表示你将会挖掘单元格 <code>(ri, ci)</code> ，返回你可以提取的工件数目。</p>
+<p>生成的测试用例满足：</p>
+<ul>
+<li>不存在重叠的两个工件。</li>
+<li>每个工件最多只覆盖 <code>4</code> 个单元格。</li>
+<li><code>dig</code> 中的元素互不相同。</li>
+</ul>
+<p>示例1：</p>
+<p><img src="/images/2022-03-13-22-25-47.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs lua">输入：n = <span class="hljs-number">2</span>, artifacts = <span class="hljs-string">[[0,0,0,0],[0,1,1,1]]</span>, dig = <span class="hljs-string">[[0,0],[0,1]]</span><br>输出：<span class="hljs-number">1</span><br>解释： <br>不同颜色表示不同的工件。挖掘的单元格用 <span class="hljs-string">&#x27;D&#x27;</span> 在网格中进行标记。<br>有 <span class="hljs-number">1</span> 个工件可以提取，即红色工件。<br>蓝色工件在单元格 (<span class="hljs-number">1</span>,<span class="hljs-number">1</span>) 的部分尚未裸露出来，所以无法提取该工件。<br>因此，返回 <span class="hljs-number">1</span> 。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<p><img src="/images/2022-03-13-22-26-06.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lua">输入：n = <span class="hljs-number">2</span>, artifacts = <span class="hljs-string">[[0,0,0,0],[0,1,1,1]]</span>, dig = <span class="hljs-string">[[0,0],[0,1],[1,1]]</span><br>输出：<span class="hljs-number">2</span><br>解释：红色工件和蓝色工件的所有部分都裸露出来（用 <span class="hljs-string">&#x27;D&#x27;</span> 标记），都可以提取。因此，返回 <span class="hljs-number">2</span> 。 <br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li><code>1 &lt;= n &lt;= 1000</code></li>
+<li><code>1 &lt;= artifacts.length, dig.length &lt;= min(n^2, 10^5)</code></li>
+<li><code>artifacts[i].length == 4</code></li>
+<li><code>dig[i].length == 2</code></li>
+<li><code>0 &lt;= r1i, c1i, r2i, c2i, ri, ci &lt;= n - 1</code></li>
+<li><code>r1i &lt;= r2i</code></li>
+<li><code>c1i &lt;= c2i</code></li>
+<li>不存在重叠的两个工件</li>
+<li>每个工件 <strong>最多</strong> 只覆盖 <code>4</code> 个单元格</li>
+<li><code>dig</code> 中的元素互不相同</li>
+</ul>
+<h2 id="分析和解答-1"><a href="#分析和解答-1" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>一眼看过去大概就能识别到是一个需要记录的题，主要是一些反向哈希的策略，实际上只要在写的时候不断完善程序逻辑基本就能做出来了，注意字典的key可以是元组（tuple）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">digArtifacts</span>(<span class="hljs-params">self, n, artifacts, dig</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type n: int</span><br><span class="hljs-string">        :type artifacts: List[List[int]]</span><br><span class="hljs-string">        :type dig: List[List[int]]</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <br>        <span class="hljs-comment"># 哈希表记录每个地方的状态</span><br>        <br>        <span class="hljs-comment"># 要用mark吗，还是说看起来直接暴力就行了</span><br>        reverse_mapping = &#123;&#125;<br>        d = [<span class="hljs-number">0</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(artifacts))]<br>        m = [[-<span class="hljs-number">1</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)] <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)]<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(artifacts)):<br>            r1, c1, r2 ,c2 = artifacts[i]<br>            d[i] = <span class="hljs-number">0</span>  <span class="hljs-comment"># mapping</span><br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(r1, r2+<span class="hljs-number">1</span>):<br>                <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(c1, c2+<span class="hljs-number">1</span>):<br>                    m[j][k] = <span class="hljs-number">1</span><br>                    <span class="hljs-comment"># 反向mapping，这个工件属于第几个</span><br>                    reverse_mapping[(j, k)] = i  <span class="hljs-comment"># jk角标的地方属于第i个工件</span><br>                    d[i] += <span class="hljs-number">1</span><br>        <span class="hljs-comment">#print(&quot;d: &quot;, d)</span><br>        <span class="hljs-comment">#print(&quot;m: &quot;, m)</span><br>        <span class="hljs-comment">#print(&quot;reverse_mapping: &quot;, reverse_mapping)</span><br>    <br>    <br>        <br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(dig)):<br>            r, c = dig[i]<br>            <span class="hljs-comment"># 先判断这个地方是不是有</span><br>            <span class="hljs-keyword">if</span> m[r][c] == <span class="hljs-number">1</span>:<br>                <span class="hljs-comment"># 再判断是第几个零件</span><br>                index = reverse_mapping[(r, c)]<br>                <span class="hljs-comment"># 减去第几个零件</span><br>                d[index] -= <span class="hljs-number">1</span><br>                <br>                m[r][c] = <span class="hljs-number">0</span>  <span class="hljs-comment"># 挖掉</span><br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-keyword">continue</span><br>        <br>        res = <span class="hljs-number">0</span><br>        <span class="hljs-comment">#print(d)</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(d)):<br>            <span class="hljs-keyword">if</span> d[i] == <span class="hljs-number">0</span>:<br>                res += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
+
+
+<h1 id="第三题：5227-K-次操作后最大化顶端元素"><a href="#第三题：5227-K-次操作后最大化顶端元素" class="headerlink" title="第三题：5227.K 次操作后最大化顶端元素"></a>第三题：5227.K 次操作后最大化顶端元素</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximize-the-topmost-element-after-k-moves/">题目链接</a></p>
+<h2 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个下标从 <strong>0</strong> 开始的整数数组 <code>nums</code> ，它表示一个 <strong>栈</strong> ，其中 <code>nums[0]</code> 是栈顶的元素。</p>
+<p>每一次操作中，你可以执行以下操作 <strong>之一</strong> ：</p>
+<ul>
+<li>如果栈非空，那么 <strong>删除</strong> 栈顶端的元素。</li>
+<li>如果存在 1 个或者多个被删除的元素，你可以从它们中选择任何一个，<strong>添加</strong> 回栈顶，这个元素成为新的栈顶元素。</li>
+</ul>
+<p>同时给你一个整数 <code>k</code> ，它表示你总共需要执行操作的次数。</p>
+<p>请你返回 <strong>恰好</strong> 执行 <code>k</code> 次操作以后，栈顶元素的 <strong>最大值</strong> 。如果执行完 <code>k</code> 次操作以后，栈一定为空，请你返回 <code>-1</code> 。</p>
+<p>示例1：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：nums = [5,2,2,4,0,6], k = 4<br>输出：5<br>解释：<br>4 次操作后，栈顶元素为<span class="hljs-number"> 5 </span>的方法之一为：<br>- 第<span class="hljs-number"> 1 </span>次操作：删除栈顶元素<span class="hljs-number"> 5 </span>，栈变为 [2,2,4,0,6] 。<br>- 第<span class="hljs-number"> 2 </span>次操作：删除栈顶元素<span class="hljs-number"> 2 </span>，栈变为 [2,4,0,6] 。<br>- 第<span class="hljs-number"> 3 </span>次操作：删除栈顶元素<span class="hljs-number"> 2 </span>，栈变为 [4,0,6] 。<br>- 第<span class="hljs-number"> 4 </span>次操作：将<span class="hljs-number"> 5 </span>添加回栈顶，栈变为 [5,4,0,6] 。<br>注意，这不是最后栈顶元素为<span class="hljs-number"> 5 </span>的唯一方式。但可以证明，4 次操作以后<span class="hljs-number"> 5 </span>是能得到的最大栈顶元素。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs subunit">输入：nums = [2], k = 1<br>输出：<span class="hljs-string">-1</span><br>解释：<br>第 1 次操作中，我们唯一的选择是将栈顶元素弹出栈。<br>由于 1 次操作后无法得到一个非空的栈，所以我们返回 <span class="hljs-string">-1</span> 。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 10^5</code></li>
+<li><code>0 &lt;= nums[i], k &lt;= 10^9</code></li>
+</ul>
+<h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>这个题感觉还是case比较多，感觉自己还是一种模拟的思路吧，感觉通过这个题积累的一些周赛思路是有些边界条件或者极端case完全是可以单独处理的（比如这个题数组长度为1的时候），尝试融合到通用case里反而会增加难度，另外看这个题的做题思路可能和其他人不太一样，好像有更加数学的解法。另外实际上是看到 <code>nums</code> 的长度是 <code>10^5</code> 的时候就感觉可以模拟了，然后 <code>k</code> 比这个大就说明可能会有一部分相对特殊的case；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">maximumTop</span>(<span class="hljs-params">self, nums, k</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type nums: List[int]</span><br><span class="hljs-string">        :type k: int</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">if</span> k == <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">return</span> nums[<span class="hljs-number">0</span>]<br>        <br>        jilu_remove = []<br>        now_max = -<span class="hljs-number">1</span><br>        cnt_op = <span class="hljs-number">0</span><br>        index = <span class="hljs-number">0</span><br>        res = -<span class="hljs-number">1</span><br>        <br>        <br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums)):  <span class="hljs-comment">#</span><br>            <span class="hljs-keyword">if</span> cnt_op == k - <span class="hljs-number">1</span>:<br>                <span class="hljs-comment"># 判断是再拿一个的高，还是把加回去的高</span><br>                <span class="hljs-keyword">try</span>:<br>                    nayige = nums[index+<span class="hljs-number">1</span>]<br>                <span class="hljs-keyword">except</span>:<br>                    nayige = -<span class="hljs-number">1</span><br>                <br>                cnt_op += <span class="hljs-number">1</span><br>                res = <span class="hljs-built_in">max</span>(now_max, nayige)<br>                <br>            <br>            <span class="hljs-keyword">elif</span> cnt_op &lt; k:  <span class="hljs-comment"># 代表还能操作</span><br>                jilu_remove.append(nums[index])<br>                <span class="hljs-keyword">if</span> nums[index] &gt; now_max:<br>                    now_max = nums[index]<br>                index += <span class="hljs-number">1</span><br>                cnt_op += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-keyword">break</span><br>        <br>        <br>        <span class="hljs-comment"># 最后还有可能出现还剩很多的情况，因为len(nums)比k小，到时候要判断情况的</span><br>        left_times = k - cnt_op<br>        jilu_remove.sort(reverse=<span class="hljs-literal">True</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;left_times: &quot;</span>, left_times)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;jilu_remove: &quot;</span>, jilu_remove)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;res: &quot;</span>, res)<br>        <br>        <br>        <span class="hljs-comment"># 当剩余操作次数为left_times时</span><br>        left_times %= (<span class="hljs-number">2</span> * <span class="hljs-built_in">len</span>(nums))<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;left_times: &quot;</span>, left_times)<br>        <br>        <span class="hljs-keyword">if</span> left_times &lt;= <span class="hljs-built_in">len</span>(nums) <span class="hljs-keyword">and</span> left_times != <span class="hljs-number">0</span>:<br>            res = now_max<br>        <br>        <br>        <span class="hljs-keyword">if</span> left_times &gt; <span class="hljs-built_in">len</span>(nums):<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(nums) == <span class="hljs-number">1</span>:<br>                <span class="hljs-keyword">if</span> left_times % <span class="hljs-number">2</span> != <span class="hljs-number">0</span>:  <span class="hljs-comment"># 奇数</span><br>                    res = now_max<br>                <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># 偶数</span><br>                    <span class="hljs-keyword">try</span>:<br>                        res = jilu_remove[<span class="hljs-number">1</span>]<br>                    <span class="hljs-keyword">except</span>:<br>                        res = -<span class="hljs-number">1</span><br>            <br>            <span class="hljs-keyword">else</span>:<br>                res = now_max<br>        <br>        <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LeetCode-python/" class="category-chain-item">LeetCode-python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/" class="category-chain-item">LeetCode周赛</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%A8%A1%E6%8B%9F/">#模拟</a>
+      
+        <a href="/tags/%E6%95%B0%E7%BB%84/">#数组</a>
+      
+        <a href="/tags/EASY/">#EASY</a>
+      
+        <a href="/tags/MEDIUM/">#MEDIUM</a>
+      
+        <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
+      
+        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">#哈希表</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>284场LeetCode周赛</div>
+      <div>http://example.com/2022/03/13/algorithms/leetcode-weekly-contest/284场LeetCode周赛/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年3月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/14/algorithms/leetcode-python/23-%E5%90%88%E5%B9%B6K%E4%B8%AA%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8-python/" title="23.合并K个升序链表-python">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">23.合并K个升序链表-python</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/08/algorithms/leetcode-python/2055-%E8%9C%A1%E7%83%9B%E4%B9%8B%E9%97%B4%E7%9A%84%E7%9B%98%E5%AD%90-python/" title="2055.蜡烛之间的盘子-python">
+                        <span class="hidden-mobile">2055.蜡烛之间的盘子-python</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,687 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="ConvLab-2.ipynb ConvLab-2是一个开源工具包，使研究人员能够使用最先进的模型构建面向任务的对话系统，执行端到端评估，并诊断系统的弱点。作为ConvLab的继承者，ConvLab-2继承了ConvLab的框架，但集成了更强大的对话模型并支持更多的数据集。此外，作者还开发了一个分析工具和一个交互式工具，以帮助研究人员诊断（diagnosing）对话系统。 从这里学习一些对话系列的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ConvLab-2 Getting Started">
+<meta property="og:url" content="http://example.com/2021/09/14/ConvLab-2%20Getting%20Started/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="ConvLab-2.ipynb ConvLab-2是一个开源工具包，使研究人员能够使用最先进的模型构建面向任务的对话系统，执行端到端评估，并诊断系统的弱点。作为ConvLab的继承者，ConvLab-2继承了ConvLab的框架，但集成了更强大的对话模型并支持更多的数据集。此外，作者还开发了一个分析工具和一个交互式工具，以帮助研究人员诊断（diagnosing）对话系统。 从这里学习一些对话系列的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-14T12:01:01.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.881Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="Dialogue">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>ConvLab-2 Getting Started - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ConvLab-2 Getting Started"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-09-14 20:01" pubdate>
+          2021年9月14日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          56 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ConvLab-2 Getting Started</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>ConvLab-2.ipynb</p>
+<p>ConvLab-2是一个开源工具包，使研究人员能够使用最先进的模型构建面向任务的对话系统，执行端到端评估，并诊断系统的弱点。作为ConvLab的继承者，ConvLab-2继承了ConvLab的框架，但集成了更强大的对话模型并支持更多的数据集。此外，作者还开发了一个分析工具和一个交互式工具，以帮助研究人员诊断（diagnosing）对话系统。</p>
+<p>从这里学习一些对话系列的模型，服务器上操作遇到一些问题，目前还是用google colab操作的</p>
+<p>Reference：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/thu-coai/ConvLab-2">https://github.com/thu-coai/ConvLab-2</a></p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="1-初始化准备，installation"><a href="#1-初始化准备，installation" class="headerlink" title="1. 初始化准备，installation"></a>1. 初始化准备，installation</h2><p>git clone 自己fork git的内容（<strong>注意在colab环境下的修改一定要同步到本地中，或者说每次都是本地改完想办法传到colab&#x2F;github上</strong>）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">!git clone https://github.com/yixuan004/ConvLab-2.git &amp;&amp; cd ConvLab-2 &amp;&amp; pip install -e .<br></code></pre></td></tr></table></figure>
+
+<p>安装spacy使用的en_core_web_sm，来解决BERTNLU中的内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">!python -m spacy download en_core_web_sm<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-build-an-agent"><a href="#2-build-an-agent" class="headerlink" title="2. build an agent"></a>2. build an agent</h2><p>这里感觉是构建一个机器自动应答的pipeline，包括NLU，DST，Policy和NLG这些模块，组合在一起可以作为机器端的对话机器的感觉</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> convlab2.nlu.jointBERT.multiwoz <span class="hljs-keyword">import</span> BERTNLU<br><span class="hljs-keyword">from</span> convlab2.nlu.milu.multiwoz <span class="hljs-keyword">import</span> MILU<br><span class="hljs-keyword">from</span> convlab2.dst.rule.multiwoz <span class="hljs-keyword">import</span> RuleDST<br><span class="hljs-keyword">from</span> convlab2.policy.rule.multiwoz <span class="hljs-keyword">import</span> RulePolicy<br><span class="hljs-keyword">from</span> convlab2.nlg.template.multiwoz <span class="hljs-keyword">import</span> TemplateNLG<br><span class="hljs-keyword">from</span> convlab2.dialog_agent <span class="hljs-keyword">import</span> PipelineAgent, BiSession<br><span class="hljs-keyword">from</span> convlab2.evaluator.multiwoz_eval <span class="hljs-keyword">import</span> MultiWozEvaluator<br><span class="hljs-keyword">from</span> pprint <span class="hljs-keyword">import</span> pprint<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> torch<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;import done!&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>建立模型并建造一个agent</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># go to README.md of each model for more information</span><br><span class="hljs-comment"># BERT nlu，understanding</span><br>sys_nlu = BERTNLU()<br><span class="hljs-comment"># simple rule DST，tracking</span><br>sys_dst = RuleDST()<br><span class="hljs-comment"># rule policy，rule</span><br>sys_policy = RulePolicy()<br><span class="hljs-comment"># template NLG，生成</span><br>sys_nlg = TemplateNLG(is_user=<span class="hljs-literal">False</span>)<br><span class="hljs-comment"># assemble，集成到一个pipeline里</span><br>sys_agent = PipelineAgent(sys_nlu, sys_dst, sys_policy, sys_nlg, name=<span class="hljs-string">&#x27;sys&#x27;</span>)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;build agent done!&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>和agent进行手动输入对话测试</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 对话1</span><br>sys_agent.response(<span class="hljs-string">&quot;I want to find a moderate hotel&quot;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>We have <span class="hljs-number">18</span> such places . How about bridge guest house ? Fits your request perfectly .<br><br>sys_agent.response(<span class="hljs-string">&quot;Which type of hotel is it ?&quot;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>It <span class="hljs-keyword">is</span> a guesthouse .<br><br>sys_agent.response(<span class="hljs-string">&quot;OK , where is its address ?&quot;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>It <span class="hljs-keyword">is</span> located at <span class="hljs-number">124</span> tenison road.<br><br>sys_agent.response(<span class="hljs-string">&quot;Thank you !&quot;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>Thank you <span class="hljs-keyword">for</span> contacting the <span class="hljs-built_in">help</span> desk . Have a great day .<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 对话2</span><br>sys_agent.response(<span class="hljs-string">&quot;Try to find me a Chinese restaurant in south area .&quot;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>There are <span class="hljs-number">3</span> different places that <span class="hljs-keyword">match</span> your description . The lucky star has some great reviews . How about chinese ?<br><br>sys_agent.response(<span class="hljs-string">&quot;Which kind of food it provides ?&quot;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>They serve chinese .<br><br>sys_agent.response(<span class="hljs-string">&quot;Book a table for 5 , this Sunday .&quot;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>Your reference number <span class="hljs-keyword">is</span> 00000003 .<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-Build-a-simulator-to-chat-with-the-agent-and-evaluate"><a href="#3-Build-a-simulator-to-chat-with-the-agent-and-evaluate" class="headerlink" title="3. Build a simulator to chat with the agent and evaluate"></a>3. Build a simulator to chat with the agent and evaluate</h2><p>构建一个模拟器与代理聊天并评估</p>
+<ul>
+<li><p>在许多一对一面向任务的对话系统中，模拟器对于训练RL代理是必不可少的。在我们的框架中，我们不区分用户和系统。所有发言者都是代理人。模拟器也是一个代理，内部有特定的策略以实现用户目标。</p>
+</li>
+<li><p>我们对模拟器使用Agenda策略，该策略需要对话行为输入，这意味着我们应该将PipelineAgent的DST参数设置为None。然后PipelineAgent将直接将对话act传递给策略。有关更多详细信息，请参阅PipelineAgent文档。（这里不是很明白为什么要把user_policy设置为None）</p>
+</li>
+</ul>
+<p>这里是模拟器，因为是模拟器所以代表了用户，这样在交互的过程中并不需要跟踪对话状态，所以不需要DST？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># MILU</span><br>user_nlu = MILU()<br><span class="hljs-comment"># not use dst</span><br>user_dst = <span class="hljs-literal">None</span><br><span class="hljs-comment"># rule policy</span><br>user_policy = RulePolicy(character=<span class="hljs-string">&#x27;usr&#x27;</span>)<br><span class="hljs-comment"># template NLG</span><br>user_nlg = TemplateNLG(is_user=<span class="hljs-literal">True</span>)<br><span class="hljs-comment"># assemble</span><br>user_agent = PipelineAgent(user_nlu, user_dst, user_policy, user_nlg, name=<span class="hljs-string">&#x27;user&#x27;</span>) <span class="hljs-comment"># user的agent！</span><br></code></pre></td></tr></table></figure>
+<p>现在我们有了一个simulator和一个agent。我们将使用现有的简单的一对一会话控制器BiSession，还可以定义自己的Session class来应对自己的特殊需求</p>
+<p>我们添加了MultiWozEvaluator来评估性能。它使用的解析的对话框act input 和策略输出对话框act来计算inform f1、book rate以及任务是否成功</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">evaluator = MultiWozEvaluator()<br>sess = BiSession(sys_agent=sys_agent, user_agent=user_agent, kb_query=<span class="hljs-literal">None</span>, evaluator=evaluator)<br></code></pre></td></tr></table></figure>
+
+<p>让这两个代理进行会话！key是BiSession类的next_turn这个方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">set_seed</span>(<span class="hljs-params">r_seed</span>):<br>    random.seed(r_seed)<br>    np.random.seed(r_seed)<br>    torch.manual_seed(r_seed)<br><br>set_seed(<span class="hljs-number">20210914</span>)<br><br>sys_response = <span class="hljs-string">&#x27;&#x27;</span><br>sess.init_session()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;init goal:&#x27;</span>)<br>pprint(sess.evaluator.goal)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;-&#x27;</span>*<span class="hljs-number">50</span>)<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">20</span>):<br>    sys_response, user_response, session_over, reward = sess.next_turn(sys_response)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;user:&#x27;</span>, user_response)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;sys:&#x27;</span>, sys_response)<br>    <span class="hljs-built_in">print</span>()<br>    <span class="hljs-keyword">if</span> session_over <span class="hljs-keyword">is</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">break</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;task success:&#x27;</span>, sess.evaluator.task_success())<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;book rate:&#x27;</span>, sess.evaluator.book_rate())<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;inform precision/recall/f1:&#x27;</span>, sess.evaluator.inform_F1())<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;-&#x27;</span>*<span class="hljs-number">50</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;final goal:&#x27;</span>)<br>pprint(sess.evaluator.goal)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;=&#x27;</span>*<span class="hljs-number">100</span>)<br><br><span class="hljs-meta">&gt;&gt;&gt; </span>init goal:<br>&#123;<span class="hljs-string">&#x27;attraction&#x27;</span>: &#123;<span class="hljs-string">&#x27;info&#x27;</span>: &#123;<span class="hljs-string">&#x27;area&#x27;</span>: <span class="hljs-string">&#x27;east&#x27;</span>&#125;,<br>                <span class="hljs-string">&#x27;reqt&#x27;</span>: &#123;<span class="hljs-string">&#x27;address&#x27;</span>: <span class="hljs-string">&#x27;?&#x27;</span>, <span class="hljs-string">&#x27;entrance fee&#x27;</span>: <span class="hljs-string">&#x27;?&#x27;</span>, <span class="hljs-string">&#x27;phone&#x27;</span>: <span class="hljs-string">&#x27;?&#x27;</span>&#125;&#125;&#125;<br>--------------------------------------------------<br>user: I am planning a trip to town <span class="hljs-keyword">and</span> want to sight see a bit . Can you let me know some attractions I may be interested <span class="hljs-keyword">in</span> ? Can you recommend some attractions <span class="hljs-keyword">in</span> the east ?<br>sys: There are <span class="hljs-number">10</span> , anything <span class="hljs-keyword">in</span> particular you are looking <span class="hljs-keyword">for</span> ? I recommend saint barnabas press gallery. They are located at the belfast yard, coldham<span class="hljs-string">&#x27;s road .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: Sounds good . Could I get the phone number of the attraction ? Can you let me know what the entrance fee is too ?</span><br><span class="hljs-string">sys: The attraction phone number is 01223902088 . Its entrance fee is ? .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: Does it have an entrance fee ?</span><br><span class="hljs-string">sys: Its entrance fee is ? .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: Does it have an entrance fee ?</span><br><span class="hljs-string">sys: Their entrance fee is ? by our system currently .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: Does it have an entrance fee ?</span><br><span class="hljs-string">sys: Their entrance fee is ? by our system currently .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: I will need the entrance fee please .</span><br><span class="hljs-string">sys: Its entrance fee is ? .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: I would like to know the entrance fee .</span><br><span class="hljs-string">sys: Their entrance fee is ? by our system currently .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: What are the entrance fees ?</span><br><span class="hljs-string">sys: The entry fee is ? .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: Can you tell me the entrance fee ?</span><br><span class="hljs-string">sys: Their entrance fee is ? by our system currently .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: Does it have an entrance fee ?</span><br><span class="hljs-string">sys: Their entrance fee is ? by our system currently .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: Does it have an entrance fee ?</span><br><span class="hljs-string">sys: Its entrance fee is ? .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: Is there an entrance fee ?</span><br><span class="hljs-string">sys: The entry fee is ? .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: Can you let me know what the entrance fee is too ?</span><br><span class="hljs-string">sys: The entry fee is ? .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: Can you tell me the entrance fee ?</span><br><span class="hljs-string">sys: The entry fee is ? .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: I will need the entrance fee please .</span><br><span class="hljs-string">sys: Their entrance fee is ? by our system currently .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: I would like to know the entrance fee .</span><br><span class="hljs-string">sys: Their entrance fee is ? by our system currently .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: I just need to know how much the entrance fee is .</span><br><span class="hljs-string">sys: Their entrance fee is ? by our system currently .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: Can you give me the entrance fee ?</span><br><span class="hljs-string">sys: Their entrance fee is ? by our system currently .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: Can you let me know what the entrance fee is too ?</span><br><span class="hljs-string">sys: The entry fee is ? .</span><br><span class="hljs-string"></span><br><span class="hljs-string">user: Does it have an entrance fee ?</span><br><span class="hljs-string">sys: Its entrance fee is ? .</span><br><span class="hljs-string"></span><br><span class="hljs-string">task success: 0</span><br><span class="hljs-string">book rate: None</span><br><span class="hljs-string">inform precision/recall/f1: (1.0, 0.6666666666666666, 0.8)</span><br><span class="hljs-string">--------------------------------------------------</span><br><span class="hljs-string">final goal:</span><br><span class="hljs-string">&#123;&#x27;</span>attraction<span class="hljs-string">&#x27;: &#123;&#x27;</span>info<span class="hljs-string">&#x27;: &#123;&#x27;</span>area<span class="hljs-string">&#x27;: &#x27;</span>east<span class="hljs-string">&#x27;&#125;,</span><br><span class="hljs-string">                &#x27;</span>reqt<span class="hljs-string">&#x27;: &#123;&#x27;</span>address<span class="hljs-string">&#x27;: &quot;the belfast yard, coldham&#x27;</span>s road<span class="hljs-string">&quot;,</span><br><span class="hljs-string">                         &#x27;entrance fee&#x27;: &#x27;?&#x27;,</span><br><span class="hljs-string">                         &#x27;phone&#x27;: &#x27;01223902088&#x27;&#125;&#125;&#125;</span><br><span class="hljs-string">====================================================================================================</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="还有一些其他简易操作，例如Try-different-module-combinations，Use-analysis-tool-to-diagnose-the-system，见-ipynb中的整理了"><a href="#还有一些其他简易操作，例如Try-different-module-combinations，Use-analysis-tool-to-diagnose-the-system，见-ipynb中的整理了" class="headerlink" title="还有一些其他简易操作，例如Try different module combinations，Use analysis tool to diagnose the system，见.ipynb中的整理了"></a>还有一些其他简易操作，例如Try different module combinations，Use analysis tool to diagnose the system，见.ipynb中的整理了</h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/NLP/" class="category-chain-item">NLP</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/NLP/">#NLP</a>
+      
+        <a href="/tags/Dialogue/">#Dialogue</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ConvLab-2 Getting Started</div>
+      <div>http://example.com/2021/09/14/ConvLab-2 Getting Started/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年9月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/09/14/research/papers/Dialogue-State-Tracking%E7%AE%80%E8%BF%B0/" title="Dialogue-State-Tracking简述">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Dialogue-State-Tracking简述</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/13/MultiWOZ%E6%95%B0%E6%8D%AE%E9%9B%86%E5%AD%A6%E4%B9%A0/" title="MultiWOZ数据集学习">
+                        <span class="hidden-mobile">MultiWOZ数据集学习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

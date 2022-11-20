@@ -1,0 +1,695 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本篇博客记录根据狂神视频学习的Docker安装过程和一些安装后的基本配置 TODO 未来将在此博客补充Docker的离线部署过程，在真实的使用场景下还是有很多离线部署的场景需求的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker学习笔记2-安装环境-狂神视频">
+<meta property="og:url" content="http://example.com/2022/01/07/develop/docker/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83-%E7%8B%82%E7%A5%9E%E8%A7%86%E9%A2%91/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="本篇博客记录根据狂神视频学习的Docker安装过程和一些安装后的基本配置 TODO 未来将在此博客补充Docker的离线部署过程，在真实的使用场景下还是有很多离线部署的场景需求的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/2022-01-08-00-05-32.png">
+<meta property="og:image" content="http://example.com/images/2022-01-08-00-06-12.png">
+<meta property="og:image" content="http://example.com/images/2022-01-08-00-09-18.png">
+<meta property="og:image" content="http://example.com/images/2022-01-08-00-09-49.png">
+<meta property="og:image" content="http://example.com/images/2022-01-08-00-10-23.png">
+<meta property="og:image" content="http://example.com/images/2022-01-08-00-10-57.png">
+<meta property="article:published_time" content="2022-01-07T14:30:41.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.888Z">
+<meta property="article:author" content="Curious;">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/2022-01-08-00-05-32.png">
+  
+  
+  
+  <title>Docker学习笔记2-安装环境-狂神视频 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Docker学习笔记2-安装环境-狂神视频"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-01-07 22:30" pubdate>
+          2022年1月7日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          47 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Docker学习笔记2-安装环境-狂神视频</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本篇博客记录根据狂神视频学习的Docker安装过程和一些安装后的基本配置</p>
+<p>TODO 未来将在此博客补充Docker的离线部署过程，在真实的使用场景下还是有很多离线部署的场景需求的</p>
+<span id="more"></span>
+
+<h1 id="Docker安装环境和一些基础配置"><a href="#Docker安装环境和一些基础配置" class="headerlink" title="Docker安装环境和一些基础配置"></a>Docker安装环境和一些基础配置</h1><h2 id="Docker的安装"><a href="#Docker的安装" class="headerlink" title="Docker的安装"></a>Docker的安装</h2><p><strong>注，下述安装过程是联网配置的过程，如果是离线部署的话还需要未来进一步学习</strong></p>
+<blockquote>
+<p>环境准备</p>
+</blockquote>
+<p>1、需要会一点点Linux的基础；<br>2、CentOS7；<br>3、使用finalshell连接远程服务器进行操作；</p>
+<p>个人在学习过程中在拥有root权限的zfx223服务器上操作，这样比较方便安装各种依赖环境等。环境查看如下所示：</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs autoit"><span class="hljs-meta"># 系统内核是3.10以上的</span><br>[root<span class="hljs-symbol">@AIServer</span> ~]<span class="hljs-meta"># uname -r</span><br><span class="hljs-number">3.10</span><span class="hljs-number">.0</span><span class="hljs-number">-957.</span>el7.x86_64<br>[root<span class="hljs-symbol">@AIServer</span> ~]<span class="hljs-meta"># </span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># 查看系统版本</span><br><span class="hljs-section">[root@AIServer ~]</span><span class="hljs-comment"># cat /etc/os-release</span><br><span class="hljs-attr">NAME</span>=<span class="hljs-string">&quot;CentOS Linux&quot;</span><br><span class="hljs-attr">VERSION</span>=<span class="hljs-string">&quot;7 (Core)&quot;</span><br><span class="hljs-attr">ID</span>=<span class="hljs-string">&quot;centos&quot;</span><br><span class="hljs-attr">ID_LIKE</span>=<span class="hljs-string">&quot;rhel fedora&quot;</span><br><span class="hljs-attr">VERSION_ID</span>=<span class="hljs-string">&quot;7&quot;</span><br><span class="hljs-attr">PRETTY_NAME</span>=<span class="hljs-string">&quot;CentOS Linux 7 (Core)&quot;</span><br><span class="hljs-attr">ANSI_COLOR</span>=<span class="hljs-string">&quot;0;31&quot;</span><br><span class="hljs-attr">CPE_NAME</span>=<span class="hljs-string">&quot;cpe:/o:centos:centos:7&quot;</span><br><span class="hljs-attr">HOME_URL</span>=<span class="hljs-string">&quot;https://www.centos.org/&quot;</span><br><span class="hljs-attr">BUG_REPORT_URL</span>=<span class="hljs-string">&quot;https://bugs.centos.org/&quot;</span><br><br><span class="hljs-attr">CENTOS_MANTISBT_PROJECT</span>=<span class="hljs-string">&quot;CentOS-7&quot;</span><br><span class="hljs-attr">CENTOS_MANTISBT_PROJECT_VERSION</span>=<span class="hljs-string">&quot;7&quot;</span><br><span class="hljs-attr">REDHAT_SUPPORT_PRODUCT</span>=<span class="hljs-string">&quot;centos&quot;</span><br><span class="hljs-attr">REDHAT_SUPPORT_PRODUCT_VERSION</span>=<span class="hljs-string">&quot;7&quot;</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>安装</p>
+</blockquote>
+<p>参考帮助文档，docs.docker.com</p>
+<p><img src="/images/2022-01-08-00-05-32.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">1、 卸载旧的版本</span><br>[root@AIServer ~]# yum remove docker \<br><span class="hljs-meta prompt_">&gt; </span><span class="language-bash">                  docker-client \</span><br><span class="language-bash">&gt;                   docker-client-latest \</span><br><span class="language-bash">&gt;                   docker-common \</span><br><span class="language-bash">&gt;                   docker-latest \</span><br><span class="language-bash">&gt;                   docker-latest-logrotate \</span><br><span class="language-bash">&gt;                   docker-logrotate \</span><br><span class="language-bash">&gt;                   docker-engine</span><br>已加载插件：fastestmirror, langpacks<br>参数 docker 没有匹配<br>参数 docker-client 没有匹配<br>参数 docker-client-latest 没有匹配<br>参数 docker-common 没有匹配<br>参数 docker-latest 没有匹配<br>参数 docker-latest-logrotate 没有匹配<br>参数 docker-logrotate 没有匹配<br>参数 docker-engine 没有匹配<br>不删除任何软件包<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">2、 需要的安装包</span><br>[root@AIServer ~]# yum install -y yum-utils<br>已加载插件：fastestmirror, langpacks<br>Loading mirror speeds from cached hostfile<br> * base: mirrors.aliyun.com<br> * centos-gluster7: mirrors.aliyun.com<br> * centos-ovirt42: mirrors.aliyun.com<br> * centos-ovirt43: mirrors.aliyun.com<br> * centos-qemu-ev: mirrors.aliyun.com<br> * extras: mirrors.aliyun.com<br> * updates: mirrors.huaweicloud.com<br>base                                                                                                                                                     | 3.6 kB  00:00:00     <br>centos-gluster7                                                                                                                                          | 3.0 kB  00:00:00     <br>centos-ovirt42                                                                                                                                           | 2.9 kB  00:00:00     <br>centos-ovirt43                                                                                                                                           | 2.9 kB  00:00:00     <br>centos-qemu-ev                                                                                                                                           | 3.0 kB  00:00:00     <br>centos-release-opstools                                                                                                                                  | 2.9 kB  00:00:00     <br>extras                                                                                                                                                   | 2.9 kB  00:00:00     <br>updates                                                                                                                                                  | 2.9 kB  00:00:00     <br>正在解决依赖关系<br><span class="hljs-meta prompt_">--&gt; </span><span class="language-bash">正在检查事务</span><br><span class="hljs-meta prompt_">---&gt; </span><span class="language-bash">软件包 yum-utils.noarch.0.1.1.31-50.el7 将被 升级</span><br><span class="hljs-meta prompt_">---&gt; </span><span class="language-bash">软件包 yum-utils.noarch.0.1.1.31-54.el7_8 将被 更新</span><br><span class="hljs-meta prompt_">--&gt; </span><span class="language-bash">解决依赖关系完成</span><br><br>依赖关系解决<br><br>================================================================================================================================================================================<br> Package                                   架构                                   版本                                               源                                    大小<br>================================================================================================================================================================================<br>正在更新:<br> yum-utils                                 noarch                                 1.1.31-54.el7_8                                    base                                 122 k<br><br>事务概要<br>================================================================================================================================================================================<br>升级  1 软件包<br><br>总计：122 k<br>Downloading packages:<br>Running transaction check<br>Running transaction test<br>Transaction test succeeded<br>Running transaction<br>  正在更新    : yum-utils-1.1.31-54.el7_8.noarch                                                                                                                            1/2 <br>  清理        : yum-utils-1.1.31-50.el7.noarch                                                                                                                              2/2 <br>  验证中      : yum-utils-1.1.31-54.el7_8.noarch                                                                                                                            1/2 <br>  验证中      : yum-utils-1.1.31-50.el7.noarch                                                                                                                              2/2 <br><br>更新完毕:<br>  yum-utils.noarch 0:1.1.31-54.el7_8                                                                                                                                            <br><br>完毕！<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs shell">3、 设置镜像的仓库（通过仓库的方法进行安装）<br><br>sudo yum-config-manager \<br>    --add-repo \<br>    https://download.docker.com/linux/centos/docker-ce.repo  # 默认是从国外下载的，十分慢<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">通过如下方式找到国内的</span><br>https://blog.csdn.net/lvdingding/article/details/112862396<br><br>yum-config-manager \<br>	--add-repo \<br>	http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo<br><br><br>[root@AIServer ~]# yum-config-manager \<br><span class="hljs-meta prompt_">&gt; </span><span class="language-bash">--add-repo \</span><br><span class="language-bash">&gt; http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br>已加载插件：fastestmirror, langpacks<br>adding repo from: http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo<br>grabbing file http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo to /etc/yum.repos.d/docker-ce.repo<br>repo saved to /etc/yum.repos.d/docker-ce.repo<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">更新yum软件包索引，下述步骤中的fastestmirror还需要进一步学习</span><br>yum makecache <br><br>[root@AIServer ~]# yum makecache fast<br>已加载插件：fastestmirror, langpacks<br>Loading mirror speeds from cached hostfile<br> * base: mirrors.aliyun.com<br> * centos-gluster7: mirrors.aliyun.com<br> * centos-ovirt42: mirrors.aliyun.com<br> * centos-ovirt43: mirrors.aliyun.com<br> * centos-qemu-ev: mirrors.aliyun.com<br> * extras: mirrors.aliyun.com<br> * updates: mirrors.huaweicloud.com<br>base                                                                                                                                                     | 3.6 kB  00:00:00     <br>centos-gluster7                                                                                                                                          | 3.0 kB  00:00:00     <br>centos-ovirt42                                                                                                                                           | 2.9 kB  00:00:00     <br>centos-ovirt43                                                                                                                                           | 2.9 kB  00:00:00     <br>centos-qemu-ev                                                                                                                                           | 3.0 kB  00:00:00     <br>centos-release-opstools                                                                                                                                  | 2.9 kB  00:00:00     <br>docker-ce-stable                                                                                                                                         | 3.5 kB  00:00:00     <br>extras                                                                                                                                                   | 2.9 kB  00:00:00     <br>updates                                                                                                                                                  | 2.9 kB  00:00:00     <br>元数据缓存已建立<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">4、安装docker相关的 docker-ce社区版， ee企业版  安装的过程一路<span class="hljs-built_in">yes</span>过去~</span><br>yum install docker-ce docker-ce-cli containerd.io<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">5、 启动docker<br>systemctl start docker<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs shell">6、 使用docker version查看是否安装成功<br>[bupt_114@AIServer ~]$ docker version  # 查看是否安装成功<br>Client: Docker Engine - Community<br> Version:           20.10.12<br> API version:       1.41<br> Go version:        go1.16.12<br> Git commit:        e91ed57<br> Built:             Mon Dec 13 11:45:41 2021<br> OS/Arch:           linux/amd64<br> Context:           default<br> Experimental:      true<br><br>......<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">7、 hello-world<br><br>docker run hello-world<br></code></pre></td></tr></table></figure>
+
+<p><img src="/images/2022-01-08-00-06-12.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">8、 查看一下下载的这个hello-world镜像<br>[root@AIServer ~]# docker images<br>REPOSITORY    TAG       IMAGE ID       CREATED        SIZE<br>hello-world   latest    feb5d9fea6a5   3 months ago   13.3kB<br>[root@AIServer ~]# <br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">了解，卸载docker<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">卸载依赖</span><br>sudo yum remove docker-ce docker-ce-cli containerd.io<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">删除资源</span><br>sudo rm -rf /var/lib/docker<br>sudo rm -rf /var/lib/containerd<br></code></pre></td></tr></table></figure>
+
+<h2 id="Docker各个用户权限的设置，用户组"><a href="#Docker各个用户权限的设置，用户组" class="headerlink" title="Docker各个用户权限的设置，用户组"></a>Docker各个用户权限的设置，用户组</h2><p>Reference: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/franson-2016/p/6412971.html">https://www.cnblogs.com/franson-2016/p/6412971.html</a></p>
+<h2 id="阿里云镜像加速"><a href="#阿里云镜像加速" class="headerlink" title="阿里云镜像加速"></a>阿里云镜像加速</h2><p>这是针对在阿里云上购买而言的，而且好像要收费？</p>
+<p>1、登录阿里云，找到容器服务<br>2、找到镜像加速地址<br>3、配置使用</p>
+<h2 id="回顾HelloWorld流程"><a href="#回顾HelloWorld流程" class="headerlink" title="回顾HelloWorld流程"></a>回顾HelloWorld流程</h2><p><img src="/images/2022-01-08-00-09-18.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="底层原理"><a href="#底层原理" class="headerlink" title="底层原理"></a>底层原理</h2><p><strong>Docker是怎么工作的</strong></p>
+<p>Docker是一个Clinet-Server结构的系统，Docker的守护进程运行在主机上，通过Socket从客户端访问</p>
+<p>DockerServer接收到Docker-Client的指令，就会执行这个命令！</p>
+<p><img src="/images/2022-01-08-00-09-49.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>Docker为什么比VM快？</strong></p>
+<p>1、Docker有着比虚拟机更少的抽象层。<br>2、Docker利用的是宿主机的内核，vm需要是Guest OS。</p>
+<p><img src="/images/2022-01-08-00-10-23.png" srcset="/img/loading.gif" lazyload></p>
+<p>所以说，新建一个容器的时候，docker不需要像虚拟机一样重新加载一个操作系统内核，避免引导。虚拟机是加载Guest OS，分钟级别的，而Docker是利用宿主机的操作系统，省略了这个复杂的过程，秒级！</p>
+<p><img src="/images/2022-01-08-00-10-57.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/docker/" class="category-chain-item">docker</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Docker学习笔记2-安装环境-狂神视频</div>
+      <div>http://example.com/2022/01/07/develop/docker/Docker学习笔记2-安装环境-狂神视频/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年1月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/08/develop/docker/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03-Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-%E7%8B%82%E7%A5%9E%E8%A7%86%E9%A2%91/" title="Docker学习笔记3-Docker常用命令-狂神视频">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Docker学习笔记3-Docker常用命令-狂神视频</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/07/algorithms/leetcode-python/1614-%E6%8B%AC%E5%8F%B7%E7%9A%84%E6%9C%80%E5%A4%A7%E5%B5%8C%E5%A5%97%E6%B7%B1%E5%BA%A6-python/" title="1614.括号的最大嵌套深度-python">
+                        <span class="hidden-mobile">1614.括号的最大嵌套深度-python</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,760 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="周赛综述&amp;总结： 前两题难度还是比较低的，第三题的话感觉dp这个思路还值得复盘研究一下，常见的一维dp数组感觉是有两种思路，一种是存储当前位置的一些状态值，另外一种是存储截止到这个位置下的状态值； 第一题：简单字符串模拟，有一些mod的使用，熟练度的题目； 第二题：从大到小贪心就行了，最后一次直接 +&#x3D; target - 1； 第三题：一眼看上去很像背包，这种题多半就是dp了，就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="276场LeetCode周赛">
+<meta property="og:url" content="http://example.com/2022/01/16/algorithms/leetcode-weekly-contest/276%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="周赛综述&amp;总结： 前两题难度还是比较低的，第三题的话感觉dp这个思路还值得复盘研究一下，常见的一维dp数组感觉是有两种思路，一种是存储当前位置的一些状态值，另外一种是存储截止到这个位置下的状态值； 第一题：简单字符串模拟，有一些mod的使用，熟练度的题目； 第二题：从大到小贪心就行了，最后一次直接 +&#x3D; target - 1； 第三题：一眼看上去很像背包，这种题多半就是dp了，就">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/2022-01-16-21-16-46.png">
+<meta property="article:published_time" content="2022-01-16T09:27:04.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.886Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="模拟">
+<meta property="article:tag" content="数组">
+<meta property="article:tag" content="EASY">
+<meta property="article:tag" content="MEDIUM">
+<meta property="article:tag" content="字符串">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/2022-01-16-21-16-46.png">
+  
+  
+  
+  <title>276场LeetCode周赛 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="276场LeetCode周赛"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-01-16 17:27" pubdate>
+          2022年1月16日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          38 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">276场LeetCode周赛</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>周赛综述&amp;总结：</p>
+<p>前两题难度还是比较低的，第三题的话感觉dp这个思路还值得复盘研究一下，常见的一维dp数组感觉是有两种思路，一种是存储当前位置的一些状态值，另外一种是存储截止到这个位置下的状态值；</p>
+<p>第一题：简单字符串模拟，有一些mod的使用，熟练度的题目；</p>
+<p>第二题：从大到小贪心就行了，最后一次直接 +&#x3D; target - 1；</p>
+<p>第三题：一眼看上去很像背包，这种题多半就是dp了，就像总结里说的，常见的一维dp感觉是有两种思路，一种是存储当前位置的一些状态值，另外一种是存储截止到这个位置下的状态值，这个题就是后边一种思路，如果使用第一种思路实现的话会因为多次使用<code>max()</code>而TLE，所以在优化方向上应该也找到后边一种思路的优化方向；</p>
+<p>第四题：未来有机会再试了TAT（周常鸽第四题）；</p>
+<span id="more"></span>
+
+<h1 id="第一题：5980-将字符串拆分为若干长度为k的组"><a href="#第一题：5980-将字符串拆分为若干长度为k的组" class="headerlink" title="第一题：5980.将字符串拆分为若干长度为k的组"></a>第一题：5980.将字符串拆分为若干长度为k的组</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/divide-a-string-into-groups-of-size-k/">题目链接</a></p>
+<h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>字符串<code>s</code>可以按下述步骤划分为若干长度为<code>k</code>的组：</p>
+<ul>
+<li>第一组由字符串中的前<code>k</code>个字符组成，第二组由接下来的<code>k</code>个字符串组成，依此类推。每个字符都能够成为<strong>某一个</strong>组的一部分。</li>
+<li>对于最后一组，如果字符串剩下的字符<strong>不足</strong><code>k</code>个，需使用字符<code>fill</code>来补全这一组字符。</li>
+</ul>
+<p>注意，在去除最后一个组的填充字符<code>fill</code>（如果存在的话）并按顺序连接所有的组后，所得到的字符串应该是<code>s</code>。</p>
+<p>给你一个字符串<code>s</code>，以及每组的长度<code>k</code>和一个用于填充的字符<code>fill</code>，按上述步骤处理之后，返回一个字符串数组，该数组表示<code>s</code>分组后<strong>每个组的组成情况</strong>。</p>
+<p>示例1：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs arduino">输入：s = <span class="hljs-string">&quot;abcdefghi&quot;</span>, k = <span class="hljs-number">3</span>, fill = <span class="hljs-string">&quot;x&quot;</span><br>输出：[<span class="hljs-string">&quot;abc&quot;</span>,<span class="hljs-string">&quot;def&quot;</span>,<span class="hljs-string">&quot;ghi&quot;</span>]<br>解释：<br>前 <span class="hljs-number">3</span> 个字符是 <span class="hljs-string">&quot;abc&quot;</span> ，形成第一组。<br>接下来 <span class="hljs-number">3</span> 个字符是 <span class="hljs-string">&quot;def&quot;</span> ，形成第二组。<br>最后 <span class="hljs-number">3</span> 个字符是 <span class="hljs-string">&quot;ghi&quot;</span> ，形成第三组。<br>由于所有组都可以由字符串中的字符完全填充，所以不需要使用填充字符。<br>因此，形成 <span class="hljs-number">3</span> 组，分别是 <span class="hljs-string">&quot;abc&quot;</span>、<span class="hljs-string">&quot;def&quot;</span> 和 <span class="hljs-string">&quot;ghi&quot;</span> 。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs arduino">输入：s = <span class="hljs-string">&quot;abcdefghij&quot;</span>, k = <span class="hljs-number">3</span>, fill = <span class="hljs-string">&quot;x&quot;</span><br>输出：[<span class="hljs-string">&quot;abc&quot;</span>,<span class="hljs-string">&quot;def&quot;</span>,<span class="hljs-string">&quot;ghi&quot;</span>,<span class="hljs-string">&quot;jxx&quot;</span>]<br>解释：<br>与前一个例子类似，形成前三组 <span class="hljs-string">&quot;abc&quot;</span>、<span class="hljs-string">&quot;def&quot;</span> 和 <span class="hljs-string">&quot;ghi&quot;</span> 。<br>对于最后一组，字符串中仅剩下字符 <span class="hljs-string">&#x27;j&#x27;</span> 可以用。为了补全这一组，使用填充字符 <span class="hljs-string">&#x27;x&#x27;</span> 两次。<br>因此，形成 <span class="hljs-number">4</span> 组，分别是 <span class="hljs-string">&quot;abc&quot;</span>、<span class="hljs-string">&quot;def&quot;</span>、<span class="hljs-string">&quot;ghi&quot;</span> 和 <span class="hljs-string">&quot;jxx&quot;</span> 。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li>1 &lt;&#x3D; s.length &lt;&#x3D; 100</li>
+<li>s 仅由小写英文字母组成</li>
+<li>1 &lt;&#x3D; k &lt;&#x3D; 100</li>
+<li>fill 是一个小写英文字母</li>
+</ul>
+<h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>简单的字符串模拟，需要比较熟练地使用mod</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">divideString</span>(<span class="hljs-params">self, s, k, fill</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type s: str</span><br><span class="hljs-string">        :type k: int</span><br><span class="hljs-string">        :type fill: str</span><br><span class="hljs-string">        :rtype: List[str]</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        return_list = []<br>        <br>        s_list = <span class="hljs-built_in">list</span>(s)<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(s_list) % k != <span class="hljs-number">0</span>:<br>            s_list += [fill <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(k - <span class="hljs-built_in">len</span>(s_list) % k)]<br>        <span class="hljs-built_in">print</span>(s_list)<br>        <br>        i = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span> i &lt; <span class="hljs-built_in">len</span>(s_list):<br>            return_list.append(<span class="hljs-string">&quot;&quot;</span>.join(s_list[i: i+k]))<br>            i += k<br>        <span class="hljs-keyword">return</span> return_list<br></code></pre></td></tr></table></figure>
+
+<h1 id="第二题：5194-得到目标值的最少行动次数"><a href="#第二题：5194-得到目标值的最少行动次数" class="headerlink" title="第二题：5194.得到目标值的最少行动次数"></a>第二题：5194.得到目标值的最少行动次数</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-moves-to-reach-target-score/">题目链接</a></p>
+<h2 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h2><p>你正在玩一个整数游戏。从整数<code>1</code>开始，期望得到整数<code>target</code>。</p>
+<p>在一次行动中，你可以做下述两种操作之一：</p>
+<ul>
+<li>递增，将当前整数的值加 1（即，<code>x = x + 1</code>）。</li>
+<li>加倍，使当前整数的值翻倍（即，<code>x = 2 * x</code>）。</li>
+</ul>
+<p>在整个游戏过程中，你可以使用<strong>递增</strong>操作<strong>任意</strong>次数。但是只能使用<strong>加倍</strong>操作 至多<code>maxDoubles</code>次。</p>
+<p>给你两个整数<code>target</code>和<code>maxDoubles</code>，返回从 1 开始得到<code>target</code>需要的最少行动次数。</p>
+<p>示例1：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs aspectj">输入：<span class="hljs-keyword">target</span> = <span class="hljs-number">5</span>, maxDoubles = <span class="hljs-number">0</span><br>输出：<span class="hljs-number">4</span><br>解释：一直递增 <span class="hljs-number">1</span> 直到得到 <span class="hljs-keyword">target</span> 。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：target = 19, maxDoubles = 2<br>输出：7<br>解释：最初，x =<span class="hljs-number"> 1 </span>。<br>递增<span class="hljs-number"> 3 </span>次，x =<span class="hljs-number"> 4 </span>。<br>加倍<span class="hljs-number"> 1 </span>次，x =<span class="hljs-number"> 8 </span>。<br>递增<span class="hljs-number"> 1 </span>次，x =<span class="hljs-number"> 9 </span>。<br>加倍<span class="hljs-number"> 1 </span>次，x =<span class="hljs-number"> 18 </span>。<br>递增<span class="hljs-number"> 1 </span>次，x =<span class="hljs-number"> 19 </span>。<br></code></pre></td></tr></table></figure>
+
+<p>示例3：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：target = 10, maxDoubles = 4<br>输出：4<br>解释：<br>最初，x =<span class="hljs-number"> 1 </span>。 <br>递增<span class="hljs-number"> 1 </span>次，x =<span class="hljs-number"> 2 </span>。 <br>加倍<span class="hljs-number"> 1 </span>次，x =<span class="hljs-number"> 4 </span>。 <br>递增<span class="hljs-number"> 1 </span>次，x =<span class="hljs-number"> 5 </span>。 <br>加倍<span class="hljs-number"> 1 </span>次，x =<span class="hljs-number"> 10 </span>。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li>1 &lt;&#x3D; target &lt;&#x3D; 109</li>
+<li>0 &lt;&#x3D; maxDoubles &lt;&#x3D; 100</li>
+</ul>
+<h2 id="分析和解答-1"><a href="#分析和解答-1" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>贪心，还是比较容易看出来的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">minMoves</span>(<span class="hljs-params">self, target, maxDoubles</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type target: int</span><br><span class="hljs-string">        :type maxDoubles: int</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <br>        cnt = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span> maxDoubles != <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> target != <span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">if</span> target % <span class="hljs-number">2</span> != <span class="hljs-number">0</span>:<br>                target -= <span class="hljs-number">1</span><br>                cnt += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                target //= <span class="hljs-number">2</span><br>                cnt += <span class="hljs-number">1</span><br>                maxDoubles -= <span class="hljs-number">1</span><br>        <br>        cnt += target - <span class="hljs-number">1</span><br>        <br>        <span class="hljs-keyword">return</span> cnt<br></code></pre></td></tr></table></figure>
+
+
+<h1 id="第三题：5982-解决智力问题"><a href="#第三题：5982-解决智力问题" class="headerlink" title="第三题：5982.解决智力问题"></a>第三题：5982.解决智力问题</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/solving-questions-with-brainpower/">题目链接</a></p>
+<h2 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个下标从<strong>0</strong>开始的二维整数数组<code>questions</code>，其中<code>questions[i] = [pointsi, brainpoweri]</code>。</p>
+<p>这个数组表示一场考试里的一系列题目，你需要<strong>按顺序</strong>（也就是从问题<code>0</code>开始依次解决），针对每个问题选择<strong>解决</strong>或者<strong>跳过</strong>操作。解决问题<code>i</code>将让你<strong>获得</strong><code>pointsi</code>的分数，但是你将<strong>无法</strong>解决接下来的<code>brainpoweri</code>个问题（即只能跳过接下来的<code>brainpoweri</code>个问题）。如果你跳过问题<code>i</code>，你可以对下一个问题决定使用哪种操作。</p>
+<ul>
+<li>比方说，给你<code>questions = [[3, 2], [4, 3], [4, 4], [2, 5]]</code>：<ul>
+<li>如果问题<code>0</code>被解决了， 那么你可以获得<code>3</code>分，但你不能解决问题<code>1</code>和<code>2</code>。</li>
+<li>如果你跳过问题<code>0</code>，且解决问题<code>1</code>，你将获得<code>4</code>分但是不能解决问题<code>2</code>和<code>3</code>。</li>
+</ul>
+</li>
+</ul>
+<p>请你返回这场考试里你能获得的<strong>最高</strong>分数。</p>
+<p>示例1：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：questions = [[3,2],[4,3],[4,4],[2,5]]<br>输出：5<br>解释：解决问题<span class="hljs-number"> 0 </span>和<span class="hljs-number"> 3 </span>得到最高分。<br>- 解决问题<span class="hljs-number"> 0 </span>：获得<span class="hljs-number"> 3 </span>分，但接下来<span class="hljs-number"> 2 </span>个问题都不能解决。<br>- 不能解决问题<span class="hljs-number"> 1 </span>和 2<br>- 解决问题<span class="hljs-number"> 3 </span>：获得<span class="hljs-number"> 2 </span>分<br>总得分为：3 +<span class="hljs-number"> 2 </span>=<span class="hljs-number"> 5 </span>。没有别的办法获得<span class="hljs-number"> 5 </span>分或者多于<span class="hljs-number"> 5 </span>分。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：questions = [[1,1],[2,2],[3,3],[4,4],[5,5]]<br>输出：7<br>解释：解决问题<span class="hljs-number"> 1 </span>和<span class="hljs-number"> 4 </span>得到最高分。<br>- 跳过问题 0<br>- 解决问题<span class="hljs-number"> 1 </span>：获得<span class="hljs-number"> 2 </span>分，但接下来<span class="hljs-number"> 2 </span>个问题都不能解决。<br>- 不能解决问题<span class="hljs-number"> 2 </span>和 3<br>- 解决问题<span class="hljs-number"> 4 </span>：获得<span class="hljs-number"> 5 </span>分<br>总得分为：2 +<span class="hljs-number"> 5 </span>=<span class="hljs-number"> 7 </span>。没有别的办法获得<span class="hljs-number"> 7 </span>分或者多于<span class="hljs-number"> 7 </span>分。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li>1 &lt;&#x3D; questions.length &lt;&#x3D; 105</li>
+<li>questions[i].length &#x3D;&#x3D; 2</li>
+<li>1 &lt;&#x3D; pointsi, brainpoweri &lt;&#x3D; 105</li>
+</ul>
+<h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>题目的名字好有意思哈哈哈哈，这是按时解决一下我的智力问题吗23333</p>
+<p>一眼看上去很像背包，这种题多半就是dp了，就像总结里说的，常见的一维dp感觉是有两种思路，一种是存储当前位置的一些状态值，另外一种是存储截止到这个位置下的状态值，这个题就是后边一种思路，如果使用第一种思路实现的话会因为多次使用<code>max()</code>而TLE，所以在优化方向上应该也找到后边一种思路的优化方向；</p>
+<p>TLE的写法，这里dp数组存储的是每个状态的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">mostPoints</span>(<span class="hljs-params">self, questions</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type questions: List[List[int]]</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        questions.reverse()<br>        dp = [x[<span class="hljs-number">0</span>] <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> questions]  <span class="hljs-comment"># 每个位置上先初始化</span><br>        <br>        <br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(questions)):  <span class="hljs-comment"># 每个位置有选得到和选不到两种状态的dp</span><br>            <span class="hljs-keyword">if</span> i - questions[i][<span class="hljs-number">1</span>] - <span class="hljs-number">1</span> &lt; <span class="hljs-number">0</span>:<br>                <span class="hljs-keyword">pass</span><br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-comment"># 选和不选两种状态</span><br>                <span class="hljs-comment"># 选的话</span><br>                tmp_choose = questions[i][<span class="hljs-number">0</span>] + <span class="hljs-built_in">max</span>(dp[<span class="hljs-number">0</span>:i-questions[i][<span class="hljs-number">1</span>]])<br>                <span class="hljs-comment"># 不选的话</span><br>                tmp_not_choose = <span class="hljs-built_in">max</span>(dp[i-questions[i][<span class="hljs-number">1</span>]: i])<br>                dp[i] = <span class="hljs-built_in">max</span>(tmp_choose, tmp_not_choose)<br>                <br>                <span class="hljs-comment"># print(dp)</span><br><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">max</span>(dp)<br></code></pre></td></tr></table></figure>
+
+<p>优化后的写法， 这里dp数组存储的是截止到这个状态的，下图是思路：<br><img src="/images/2022-01-16-21-16-46.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">mostPoints</span>(<span class="hljs-params">self, questions</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type questions: List[List[int]]</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <br>        dp = [<span class="hljs-number">0</span> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> questions]<br>        questions.reverse()<br>        <br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(questions)):<br>            <span class="hljs-keyword">if</span> i - questions[i][<span class="hljs-number">1</span>] - <span class="hljs-number">1</span> &lt; <span class="hljs-number">0</span>:  <span class="hljs-comment"># 越界了的状态，维护不断增加的dp</span><br>                dp[i] = <span class="hljs-built_in">max</span>(dp[i-<span class="hljs-number">1</span>], questions[i][<span class="hljs-number">0</span>])<br>            <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># 没有越界的话，因为不断增加</span><br>                dp[i] = <span class="hljs-built_in">max</span>(dp[i-<span class="hljs-number">1</span>], questions[i][<span class="hljs-number">0</span>] + dp[i - questions[i][<span class="hljs-number">1</span>] - <span class="hljs-number">1</span>])<br>        <br>        <span class="hljs-comment"># print(max(dp))</span><br>        <br>        <span class="hljs-keyword">return</span> dp[<span class="hljs-built_in">len</span>(questions) - <span class="hljs-number">1</span>]<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LeetCode-python/" class="category-chain-item">LeetCode-python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/" class="category-chain-item">LeetCode周赛</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%A8%A1%E6%8B%9F/">#模拟</a>
+      
+        <a href="/tags/%E6%95%B0%E7%BB%84/">#数组</a>
+      
+        <a href="/tags/EASY/">#EASY</a>
+      
+        <a href="/tags/MEDIUM/">#MEDIUM</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">#字符串</a>
+      
+        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
+      
+        <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
+      
+        <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>276场LeetCode周赛</div>
+      <div>http://example.com/2022/01/16/algorithms/leetcode-weekly-contest/276场LeetCode周赛/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年1月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/16/algorithms/leetcode-weekly-contest/275%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/" title="275场LeetCode周赛">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">275场LeetCode周赛</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/08/develop/docker/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03-Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-%E7%8B%82%E7%A5%9E%E8%A7%86%E9%A2%91/" title="Docker学习笔记3-Docker常用命令-狂神视频">
+                        <span class="hidden-mobile">Docker学习笔记3-Docker常用命令-狂神视频</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

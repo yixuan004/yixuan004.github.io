@@ -1,0 +1,706 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="160.相交链表（简单） 题目大意： 给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null 。 进阶：你能否设计一个时间复杂度 O(m + n) 、仅用 O(1) 内存的解决方案？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="160.相交链表-python">
+<meta property="og:url" content="http://example.com/2022/01/17/algorithms/leetcode-python/160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8-python/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="160.相交链表（简单） 题目大意： 给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null 。 进阶：你能否设计一个时间复杂度 O(m + n) 、仅用 O(1) 内存的解决方案？">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/2022-01-17-16-20-00.png">
+<meta property="og:image" content="http://example.com/images/2022-01-17-16-28-41.png">
+<meta property="og:image" content="http://example.com/images/2022-01-17-16-28-58.png">
+<meta property="og:image" content="http://example.com/images/2022-01-17-16-29-05.png">
+<meta property="og:image" content="http://example.com/images/2022-01-17-16-16-56.png">
+<meta property="article:published_time" content="2022-01-17T07:57:26.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.882Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="EASY">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/2022-01-17-16-20-00.png">
+  
+  
+  
+  <title>160.相交链表-python - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="160.相交链表-python"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-01-17 15:57" pubdate>
+          2022年1月17日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">160.相交链表-python</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>160.相交链表（简单）</p>
+<p>题目大意：</p>
+<p>给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null 。</p>
+<p>进阶：你能否设计一个时间复杂度 O(m + n) 、仅用 O(1) 内存的解决方案？</p>
+<span id="more"></span>
+
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/intersection-of-two-linked-lists/">题目链接</a></p>
+<p>给你两个单链表的头节点<code>headA</code>和<code>headB</code>，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回<code>null</code>。</p>
+<p>图示两个链表在节点<code>c1</code>开始相交：</p>
+<p><img src="/images/2022-01-17-16-20-00.png" srcset="/img/loading.gif" lazyload></p>
+<p>题目数据 保证 整个链式结构中不存在环。</p>
+<p>注意，函数返回结果后，链表必须 保持其原始结构 。</p>
+<p>自定义评测：</p>
+<p>评测系统 的输入如下（你设计的程序 不适用 此输入）：</p>
+<ul>
+<li><code>intersectVal</code> - 相交的起始节点的值。如果不存在相交节点，这一值为<code>0</code></li>
+<li><code>listA</code> - 第一个链表</li>
+<li><code>listB</code> - 第二个链表</li>
+<li><code>skipA</code> - 在<code>listA</code>中（从头节点开始）跳到交叉节点的节点数</li>
+<li><code>skipB</code> - 在<code>listB</code>中（从头节点开始）跳到交叉节点的节点数</li>
+</ul>
+<p>评测系统将根据这些输入创建链式数据结构，并将两个头节点 headA 和 headB 传递给你的程序。如果程序能够正确返回相交节点，那么你的解决方案将被 视作正确答案 。</p>
+<p>示例1：<br><img src="/images/2022-01-17-16-28-41.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dns">输入：intersectVal = <span class="hljs-number">8</span>, listA = [<span class="hljs-number">4,1,8,4</span>,<span class="hljs-number">5</span>], listB = [<span class="hljs-number">5,6,1,8</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>], skipA = <span class="hljs-number">2</span>, skipB = <span class="hljs-number">3</span><br>输出：Intersected at &#x27;<span class="hljs-number">8</span>&#x27;<br>解释：相交节点的值为 <span class="hljs-number">8</span> （注意，如果两个链表相交则不能为 <span class="hljs-number">0</span>）。<br>从各自的表头开始算起，链表 <span class="hljs-keyword">A</span> 为 [<span class="hljs-number">4,1,8,4</span>,<span class="hljs-number">5</span>]，链表 B 为 [<span class="hljs-number">5,6,1,8</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]。<br>在 <span class="hljs-keyword">A</span> 中，相交节点前有 <span class="hljs-number">2</span> 个节点；在 B 中，相交节点前有 <span class="hljs-number">3</span> 个节点。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：<br><img src="/images/2022-01-17-16-28-58.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs prolog">输入：intersectVal = <span class="hljs-number">2</span>, listA = [<span class="hljs-number">1</span>,<span class="hljs-number">9</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>], listB = [<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>], skipA = <span class="hljs-number">3</span>, skipB = <span class="hljs-number">1</span><br>输出：<span class="hljs-symbol">Intersected</span> at <span class="hljs-string">&#x27;2&#x27;</span><br>解释：相交节点的值为 <span class="hljs-number">2</span> （注意，如果两个链表相交则不能为 <span class="hljs-number">0</span>）。<br>从各自的表头开始算起，链表 <span class="hljs-symbol">A</span> 为 [<span class="hljs-number">1</span>,<span class="hljs-number">9</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>]，链表 <span class="hljs-symbol">B</span> 为 [<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>]。<br>在 <span class="hljs-symbol">A</span> 中，相交节点前有 <span class="hljs-number">3</span> 个节点；在 <span class="hljs-symbol">B</span> 中，相交节点前有 <span class="hljs-number">1</span> 个节点。<br></code></pre></td></tr></table></figure>
+
+<p>示例3：<br><img src="/images/2022-01-17-16-29-05.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">输入：<span class="hljs-built_in">int</span>ersectVal = <span class="hljs-number">0</span>, listA = [<span class="hljs-number">2</span>,<span class="hljs-number">6</span>,<span class="hljs-number">4</span>], listB = [<span class="hljs-number">1</span>,<span class="hljs-number">5</span>], skipA = <span class="hljs-number">3</span>, skipB = <span class="hljs-number">2</span><br>输出：<span class="hljs-literal">null</span><br>解释：从各自的表头开始算起，链表 A 为 [<span class="hljs-number">2</span>,<span class="hljs-number">6</span>,<span class="hljs-number">4</span>]，链表 B 为 [<span class="hljs-number">1</span>,<span class="hljs-number">5</span>]。<br>由于这两个链表不相交，所以 <span class="hljs-built_in">int</span>ersectVal 必须为 <span class="hljs-number">0</span>，而 skipA 和 skipB 可以是任意值。<br>这两个链表不相交，因此返回 <span class="hljs-literal">null</span> 。<br></code></pre></td></tr></table></figure>
+
+
+<p>提示：</p>
+<ul>
+<li><code>listA</code>中节点数目为<code>m</code></li>
+<li><code>listB</code>中节点数目为<code>n</code></li>
+<li><code>1 &lt;= m, n &lt;= 3 * 104</code></li>
+<li><code>1 &lt;= Node.val &lt;= 105</code></li>
+<li><code>0 &lt;= skipA &lt;= m</code></li>
+<li><code>0 &lt;= skipB &lt;= n</code></li>
+<li>如果<code>listA</code>和<code>listB</code>没有交点，<code>intersectVal</code>为<code>0</code></li>
+<li>如果<code>listA</code>和<code>listB</code>有交点，<code>intersectVal == listA[skipA] == listB[skipB]</code></li>
+</ul>
+<h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>这个题在面试的时候曾经被问过，判断两个链表是否有交有很多种方法，如果只是判断是否有交的话，最简单的方法就是两个链表都分别走到结尾处，如果结尾处是一样的，那么就判断两个链表在之前一定有交了；</p>
+<p>这个题要求判断并找到两个链表相交的位置，一种非常简单的思路是把每个地方都存到一个字典里，这样找一下就行了，但是题目的附加要求是O(1)的时间复杂度，所以说不能这么做；</p>
+<p>下边这个图也是看了题解后才明白的，这样最多走a+b这个长度的次数，两个走的长度是一样的，如果有交集则必定能相交！</p>
+<p><img src="/images/2022-01-17-16-16-56.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">getIntersectionNode</span>(<span class="hljs-params">self, headA, headB</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type head1, head1: ListNode</span><br><span class="hljs-string">        :rtype: ListNode</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">if</span> headA <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> headB <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br><br>        <span class="hljs-comment"># 循环结束的两种条件，一种是pq交到一个位置了，另外一种就是pq都是null，所以都是</span><br>        <span class="hljs-comment"># 只走一遍就可以了，a+b的长度</span><br>        p = headA<br>        q = headB<br>        <span class="hljs-keyword">while</span> p != q:<br>            <span class="hljs-keyword">if</span> p <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>                p = headB<br>            <span class="hljs-keyword">else</span>:<br>                p = p.<span class="hljs-built_in">next</span><br>            <span class="hljs-keyword">if</span> q <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>                q = headA<br>            <span class="hljs-keyword">else</span>:<br>                q = q.<span class="hljs-built_in">next</span><br><br>        <span class="hljs-keyword">return</span> p<br></code></pre></td></tr></table></figure>
+
+
+<p>复习单链表的一个写法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">ListNode</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, val=<span class="hljs-number">0</span>, <span class="hljs-built_in">next</span>=<span class="hljs-literal">None</span></span>):<br>        self.val = val<br>        self.<span class="hljs-built_in">next</span> = <span class="hljs-built_in">next</span><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LeetCode-python/" class="category-chain-item">LeetCode-python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/" class="category-chain-item">LeetCode-热题 HOT 100</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/EASY/">#EASY</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>160.相交链表-python</div>
+      <div>http://example.com/2022/01/17/algorithms/leetcode-python/160-相交链表-python/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年1月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/20/algorithms/leetcode-python/219-%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0II-python/" title="219.存在重复元素II-python">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">219.存在重复元素II-python</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/17/algorithms/leetcode-python/136-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97-python/" title="136.只出现一次的数字-python">
+                        <span class="hidden-mobile">136.只出现一次的数字-python</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

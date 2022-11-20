@@ -1,0 +1,703 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Docker的常用命令，主要分为镜像和容器两个部分，也是Docker学习的基础 这里的命令如果对基础linux有了解，或者对screen系列命令有了解感觉还是很熟悉的，就是感觉要多用或者结合项目才能真正的记住">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker学习笔记3-Docker常用命令-狂神视频">
+<meta property="og:url" content="http://example.com/2022/01/08/develop/docker/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03-Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-%E7%8B%82%E7%A5%9E%E8%A7%86%E9%A2%91/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="Docker的常用命令，主要分为镜像和容器两个部分，也是Docker学习的基础 这里的命令如果对基础linux有了解，或者对screen系列命令有了解感觉还是很熟悉的，就是感觉要多用或者结合项目才能真正的记住">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/2022-01-08-00-24-45.png">
+<meta property="article:published_time" content="2022-01-07T16:14:06.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.888Z">
+<meta property="article:author" content="Curious;">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/2022-01-08-00-24-45.png">
+  
+  
+  
+  <title>Docker学习笔记3-Docker常用命令-狂神视频 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Docker学习笔记3-Docker常用命令-狂神视频"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-01-08 00:14" pubdate>
+          2022年1月8日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          16k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          132 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Docker学习笔记3-Docker常用命令-狂神视频</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Docker的常用命令，主要分为镜像和容器两个部分，也是Docker学习的基础</p>
+<p>这里的命令如果对基础linux有了解，或者对screen系列命令有了解感觉还是很熟悉的，就是感觉要多用或者结合项目才能真正的记住</p>
+<span id="more"></span>
+
+<h1 id="Docker的常用命令"><a href="#Docker的常用命令" class="headerlink" title="Docker的常用命令"></a>Docker的常用命令</h1><h2 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker version  	# 显示docker的版本信息<br>docker info  		# 显示docker更加详细的信息，sys级别系统信息，包括镜像和容器的数量等<br>docker 命令 --help  	# 万能命令，帮助命令<br>docker --help<br></code></pre></td></tr></table></figure>
+
+<p>帮助文档的地址：<br>docs.docker.com里有一个Reference</p>
+<p>docs.docker.com&#x2F;engine&#x2F;reference&#x2F;commandline</p>
+<h2 id="镜像命令"><a href="#镜像命令" class="headerlink" title="镜像命令"></a>镜像命令</h2><p><strong>docker images</strong> 查看所有本地主机上的镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell">[bupt_114@AIServer ~]$ docker images<br>REPOSITORY    TAG       IMAGE ID       CREATED        SIZE<br>hello-world   latest    feb5d9fea6a5   3 months ago   13.3kB<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">解释</span><br>REPOSITORY	镜像的仓库源<br>TAG			镜像的标签<br>IMAGE ID    镜像的ID<br>CREATED		镜像的创建时间<br>SIZE		镜像的大小<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">可选项，可以docker image -aq</span><br>Options:<br>  -a, --all             Show all images (default hides intermediate images) 列出所有镜像<br>  -q, --quiet           Only show image IDs 只显示镜像的id<br></code></pre></td></tr></table></figure>
+
+<p><strong>docker search 搜索镜像</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs shell">[bupt_114@AIServer ~]$ docker search mysql<br>NAME                              DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED<br>mysql                             MySQL is a widely used, open-source relation…   11912     [OK]       <br>mariadb                           MariaDB Server is a high performing open sou…   4558      [OK]       <br>mysql/mysql-server                Optimized MySQL Server Docker images. Create…   895                  [OK]<br>phpmyadmin                        phpMyAdmin - A web interface for MySQL and M…   415       [OK]<br>......<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">可选项，通过收藏来过滤</span><br>Options:<br>--filter=STARS=3000  # 搜索出来的镜像就是STARS大于3000的<br><br>[bupt_114@AIServer ~]$ docker search mysql --filter=STARS=3000<br>NAME      DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED<br>mysql     MySQL is a widely used, open-source relation…   11912     [OK]       <br>mariadb   MariaDB Server is a high performing open sou…   4558      [OK]<br></code></pre></td></tr></table></figure>
+
+<p><strong>docker pull 下载镜像</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">下载镜像 docker pull 镜像名[:tag]</span><br>[bupt_114@AIServer ~]$ docker pull mysql<br>Using default tag: latest  					# 如果不写tag，默认就是latest<br>latest: Pulling from library/mysql          # <br>72a69066d2fe: Pull complete 				# 分层下载，docker image的核心 联合文件系统<br>93619dbc5b36: Pull complete <br>99da31dd6142: Pull complete <br>626033c43d70: Pull complete <br>37d5d7efb64e: Pull complete <br>ac563158d721: Pull complete <br>d2ba16033dad: Pull complete <br>688ba7d5c01a: Pull complete <br>00e060b6d11d: Pull complete <br>1c04857f594f: Pull complete <br>4d7cfa90e6ea: Pull complete <br>e0431212d27d: Pull complete <br>Digest: sha256:e9027fe4d91c0153429607251656806cc784e914937271037f7738bd5b8e7709		# 签名，防伪标志<br>Status: Downloaded newer image for mysql:latest<br>docker.io/library/mysql:latest		# 真实地址<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">等价</span><br>docker pull mysql 和 docker pull docker.io/library/mysql:latest是等价的<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">指定版本下载</span><br>[bupt_114@AIServer ~]$ docker pull mysql:5.7  # 注意版本一定要在官方文档里有<br>【docker笔记3图2】<br><br>[bupt_114@AIServer ~]$ docker pull mysql:5.7<br>5.7: Pulling from library/mysql<br>72a69066d2fe: Already exists <br>93619dbc5b36: Already exists <br>99da31dd6142: Already exists <br>626033c43d70: Already exists <br>37d5d7efb64e: Already exists <br>ac563158d721: Already exists <br>d2ba16033dad: Already exists <br>0ceb82207cd7: Pull complete <br>37f2405cae96: Pull complete <br>e2482e017e53: Pull complete <br>70deed891d42: Pull complete <br>Digest: sha256:f2ad209efe9c67104167fc609cca6973c8422939491c9345270175a300419f94<br>Status: Downloaded newer image for mysql:5.7<br>docker.io/library/mysql:5.7<br></code></pre></td></tr></table></figure>
+
+<p><strong>docker rmi 删除镜像</strong><br>（既可以通过镜像的ID来删除，也可以通过镜像的名称来删除，涉及到删除的指令都非常危险啊）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">[bupt_114@AIServer ~]$ docker rmi -f c20987f18b13<br>Untagged: mysql:5.7<br>Untagged: mysql@sha256:f2ad209efe9c67104167fc609cca6973c8422939491c9345270175a300419f94<br>Deleted: sha256:c20987f18b130f9d144c9828df630417e2a9523148930dc3963e9d0dab302a76<br>Deleted: sha256:6567396b065ee734fb2dbb80c8923324a778426dfd01969f091f1ab2d52c7989<br>Deleted: sha256:0910f12649d514b471f1583a16f672ab67e3d29d9833a15dc2df50dd5536e40f<br>Deleted: sha256:6682af2fb40555c448b84711c7302d0f86fc716bbe9c7dc7dbd739ef9d757150<br>Deleted: sha256:5c062c3ac20f576d24454e74781511a5f96739f289edaadf2de934d06e910b92<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">批量删除所有的</span><br>[bupt_114@AIServer ~]$ docker rmi -f $(docker images -aq)  # 删除全部的容器<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">[bupt_114@AIServer ~]$ docker rmi -f 容器id  			   	# 删除指定的容器<br>[bupt_114@AIServer ~]$ docker rmi -f 容器id 容器id 容器id   	# 删除多个容器<br>[bupt_114@AIServer ~]$ docker rmi -f $(docker images -aq)  	# 删除全部的容器<br></code></pre></td></tr></table></figure>
+
+<h2 id="容器命令"><a href="#容器命令" class="headerlink" title="容器命令"></a>容器命令</h2><p><strong>说明：我们有了镜像才可以创建容器，linux，下载一个centos镜像来测试学习</strong></p>
+<p>在docker里面再装一个虚拟机！？</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker pull centos<br></code></pre></td></tr></table></figure>
+
+<p><strong>新建容器并启动</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run [可选参数] image<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">参数说明</span><br>--name=&quot;Name&quot;		# 容器名字，跑起来要知道叫什么，tomcat01, tomcat02，用来区分容器<br>-d    				# 后台方式运行<br>-it                 # 使用交互方式运行，进入容器查看内容<br>-p   				# 指定容器的端口 -p 8080:8080，可以和主机映射起来也<br>	-p ip:主机端口:容器端口<br>	-p 主机端口:容器端口（常用）<br>	-p 容器端口<br>	容器端口<br>-P                  # 大P，随机指定端口<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">测试，启动并进入容器</span><br>[bupt_114@AIServer ~]$ docker run -it centos /bin/bash<br>[root@364710ff50c7 /]# <br>[root@364710ff50c7 /]# ls    						# 查看容器内部的centos，基础版本，很多命令都是不完善的<br>bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">从容器中退回主机</span><br>[root@364710ff50c7 /]# exit<br>[bupt_114@AIServer ~]$ <br></code></pre></td></tr></table></figure>
+
+<p><strong>列出所有运行中的容器</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">docker ps 命令</span><br><span class="hljs-meta prompt_">		# </span><span class="language-bash">列出当前正在运行的容器</span><br>-a 		# 列出当前正在运行的容器 + 带出历史运行过的容器<br>-n=?    # 显示最近创建的容器，即个数<br>-q 		# 只显示容器的编号<br><br><br>[bupt_114@AIServer ~]$ docker ps<br>CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES<br>[bupt_114@AIServer ~]$ docker ps -a<br>CONTAINER ID   IMAGE          COMMAND       CREATED         STATUS                          PORTS     NAMES<br>364710ff50c7   centos         &quot;/bin/bash&quot;   5 minutes ago   Exited (0) About a minute ago             elated_lichterman<br>93427549984f   feb5d9fea6a5   &quot;/hello&quot;      29 hours ago    Exited (0) 29 hours ago                   exciting_villani<br>[bupt_114@AIServer ~]$ docker ps -a -n=1<br>CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS                     PORTS     NAMES<br>364710ff50c7   centos    &quot;/bin/bash&quot;   7 minutes ago   Exited (0) 3 minutes ago             elated_lichterman<br>[bupt_114@AIServer ~]$ <br></code></pre></td></tr></table></figure>
+<p><strong>退出容器</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">exit 			# 直接停止容器并退出<br>ctrl + P + Q   	# 容器不停止并退出<br></code></pre></td></tr></table></figure>
+
+
+<p><strong>删除容器</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker rm 容器id					# 删除指定的容器，不能删除正在运行的容器，如果要强制删除，rm -f<br>docker rm -f $(docker ps -aq)   # 删除所有的容器<br>docker ps -a -q | xargs docker rm  # 删除所有的容器（docker玩的不错跑路就玩得不错哈哈哈哈）<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">运行中的不能直接删除，要加-f代表force</span><br>[bupt_114@AIServer ~]$ docker rm f406a8591325<br>Error response from daemon: You cannot remove a running container f406a8591325995950d4defb6d7eefbe45bd5ec11e895f7238ce53de4546c297. Stop the container before attempting removal or force remove<br></code></pre></td></tr></table></figure>
+
+<p><strong>启动和停止容器的操作</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker start 容器id			# 启动容器<br>docker attach 容器id			# 进入容器<br>docker restart 容器id		# 重启容器<br>docker stop 容器id			# 停止当前正在运行的容器<br>docker kill 容器id			# 强制定制当前正在运行的容器<br><br>[bupt_114@AIServer ~]$ docker ps -a<br>CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS                     PORTS     NAMES<br>87ac7567be74   centos    &quot;/bin/bash&quot;   9 seconds ago   Exited (0) 6 seconds ago             determined_cohen<br>[bupt_114@AIServer ~]$ docker start 87ac7567be74<br>87ac7567be74<br><br>[bupt_114@AIServer ~]$ docker ps<br>CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS         PORTS     NAMES<br>87ac7567be74   centos    &quot;/bin/bash&quot;   24 seconds ago   Up 4 seconds             determined_cohen<br>[bupt_114@AIServer ~]$ docker stop 87ac7567be74<br>87ac7567be74<br>[bupt_114@AIServer ~]$ docker ps<br>CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES<br>[bupt_114@AIServer ~]$ <br></code></pre></td></tr></table></figure>
+
+<h2 id="常用的其他命令"><a href="#常用的其他命令" class="headerlink" title="常用的其他命令"></a>常用的其他命令</h2><p><strong>后台启动容器</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">命令，docker run -d 镜像名！</span><br>[bupt_114@AIServer ~]$ docker run -d centos<br>0aab13a3c396931520159092a755ccc7eb1a2fc56895ab2e2cc43267e86be432<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">问题，docker ps，发现centos停止了</span><br>[bupt_114@AIServer ~]$ docker ps<br>CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES<br>[bupt_114@AIServer ~]$ docker ps -a<br>CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS                      PORTS     NAMES<br>0aab13a3c396   centos    &quot;/bin/bash&quot;   12 seconds ago   Exited (0) 11 seconds ago             exciting_bose<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">常见的坑：docker容器使用后台运行，就必须要有一个前台进程，docker发现没有应用，就会自动停止</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">nginx，容器启动后，发现自己没有提供服务，就会立刻停止，没有程序了</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">这块有点没理解，往后学习再看了</span><br>[bupt_114@AIServer ~]$ <br></code></pre></td></tr></table></figure>
+
+<p><strong>查看日志</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker logs<br><br>[bupt_114@AIServer ~]$ docker ps -a<br>CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS                      PORTS     NAMES<br>0aab13a3c396   centos    &quot;/bin/bash&quot;   15 minutes ago   Exited (0) 15 minutes ago             exciting_bose<br>[bupt_114@AIServer ~]$ docker logs -tf --tail 10 0aab13a3c396<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">显示日志</span><br>-tf  				# 显示日志，f是实时追踪，滚动查看<br>--tail number		# 要显示的日志条数<br></code></pre></td></tr></table></figure>
+
+
+<p><strong>查看容器中的进程信息</strong> ps用来查linux的进程信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">注意，要容器正在运行才能查的出来</span><br><br>docker top [容器id]<br><br>[bupt_114@AIServer ~]$ docker ps<br>CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS          PORTS     NAMES<br>8d05d658639d   centos    &quot;/bin/bash&quot;   15 seconds ago   Up 14 seconds             pensive_dirac<br>[bupt_114@AIServer ~]$ docker top 8d05d658639d<br>UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD<br>root                11758               11735               0                   21:37               pts/0               00:00:00            /bin/bash<br>[bupt_114@AIServer ~]$ <br></code></pre></td></tr></table></figure>
+
+
+<p><strong>查看镜像的元数据</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br></pre></td><td class="code"><pre><code class="hljs shell">[bupt_114@AIServer ~]$ docker ps<br>CONTAINER ID   IMAGE     COMMAND       CREATED              STATUS              PORTS     NAMES<br>8d05d658639d   centos    &quot;/bin/bash&quot;   About a minute ago   Up About a minute             pensive_dirac<br>[bupt_114@AIServer ~]$ docker inspect 8d05d658639d<br>[<br>    &#123;<br>        &quot;Id&quot;: &quot;8d05d658639d9dbc015cfef44b7390bc4cab2b658d646f0933defaa4ee2a8732&quot;,<br>        &quot;Created&quot;: &quot;2022-01-07T13:37:12.953676774Z&quot;,<br>        &quot;Path&quot;: &quot;/bin/bash&quot;,<br>        &quot;Args&quot;: [],<br>        &quot;State&quot;: &#123;<br>            &quot;Status&quot;: &quot;running&quot;,<br>            &quot;Running&quot;: true,<br>            &quot;Paused&quot;: false,<br>            &quot;Restarting&quot;: false,<br>            &quot;OOMKilled&quot;: false,<br>            &quot;Dead&quot;: false,<br>            &quot;Pid&quot;: 11758,<br>            &quot;ExitCode&quot;: 0,<br>            &quot;Error&quot;: &quot;&quot;,<br>            &quot;StartedAt&quot;: &quot;2022-01-07T13:37:13.28978368Z&quot;,<br>            &quot;FinishedAt&quot;: &quot;0001-01-01T00:00:00Z&quot;<br>        &#125;,<br>        &quot;Image&quot;: &quot;sha256:5d0da3dc976460b72c77d94c8a1ad043720b0416bfc16c52c45d4847e53fadb6&quot;,<br>        &quot;ResolvConfPath&quot;: &quot;/var/lib/docker/containers/8d05d658639d9dbc015cfef44b7390bc4cab2b658d646f0933defaa4ee2a8732/resolv.conf&quot;,<br>        &quot;HostnamePath&quot;: &quot;/var/lib/docker/containers/8d05d658639d9dbc015cfef44b7390bc4cab2b658d646f0933defaa4ee2a8732/hostname&quot;,<br>        &quot;HostsPath&quot;: &quot;/var/lib/docker/containers/8d05d658639d9dbc015cfef44b7390bc4cab2b658d646f0933defaa4ee2a8732/hosts&quot;,<br>        &quot;LogPath&quot;: &quot;/var/lib/docker/containers/8d05d658639d9dbc015cfef44b7390bc4cab2b658d646f0933defaa4ee2a8732/8d05d658639d9dbc015cfef44b7390bc4cab2b658d646f0933defaa4ee2a8732-json.log&quot;,<br>        &quot;Name&quot;: &quot;/pensive_dirac&quot;,<br>        &quot;RestartCount&quot;: 0,<br>        &quot;Driver&quot;: &quot;overlay2&quot;,<br>        &quot;Platform&quot;: &quot;linux&quot;,<br>        &quot;MountLabel&quot;: &quot;&quot;,<br>        &quot;ProcessLabel&quot;: &quot;&quot;,<br>        &quot;AppArmorProfile&quot;: &quot;&quot;,<br>        &quot;ExecIDs&quot;: null,<br>        &quot;HostConfig&quot;: &#123;<br>            &quot;Binds&quot;: null,<br>            &quot;ContainerIDFile&quot;: &quot;&quot;,<br>            &quot;LogConfig&quot;: &#123;<br>                &quot;Type&quot;: &quot;json-file&quot;,<br>                &quot;Config&quot;: &#123;&#125;<br>            &#125;,<br>            &quot;NetworkMode&quot;: &quot;default&quot;,<br>            &quot;PortBindings&quot;: &#123;&#125;,<br>            &quot;RestartPolicy&quot;: &#123;<br>                &quot;Name&quot;: &quot;no&quot;,<br>                &quot;MaximumRetryCount&quot;: 0<br>            &#125;,<br>            &quot;AutoRemove&quot;: false,<br>            &quot;VolumeDriver&quot;: &quot;&quot;,<br>            &quot;VolumesFrom&quot;: null,<br>            &quot;CapAdd&quot;: null,<br>            &quot;CapDrop&quot;: null,<br>            &quot;CgroupnsMode&quot;: &quot;host&quot;,<br>            &quot;Dns&quot;: [],<br>            &quot;DnsOptions&quot;: [],<br>            &quot;DnsSearch&quot;: [],<br>            &quot;ExtraHosts&quot;: null,<br>            &quot;GroupAdd&quot;: null,<br>            &quot;IpcMode&quot;: &quot;private&quot;,<br>            &quot;Cgroup&quot;: &quot;&quot;,<br>            &quot;Links&quot;: null,<br>            &quot;OomScoreAdj&quot;: 0,<br>            &quot;PidMode&quot;: &quot;&quot;,<br>            &quot;Privileged&quot;: false,<br>            &quot;PublishAllPorts&quot;: false,<br>            &quot;ReadonlyRootfs&quot;: false,<br>            &quot;SecurityOpt&quot;: null,<br>            &quot;UTSMode&quot;: &quot;&quot;,<br>            &quot;UsernsMode&quot;: &quot;&quot;,<br>            &quot;ShmSize&quot;: 67108864,<br>            &quot;Runtime&quot;: &quot;runc&quot;,<br>            &quot;ConsoleSize&quot;: [<br>                0,<br>                0<br>            ],<br>            &quot;Isolation&quot;: &quot;&quot;,<br>            &quot;CpuShares&quot;: 0,<br>            &quot;Memory&quot;: 0,<br>            &quot;NanoCpus&quot;: 0,<br>            &quot;CgroupParent&quot;: &quot;&quot;,<br>            &quot;BlkioWeight&quot;: 0,<br>            &quot;BlkioWeightDevice&quot;: [],<br>            &quot;BlkioDeviceReadBps&quot;: null,<br>            &quot;BlkioDeviceWriteBps&quot;: null,<br>            &quot;BlkioDeviceReadIOps&quot;: null,<br>            &quot;BlkioDeviceWriteIOps&quot;: null,<br>            &quot;CpuPeriod&quot;: 0,<br>            &quot;CpuQuota&quot;: 0,<br>            &quot;CpuRealtimePeriod&quot;: 0,<br>            &quot;CpuRealtimeRuntime&quot;: 0,<br>            &quot;CpusetCpus&quot;: &quot;&quot;,<br>            &quot;CpusetMems&quot;: &quot;&quot;,<br>            &quot;Devices&quot;: [],<br>            &quot;DeviceCgroupRules&quot;: null,<br>            &quot;DeviceRequests&quot;: null,<br>            &quot;KernelMemory&quot;: 0,<br>            &quot;KernelMemoryTCP&quot;: 0,<br>            &quot;MemoryReservation&quot;: 0,<br>            &quot;MemorySwap&quot;: 0,<br>            &quot;MemorySwappiness&quot;: null,<br>            &quot;OomKillDisable&quot;: false,<br>            &quot;PidsLimit&quot;: null,<br>            &quot;Ulimits&quot;: null,<br>            &quot;CpuCount&quot;: 0,<br>            &quot;CpuPercent&quot;: 0,<br>            &quot;IOMaximumIOps&quot;: 0,<br>            &quot;IOMaximumBandwidth&quot;: 0,<br>            &quot;MaskedPaths&quot;: [<br>                &quot;/proc/asound&quot;,<br>                &quot;/proc/acpi&quot;,<br>                &quot;/proc/kcore&quot;,<br>                &quot;/proc/keys&quot;,<br>                &quot;/proc/latency_stats&quot;,<br>                &quot;/proc/timer_list&quot;,<br>                &quot;/proc/timer_stats&quot;,<br>                &quot;/proc/sched_debug&quot;,<br>                &quot;/proc/scsi&quot;,<br>                &quot;/sys/firmware&quot;<br>            ],<br>            &quot;ReadonlyPaths&quot;: [<br>                &quot;/proc/bus&quot;,<br>                &quot;/proc/fs&quot;,<br>                &quot;/proc/irq&quot;,<br>                &quot;/proc/sys&quot;,<br>                &quot;/proc/sysrq-trigger&quot;<br>            ]<br>        &#125;,<br>        &quot;GraphDriver&quot;: &#123;<br>            &quot;Data&quot;: &#123;<br>                &quot;LowerDir&quot;: &quot;/var/lib/docker/overlay2/58cabfbd05b381fae72981c01524435bc9231561f1a492c32b9a4e402522db74-init/diff:/var/lib/docker/overlay2/70a302960300b9000282549b5adf25e9a4bd66f8e9c50f12844d5d156ea2c712/diff&quot;,<br>                &quot;MergedDir&quot;: &quot;/var/lib/docker/overlay2/58cabfbd05b381fae72981c01524435bc9231561f1a492c32b9a4e402522db74/merged&quot;,<br>                &quot;UpperDir&quot;: &quot;/var/lib/docker/overlay2/58cabfbd05b381fae72981c01524435bc9231561f1a492c32b9a4e402522db74/diff&quot;,<br>                &quot;WorkDir&quot;: &quot;/var/lib/docker/overlay2/58cabfbd05b381fae72981c01524435bc9231561f1a492c32b9a4e402522db74/work&quot;<br>            &#125;,<br>            &quot;Name&quot;: &quot;overlay2&quot;<br>        &#125;,<br>        &quot;Mounts&quot;: [],<br>        &quot;Config&quot;: &#123;<br>            &quot;Hostname&quot;: &quot;8d05d658639d&quot;,<br>            &quot;Domainname&quot;: &quot;&quot;,<br>            &quot;User&quot;: &quot;&quot;,<br>            &quot;AttachStdin&quot;: true,<br>            &quot;AttachStdout&quot;: true,<br>            &quot;AttachStderr&quot;: true,<br>            &quot;Tty&quot;: true,<br>            &quot;OpenStdin&quot;: true,<br>            &quot;StdinOnce&quot;: true,<br>            &quot;Env&quot;: [<br>                &quot;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;<br>            ],<br>            &quot;Cmd&quot;: [<br>                &quot;/bin/bash&quot;<br>            ],<br>            &quot;Image&quot;: &quot;centos&quot;,<br>            &quot;Volumes&quot;: null,<br>            &quot;WorkingDir&quot;: &quot;&quot;,<br>            &quot;Entrypoint&quot;: null,<br>            &quot;OnBuild&quot;: null,<br>            &quot;Labels&quot;: &#123;<br>                &quot;org.label-schema.build-date&quot;: &quot;20210915&quot;,<br>                &quot;org.label-schema.license&quot;: &quot;GPLv2&quot;,<br>                &quot;org.label-schema.name&quot;: &quot;CentOS Base Image&quot;,<br>                &quot;org.label-schema.schema-version&quot;: &quot;1.0&quot;,<br>                &quot;org.label-schema.vendor&quot;: &quot;CentOS&quot;<br>            &#125;<br>        &#125;,<br>        &quot;NetworkSettings&quot;: &#123;<br>            &quot;Bridge&quot;: &quot;&quot;,<br>            &quot;SandboxID&quot;: &quot;e1251439f6970af7a132751b9c2f1bc9bcd997589ed16c1824047626a5c34153&quot;,<br>            &quot;HairpinMode&quot;: false,<br>            &quot;LinkLocalIPv6Address&quot;: &quot;&quot;,<br>            &quot;LinkLocalIPv6PrefixLen&quot;: 0,<br>            &quot;Ports&quot;: &#123;&#125;,<br>            &quot;SandboxKey&quot;: &quot;/var/run/docker/netns/e1251439f697&quot;,<br>            &quot;SecondaryIPAddresses&quot;: null,<br>            &quot;SecondaryIPv6Addresses&quot;: null,<br>            &quot;EndpointID&quot;: &quot;f95da790cb9492af2410a35ee110943d1af0f393ab5ec266071cb40f4621525a&quot;,<br>            &quot;Gateway&quot;: &quot;172.17.0.1&quot;,<br>            &quot;GlobalIPv6Address&quot;: &quot;&quot;,<br>            &quot;GlobalIPv6PrefixLen&quot;: 0,<br>            &quot;IPAddress&quot;: &quot;172.17.0.2&quot;,<br>            &quot;IPPrefixLen&quot;: 16,<br>            &quot;IPv6Gateway&quot;: &quot;&quot;,<br>            &quot;MacAddress&quot;: &quot;02:42:ac:11:00:02&quot;,<br>            &quot;Networks&quot;: &#123;<br>                &quot;bridge&quot;: &#123;<br>                    &quot;IPAMConfig&quot;: null,<br>                    &quot;Links&quot;: null,<br>                    &quot;Aliases&quot;: null,<br>                    &quot;NetworkID&quot;: &quot;46238680691e2ebb3e190ccf96fb7814787a55c663b4585dae38cd8e3abc4070&quot;,<br>                    &quot;EndpointID&quot;: &quot;f95da790cb9492af2410a35ee110943d1af0f393ab5ec266071cb40f4621525a&quot;,<br>                    &quot;Gateway&quot;: &quot;172.17.0.1&quot;,<br>                    &quot;IPAddress&quot;: &quot;172.17.0.2&quot;,<br>                    &quot;IPPrefixLen&quot;: 16,<br>                    &quot;IPv6Gateway&quot;: &quot;&quot;,<br>                    &quot;GlobalIPv6Address&quot;: &quot;&quot;,<br>                    &quot;GlobalIPv6PrefixLen&quot;: 0,<br>                    &quot;MacAddress&quot;: &quot;02:42:ac:11:00:02&quot;,<br>                    &quot;DriverOpts&quot;: null<br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br>]<br>[bupt_114@AIServer ~]$ <br></code></pre></td></tr></table></figure>
+
+
+<p><strong>进入当前正在运行的容器</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">我们通常容器都是使用后台方式运行的，需要进入容器，修改一些配置</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">命令1</span><br>docker exec -it 容器id bashShell<br><br>[bupt_114@AIServer ~]$ docker exec -it 8d05d658639d /bin/bash<br>[root@8d05d658639d /]# <br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">命令2，注意进入的是一个正在进行的命令行！！！！而不是开启一个新的窗口</span><br>docker attach 容器id<br><br>[bupt_114@AIServer ~]$ docker ps<br>CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS         PORTS     NAMES<br>8d05d658639d   centos    &quot;/bin/bash&quot;   8 minutes ago   Up 8 minutes             pensive_dirac<br>[bupt_114@AIServer ~]$ docker attach 8d05d658639d<br>[root@8d05d658639d /]# ps -ef   <br>UID        PID  PPID  C STIME TTY          TIME CMD<br>root         1     0  0 13:37 pts/0    00:00:00 /bin/bash<br>root        30     1  0 13:45 pts/0    00:00:00 ps -ef<br>[root@8d05d658639d /]# <br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">docker <span class="hljs-built_in">exec</span> 		<span class="hljs-comment"># 进入容器后开启一个新的终端，可以在里面操作</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">dockerattach 		<span class="hljs-comment"># 进入容器正在执行的终端，不会启动新的进程！</span></span><br></code></pre></td></tr></table></figure>
+
+
+<p><strong>从容器内拷贝文件到主机</strong> 注：从主机内拷到容器内一般用挂载来做！</p>
+<p>容器内外是隔离的</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker cp 容器id:容器内路径 目的的主机路径<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">拷贝使用一个手动过程，未来我们使用 -v 卷的技术，可以实现</span><br></code></pre></td></tr></table></figure>
+
+<p>学习方式：命令全部跟着敲一遍，自己记录笔记</p>
+<h2 id="docker命令小结"><a href="#docker命令小结" class="headerlink" title="docker命令小结"></a>docker命令小结</h2><p><img src="/images/2022-01-08-00-24-45.png" srcset="/img/loading.gif" lazyload></p>
+<p>docker的命令是十分多的，上边是常见的容器和镜像命令</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/docker/" class="category-chain-item">docker</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Docker学习笔记3-Docker常用命令-狂神视频</div>
+      <div>http://example.com/2022/01/08/develop/docker/Docker学习笔记3-Docker常用命令-狂神视频/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年1月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/16/algorithms/leetcode-weekly-contest/276%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/" title="276场LeetCode周赛">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">276场LeetCode周赛</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/07/develop/docker/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83-%E7%8B%82%E7%A5%9E%E8%A7%86%E9%A2%91/" title="Docker学习笔记2-安装环境-狂神视频">
+                        <span class="hidden-mobile">Docker学习笔记2-安装环境-狂神视频</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

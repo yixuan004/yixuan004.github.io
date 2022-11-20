@@ -1,0 +1,740 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="周赛综述&amp;总结： 第一题：感觉比较水，123400倒过来是004321，再倒回去是1234和原来的数字不一样了，这样其实可以直接判断末尾是不是0，还有是不是单独一个0就可以了； 第二题：矩阵内简单的模拟，up down left right，经过这四个操作后，不能越过矩阵的边界就行了，后缀在python里[i:]好像比较简单； 第三题：在当时做的时候何老板就在想是不是和数学有关的，后来听了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="273场LeetCode周赛">
+<meta property="og:url" content="http://example.com/2021/12/26/algorithms/leetcode-weekly-contest/273%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="周赛综述&amp;总结： 第一题：感觉比较水，123400倒过来是004321，再倒回去是1234和原来的数字不一样了，这样其实可以直接判断末尾是不是0，还有是不是单独一个0就可以了； 第二题：矩阵内简单的模拟，up down left right，经过这四个操作后，不能越过矩阵的边界就行了，后缀在python里[i:]好像比较简单； 第三题：在当时做的时候何老板就在想是不是和数学有关的，后来听了">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-26T08:16:43.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.885Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="模拟">
+<meta property="article:tag" content="数组">
+<meta property="article:tag" content="EASY">
+<meta property="article:tag" content="MEDIUM">
+<meta property="article:tag" content="字符串">
+<meta property="article:tag" content="哈希表">
+<meta property="article:tag" content="前缀和">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>273场LeetCode周赛 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="273场LeetCode周赛"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-12-26 16:16" pubdate>
+          2021年12月26日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          40 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">273场LeetCode周赛</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>周赛综述&amp;总结：</p>
+<p>第一题：感觉比较水，123400倒过来是004321，再倒回去是1234和原来的数字不一样了，这样其实可以直接判断末尾是不是0，还有是不是单独一个0就可以了；</p>
+<p>第二题：矩阵内简单的模拟，up down left right，经过这四个操作后，不能越过矩阵的边界就行了，后缀在python里<code>[i:]</code>好像比较简单；</p>
+<p>第三题：在当时做的时候何老板就在想是不是和数学有关的，后来听了卿哥的解答后感觉最关键的是abcde这个思路，这样比较容易可能能想到前缀和后缀的问题了，对于一个数字2，比如其角标在<code>[a, b, c, d, e]</code>五个位置，那么根据题意可以模拟下每个位置下的和，这样能看出来之间的关系，详见下文解答；</p>
+<p>第四题：未来有机会再试了；</p>
+<span id="more"></span>
+
+<h1 id="第一题：2119-反转两次的数字"><a href="#第一题：2119-反转两次的数字" class="headerlink" title="第一题：2119.反转两次的数字"></a>第一题：2119.反转两次的数字</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/a-number-after-a-double-reversal/">题目链接</a></p>
+<h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p><strong>反转</strong>一个整数意味着倒置它的所有位。</p>
+<p>例如，反转<code>2021</code>得到<code>1202</code>。反转<code>12300</code>得到<code>321</code>，<strong>不保留前导零</strong>。<br>给你一个整数<code>num</code>，<strong>反转</strong><code>num</code>得到<code>reversed1</code>，<strong>接着反转</strong><code>reversed1</code>得到<code>reversed2</code>。如果<code>reversed2</code>等于<code>num</code>，返回<code>true</code>；否则，返回<code>false</code>。</p>
+<p>示例1：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dart">输入：<span class="hljs-built_in">num</span> = <span class="hljs-number">526</span><br>输出：<span class="hljs-keyword">true</span><br>解释：反转 <span class="hljs-built_in">num</span> 得到 <span class="hljs-number">625</span> ，接着反转 <span class="hljs-number">625</span> 得到 <span class="hljs-number">526</span> ，等于 <span class="hljs-built_in">num</span> 。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dart">输入：<span class="hljs-built_in">num</span> = <span class="hljs-number">1800</span><br>输出：<span class="hljs-keyword">false</span><br>解释：反转 <span class="hljs-built_in">num</span> 得到 <span class="hljs-number">81</span> ，接着反转 <span class="hljs-number">81</span> 得到 <span class="hljs-number">18</span> ，不等于 <span class="hljs-built_in">num</span> 。 <br></code></pre></td></tr></table></figure>
+
+<p>示例3：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dart">输入：<span class="hljs-built_in">num</span> = <span class="hljs-number">0</span><br>输出：<span class="hljs-keyword">true</span><br>解释：反转 <span class="hljs-built_in">num</span> 得到 <span class="hljs-number">0</span> ，接着反转 <span class="hljs-number">0</span> 得到 <span class="hljs-number">0</span> ，等于 <span class="hljs-built_in">num</span> 。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li>0 &lt;&#x3D; num &lt;&#x3D; 106</li>
+</ul>
+<h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>这个题感觉不能被题面唬住了，还是判断后边有没有0就可以了，然后单独0的单独处理下；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">isSameAfterReversals</span>(<span class="hljs-params">self, num</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type num: int</span><br><span class="hljs-string">        :rtype: bool</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(<span class="hljs-built_in">str</span>(num)) == <span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">str</span>(num)[-<span class="hljs-number">1</span>] == <span class="hljs-string">&quot;0&quot;</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="第二题：2120-执行所有后缀指令"><a href="#第二题：2120-执行所有后缀指令" class="headerlink" title="第二题：2120.执行所有后缀指令"></a>第二题：2120.执行所有后缀指令</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/execution-of-all-suffix-instructions-staying-in-a-grid/">题目链接</a></p>
+<h2 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h2><p>现有一个<code>n x n</code>大小的网格，左上角单元格坐标<code>(0, 0)</code>，右下角单元格坐标<code>(n - 1, n - 1)</code>。给你整数<code>n</code>和一个整数数组<code>startPos</code>，其中<code>startPos = [startrow, startcol]</code>表示机器人最开始在坐标为<code>(startrow, startcol)</code>的单元格上。</p>
+<p>另给你一个长度为<code>m</code>、下标从<code>0</code>开始的字符串<code>s</code>，其中<code>s[i]</code>是对机器人的第<code>i</code>条指令：<code>&#39;L&#39;</code>（向左移动），<code>&#39;R&#39;</code>（向右移动），<code>&#39;U&#39;</code>（向上移动）和 <code>&#39;D&#39;</code>（向下移动）。</p>
+<p>机器人可以从<code>s</code>中的任一第<code>i</code>条指令开始执行。它将会逐条执行指令直到<code>s</code>的末尾，但在满足下述条件之一时，机器人将会停止：</p>
+<p>下一条指令将会导致机器人移动到网格外。<br>没有指令可以执行。<br>返回一个长度为<code>m</code>的数组<code>answer</code>，其中<code>answer[i]</code>是机器人从第<code>i</code>条指令 开始 ，可以执行的 指令数目 。</p>
+<p>示例1：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs stylus">输入：n = <span class="hljs-number">3</span>, startPos = <span class="hljs-selector-attr">[0,1]</span>, s = <span class="hljs-string">&quot;RRDDLU&quot;</span><br>输出：<span class="hljs-selector-attr">[1,5,4,3,1,0]</span><br>解释：机器人从 startPos 出发，并从第 <span class="hljs-selector-tag">i</span> 条指令开始执行：<br>- <span class="hljs-number">0</span>: <span class="hljs-string">&quot;RRDDLU&quot;</span> 在移动到网格外之前，只能执行一条 <span class="hljs-string">&quot;R&quot;</span> 指令。<br>- <span class="hljs-number">1</span>:  <span class="hljs-string">&quot;RDDLU&quot;</span> 可以执行全部五条指令，机器人仍在网格内，最终到达 (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>) 。<br>- <span class="hljs-number">2</span>:   <span class="hljs-string">&quot;DDLU&quot;</span> 可以执行全部四条指令，机器人仍在网格内，最终到达 (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>) 。<br>- <span class="hljs-number">3</span>:    <span class="hljs-string">&quot;DLU&quot;</span> 可以执行全部三条指令，机器人仍在网格内，最终到达 (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>) 。<br>- <span class="hljs-number">4</span>:     <span class="hljs-string">&quot;LU&quot;</span> 在移动到网格外之前，只能执行一条 <span class="hljs-string">&quot;L&quot;</span> 指令。<br>- <span class="hljs-number">5</span>:      <span class="hljs-string">&quot;U&quot;</span> 如果向上移动，将会移动到网格外。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs prolog">输入：n = <span class="hljs-number">2</span>, startPos = [<span class="hljs-number">1</span>,<span class="hljs-number">1</span>], s = <span class="hljs-string">&quot;LURD&quot;</span><br>输出：[<span class="hljs-number">4</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]<br>解释：<br>- <span class="hljs-number">0</span>: <span class="hljs-string">&quot;LURD&quot;</span><br>- <span class="hljs-number">1</span>:  <span class="hljs-string">&quot;URD&quot;</span><br>- <span class="hljs-number">2</span>:   <span class="hljs-string">&quot;RD&quot;</span><br>- <span class="hljs-number">3</span>:    <span class="hljs-string">&quot;D&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>示例3：</p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs prolog">输入：n = <span class="hljs-number">1</span>, startPos = [<span class="hljs-number">0</span>,<span class="hljs-number">0</span>], s = <span class="hljs-string">&quot;LRUD&quot;</span><br>输出：[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]<br>解释：无论机器人从哪条指令开始执行，都会移动到网格外。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li>m &#x3D;&#x3D; s.length</li>
+<li>1 &lt;&#x3D; n, m &lt;&#x3D; 500</li>
+<li>startPos.length &#x3D;&#x3D; 2</li>
+<li>0 &lt;&#x3D; startrow, startcol &lt; n</li>
+<li>s 由 ‘L’、’R’、’U’ 和 ‘D’ 组成</li>
+</ul>
+<h2 id="分析和解答-1"><a href="#分析和解答-1" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>比较水，实际上是简单题，执行就可以了，后缀执行用<code>s[:i]</code>截断就可以了，边界的判断就像dfs couting lakes的判断一样</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">executeInstructions</span>(<span class="hljs-params">self, n, startPos, s</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type n: int</span><br><span class="hljs-string">        :type startPos: List[int]</span><br><span class="hljs-string">        :type s: str</span><br><span class="hljs-string">        :rtype: List[int]</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        matrix = [[<span class="hljs-number">0</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)] <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)]<br>        cnt = [<span class="hljs-number">0</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(s))]<br>        <br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(s)):<br>            startX = startPos[<span class="hljs-number">0</span>]<br>            startY = startPos[<span class="hljs-number">1</span>]<br>            tmp_seq = s[i:]<br>            <span class="hljs-comment"># print(cnt)</span><br>            <span class="hljs-keyword">for</span> j, c <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(tmp_seq):<br>                <span class="hljs-keyword">if</span> c == <span class="hljs-string">&#x27;L&#x27;</span>:<br>                    <span class="hljs-keyword">if</span> startY - <span class="hljs-number">1</span> &gt;= <span class="hljs-number">0</span>:<br>                        startY = startY - <span class="hljs-number">1</span><br>                        cnt[i] += <span class="hljs-number">1</span><br>                    <span class="hljs-keyword">else</span>:<br>                        <span class="hljs-keyword">break</span><br>                <span class="hljs-keyword">elif</span> c == <span class="hljs-string">&#x27;R&#x27;</span>:<br>                    <span class="hljs-keyword">if</span> startY + <span class="hljs-number">1</span> &lt; n:<br>                        startY = startY + <span class="hljs-number">1</span><br>                        cnt[i] += <span class="hljs-number">1</span><br>                    <span class="hljs-keyword">else</span>:<br>                        <span class="hljs-keyword">break</span><br>                <span class="hljs-keyword">elif</span> c == <span class="hljs-string">&#x27;U&#x27;</span>:<br>                    <span class="hljs-keyword">if</span> startX - <span class="hljs-number">1</span> &gt;= <span class="hljs-number">0</span>:<br>                        startX = startX - <span class="hljs-number">1</span><br>                        cnt[i] += <span class="hljs-number">1</span><br>                    <span class="hljs-keyword">else</span>:<br>                        <span class="hljs-keyword">break</span><br>                <span class="hljs-keyword">elif</span> c == <span class="hljs-string">&#x27;D&#x27;</span>:<br>                    <span class="hljs-keyword">if</span> startX + <span class="hljs-number">1</span> &lt; n:<br>                        startX = startX + <span class="hljs-number">1</span><br>                        cnt[i] += <span class="hljs-number">1</span><br>                    <span class="hljs-keyword">else</span>:<br>                        <span class="hljs-keyword">break</span><br>            <br>        <span class="hljs-keyword">return</span> cnt<br></code></pre></td></tr></table></figure>
+
+
+<h1 id="第三题：2121-相同元素的间隔之和"><a href="#第三题：2121-相同元素的间隔之和" class="headerlink" title="第三题：2121.相同元素的间隔之和"></a>第三题：2121.相同元素的间隔之和</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/intervals-between-identical-elements/">题目链接</a></p>
+<h2 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个下标从<strong>0</strong>开始、由<code>n</code>个整数组成的数组<code>arr</code>。</p>
+<p>arr 中两个元素的 间隔 定义为它们下标之间的<strong>绝对差</strong>。更正式地，<code>arr[i]</code>和<code>arr[j]</code>之间的间隔是<code>|i - j|</code>。</p>
+<p>返回一个长度为<code>n</code>的数组<code>intervals</code>，其中<code>intervals[i]</code>是<code>arr[i]</code>和<code>arr</code>中每个相同元素（与<code>arr[i]</code>的值相同）的<strong>间隔之和</strong>。</p>
+<p>注意：<code>|x|</code>是<code>x</code>的绝对值。</p>
+<p>示例1：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：arr = [2,1,3,1,2,3,3]<br>输出：[4,2,7,2,4,4,5]<br>解释：<br>- 下标<span class="hljs-number"> 0 </span>：另一个<span class="hljs-number"> 2 </span>在下标<span class="hljs-number"> 4 </span>，|0 - 4| = 4<br>- 下标<span class="hljs-number"> 1 </span>：另一个<span class="hljs-number"> 1 </span>在下标<span class="hljs-number"> 3 </span>，|1 - 3| = 2<br>- 下标<span class="hljs-number"> 2 </span>：另两个<span class="hljs-number"> 3 </span>在下标<span class="hljs-number"> 5 </span>和<span class="hljs-number"> 6 </span>，|2 - 5| + |2 - 6| = 7<br>- 下标<span class="hljs-number"> 3 </span>：另一个<span class="hljs-number"> 1 </span>在下标<span class="hljs-number"> 1 </span>，|3 - 1| = 2<br>- 下标<span class="hljs-number"> 4 </span>：另一个<span class="hljs-number"> 2 </span>在下标<span class="hljs-number"> 0 </span>，|4 - 0| = 4<br>- 下标<span class="hljs-number"> 5 </span>：另两个<span class="hljs-number"> 3 </span>在下标<span class="hljs-number"> 2 </span>和<span class="hljs-number"> 6 </span>，|5 - 2| + |5 - 6| = 4<br>- 下标<span class="hljs-number"> 6 </span>：另两个<span class="hljs-number"> 3 </span>在下标<span class="hljs-number"> 2 </span>和<span class="hljs-number"> 5 </span>，|6 - 2| + |6 - 5| = 5<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：arr = [10,5,10,10]<br>输出：[5,0,3,4]<br>解释：<br>- 下标<span class="hljs-number"> 0 </span>：另两个<span class="hljs-number"> 10 </span>在下标<span class="hljs-number"> 2 </span>和<span class="hljs-number"> 3 </span>，|0 - 2| + |0 - 3| = 5<br>- 下标<span class="hljs-number"> 1 </span>：只有这一个<span class="hljs-number"> 5 </span>在数组中，所以到相同元素的间隔之和是 0<br>- 下标<span class="hljs-number"> 2 </span>：另两个<span class="hljs-number"> 10 </span>在下标<span class="hljs-number"> 0 </span>和<span class="hljs-number"> 3 </span>，|2 - 0| + |2 - 3| = 3<br>- 下标<span class="hljs-number"> 3 </span>：另两个<span class="hljs-number"> 10 </span>在下标<span class="hljs-number"> 0 </span>和<span class="hljs-number"> 2 </span>，|3 - 0| + |3 - 2| = 4<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li>n &#x3D;&#x3D; arr.length</li>
+<li>1 &lt;&#x3D; n &lt;&#x3D; 105</li>
+<li>1 &lt;&#x3D; arr[i] &lt;&#x3D; 105</li>
+</ul>
+<h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>思路还是很巧妙的，假设一个<code>[a, b, c, d, e]</code>角标数组，现在要统计<code>c</code>这个位置下的角标绝对差，那么这个位置上就是<code>(c-a) + (c-b) + (d-c) + (e-c)</code>，如果要统计</p>
+<figure class="highlight plaintext"><figcaption><span>+ (d-b) + (d-c) + (e-d)```，这样：</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs d```这个位置下的角标绝对差，那么这个位置上就是```(d-a)"><br>- 在```c```的位置下看规律，前缀（left_sum）是```a+b```，后缀（right_sum）是```d+e```，求和是：```(c-a) + (c-b) + (d-c) + (e-c)```<br><br>- 在```d```的位置下看规律，前缀（left_sum）是```a+b+c```，后缀（right_sum）是```e```，求和是：```(d-a) + (d-b) + (d-c) + (e-d)```<br><br>这样感觉可以总结出来规律了，在哪个角标x位置，就是：``` ((x * 前缀个数) - 前缀) + (后缀 - (x * 后缀个数))```，这样前缀后缀可以通过一种类似于滑动窗口的方法更新，大大减少了时间复杂度。<br><br><br>```python<br>class Solution(object):<br>    def getDistances(self, arr):<br>        &quot;&quot;&quot;<br>        :type arr: List[int]<br>        :rtype: List[int]<br>        &quot;&quot;&quot;<br>        return_list = [0 for i in range(len(arr))]<br><br>        # 把arr转化为一个map，类似于3: [2, 5, 6]这样的，前边是数值，后边是数值的角标<br>        tmp_dict = &#123;&#125;  # &#123;1: [1, 3], 2: [0, 4], 3: [2, 5, 6]&#125;<br>        for i, item in enumerate(arr):<br>            if tmp_dict.get(arr[i]) is None:<br>                tmp_dict[arr[i]] = [i]<br>            else:<br>                tmp_dict[arr[i]].append(i)<br>        <br>        for key, value in tmp_dict.items():<br>            # 在每个value中，使用 a b c d e的思想<br>            left_sum = 0<br>            left_cnt = 0<br>            right_sum = 0<br>            right_cnt = 0<br>            for i in range(0, len(value)):<br>                right_sum += value[i]<br>                right_cnt += 1<br>            <br>            for i in range(len(value)):<br>                # 滑动窗口的感觉<br>                right_sum -= value[i]<br>                right_cnt -= 1<br>                return_list[value[i]] = (right_sum - (right_cnt * value[i])) + (left_cnt * value[i] - left_sum)<br>                left_sum += value[i]<br>                left_cnt += 1<br>                <br>        return return_list<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LeetCode-python/" class="category-chain-item">LeetCode-python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/" class="category-chain-item">LeetCode周赛</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%A8%A1%E6%8B%9F/">#模拟</a>
+      
+        <a href="/tags/%E6%95%B0%E7%BB%84/">#数组</a>
+      
+        <a href="/tags/EASY/">#EASY</a>
+      
+        <a href="/tags/MEDIUM/">#MEDIUM</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">#字符串</a>
+      
+        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">#哈希表</a>
+      
+        <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/">#前缀和</a>
+      
+        <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>273场LeetCode周赛</div>
+      <div>http://example.com/2021/12/26/algorithms/leetcode-weekly-contest/273场LeetCode周赛/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年12月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/02/algorithms/leetcode-weekly-contest/274%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/" title="274场LeetCode周赛">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">274场LeetCode周赛</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/12/19/algorithms/leetcode-python/709-%E8%BD%AC%E6%8D%A2%E6%88%90%E5%B0%8F%E5%86%99%E5%AD%97%E6%AF%8D-python/" title="709.转换成小写字母-python">
+                        <span class="hidden-mobile">709.转换成小写字母-python</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

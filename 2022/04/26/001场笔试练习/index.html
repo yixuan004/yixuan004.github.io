@@ -1,0 +1,745 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="写在第一次尝试时：笔试题目感觉和平常LeetCode题目不太一样，比较关键的是要自己构造输入并且有些场景下可能会遇到格式化输出的情况。中间的调试过程平台不同也会让人做起来不太熟练，现在感觉在刷周赛之外也要做一做笔试题，有些笔试题感觉出题思路和ACM那些比较像和周赛的考察点不太一样，这样也是为了未来做准备，并且多积累一些刷题经验吧~ 输入输出这块感觉还是挺大的坑的，整体结构上可以写成类似于LeetC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="001场笔试练习">
+<meta property="og:url" content="http://example.com/2022/04/26/001%E5%9C%BA%E7%AC%94%E8%AF%95%E7%BB%83%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="写在第一次尝试时：笔试题目感觉和平常LeetCode题目不太一样，比较关键的是要自己构造输入并且有些场景下可能会遇到格式化输出的情况。中间的调试过程平台不同也会让人做起来不太熟练，现在感觉在刷周赛之外也要做一做笔试题，有些笔试题感觉出题思路和ACM那些比较像和周赛的考察点不太一样，这样也是为了未来做准备，并且多积累一些刷题经验吧~ 输入输出这块感觉还是挺大的坑的，整体结构上可以写成类似于LeetC">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/2022-04-29-00-25-01.png">
+<meta property="article:published_time" content="2022-04-26T13:32:06.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.881Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="模拟">
+<meta property="article:tag" content="数组">
+<meta property="article:tag" content="排序">
+<meta property="article:tag" content="堆">
+<meta property="article:tag" content="优先队列">
+<meta property="article:tag" content="EASY">
+<meta property="article:tag" content="MEDIUM">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/2022-04-29-00-25-01.png">
+  
+  
+  
+  <title>001场笔试练习 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="001场笔试练习"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-04-26 21:32" pubdate>
+          2022年4月26日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          59 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">001场笔试练习</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>写在第一次尝试时：笔试题目感觉和平常LeetCode题目不太一样，比较关键的是要自己构造输入并且有些场景下可能会遇到格式化输出的情况。中间的调试过程平台不同也会让人做起来不太熟练，现在感觉在刷周赛之外也要做一做笔试题，有些笔试题感觉出题思路和ACM那些比较像和周赛的考察点不太一样，这样也是为了未来做准备，并且多积累一些刷题经验吧~ 输入输出这块感觉还是挺大的坑的，整体结构上可以写成类似于LeetCode solution的形式，还有个突然想起来补充说的，笔试题感觉每次给的样例case都好简单啊，估计只能过最最简单case的那种，而且测试的时候貌似不能面向答案编程Orz；</p>
+<p>笔试题目选择：<a target="_blank" rel="noopener" href="https://www.nowcoder.com/test/28665343/summary">美团2021校招笔试-编程题(通用编程试题,第10场)</a></p>
+<p>笔试刷题总结：前两个题都有一种模拟的感觉，第一个题情况没考虑全但是case太弱了直接给偷过了，第二个的话就是排序简单模拟，第三个题的话一眼看过去因为有最左这种的条件在几乎一下就能看出是小根堆这个背景了，总结来看的话这次这套题前三个题甚至比周赛题还简单？第四个题是树形dp，看了看答案还是没学会，感觉像是一种树构造性的题目，感觉经验还是差太多了，还需要多做题吧，希望能在dp上更进一步，这样笔试题&#x2F;面试题就都没有那么怕了，跟一波b站wls哈哈哈；补充：后来把第四题用暴力dfs的方法过了6&#x2F;10，还加上了一个@lru_cache(1000*1000)；</p>
+<span id="more"></span>
+
+<h1 id="第一题：淘汰分数"><a href="#第一题：淘汰分数" class="headerlink" title="第一题：淘汰分数"></a>第一题：淘汰分数</h1><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>某比赛已经进入了淘汰赛阶段,已知共有n名选手参与了此阶段比赛，他们的得分分别是a_1,a_2….a_n,小美作为比赛的裁判希望设定一个分数线m，使得所有分数大于m的选手晋级，其他人淘汰。</p>
+<p>但是为了保护粉丝脆弱的心脏，小美希望晋级和淘汰的人数均在[x,y]之间。</p>
+<p>显然这个m有可能是不存在的，也有可能存在多个m，如果不存在，请你输出-1，如果存在多个，请你输出符合条件的最低的分数线。</p>
+<p>数据范围：1 ≤ n ≤ 50000，1 ≤ x ≤ y ≤ n<br>进阶：时间复杂度O(nlogn)，空间复杂度O(n)</p>
+<p>输入描述：</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs excel">输入第一行仅包含三个正整数<span class="hljs-built_in">n</span>,x,y，分别表示参赛的人数和晋级淘汰人数区间。(<span class="hljs-number">1</span>&lt;=<span class="hljs-built_in">n</span>&lt;=<span class="hljs-number">50000</span>,<span class="hljs-number">1</span>&lt;=x,y&lt;=<span class="hljs-built_in">n</span>)<br>输入第二行包含<span class="hljs-built_in">n</span>个整数，中间用空格隔开，表示从<span class="hljs-number">1</span>号选手到<span class="hljs-built_in">n</span>号选手的成绩。(<span class="hljs-number">1</span>&lt;=|a_i|&lt;=<span class="hljs-number">1000</span>)<br></code></pre></td></tr></table></figure>
+
+<p>输出描述：</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs subunit">输出仅包含一个整数，如果不存在这样的m，则输出<span class="hljs-string">-1</span>，否则输出符合条件的最小的值。<br></code></pre></td></tr></table></figure>
+
+<p>输入例子1：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">6 </span><span class="hljs-number">2</span> <span class="hljs-number">3</span><br><span class="hljs-symbol">1 </span><span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">4</span> <span class="hljs-number">5</span> <span class="hljs-number">6</span><br></code></pre></td></tr></table></figure>
+
+<p>输出例子1：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">3<br></code></pre></td></tr></table></figure>
+
+<h2 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>这个题好像出的case比较弱，做的时候直接用前后缀偷鸡了，实际上可能需要考虑同分数的情况，所以自己的前后缀做法实际上是有问题的，不过既然偷过了，就先不管了哈哈哈，就当他是笔试题和leetcode的不同了；</p>
+<p>笔试题模板就用类似这样的，写成leetcode的写法，也会相对比较熟练了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#encoding:utf-8</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">func</span>(<span class="hljs-params">self, n, x, y, scores</span>):<br>        scores.sort()<br>        pre = <span class="hljs-number">0</span><br>        last = <span class="hljs-built_in">len</span>(scores)<br><br>        m = -<span class="hljs-number">1</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(scores)):  <span class="hljs-comment"># 二分优化</span><br>            pre += <span class="hljs-number">1</span><br>            last -= <span class="hljs-number">1</span><br><br>            <span class="hljs-keyword">if</span> pre &gt;= x <span class="hljs-keyword">and</span> pre &lt;= y <span class="hljs-keyword">and</span> last &gt;= x <span class="hljs-keyword">and</span> last &lt;= y:<br>                m = scores[i]<br>                <span class="hljs-keyword">break</span><br><br>        <span class="hljs-keyword">return</span> m<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># init solution    </span><br>    s = Solution()<br><br>    <span class="hljs-comment"># input区域 https://blog.csdn.net/mmmmonkeyfei/article/details/118863773</span><br>    n, x, y = <span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, <span class="hljs-built_in">input</span>().strip().split(<span class="hljs-string">&quot; &quot;</span>))<br>    scores = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, <span class="hljs-built_in">input</span>().strip().split(<span class="hljs-string">&quot; &quot;</span>)))<br><br>    <span class="hljs-comment"># mock区域</span><br>    <span class="hljs-comment"># n = 6</span><br>    <span class="hljs-comment"># x = 2</span><br>    <span class="hljs-comment"># y = 3</span><br>    <span class="hljs-comment"># scores = [1, 2, 3, 4, 5, 6]</span><br>    <br><br>    res = s.func(n, x, y, scores)<br>    <span class="hljs-built_in">print</span>(res)<br></code></pre></td></tr></table></figure>
+
+<h1 id="第二题：正则序列"><a href="#第二题：正则序列" class="headerlink" title="第二题：正则序列"></a>第二题：正则序列</h1><h2 id="题目大意-1"><a href="#题目大意-1" class="headerlink" title="题目大意"></a>题目大意</h2><p><font color='red'>我们称一个长度为n的序列为正则序列，当且仅当该序列是一个由1~n组成的排列，即该序列由n个正整数组成，取值在[1,n]范围，且不存在重复的数，同时正则序列不要求排序</font></p>
+<p>有一天小团得到了一个长度为n的任意序列s，他需要在有限次操作内，将这个序列变成一个正则序列，每次操作他可以任选序列中的一个数字，并将该数字加一或者减一。</p>
+<p>请问他最少用多少次操作可以把这个序列变成正则序列？</p>
+<p>数据范围： 1 ≤ n ≤ 20000，0 ≤ abs(s_i) ≤ 10000<br>进阶：时间复杂度O(n)，空间复杂度O(n)  <strong>注：这里实际上是不是写错了，时间复杂度没法做到O(n)吧</strong></p>
+<p>输入例子1：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tap">5<br>-1<span class="hljs-number"> 2 </span>3<span class="hljs-number"> 10 </span>100<br></code></pre></td></tr></table></figure>
+
+<p>输出例子1：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">103<br></code></pre></td></tr></table></figure>
+
+<h2 id="分析和解答-1"><a href="#分析和解答-1" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>这个题也太简单了，感觉甚至不如平常周赛第一题的包装后的难度，排个序然后对位相减就可以，O(nlogn)的解法如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#encoding:utf-8</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">func</span>(<span class="hljs-params">self, n, nums</span>):<br>        nums.sort()<br>        res = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums)):<br>            res += <span class="hljs-built_in">abs</span>(nums[i] - (i+<span class="hljs-number">1</span>))<br><br>        <span class="hljs-keyword">return</span> res<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># init solution    </span><br>    s = Solution()<br><br>    <span class="hljs-comment"># input区域 https://blog.csdn.net/mmmmonkeyfei/article/details/118863773</span><br>    n = <span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, <span class="hljs-built_in">input</span>().strip().split(<span class="hljs-string">&quot; &quot;</span>))<br>    nums = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, <span class="hljs-built_in">input</span>().strip().split(<span class="hljs-string">&quot; &quot;</span>)))<br><br>    <span class="hljs-comment"># mock区域</span><br>    <span class="hljs-comment"># n = 5</span><br>    <span class="hljs-comment"># nums = [-1, 2, 3, 10, 100]</span><br>    <br>    res = s.func(n, nums)<br>    <span class="hljs-built_in">print</span>(res)<br></code></pre></td></tr></table></figure>
+
+<h1 id="第三题：公司食堂"><a href="#第三题：公司食堂" class="headerlink" title="第三题：公司食堂"></a>第三题：公司食堂</h1><h2 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h2><p>小美和小团所在公司的食堂有N张餐桌，从左到右摆成一排，每张餐桌有2张餐椅供至多2人用餐，公司职员排队进入食堂用餐。小美发现职员用餐的一个规律并告诉小团：当男职员进入食堂时，他会优先选择已经坐有1人的餐桌用餐，只有当每张餐桌要么空着要么坐满2人时，他才会考虑空着的餐桌；</p>
+<p><font color='red'>当女职员进入食堂时，她会优先选择未坐人的餐桌用餐，只有当每张餐桌都坐有至少1人时，她才会考虑已经坐有1人的餐桌；</font></p>
+<p>无论男女，当有多张餐桌供职员选择时，他会选择最靠左的餐桌用餐。现在食堂内已有若干人在用餐，另外M个人正排队进入食堂，小团会根据小美告诉他的规律预测排队的每个人分别会坐哪张餐桌。</p>
+<p>进阶：时间复杂度O(nlogn)，空间复杂度O(n)</p>
+<p>输入描述：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs abnf">第一行输入一个整数T（<span class="hljs-number">1</span>&lt;<span class="hljs-operator">=</span>T&lt;<span class="hljs-operator">=</span><span class="hljs-number">10</span>），表示数据组数。<br><br>每组数据占四行，第一行输入一个整数N（<span class="hljs-number">1</span>&lt;<span class="hljs-operator">=</span>N&lt;<span class="hljs-operator">=</span><span class="hljs-number">500000</span>）；<br><br>第二行输入一个长度为N且仅包含数字<span class="hljs-number">0</span>、<span class="hljs-number">1</span>、<span class="hljs-number">2</span>的字符串，第i个数字表示左起第i张餐桌已坐有的用餐人数；<br><br>第三行输入一个整数M（<span class="hljs-number">1</span>&lt;<span class="hljs-operator">=</span>M&lt;<span class="hljs-operator">=</span><span class="hljs-number">2</span>N且保证排队的每个人进入食堂时都有可供选择的餐桌）；<br><br>第四行输入一个长度为M且仅包含字母M、F的字符串，若第i个字母为M，则排在第i的人为男性，否则其为女性。<br></code></pre></td></tr></table></figure>
+
+<p>输出描述：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">每组数据输出占M行，第i行输出一个整数j（<span class="hljs-number">1</span>&lt;<span class="hljs-operator">=</span>j&lt;<span class="hljs-operator">=</span>N），表示排在第i的人将选择左起第j张餐桌用餐。<br></code></pre></td></tr></table></figure>
+
+<p>输入示例1：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs">1<br>5<br>01102<br>6<br>MFMMFF<br></code></pre></td></tr></table></figure>
+
+<p>输入示例2：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs">2<br>1<br>1<br>3<br>4<br>4<br></code></pre></td></tr></table></figure>
+
+<h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>感觉是个模拟题，本来以为笔试会经常出这种模拟题的，但是从今年来看好像不是这样啊。<strong>当有多张餐桌供职员选择时，他会选择最靠左的餐桌用餐</strong> 这感觉是一个提示，提示使用优先队列做模拟；</p>
+<p>现在来看这个题好像一下想过去也不是能秒做的题目，但是感觉那天状态比较好吧？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#encoding:utf-8</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">func</span>(<span class="hljs-params">self, n, sitdown_peoples, m, gender</span>):<br>        res_list = []<br>        have_zero_count = <span class="hljs-number">0</span><br>        have_one_count = <span class="hljs-number">0</span><br>        have_two_count = <span class="hljs-number">0</span><br><br>        <span class="hljs-keyword">import</span> heapq<br>        mapping = &#123;<span class="hljs-number">0</span>: [], <span class="hljs-number">1</span>: [], <span class="hljs-number">2</span>: []&#125;  <span class="hljs-comment"># 每个list是priority queue（heapq）</span><br><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(sitdown_peoples)):<br>            mapping[sitdown_peoples[i]].append(i)<br>        <span class="hljs-comment"># heapify一下，优先队列</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):<br>            heapq.heapify(mapping[i])<br><br>        <span class="hljs-comment"># print(&quot;after mapping: &quot;, mapping)</span><br><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(gender)):<br>            <span class="hljs-keyword">if</span> gender[i] == <span class="hljs-string">&#x27;M&#x27;</span>:<br>                <span class="hljs-comment"># 男员工会优先选择有一个人的地方坐，如果都有了就去坐两个空的</span><br>                <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(mapping[<span class="hljs-number">1</span>]) != <span class="hljs-number">0</span>:  <span class="hljs-comment"># 优先选择有一个人的地方坐</span><br>                    <span class="hljs-comment"># 坐在这里</span><br>                    tmp_idx = heapq.heappop(mapping[<span class="hljs-number">1</span>])<br>                    res_list.append(tmp_idx)<br>                    <span class="hljs-comment"># 修改状态</span><br>                    heapq.heappush(mapping[<span class="hljs-number">2</span>], tmp_idx)<br><br>                <span class="hljs-keyword">else</span>: <span class="hljs-comment"># 去坐两个空的</span><br>                    tmp_idx = heapq.heappop(mapping[<span class="hljs-number">0</span>])<br>                    res_list.append(tmp_idx)<br>                    <span class="hljs-comment"># 修改状态</span><br>                    heapq.heappush(mapping[<span class="hljs-number">1</span>], tmp_idx)<br><br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-comment"># 女员工会优先选择都空的地方坐，如果没有了才会和别人拼桌</span><br>                <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(mapping[<span class="hljs-number">0</span>]) != <span class="hljs-number">0</span>:  <span class="hljs-comment"># 优先选择没有人的地方</span><br>                    <span class="hljs-comment"># 坐在这里</span><br>                    tmp_idx = heapq.heappop(mapping[<span class="hljs-number">0</span>])<br>                    res_list.append(tmp_idx)<br>                    <span class="hljs-comment"># 修改状态</span><br>                    heapq.heappush(mapping[<span class="hljs-number">1</span>], tmp_idx)<br><br>                <span class="hljs-keyword">else</span>: <span class="hljs-comment"># 去坐有人的</span><br>                    tmp_idx = heapq.heappop(mapping[<span class="hljs-number">1</span>])<br>                    res_list.append(tmp_idx)<br>                    <span class="hljs-comment"># 修改状态</span><br>                    heapq.heappush(mapping[<span class="hljs-number">2</span>], tmp_idx)<br><br>        <span class="hljs-keyword">return</span> res_list<br><br>        <br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># init solution    </span><br>    s = Solution()<br><br>    <span class="hljs-comment"># input区域 https://blog.csdn.net/mmmmonkeyfei/article/details/118863773</span><br>    t = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>().strip())<br><br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(t):<br>        n = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>().strip())<br>        sitdown_peoples = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">str</span>, <span class="hljs-built_in">input</span>()))<br>        sitdown_peoples = [<span class="hljs-built_in">int</span>(item) <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> sitdown_peoples]<br>        m = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>().strip())<br>        gender = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">str</span>, <span class="hljs-built_in">input</span>()))<br><br><br>        <span class="hljs-comment"># print(&quot;n: &quot;, n)</span><br>        <span class="hljs-comment"># print(&quot;sitdown_peoples: &quot;, sitdown_peoples)</span><br>        <span class="hljs-comment"># print(&quot;m: &quot;, m)</span><br>        <span class="hljs-comment"># print(&quot;gender: &quot;, gender)</span><br><br>        res_list = s.func(n, sitdown_peoples, m, gender)<br>        <span class="hljs-comment"># print(&quot;res_list: &quot;, res_list)</span><br><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(res_list)):<br>            <span class="hljs-built_in">print</span>(res_list[i]+<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+
+<h1 id="第四题：最优二叉树II"><a href="#第四题：最优二叉树II" class="headerlink" title="第四题：最优二叉树II"></a>第四题：最优二叉树II</h1><h2 id="题目大意-3"><a href="#题目大意-3" class="headerlink" title="题目大意"></a>题目大意</h2><p>小团有一个由N个节点组成的二叉树，每个节点有一个权值。定义二叉树每条边的开销为其两端节点权值的乘积，二叉树的总开销即每条边的开销之和。小团按照二叉树的中序遍历依次记录下每个节点的权值，即他记录下了N个数，第i个数表示位于中序遍历第i个位置的节点的权值。之后由于某种原因，小团遗忘了二叉树的具体结构。在所有可能的二叉树中，总开销最小的二叉树被称为最优二叉树。现在，小团请小美求出最优二叉树的总开销。</p>
+<p>输入描述：</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs excel">第一行输入一个整数<span class="hljs-built_in">N</span>（<span class="hljs-number">1</span>&lt;=<span class="hljs-built_in">N</span>&lt;=<span class="hljs-number">300</span>），表示二叉树的节点数。<br>第二行输入<span class="hljs-built_in">N</span>个由空格隔开的整数，表示按中序遍历记录下的各个节点的权值，所有权值均为不超过<span class="hljs-number">1000</span>的正整数。<br></code></pre></td></tr></table></figure>
+
+<p>输出描述：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">输出一个整数，表示最优二叉树的总开销。<br></code></pre></td></tr></table></figure>
+
+<p>输入例子1：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-number">5</span><br><span class="hljs-symbol">7 </span><span class="hljs-number">6</span> <span class="hljs-number">5</span> <span class="hljs-number">1</span> <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+
+<p>输出例子1：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">45<br></code></pre></td></tr></table></figure>
+
+<p>例子说明1：</p>
+<p><img src="/images/2022-04-29-00-25-01.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">最优二叉树如图所示，总开销为7<span class="hljs-number">*1</span>+6<span class="hljs-number">*5</span>+5<span class="hljs-number">*1</span>+1<span class="hljs-number">*3</span>=45。<br></code></pre></td></tr></table></figure>
+
+<h2 id="分析和解答-3"><a href="#分析和解答-3" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>这个题后来看了答案，好像是要区间dp的做法，但是区间dp感觉就是完全未知的领域了，树上的操作感觉实在是太多了，包括还有线段树一类的，说到这里也什么时候找个线段树的模板，以备之后套用吧</p>
+<p>这个题也可以用树形dp直接暴力，而且这里学到一个lru_cache，对于笔试题感觉是一种偷鸡的操作，让本来只能过2&#x2F;10的测试用例瞬间变到过6&#x2F;10 ~ 7&#x2F;10了，感觉就是dfs中的一个笔试偷鸡操作？应该所有dfs都可以用吧！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> functiontools <span class="hljs-keyword">import</span> lru_cache<br><br><span class="hljs-meta">@lru_cache(<span class="hljs-params"><span class="hljs-number">1000</span>*<span class="hljs-number">1000</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">dfs</span>():<br>    <span class="hljs-comment"># do sth</span><br></code></pre></td></tr></table></figure>
+
+<p>这个题暂时只学习了下dfs暴力的方法了，和子结构树形dp很像，但是和leetcode那边的区别是这里的输入是一个数组，所以dfs的区间是 <code>(0, n)</code> 这种感觉，然后dfs的含义感觉就是把 <code>i</code> 作为<strong>子结构</strong>的根节点，然后i这个位置乘父亲的，再加上左边和右边的，就完成了一次内部的递归，此外，在内部递归中要遍历每个 <code>i</code> 位置，即每次（包括dfs下去的子层）都要把这个地方当做根节点试一下，最后记录一个局部子结构的ret最优作为返回值，而 <code>(0, n)</code> 这个子结构实际上就是父结构了，另外每次要把 <code>parent_value</code> 往下传下去；</p>
+<p>子结构dp，LeetCode相似题目：</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-univalue-path/">687.最长同值路径 medium</a><br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/">124.二叉树中的最大路径和 hard</a><br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/diameter-of-binary-tree/">543.二叉树直径 easy</a></p>
+<p>如下代码可以通过6&#x2F;10 ~ 7&#x2F;10组测试用例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#encoding:utf-8</span><br><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> lru_cache<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">func</span>(<span class="hljs-params">self, n, values</span>):<br>        <span class="hljs-comment"># 输出的values是一个global的数组，这里lru_cache大幅优化效率</span><br><span class="hljs-meta">        @lru_cache(<span class="hljs-params"><span class="hljs-number">1000</span>*<span class="hljs-number">1000</span></span>)</span><br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">dfs</span>(<span class="hljs-params">left, right, parent_val</span>):<br><br>            <span class="hljs-comment"># 3. 写出口，这里等于的话，就0</span><br>            <span class="hljs-keyword">if</span> left &gt;= right:<br>                <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br><br>            <span class="hljs-comment"># 1. 先写返回值，这里是子结构返回值，每个子结构都初始化一个inf值</span><br>            res = <span class="hljs-number">1e9</span><br><br>            <span class="hljs-comment"># 2. 递归这个left,right区间下的最优子结构</span><br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(left, right):<br>                left_val = dfs(left, i, values[i])<br>                right_val = dfs(i+<span class="hljs-number">1</span>, right, values[i])<br>                res = <span class="hljs-built_in">min</span>(res, values[i] * parent_val + left_val + right_val)<br><br><br>            <span class="hljs-comment"># 1. 先写返回值，这里是子结构返回值，每个子结构都初始化一个inf值</span><br>            <span class="hljs-keyword">return</span> res<br><br>        <span class="hljs-keyword">return</span> dfs(<span class="hljs-number">0</span>, n, <span class="hljs-number">0</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># init solution    </span><br>    s = Solution()<br><br>    <span class="hljs-comment"># input区域 https://blog.csdn.net/mmmmonkeyfei/article/details/118863773</span><br>    n = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>().strip())<br>    <span class="hljs-keyword">global</span> values<br>    values = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, <span class="hljs-built_in">input</span>().strip().split(<span class="hljs-string">&quot; &quot;</span>)))<br><br>    <span class="hljs-comment"># print(&quot;n: &quot;, n)</span><br>    <span class="hljs-comment"># print(&quot;values: &quot;, values)</span><br>    <br><br>    <span class="hljs-comment"># 调用以及output</span><br>    res = s.func(n, values)<br>    <span class="hljs-built_in">print</span>(res)<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AF%95%E7%BB%83%E4%B9%A0-python/" class="category-chain-item">笔试练习-python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%A8%A1%E6%8B%9F/">#模拟</a>
+      
+        <a href="/tags/%E6%95%B0%E7%BB%84/">#数组</a>
+      
+        <a href="/tags/%E6%8E%92%E5%BA%8F/">#排序</a>
+      
+        <a href="/tags/%E5%A0%86/">#堆</a>
+      
+        <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">#优先队列</a>
+      
+        <a href="/tags/EASY/">#EASY</a>
+      
+        <a href="/tags/MEDIUM/">#MEDIUM</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>001场笔试练习</div>
+      <div>http://example.com/2022/04/26/001场笔试练习/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年4月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/04/30/algorithms/leetcode-python/124-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C-python/" title="124.二叉树中的最大路径和-python">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">124.二叉树中的最大路径和-python</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/23/algorithms/leetcode-weekly-contest/LeetCode2022%E6%98%A5%E5%AD%A3%E6%88%98%E9%98%9F%E8%B5%9B/" title="LeetCode2022春季战队赛">
+                        <span class="hidden-mobile">LeetCode2022春季战队赛</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

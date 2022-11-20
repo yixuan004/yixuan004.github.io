@@ -1,0 +1,688 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="312.戳气球（困难） 题目大意： 有n个气球，编号为0到n - 1，每个气球上都标有一个数字，这些数字存在数组nums中。 现在要求你戳破所有的气球。戳破第i个气球，你可以获得nums[i - 1] * nums[i] * nums[i + 1]枚硬币。 这里的i - 1和i + 1代表和i相邻的两个气球的序号。如果i - 1或i + 1超出了数组的边界，那么就当它是一个数字为1的气球。 求所能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="312.戳气球-python">
+<meta property="og:url" content="http://example.com/2021/12/16/algorithms/leetcode-python/312-%E6%88%B3%E6%B0%94%E7%90%83-python/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="312.戳气球（困难） 题目大意： 有n个气球，编号为0到n - 1，每个气球上都标有一个数字，这些数字存在数组nums中。 现在要求你戳破所有的气球。戳破第i个气球，你可以获得nums[i - 1] * nums[i] * nums[i + 1]枚硬币。 这里的i - 1和i + 1代表和i相邻的两个气球的序号。如果i - 1或i + 1超出了数组的边界，那么就当它是一个数字为1的气球。 求所能">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-16T15:42:30.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.883Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="数组">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="HARD">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>312.戳气球-python - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="312.戳气球-python"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-12-16 23:42" pubdate>
+          2021年12月16日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">312.戳气球-python</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>312.戳气球（困难）</p>
+<p>题目大意：</p>
+<p>有<code>n</code>个气球，编号为<code>0</code>到<code>n - 1</code>，每个气球上都标有一个数字，这些数字存在数组<code>nums</code>中。</p>
+<p>现在要求你戳破所有的气球。戳破第<code>i</code>个气球，你可以获得<code>nums[i - 1] * nums[i] * nums[i + 1]</code>枚硬币。 这里的<code>i - 1</code>和<code>i + 1</code>代表和<code>i</code>相邻的两个气球的序号。如果<code>i - 1</code>或<code>i + 1</code>超出了数组的边界，那么就当它是一个数字为<code>1</code>的气球。</p>
+<p>求所能获得硬币的最大数量。</p>
+<span id="more"></span>
+
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/burst-balloons/">题目链接</a></p>
+<p>有<code>n</code>个气球，编号为<code>0</code>到<code>n - 1</code>，每个气球上都标有一个数字，这些数字存在数组<code>nums</code>中。</p>
+<p>现在要求你戳破所有的气球。戳破第<code>i</code>个气球，你可以获得<code>nums[i - 1] * nums[i] * nums[i + 1]</code>枚硬币。 这里的<code>i - 1</code>和<code>i + 1</code>代表和<code>i</code>相邻的两个气球的序号。如果<code>i - 1</code>或<code>i + 1</code>超出了数组的边界，那么就当它是一个数字为<code>1</code>的气球。</p>
+<p>求所能获得硬币的最大数量。</p>
+<p>示例1：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros">输入：nums = [3,1,5,8]<br>输出：167<br>解释：<br>nums = [3,1,5,8] --&gt; [3,5,8] --&gt; [3,8] --&gt; [8] --&gt; []<br>coins =  3<span class="hljs-number">*1</span><span class="hljs-number">*5</span>    +   3<span class="hljs-number">*5</span><span class="hljs-number">*8</span>   +  1<span class="hljs-number">*3</span><span class="hljs-number">*8</span>  + 1<span class="hljs-number">*8</span><span class="hljs-number">*1</span> = 167<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs fix"><span class="hljs-attr">输入：nums </span>=<span class="hljs-string"> [1,5]</span><br><span class="hljs-string">输出：10</span><br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li>n &#x3D;&#x3D; nums.length</li>
+<li>1 &lt;&#x3D; n &lt;&#x3D; 500</li>
+<li>0 &lt;&#x3D; nums[i] &lt;&#x3D; 100</li>
+</ul>
+<h1 id="分析和解答"><a href="#分析和解答" class="headerlink" title="分析和解答"></a>分析和解答</h1><p>这个题在没有见过之前几乎很难想到这个dp的思路，二维<code>dp[i][j]</code>数组代表的含义是，在开区间(i, j)之间所能获得的最大金币数。</p>
+<p><strong>注意dp数组的初始化，避免深浅拷贝问题！</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">dp = [[<span class="hljs-number">0</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums))] <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums))]  <span class="hljs-comment"># 避免深浅拷贝问题</span><br></code></pre></td></tr></table></figure>
+
+<p>想到状态转移的递推关系，戳爆最后一个气球的时候，最后一个气球必然两边都是空的，也就是题目中说如果「如果<code>i - 1</code>或<code>i + 1</code>超出了数组的边界，那么就当它是一个数字为<code>1</code>的气球」，这个时候的状态，也就是<code>dp[0][len(nums)-1]</code>（注意这里的nums已经经过扩充，<code>nums.insert(0, 1)，nums.insert(len(nums), 1)</code>。</p>
+<p>想在最后一个状态的状态转移方程，<code>dp[0][len(nums)-1] = dp[0][k] + dp[0]*dp[k]*dp[len(nums)-1] + dp[k][len(nums)-1]</code>，这里想法是要遍历k在整个区间上，找到一个最大的赋值给<code>dp[0][len(nums)-1]</code>。经过这个状态转移方程后，感觉可以慢慢想到是一种自底向上的动态规划策略，由于是开区间(i, j)，所以最小的窗口要从3开始，到len(nums)这个长度为止。然后用每个长度的窗口3、4 … len(nums)在上边滑动。循环整体结构如下所示</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 由于是自底向上的思想，要让这个开区间不断扩大，[2, len(nums))，注意是左闭右开区间</span><br><span class="hljs-keyword">for</span> window_size <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>, <span class="hljs-built_in">len</span>(nums)):<br>    <span class="hljs-comment"># 在当前的窗口大小下，把整个数组过一遍，自底向上来不断修改dp中的值</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(nums)-window_size):<br></code></pre></td></tr></table></figure>
+
+<p>在每次的循环内部，需要计算<code>dp[i][i+window_size]</code>的值，这个就是上文中分析的开区间(i, j)之间能获得的最大金币数，遍历<code>for k in range(i+1, j)</code>，使用状态转移方程<code>dp[0][len(nums)-1] = dp[0][k] + dp[0]*dp[k]*dp[len(nums)-1] + dp[k][len(nums)-1]</code>，在不断的循环中窗口会扩大，也会自底向上。</p>
+<p>完整解答如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">maxCoins</span>(<span class="hljs-params">self, nums</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type nums: List[int]</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br><br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        自底向上动态规划感觉可以算非常经典的题目了？</span><br><span class="hljs-string">        如果能想到dp数组的含义感觉还是可以理解的，但是感觉这个dp数组的含义实在不太好想</span><br><span class="hljs-string">        </span><br><span class="hljs-string">        假设 dp[i][j] 表示【【【开区间】】】 (i,j) 内你能拿到的最多金币</span><br><span class="hljs-string">        想到这个递推的关系，删除【【【最后】】】一个气球k的时候，dp[i][k] + num[i]*num[j]*num[k] + dp[k][j]</span><br><span class="hljs-string">        再加上这个题说如果i-1，i+1超出了数组的时候，就当他是一个数字为1的气球</span><br><span class="hljs-string"></span><br><span class="hljs-string">        所以如果在开始和最后补充上两个1的话，在新的数组上开区间(0, len(nums)-1)所能拿到的最大值，就是最终的状态了</span><br><span class="hljs-string">        这个状态在递推下，就等于最后一个删除的气球k，dp[i][k] + num[i]*num[j]*num[k] + dp[k][j]，有一种分而治之的思想</span><br><span class="hljs-string"></span><br><span class="hljs-string">        由于是开区间，所以最小的长度为3才可以，也或许是先想出上边的递推公式后，再来看dp的思路，dp数组的含义是什么了，感觉还是得想状态转移</span><br><span class="hljs-string"></span><br><span class="hljs-string">        最后来看的话，这个题是一个自底向上的动态规划问题，要首先找到小区间的，例如对于一个长度为3的开区间，永远就是当前窗口中间的那个数字</span><br><span class="hljs-string">        </span><br><span class="hljs-string">        解法的话按照答案的思路写了一遍，答案还是有很多内容需要注意到的</span><br><span class="hljs-string">            - 包括区间不要让角标超出限制</span><br><span class="hljs-string">            - 还有range_best中的ij参数是代表开区间，所以在遍历的时候for k in range(i+1, j)就可以这样的</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_range_best</span>(<span class="hljs-params">i, j</span>):<br>            max_value = <span class="hljs-number">0</span><br>            <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(i+<span class="hljs-number">1</span>, j):<br>                tmp_value = dp[i][k] + nums[i] * nums[k] * nums[j] + dp[k][j]<br>                max_value = <span class="hljs-built_in">max</span>(max_value, tmp_value)<br>            dp[i][j] = max_value<br><br><br>        nums.insert(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>)<br>        nums.insert(<span class="hljs-built_in">len</span>(nums), <span class="hljs-number">1</span>)<br>        dp = [[<span class="hljs-number">0</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums))] <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(nums))]<br><br>        <span class="hljs-comment"># 由于是自底向上的思想，要让这个开区间不断扩大，[2, len(nums))，注意是左闭右开区间</span><br>        <span class="hljs-keyword">for</span> window_size <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>, <span class="hljs-built_in">len</span>(nums)):<br>            <span class="hljs-comment"># 在当前的窗口大小下，把整个数组过一遍，自底向上来不断修改dp中的值</span><br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(nums)-window_size):<br>                get_range_best(i, i+window_size)  <span class="hljs-comment"># 这个函数的作用是，找到在i, i+window_size这个开区间中，最大的那一个值，窗口大小是3（window_size=2时，就是那个值）</span><br>            <br>            <span class="hljs-comment"># print(dp)</span><br>            <span class="hljs-comment"># assert False</span><br>        <br>        <span class="hljs-keyword">return</span> dp[<span class="hljs-number">0</span>][<span class="hljs-built_in">len</span>(nums)-<span class="hljs-number">1</span>]<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LeetCode-python/" class="category-chain-item">LeetCode-python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/" class="category-chain-item">LeetCode-热题 HOT 100</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E7%BB%84/">#数组</a>
+      
+        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
+      
+        <a href="/tags/HARD/">#HARD</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>312.戳气球-python</div>
+      <div>http://example.com/2021/12/16/algorithms/leetcode-python/312-戳气球-python/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年12月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/12/17/algorithms/leetcode-python/200-%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F-python/" title="200.岛屿数量-python">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">200.岛屿数量-python</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/12/16/algorithms/leetcode-python/72-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB-python/" title="72.编辑距离-python">
+                        <span class="hidden-mobile">72.编辑距离-python</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
