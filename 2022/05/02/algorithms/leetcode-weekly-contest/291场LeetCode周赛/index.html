@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/_posts/img/fluid.png">
+  <link rel="icon" href="/_posts/img/fluid.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -33,13 +33,13 @@
 <meta property="article:tag" content="EASY">
 <meta property="article:tag" content="MEDIUM">
 <meta property="article:tag" content="字符串">
-<meta property="article:tag" content="动态规划">
 <meta property="article:tag" content="HARD">
-<meta property="article:tag" content="贪心">
-<meta property="article:tag" content="字典树">
 <meta property="article:tag" content="哈希表">
-<meta property="article:tag" content="滑动窗口">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="动态规划">
 <meta property="article:tag" content="枚举">
+<meta property="article:tag" content="滑动窗口">
+<meta property="article:tag" content="字典树">
 <meta property="article:tag" content="哈希函数">
 <meta property="article:tag" content="滚动哈希">
 <meta name="twitter:card" content="summary_large_image">
@@ -71,12 +71,12 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
-<link  rel="stylesheet" href="/css/main.css" />
+<link  rel="stylesheet" href="/_posts/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/_posts/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/_posts/css/highlight-dark.css" />
   
 
 
@@ -85,15 +85,15 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/_posts/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/_posts/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
+  <script  src="/_posts/js/utils.js" ></script>
+  <script  src="/_posts/js/color-schema.js" ></script>
   
 
 
@@ -110,7 +110,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" href="/_posts/">
       <strong>Fluid</strong>
     </a>
 
@@ -129,7 +129,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/">
+              <a class="nav-link" href="/_posts/">
                 <i class="iconfont icon-home-fill"></i>
                 首页
               </a>
@@ -141,7 +141,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/archives/">
+              <a class="nav-link" href="/_posts/archives/">
                 <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
@@ -153,7 +153,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/categories/">
+              <a class="nav-link" href="/_posts/categories/">
                 <i class="iconfont icon-category-fill"></i>
                 分类
               </a>
@@ -165,7 +165,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/tags/">
+              <a class="nav-link" href="/_posts/tags/">
                 <i class="iconfont icon-tags-fill"></i>
                 标签
               </a>
@@ -177,7 +177,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/about/">
+              <a class="nav-link" href="/_posts/about/">
                 <i class="iconfont icon-user-fill"></i>
                 关于
               </a>
@@ -206,7 +206,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/_posts/img/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -299,7 +299,7 @@
 <span id="more"></span>
 
 <p>希望下次前1000名来得快一点，这次确实是题简单了</p>
-<p><img src="/images/2022-05-02-09-13-42.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/2022-05-02-09-13-42.png" srcset="/_posts/img/loading.gif" lazyload></p>
 <h1 id="第一题：6047-移除指定数字得到的最大结果"><a href="#第一题：6047-移除指定数字得到的最大结果" class="headerlink" title="第一题：6047.移除指定数字得到的最大结果"></a>第一题：6047.移除指定数字得到的最大结果</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-digit-from-number-to-maximize-result/">题目链接</a></p>
 <h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个表示某个正整数的字符串 <code>number</code> 和一个字符 <code>digit</code> 。</p>
 <p>从 <code>number</code> 中 <strong>恰好</strong> 移除 <strong>一个</strong> 等于 <code>digit</code> 的字符后，找出并返回按 <strong>十进制</strong> 表示 <strong>最大</strong> 的结果字符串。生成的测试用例满足 <code>digit</code> 在 <code>number</code> 中出现至少一次。</p>
@@ -374,8 +374,8 @@
 <p>给你一个字符串 <code>s</code> ，返回 <strong>其所有子字符串的总引力</strong> 。</p>
 <p><strong>子字符串</strong> 定义为：字符串中的一个连续字符序列。</p>
 <h2 id="分析和解答-3"><a href="#分析和解答-3" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>一道计算“贡献”的题目，自己一开始想的有点偏，贡献类的题目感觉不能从完全全局来说，要考虑每个字符在全局上的贡献，这个题也是第一次遇到，感觉算法还是很神奇的，自己举的例子是下边这个图这样，这样能按照每个字符，来统计每个字符的贡献度：</p>
-<p>非重复情况：<br><img src="/images/2022-05-02-10-28-47.png" srcset="/img/loading.gif" lazyload></p>
-<p>重复情况：<br><img src="/images/2022-05-02-10-29-13.png" srcset="/img/loading.gif" lazyload></p>
+<p>非重复情况：<br><img src="/images/2022-05-02-10-28-47.png" srcset="/_posts/img/loading.gif" lazyload></p>
+<p>重复情况：<br><img src="/images/2022-05-02-10-29-13.png" srcset="/_posts/img/loading.gif" lazyload></p>
 <p>另外还想再次说这个子字符串好有意思啊，他不是2^n那种遍历方法的，而是j&#x3D;i那种双重for循环的，看了眼数据范围还在想要不要搞2^n做法呢</p>
 <p>正确解答方法：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">appealSum</span>(<span class="hljs-params">self, s</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type s: str</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># 一种每个字符贡献度的思想，还是很有特点的</span><br>        res = <span class="hljs-number">0</span><br>        char_dict = &#123;&#125;<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(s)):<br>            <span class="hljs-keyword">if</span> char_dict.get(s[i]) <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>                res += (i + <span class="hljs-number">1</span>) * (<span class="hljs-built_in">len</span>(s)-i)<br>            <span class="hljs-keyword">else</span>:<br>                res += (i - char_dict[s[i]]) * (<span class="hljs-built_in">len</span>(s) - i)<br>            char_dict[s[i]] = i<br>        <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
@@ -399,12 +399,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/LeetCode-python/" class="category-chain-item">LeetCode-python</a>
+  <a href="/_posts/categories/LeetCode-python/" class="category-chain-item">LeetCode-python</a>
   
   
     <span>></span>
     
-  <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/" class="category-chain-item">LeetCode周赛</a>
+  <a href="/_posts/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/" class="category-chain-item">LeetCode周赛</a>
   
   
 
@@ -421,31 +421,31 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%95%B0%E7%BB%84/">#数组</a>
+        <a href="/_posts/tags/%E6%95%B0%E7%BB%84/">#数组</a>
       
-        <a href="/tags/EASY/">#EASY</a>
+        <a href="/_posts/tags/EASY/">#EASY</a>
       
-        <a href="/tags/MEDIUM/">#MEDIUM</a>
+        <a href="/_posts/tags/MEDIUM/">#MEDIUM</a>
       
-        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">#字符串</a>
+        <a href="/_posts/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">#字符串</a>
       
-        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
+        <a href="/_posts/tags/HARD/">#HARD</a>
       
-        <a href="/tags/HARD/">#HARD</a>
+        <a href="/_posts/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">#哈希表</a>
       
-        <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
+        <a href="/_posts/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
       
-        <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">#字典树</a>
+        <a href="/_posts/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
       
-        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">#哈希表</a>
+        <a href="/_posts/tags/%E6%9E%9A%E4%B8%BE/">#枚举</a>
       
-        <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">#滑动窗口</a>
+        <a href="/_posts/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">#滑动窗口</a>
       
-        <a href="/tags/%E6%9E%9A%E4%B8%BE/">#枚举</a>
+        <a href="/_posts/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">#字典树</a>
       
-        <a href="/tags/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/">#哈希函数</a>
+        <a href="/_posts/tags/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/">#哈希函数</a>
       
-        <a href="/tags/%E6%BB%9A%E5%8A%A8%E5%93%88%E5%B8%8C/">#滚动哈希</a>
+        <a href="/_posts/tags/%E6%BB%9A%E5%8A%A8%E5%93%88%E5%B8%8C/">#滚动哈希</a>
       
     </div>
   
@@ -502,7 +502,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/04/algorithms/leetcode-weekly-contest/273-283%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B%E6%80%BB%E7%BB%93/" title="273-283场LeetCode周赛总结">
+                      <a href="/_posts/2022/05/04/algorithms/leetcode-weekly-contest/273-283%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B%E6%80%BB%E7%BB%93/" title="273-283场LeetCode周赛总结">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">273-283场LeetCode周赛总结</span>
                         <span class="visible-mobile">上一篇</span>
@@ -512,7 +512,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/30/algorithms/leetcode-python/687-%E6%9C%80%E9%95%BF%E5%90%8C%E5%80%BC%E8%B7%AF%E5%BE%84-python/" title="687.最长同值路径-python">
+                      <a href="/_posts/2022/04/30/algorithms/leetcode-python/687-%E6%9C%80%E9%95%BF%E5%90%8C%E5%80%BC%E8%B7%AF%E5%BE%84-python/" title="687.最长同值路径-python">
                         <span class="hidden-mobile">687.最长同值路径-python</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -639,8 +639,8 @@
 
 <script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
+<script  src="/_posts/js/events.js" ></script>
+<script  src="/_posts/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -662,7 +662,7 @@
 
 
   
-    <script  src="/js/img-lazyload.js" ></script>
+    <script  src="/_posts/js/img-lazyload.js" ></script>
   
 
 
@@ -761,7 +761,7 @@
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  <script  src="/js/local-search.js" ></script>
+  <script  src="/_posts/js/local-search.js" ></script>
 
 
 
@@ -769,7 +769,7 @@
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
+<script  src="/_posts/js/boot.js" ></script>
 
 
   

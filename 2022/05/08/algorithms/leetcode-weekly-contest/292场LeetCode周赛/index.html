@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/_posts/img/fluid.png">
+  <link rel="icon" href="/_posts/img/fluid.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -37,13 +37,13 @@
 <meta property="article:tag" content="EASY">
 <meta property="article:tag" content="MEDIUM">
 <meta property="article:tag" content="字符串">
-<meta property="article:tag" content="树">
-<meta property="article:tag" content="深度优先搜索">
-<meta property="article:tag" content="动态规划">
 <meta property="article:tag" content="HARD">
+<meta property="article:tag" content="数学">
 <meta property="article:tag" content="哈希表">
 <meta property="article:tag" content="矩阵">
-<meta property="article:tag" content="数学">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="树">
+<meta property="article:tag" content="深度优先搜索">
 <meta property="article:tag" content="二叉搜索树">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/images/2022-05-08-21-27-52.png">
@@ -74,12 +74,12 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
-<link  rel="stylesheet" href="/css/main.css" />
+<link  rel="stylesheet" href="/_posts/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/_posts/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/_posts/css/highlight-dark.css" />
   
 
 
@@ -88,15 +88,15 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/_posts/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/_posts/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
+  <script  src="/_posts/js/utils.js" ></script>
+  <script  src="/_posts/js/color-schema.js" ></script>
   
 
 
@@ -113,7 +113,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" href="/_posts/">
       <strong>Fluid</strong>
     </a>
 
@@ -132,7 +132,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/">
+              <a class="nav-link" href="/_posts/">
                 <i class="iconfont icon-home-fill"></i>
                 首页
               </a>
@@ -144,7 +144,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/archives/">
+              <a class="nav-link" href="/_posts/archives/">
                 <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
@@ -156,7 +156,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/categories/">
+              <a class="nav-link" href="/_posts/categories/">
                 <i class="iconfont icon-category-fill"></i>
                 分类
               </a>
@@ -168,7 +168,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/tags/">
+              <a class="nav-link" href="/_posts/tags/">
                 <i class="iconfont icon-tags-fill"></i>
                 标签
               </a>
@@ -180,7 +180,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/about/">
+              <a class="nav-link" href="/_posts/about/">
                 <i class="iconfont icon-user-fill"></i>
                 关于
               </a>
@@ -209,7 +209,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/_posts/img/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -338,11 +338,11 @@
 <li><code>root</code> 的 <strong>子树</strong> 由 <code>root</code> 和它的所有后代组成。</li>
 </ul>
 <p>示例 1：</p>
-<p><img src="/images/2022-05-08-21-27-52.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/2022-05-08-21-27-52.png" srcset="/_posts/img/loading.gif" lazyload></p>
 <figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：root = [4,8,5,0,1,null,6]<br>输出：5<br>解释：<br>对值为<span class="hljs-number"> 4 </span>的节点：子树的平均值 (4 +<span class="hljs-number"> 8 </span>+<span class="hljs-number"> 5 </span>+<span class="hljs-number"> 0 </span>+<span class="hljs-number"> 1 </span>+ 6) /<span class="hljs-number"> 6 </span>=<span class="hljs-number"> 24 </span>/<span class="hljs-number"> 6 </span>=<span class="hljs-number"> 4 </span>。<br>对值为<span class="hljs-number"> 5 </span>的节点：子树的平均值 (5 + 6) /<span class="hljs-number"> 2 </span>=<span class="hljs-number"> 11 </span>/<span class="hljs-number"> 2 </span>=<span class="hljs-number"> 5 </span>。<br>对值为<span class="hljs-number"> 0 </span>的节点：子树的平均值<span class="hljs-number"> 0 </span>/<span class="hljs-number"> 1 </span>=<span class="hljs-number"> 0 </span>。<br>对值为<span class="hljs-number"> 1 </span>的节点：子树的平均值<span class="hljs-number"> 1 </span>/<span class="hljs-number"> 1 </span>=<span class="hljs-number"> 1 </span>。<br>对值为<span class="hljs-number"> 6 </span>的节点：子树的平均值<span class="hljs-number"> 6 </span>/<span class="hljs-number"> 1 </span>=<span class="hljs-number"> 6 </span>。<br></code></pre></td></tr></table></figure>
 
 <p>示例 2：</p>
-<p><img src="/images/2022-05-08-21-28-58.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/2022-05-08-21-28-58.png" srcset="/_posts/img/loading.gif" lazyload></p>
 <figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：root = [1]<br>输出：1<br>解释：对值为<span class="hljs-number"> 1 </span>的节点：子树的平均值<span class="hljs-number"> 1 </span>/<span class="hljs-number"> 1 </span>= 1。<br></code></pre></td></tr></table></figure>
 
 <p>提示：</p>
@@ -356,7 +356,7 @@
 
 <h1 id="第三题：6058-统计打字方案数"><a href="#第三题：6058-统计打字方案数" class="headerlink" title="第三题：6058.统计打字方案数"></a>第三题：6058.统计打字方案数</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-number-of-texts/">题目链接</a></p>
 <h2 id="题目大意-2"><a href="#题目大意-2" class="headerlink" title="题目大意"></a>题目大意</h2><p>Alice 在给 Bob 用手机打字。数字到字母的 <strong>对应</strong> 如下图所示。</p>
-<p><img src="/images/2022-05-08-21-36-14.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/2022-05-08-21-36-14.png" srcset="/_posts/img/loading.gif" lazyload></p>
 <p>为了 <strong>打出</strong> 一个字母，Alice 需要 <strong>按</strong> 对应字母 <code>i</code> 次，<code>i</code> 是该字母在这个按键上所处的位置。</p>
 <ul>
 <li>比方说，为了按出字母 <code>&#39;s&#39;</code> ，Alice 需要按 <code>&#39;7&#39;</code> 四次。类似的， Alice 需要按 <code>&#39;5&#39;</code> 两次得到字母  <code>&#39;k&#39;</code> 。</li>
@@ -380,7 +380,7 @@
 <li><code>pressedKeys</code> 只包含数字 <code>&#39;2&#39;</code> 到 <code>&#39;9&#39;</code> 。</li>
 </ul>
 <h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>像是数学找规律的题目，背后隐藏的其实是dp的内容，有点像跳台阶那种做法，可惜自己规律找错了没有写出来，具体内容写在详解里的照片中了；</p>
-<p><img src="/images/2022-05-08-21-43-04.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/2022-05-08-21-43-04.png" srcset="/_posts/img/loading.gif" lazyload></p>
 <p>另外在代码实现上，发现直接初始化所有的这种类似于离线的操作可能会超时，所以来说的话还是写了一版动态的思路，参照之前的经验，</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">countTexts</span>(<span class="hljs-params">self, pressedKeys</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type pressedKeys: str</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br><br>        <span class="hljs-string">&quot;&quot;&quot; </span><br><span class="hljs-string">        # 写法1，方法应该没问题，但是初始化的时候太耗时了，可能就被边界卡了</span><br><span class="hljs-string">        if len(pressedKeys) == 0:</span><br><span class="hljs-string">            return 0</span><br><span class="hljs-string">        </span><br><span class="hljs-string">        max_len = len(pressedKeys) + 5</span><br><span class="hljs-string">        MOD = 10**9 + 7</span><br><span class="hljs-string"></span><br><span class="hljs-string">        # 这个过程有点太耗时了，这里可能要换一种动态的写法，因为太多位置是没用的了？</span><br><span class="hljs-string">        # 非7，9的递推方程</span><br><span class="hljs-string">        f_1 = [0] * max_len  # 写不写成for好像没区别</span><br><span class="hljs-string">        f_1[1], f_1[2], f_1[3] = 1, 2, 4</span><br><span class="hljs-string">        # 7，9的递推方程</span><br><span class="hljs-string">        f_2 = [0] * max_len</span><br><span class="hljs-string">        f_2[1], f_2[2], f_2[3], f_2[4] = 1, 2, 4, 8</span><br><span class="hljs-string">        # 简化为一个循环</span><br><span class="hljs-string">        for i in range(4, max_len):</span><br><span class="hljs-string">            f_1[i] = f_1[i-1] + f_1[i-2] + f_1[i-3]</span><br><span class="hljs-string">            if i != 4:</span><br><span class="hljs-string">                f_2[i] = f_2[i-1] + f_2[i-2] + f_2[i-3] + f_2[i-4]</span><br><span class="hljs-string">        </span><br><span class="hljs-string">        # 开始分组统计</span><br><span class="hljs-string">        res = 1</span><br><span class="hljs-string">        pressedKeys += &#x27;#&#x27;  # 哨兵</span><br><span class="hljs-string">        now_str = pressedKeys[0]</span><br><span class="hljs-string">        cnt = 1</span><br><span class="hljs-string">        i = 1</span><br><span class="hljs-string">        while i &lt; len(pressedKeys):</span><br><span class="hljs-string">            if pressedKeys[i] == now_str:</span><br><span class="hljs-string">                cnt += 1</span><br><span class="hljs-string">            else:</span><br><span class="hljs-string">                if now_str == &#x27;7&#x27; or now_str == &#x27;9&#x27;:</span><br><span class="hljs-string">                    res *= f_2[cnt] % MOD</span><br><span class="hljs-string">                else:</span><br><span class="hljs-string">                    res *= f_1[cnt] % MOD</span><br><span class="hljs-string">                cnt = 1</span><br><span class="hljs-string">                now_str = pressedKeys[i]</span><br><span class="hljs-string">            i += 1</span><br><span class="hljs-string"></span><br><span class="hljs-string">        return res % MOD</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br><br>        <span class="hljs-comment"># 写法2，把写法1的方法转成动态的，或者相对更加记忆化一点</span><br>        f_1 = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>]  <span class="hljs-comment"># 角标直接对应上</span><br>        f_2 = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>]<br>        i = <span class="hljs-number">1</span><br>        cnt = <span class="hljs-number">1</span><br>        pressedKeys += <span class="hljs-string">&#x27;#&#x27;</span><br>        now_str = pressedKeys[<span class="hljs-number">0</span>]<br>        res = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">while</span> i &lt; <span class="hljs-built_in">len</span>(pressedKeys):<br>            <span class="hljs-keyword">if</span> pressedKeys[i] == now_str:<br>                cnt += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-keyword">if</span> now_str == <span class="hljs-string">&#x27;7&#x27;</span> <span class="hljs-keyword">or</span> now_str == <span class="hljs-string">&#x27;9&#x27;</span>:<br>                    <span class="hljs-keyword">try</span>:<br>                        res *= f_2[cnt]<br>                    <span class="hljs-keyword">except</span>:<br>                        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(f_2), cnt+<span class="hljs-number">1</span>):<br>                            <span class="hljs-comment"># 注，这里实际上不推荐append的写法，最好是初始化一个很长的，往里填</span><br>                            f_2.append(f_2[j-<span class="hljs-number">1</span>] + f_2[j-<span class="hljs-number">2</span>] + f_2[j-<span class="hljs-number">3</span>] + f_2[j-<span class="hljs-number">4</span>])<br>                        res *= f_2[cnt]<br>                <span class="hljs-keyword">else</span>:<br>                    <span class="hljs-keyword">try</span>:<br>                        res *= f_1[cnt]<br>                    <span class="hljs-keyword">except</span>:<br>                        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(f_1), cnt+<span class="hljs-number">1</span>):<br>                            f_1.append(f_1[j-<span class="hljs-number">1</span>] + f_1[j-<span class="hljs-number">2</span>] + f_1[j-<span class="hljs-number">3</span>])<br>                        res *= f_1[cnt]<br>                cnt = <span class="hljs-number">1</span><br>                now_str = pressedKeys[i]<br>            i += <span class="hljs-number">1</span><br><br>        <span class="hljs-keyword">return</span> res % (<span class="hljs-number">10</span>**<span class="hljs-number">9</span> + <span class="hljs-number">7</span>)<br></code></pre></td></tr></table></figure>
 
@@ -400,11 +400,11 @@
 </ul>
 <p>如果网格图中存在一条 <strong>合法括号路径</strong> ，请返回 <code>true</code> ，否则返回 <code>false</code> 。</p>
 <p>示例 1：</p>
-<p><img src="/images/2022-05-08-21-49-28.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/2022-05-08-21-49-28.png" srcset="/_posts/img/loading.gif" lazyload></p>
 <figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs prolog">输入：grid = [[<span class="hljs-string">&quot;(&quot;</span>,<span class="hljs-string">&quot;(&quot;</span>,<span class="hljs-string">&quot;(&quot;</span>],[<span class="hljs-string">&quot;)&quot;</span>,<span class="hljs-string">&quot;(&quot;</span>,<span class="hljs-string">&quot;)&quot;</span>],[<span class="hljs-string">&quot;(&quot;</span>,<span class="hljs-string">&quot;(&quot;</span>,<span class="hljs-string">&quot;)&quot;</span>],[<span class="hljs-string">&quot;(&quot;</span>,<span class="hljs-string">&quot;(&quot;</span>,<span class="hljs-string">&quot;)&quot;</span>]]<br>输出：true<br>解释：上图展示了两条路径，它们都是合法括号字符串路径。<br>第一条路径得到的合法字符串是 <span class="hljs-string">&quot;()(())&quot;</span> 。<br>第二条路径得到的合法字符串是 <span class="hljs-string">&quot;((()))&quot;</span> 。<br>注意可能有其他的合法括号字符串路径。<br></code></pre></td></tr></table></figure>
 
 <p>示例2：</p>
-<p><img src="/images/2022-05-08-21-50-00.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/2022-05-08-21-50-00.png" srcset="/_posts/img/loading.gif" lazyload></p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lua">输入：grid = <span class="hljs-string">[[&quot;)&quot;,&quot;)&quot;],[&quot;(&quot;,&quot;(&quot;]]</span><br>输出：<span class="hljs-literal">false</span><br>解释：两条可行路径分别得到 <span class="hljs-string">&quot;))(&quot;</span> 和 <span class="hljs-string">&quot;)((&quot;</span> 。由于它们都不是合法括号字符串，我们返回 <span class="hljs-literal">false</span> 。<br></code></pre></td></tr></table></figure>
 
 <p>提示：</p>
@@ -416,7 +416,7 @@
 </ul>
 <h2 id="分析和解答-3"><a href="#分析和解答-3" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>存在，还有路径类的可以说是dfs的题目；而最小，走迷宫类的题目就是比较经典的bfs题目；这个题是个括号场景下的dfs题目，括号场景的题做多了就发现实际上不用栈什么的做匹配，而是直接记录左括号的数目，在一个右括号过来的时候看看左括号还有没有剩余可供匹配的就可以了，还可以参考这个题目，是个栈来判断最长满足条件的！<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-valid-parentheses/">32.最长有效括号</a></p>
 <p>在优化剪枝上，一种是 <code>@lru_cache(1000*1000)</code> 靠着编译器来优化，另外一种是记录visited数组，类似于下面图里写的意思，还有就是说匹配上的括号长度一定是 <strong>偶数</strong> 的：</p>
-<p><img src="/images/2022-05-08-21-56-39.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/2022-05-08-21-56-39.png" srcset="/_posts/img/loading.gif" lazyload></p>
 <p>这个题还遇到很多玄学问题，就是说两个优化都加上就过不了，但是只留其中一个优化就可以。。。dfs结构还是比较简单的！</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> lru_cache<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.flag = <span class="hljs-literal">False</span><br>        self.already_true = &#123;&#125;<br>        self.grid = <span class="hljs-literal">None</span><br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">hasValidPath</span>(<span class="hljs-params">self, grid:<span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]]</span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type grid: List[List[str]]</span><br><span class="hljs-string">        :rtype: bool</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># 只能往下，或者往右移动</span><br>        dx = [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>]<br>        dy = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]<br>        n = <span class="hljs-built_in">len</span>(grid)<br>        m = <span class="hljs-built_in">len</span>(grid[<span class="hljs-number">0</span>])<br>        self.grid = grid  <span class="hljs-comment"># n,m实际上也可以搞到self.里去</span><br><br>        <span class="hljs-keyword">if</span> (n+m) % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br><br><span class="hljs-meta">        @lru_cache(<span class="hljs-params"><span class="hljs-number">1000</span>*<span class="hljs-number">1000</span></span>)</span><br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">dfs</span>(<span class="hljs-params">x:<span class="hljs-built_in">int</span>, y:<span class="hljs-built_in">int</span>, left_kh_cnt:<span class="hljs-built_in">int</span>, n:<span class="hljs-built_in">int</span>, m:<span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>            <span class="hljs-keyword">if</span> left_kh_cnt &lt; <span class="hljs-number">0</span>:<br>                <span class="hljs-keyword">return</span> <br><br>            <span class="hljs-comment"># 剪枝条件是，路径上某个位置，在相同left_kh_cnt条件下，是否出现过了</span><br>            <span class="hljs-comment"># 这里原理上的解释是</span><br>            <span class="hljs-keyword">if</span> self.already_true.get((x,y,left_kh_cnt)) <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>                self.already_true[(x,y,left_kh_cnt)] = <span class="hljs-literal">True</span><br>                <span class="hljs-comment"># print(&quot;self.already_true: &quot;, self.already_true)</span><br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-keyword">return</span> <br><br>            <span class="hljs-keyword">if</span> x == n-<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> y == m-<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> left_kh_cnt == <span class="hljs-number">0</span>:  <span class="hljs-comment"># 恰好匹配</span><br>                self.flag = <span class="hljs-literal">True</span><br>                <span class="hljs-keyword">return</span> <br>            <br><br>            <span class="hljs-comment"># 1. 先写dfs逻辑，剩下逻辑随之适配</span><br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>):<br>                nx = x + dx[i]<br>                ny = y + dy[i]<br>                <span class="hljs-keyword">if</span> nx &gt;= <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> nx &lt; n <span class="hljs-keyword">and</span> ny &gt;= <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> ny &lt; m: <br>                    <span class="hljs-keyword">if</span> self.grid[nx][ny] == <span class="hljs-string">&#x27;(&#x27;</span>:<br>                        dfs(nx, ny, left_kh_cnt+<span class="hljs-number">1</span>, n, m)<br>                    <span class="hljs-keyword">else</span>:<br>                        dfs(nx, ny, left_kh_cnt-<span class="hljs-number">1</span>, n, m)<br><br>        <span class="hljs-keyword">if</span> self.grid[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] == <span class="hljs-string">&#x27;(&#x27;</span> <span class="hljs-keyword">or</span> self.grid[-<span class="hljs-number">1</span>][-<span class="hljs-number">1</span>] != <span class="hljs-string">&#x27;(&#x27;</span>:<br>            dfs(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, n, m)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        <span class="hljs-keyword">return</span> self.flag<br></code></pre></td></tr></table></figure>
                 
@@ -436,12 +436,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/LeetCode-python/" class="category-chain-item">LeetCode-python</a>
+  <a href="/_posts/categories/LeetCode-python/" class="category-chain-item">LeetCode-python</a>
   
   
     <span>></span>
     
-  <a href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/" class="category-chain-item">LeetCode周赛</a>
+  <a href="/_posts/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/" class="category-chain-item">LeetCode周赛</a>
   
   
 
@@ -458,29 +458,29 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%95%B0%E7%BB%84/">#数组</a>
+        <a href="/_posts/tags/%E6%95%B0%E7%BB%84/">#数组</a>
       
-        <a href="/tags/EASY/">#EASY</a>
+        <a href="/_posts/tags/EASY/">#EASY</a>
       
-        <a href="/tags/MEDIUM/">#MEDIUM</a>
+        <a href="/_posts/tags/MEDIUM/">#MEDIUM</a>
       
-        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">#字符串</a>
+        <a href="/_posts/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">#字符串</a>
       
-        <a href="/tags/%E6%A0%91/">#树</a>
+        <a href="/_posts/tags/HARD/">#HARD</a>
       
-        <a href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">#深度优先搜索</a>
+        <a href="/_posts/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
       
-        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
+        <a href="/_posts/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">#哈希表</a>
       
-        <a href="/tags/HARD/">#HARD</a>
+        <a href="/_posts/tags/%E7%9F%A9%E9%98%B5/">#矩阵</a>
       
-        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">#哈希表</a>
+        <a href="/_posts/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
       
-        <a href="/tags/%E7%9F%A9%E9%98%B5/">#矩阵</a>
+        <a href="/_posts/tags/%E6%A0%91/">#树</a>
       
-        <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+        <a href="/_posts/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">#深度优先搜索</a>
       
-        <a href="/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">#二叉搜索树</a>
+        <a href="/_posts/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">#二叉搜索树</a>
       
     </div>
   
@@ -537,7 +537,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/15/algorithms/leetcode-weekly-contest/293%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/" title="293场LeetCode周赛">
+                      <a href="/_posts/2022/05/15/algorithms/leetcode-weekly-contest/293%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/" title="293场LeetCode周赛">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">293场LeetCode周赛</span>
                         <span class="visible-mobile">上一篇</span>
@@ -547,7 +547,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/06/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AD%A6%E4%B9%A0/" title="正则表达式学习">
+                      <a href="/_posts/2022/05/06/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AD%A6%E4%B9%A0/" title="正则表达式学习">
                         <span class="hidden-mobile">正则表达式学习</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -674,8 +674,8 @@
 
 <script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
+<script  src="/_posts/js/events.js" ></script>
+<script  src="/_posts/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -697,7 +697,7 @@
 
 
   
-    <script  src="/js/img-lazyload.js" ></script>
+    <script  src="/_posts/js/img-lazyload.js" ></script>
   
 
 
@@ -796,7 +796,7 @@
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  <script  src="/js/local-search.js" ></script>
+  <script  src="/_posts/js/local-search.js" ></script>
 
 
 
@@ -804,7 +804,7 @@
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
+<script  src="/_posts/js/boot.js" ></script>
 
 
   
