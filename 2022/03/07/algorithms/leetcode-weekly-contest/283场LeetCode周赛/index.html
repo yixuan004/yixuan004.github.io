@@ -23,27 +23,27 @@
 <meta property="og:site_name" content="Curious;的个人划水博客">
 <meta property="og:description" content="周赛综述&amp;总结： 这次感觉就是从头卡到尾哈哈哈，每个题或多或少都卡了一下，感觉近几次做题真的思想越来越僵化了，也可能和太久没写代码了有关吧，2月轻松了一个月，3月开始真的忙碌了hhh，等哪天闲下来要完整总结下做题用到的一些常用结构了； 看了下有写笔记的是273到283，算上新年鸽了一次正好十次，感觉可以十次总结下，之后找时间先写个新的博客~ 第一题：上来就不顺了下，要考虑python怎么做">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/2022-03-07-19-17-22.png">
-<meta property="og:image" content="http://example.com/images/2022-03-07-19-19-50.png">
-<meta property="og:image" content="http://example.com/images/2022-03-07-19-40-30.png">
-<meta property="og:image" content="http://example.com/images/2022-03-07-19-41-17.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-07-19-17-22.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-07-19-19-50.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-07-19-40-30.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-07-19-41-17.png">
 <meta property="article:published_time" content="2022-03-07T10:35:08.000Z">
-<meta property="article:modified_time" content="2022-11-20T01:50:08.886Z">
+<meta property="article:modified_time" content="2022-11-20T07:36:39.171Z">
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="数组">
 <meta property="article:tag" content="排序">
 <meta property="article:tag" content="EASY">
 <meta property="article:tag" content="MEDIUM">
 <meta property="article:tag" content="字符串">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="哈希表">
 <meta property="article:tag" content="树">
 <meta property="article:tag" content="深度优先搜索">
 <meta property="article:tag" content="广度优先搜索">
 <meta property="article:tag" content="二叉树">
-<meta property="article:tag" content="贪心">
-<meta property="article:tag" content="哈希表">
-<meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/2022-03-07-19-17-22.png">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-07-19-17-22.png">
   
   
   
@@ -309,10 +309,10 @@
 </ul>
 <p>给你一个格式为 <code>&quot;&lt;col1&gt;&lt;row1&gt;:&lt;col2&gt;&lt;row2&gt;&quot;</code> 的字符串 <code>s</code> ，其中 <code>&lt;col1&gt;</code> 表示 <code>c1</code> 列，<code>&lt;row1&gt;</code> 表示 <code>r1</code> 行，<code>&lt;col2&gt;</code> 表示 <code>c2</code> 列，<code>&lt;row2&gt;</code> 表示 <code>r2</code> 行，并满足 <code>r1 &lt;= r2</code> 且 <code>c1 &lt;= c2</code> 。</p>
 <p>找出所有满足 <code>r1 &lt;= x &lt;= r2</code> 且 <code>c1 &lt;= y &lt;= c2</code> 的单元格，并以列表形式返回。单元格应该按前面描述的格式用 <strong>字符串</strong> 表示，并以 <strong>非递减</strong> 顺序排列（先按列排，再按行排）。</p>
-<p>示例1：<br><img src="/images/2022-03-07-19-17-22.png" srcset="/img/loading.gif" lazyload></p>
+<p>示例1：<br><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-07-19-17-22.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs prolog">输入：s = <span class="hljs-string">&quot;K1:L2&quot;</span><br>输出：[<span class="hljs-string">&quot;K1&quot;</span>,<span class="hljs-string">&quot;K2&quot;</span>,<span class="hljs-string">&quot;L1&quot;</span>,<span class="hljs-string">&quot;L2&quot;</span>]<br>解释：<br>上图显示了列表中应该出现的单元格。<br>红色箭头指示单元格的出现顺序。<br></code></pre></td></tr></table></figure>
 
-<p>示例2：<br><img src="/images/2022-03-07-19-19-50.png" srcset="/img/loading.gif" lazyload></p>
+<p>示例2：<br><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-07-19-19-50.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs prolog">输入：s = <span class="hljs-string">&quot;A1:F1&quot;</span><br>输出：[<span class="hljs-string">&quot;A1&quot;</span>,<span class="hljs-string">&quot;B1&quot;</span>,<span class="hljs-string">&quot;C1&quot;</span>,<span class="hljs-string">&quot;D1&quot;</span>,<span class="hljs-string">&quot;E1&quot;</span>,<span class="hljs-string">&quot;F1&quot;</span>]<br>解释：<br>上图显示了列表中应该出现的单元格。 <br>红色箭头指示单元格的出现顺序。<br></code></pre></td></tr></table></figure>
 
 <p>提示：</p>
@@ -357,10 +357,10 @@
 </ul>
 <p>请你根据 <code>descriptions</code> 的描述来构造二叉树并返回其 <strong>根节点</strong> 。</p>
 <p>测试用例会保证可以构造出 <strong>有效</strong> 的二叉树。</p>
-<p>示例1：<br><img src="/images/2022-03-07-19-40-30.png" srcset="/img/loading.gif" lazyload></p>
+<p>示例1：<br><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-07-19-40-30.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs inform7">输入：descriptions = <span class="hljs-comment">[<span class="hljs-comment">[20,15,1]</span>,<span class="hljs-comment">[20,17,0]</span>,<span class="hljs-comment">[50,20,1]</span>,<span class="hljs-comment">[50,80,0]</span>,<span class="hljs-comment">[80,19,1]</span>]</span><br>输出：<span class="hljs-comment">[50,20,80,15,17,19]</span><br>解释：根节点是值为 50 的节点，因为它没有父节点。<br>结果二叉树如上图所示。<br></code></pre></td></tr></table></figure>
 
-<p>示例2：<br><img src="/images/2022-03-07-19-41-17.png" srcset="/img/loading.gif" lazyload></p>
+<p>示例2：<br><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-07-19-41-17.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs inform7">输入：descriptions = <span class="hljs-comment">[<span class="hljs-comment">[1,2,1]</span>,<span class="hljs-comment">[2,3,0]</span>,<span class="hljs-comment">[3,4,1]</span>]</span><br>输出：<span class="hljs-comment">[1,2,null,null,3,4]</span><br>解释：根节点是值为 1 的节点，因为它没有父节点。 <br>结果二叉树如上图所示。<br></code></pre></td></tr></table></figure>
 
 <p>提示：</p>
@@ -426,6 +426,12 @@
       
         <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">#字符串</a>
       
+        <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+      
+        <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
+      
+        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">#哈希表</a>
+      
         <a href="/tags/%E6%A0%91/">#树</a>
       
         <a href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">#深度优先搜索</a>
@@ -433,12 +439,6 @@
         <a href="/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">#广度优先搜索</a>
       
         <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">#二叉树</a>
-      
-        <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
-      
-        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">#哈希表</a>
-      
-        <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
       
     </div>
   

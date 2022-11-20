@@ -23,26 +23,26 @@
 <meta property="og:site_name" content="Curious;的个人划水博客">
 <meta property="og:description" content="周赛综述&amp;总结： 在大佬们的帮助下第一次周赛ak并进了前1000名还是很开心的hhh，前三个题是有史以来见过最水的周赛题，感觉全是easy难度的，最后一个题学习到了位运算的暴力遍历思路，而且还有一个题目特有的思想是只需要考虑说真话的人就行了，因为假的说话怎么都是有可能的，于是在假定所有说真话的人判断是否和条件有冲突就可以了。 另外突然感觉这次题目的前三题描述都好简单啊，喜欢这样的题，搞直接">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/2022-01-24-00-09-08.png">
-<meta property="og:image" content="http://example.com/images/2022-01-24-00-43-36.png">
-<meta property="og:image" content="http://example.com/images/2022-01-24-00-43-46.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-24-00-09-08.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-24-00-43-36.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-24-00-43-46.png">
 <meta property="article:published_time" content="2022-01-23T07:51:15.000Z">
-<meta property="article:modified_time" content="2022-11-20T01:50:08.886Z">
+<meta property="article:modified_time" content="2022-11-20T07:36:38.280Z">
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="模拟">
 <meta property="article:tag" content="数组">
 <meta property="article:tag" content="排序">
 <meta property="article:tag" content="EASY">
 <meta property="article:tag" content="MEDIUM">
-<meta property="article:tag" content="双指针">
 <meta property="article:tag" content="HARD">
 <meta property="article:tag" content="哈希表">
 <meta property="article:tag" content="位运算">
-<meta property="article:tag" content="回溯">
+<meta property="article:tag" content="双指针">
 <meta property="article:tag" content="计数">
+<meta property="article:tag" content="回溯">
 <meta property="article:tag" content="枚举">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/2022-01-24-00-09-08.png">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-24-00-09-08.png">
   
   
   
@@ -297,7 +297,7 @@
 <p>第四题：感谢大佬们的帮助hh，看到题目条件的数据范围只有15，所以可以2^15次方这个数量级的二进制暴力来做，需要注意的附加条件是只需要判断假定所有说真话的人是否和条件有冲突就可以了；</p>
 <span id="more"></span>
 
-<p><img src="/images/2022-01-24-00-09-08.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-24-00-09-08.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="第一题：5989-元素计数"><a href="#第一题：5989-元素计数" class="headerlink" title="第一题：5989.元素计数"></a>第一题：5989.元素计数</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/count-elements-with-strictly-smaller-and-greater-elements/">题目链接</a></p>
 <h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个整数数组 <code>nums</code> ，统计并返回在 <code>nums</code> 中同时具有一个严格较小元素和一个严格较大元素的元素数目。</p>
 <p>示例1：</p>
@@ -372,10 +372,10 @@
 </ul>
 <p>另外，玩家不会对自己进行陈述。形式上，对所有 <code>0 &lt;= i &lt; n</code> ，都有 <code>statements[i][i] = 2</code> 。</p>
 <p>根据这 <code>n</code> 个玩家的陈述，返回可以认为是 <strong>好人</strong> 的 <strong>最大</strong> 数目。</p>
-<p>示例1：<br><img src="/images/2022-01-24-00-43-36.png" srcset="/img/loading.gif" lazyload></p>
+<p>示例1：<br><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-24-00-43-36.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：statements = [[2,1,2],[1,2,2],[2,0,2]]<br>输出：2<br>解释：每个人都做一条陈述。<br>-<span class="hljs-number"> 0 </span>认为<span class="hljs-number"> 1 </span>是好人。<br>-<span class="hljs-number"> 1 </span>认为<span class="hljs-number"> 0 </span>是好人。<br>-<span class="hljs-number"> 2 </span>认为<span class="hljs-number"> 1 </span>是坏人。<br>以<span class="hljs-number"> 2 </span>为突破点。<br>- 假设<span class="hljs-number"> 2 </span>是一个好人：<br>    - 基于<span class="hljs-number"> 2 </span>的陈述，1 是坏人。<br>    - 那么可以确认<span class="hljs-number"> 1 </span>是坏人，2 是好人。<br>    - 基于<span class="hljs-number"> 1 </span>的陈述，由于<span class="hljs-number"> 1 </span>是坏人，那么他在陈述时可能：<br>        - 说真话。在这种情况下会出现矛盾，所以假设无效。<br>        - 说假话。在这种情况下，0 也是坏人并且在陈述时说假话。<br>    - 在认为<span class="hljs-number"> 2 </span>是好人的情况下，这组玩家中只有一个好人。<br>- 假设<span class="hljs-number"> 2 </span>是一个坏人：<br>    - 基于<span class="hljs-number"> 2 </span>的陈述，由于<span class="hljs-number"> 2 </span>是坏人，那么他在陈述时可能：<br>        - 说真话。在这种情况下，0 和<span class="hljs-number"> 1 </span>都是坏人。<br>            - 在认为<span class="hljs-number"> 2 </span>是坏人但说真话的情况下，这组玩家中没有一个好人。<br>        - 说假话。在这种情况下，1 是好人。<br>            - 由于<span class="hljs-number"> 1 </span>是好人，0 也是好人。<br>            - 在认为<span class="hljs-number"> 2 </span>是坏人且说假话的情况下，这组玩家中有两个好人。<br>在最佳情况下，至多有两个好人，所以返回<span class="hljs-number"> 2 </span>。<br>注意，能得到此结论的方法不止一种。<br></code></pre></td></tr></table></figure>
 
-<p>示例2：<br><img src="/images/2022-01-24-00-43-46.png" srcset="/img/loading.gif" lazyload></p>
+<p>示例2：<br><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-24-00-43-46.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：statements = [[2,0],[0,2]]<br>输出：1<br>解释：每个人都做一条陈述。<br>-<span class="hljs-number"> 0 </span>认为<span class="hljs-number"> 1 </span>是坏人。<br>-<span class="hljs-number"> 1 </span>认为<span class="hljs-number"> 0 </span>是坏人。<br>以<span class="hljs-number"> 0 </span>为突破点。<br>- 假设<span class="hljs-number"> 0 </span>是一个好人：<br>    - 基于与<span class="hljs-number"> 0 </span>的陈述，1 是坏人并说假话。<br>    - 在认为<span class="hljs-number"> 0 </span>是好人的情况下，这组玩家中只有一个好人。<br>- 假设<span class="hljs-number"> 0 </span>是一个坏人：<br>    - 基于<span class="hljs-number"> 0 </span>的陈述，由于<span class="hljs-number"> 0 </span>是坏人，那么他在陈述时可能：<br>        - 说真话。在这种情况下，0 和<span class="hljs-number"> 1 </span>都是坏人。<br>            - 在认为<span class="hljs-number"> 0 </span>是坏人但说真话的情况下，这组玩家中没有一个好人。<br>        - 说假话。在这种情况下，1 是好人。<br>            - 在认为<span class="hljs-number"> 0 </span>是坏人且说假话的情况下，这组玩家中只有一个好人。<br>在最佳情况下，至多有一个好人，所以返回<span class="hljs-number"> 1 </span>。 <br>注意，能得到此结论的方法不止一种。<br></code></pre></td></tr></table></figure>
 
 <p>提示：</p>
@@ -436,17 +436,17 @@
       
         <a href="/tags/MEDIUM/">#MEDIUM</a>
       
-        <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">#双指针</a>
-      
         <a href="/tags/HARD/">#HARD</a>
       
         <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">#哈希表</a>
       
         <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">#位运算</a>
       
-        <a href="/tags/%E5%9B%9E%E6%BA%AF/">#回溯</a>
+        <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">#双指针</a>
       
         <a href="/tags/%E8%AE%A1%E6%95%B0/">#计数</a>
+      
+        <a href="/tags/%E5%9B%9E%E6%BA%AF/">#回溯</a>
       
         <a href="/tags/%E6%9E%9A%E4%B8%BE/">#枚举</a>
       

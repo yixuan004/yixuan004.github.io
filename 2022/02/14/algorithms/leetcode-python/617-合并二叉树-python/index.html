@@ -23,9 +23,9 @@
 <meta property="og:site_name" content="Curious;的个人划水博客">
 <meta property="og:description" content="617.合并二叉树（简单） 题目大意： 给你两棵二叉树： root1 和 root2 。 想象一下，当你将其中一棵覆盖到另一棵之上时，两棵树上的一些节点将会重叠（而另一些不会）。你需要将这两棵树合并成一棵新二叉树。合并的规则是：如果两个节点重叠，那么将这两个节点的值相加作为合并后节点的新值；否则，不为 null 的节点将直接作为新二叉树的节点。 返回合并后的二叉树。 注意: 合并过程必须从两个树的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/2022-02-14-15-33-49.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-02-14-15-33-49.png">
 <meta property="article:published_time" content="2022-02-14T06:49:48.000Z">
-<meta property="article:modified_time" content="2022-11-20T01:50:08.884Z">
+<meta property="article:modified_time" content="2022-11-20T07:36:35.087Z">
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="EASY">
 <meta property="article:tag" content="树">
@@ -33,7 +33,7 @@
 <meta property="article:tag" content="广度优先搜索">
 <meta property="article:tag" content="二叉树">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/2022-02-14-15-33-49.png">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-02-14-15-33-49.png">
   
   
   
@@ -292,7 +292,7 @@
 <p>想象一下，当你将其中一棵覆盖到另一棵之上时，两棵树上的一些节点将会重叠（而另一些不会）。你需要将这两棵树合并成一棵新二叉树。合并的规则是：如果两个节点重叠，那么将这两个节点的值相加作为合并后节点的新值；否则，<strong>不为</strong> null 的节点将直接作为新二叉树的节点。</p>
 <p>返回合并后的二叉树。</p>
 <p><strong>注意</strong>: 合并过程必须从两个树的根节点开始。</p>
-<p>示例1：<br><img src="/images/2022-02-14-15-33-49.png" srcset="/img/loading.gif" lazyload></p>
+<p>示例1：<br><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-02-14-15-33-49.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nix">输入：<span class="hljs-attr">root1</span> = [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span>], <span class="hljs-attr">root2</span> = [<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-literal">null</span>,<span class="hljs-number">4</span>,<span class="hljs-literal">null</span>,<span class="hljs-number">7</span>]<br>输出：[<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>,<span class="hljs-number">4</span>,<span class="hljs-literal">null</span>,<span class="hljs-number">7</span>]<br></code></pre></td></tr></table></figure>
 
 <p>示例2：</p>

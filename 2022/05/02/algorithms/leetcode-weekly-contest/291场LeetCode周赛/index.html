@@ -23,27 +23,27 @@
 <meta property="og:site_name" content="Curious;的个人划水博客">
 <meta property="og:description" content="周赛综述&amp;总结： 久违的前1000名了，这次能排的稍微靠前点在于前三个题特别快的就做出来了，可惜第四个题没做出来，要不说不定能到前500呢hh~ 上周做了一回笔试题，今天再看周赛题还有点陌生了，也可能是这种陌生感让自己做快了一些吧，另外还是喜欢描述比较短的题； 感觉就是状态好+题目对着自己常做的思路吧，也可能和周中稍微做了几个题有些关系，前三个题描述还都不是很简单，但是做出来的都比自己预期">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/2022-05-02-09-13-42.png">
-<meta property="og:image" content="http://example.com/images/2022-05-02-10-28-47.png">
-<meta property="og:image" content="http://example.com/images/2022-05-02-10-29-13.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-02-09-13-42.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-02-10-28-47.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-02-10-29-13.png">
 <meta property="article:published_time" content="2022-05-02T01:07:10.000Z">
-<meta property="article:modified_time" content="2022-11-20T01:50:08.887Z">
+<meta property="article:modified_time" content="2022-11-20T07:36:42.933Z">
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="数组">
 <meta property="article:tag" content="EASY">
 <meta property="article:tag" content="MEDIUM">
 <meta property="article:tag" content="字符串">
 <meta property="article:tag" content="贪心">
-<meta property="article:tag" content="动态规划">
 <meta property="article:tag" content="HARD">
-<meta property="article:tag" content="字典树">
 <meta property="article:tag" content="哈希表">
 <meta property="article:tag" content="滑动窗口">
+<meta property="article:tag" content="动态规划">
 <meta property="article:tag" content="枚举">
+<meta property="article:tag" content="字典树">
 <meta property="article:tag" content="哈希函数">
 <meta property="article:tag" content="滚动哈希">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/2022-05-02-09-13-42.png">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-02-09-13-42.png">
   
   
   
@@ -299,7 +299,7 @@
 <span id="more"></span>
 
 <p>希望下次前1000名来得快一点，这次确实是题简单了</p>
-<p><img src="/images/2022-05-02-09-13-42.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-02-09-13-42.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="第一题：6047-移除指定数字得到的最大结果"><a href="#第一题：6047-移除指定数字得到的最大结果" class="headerlink" title="第一题：6047.移除指定数字得到的最大结果"></a>第一题：6047.移除指定数字得到的最大结果</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-digit-from-number-to-maximize-result/">题目链接</a></p>
 <h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>给你一个表示某个正整数的字符串 <code>number</code> 和一个字符 <code>digit</code> 。</p>
 <p>从 <code>number</code> 中 <strong>恰好</strong> 移除 <strong>一个</strong> 等于 <code>digit</code> 的字符后，找出并返回按 <strong>十进制</strong> 表示 <strong>最大</strong> 的结果字符串。生成的测试用例满足 <code>digit</code> 在 <code>number</code> 中出现至少一次。</p>
@@ -374,8 +374,8 @@
 <p>给你一个字符串 <code>s</code> ，返回 <strong>其所有子字符串的总引力</strong> 。</p>
 <p><strong>子字符串</strong> 定义为：字符串中的一个连续字符序列。</p>
 <h2 id="分析和解答-3"><a href="#分析和解答-3" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>一道计算“贡献”的题目，自己一开始想的有点偏，贡献类的题目感觉不能从完全全局来说，要考虑每个字符在全局上的贡献，这个题也是第一次遇到，感觉算法还是很神奇的，自己举的例子是下边这个图这样，这样能按照每个字符，来统计每个字符的贡献度：</p>
-<p>非重复情况：<br><img src="/images/2022-05-02-10-28-47.png" srcset="/img/loading.gif" lazyload></p>
-<p>重复情况：<br><img src="/images/2022-05-02-10-29-13.png" srcset="/img/loading.gif" lazyload></p>
+<p>非重复情况：<br><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-02-10-28-47.png" srcset="/img/loading.gif" lazyload></p>
+<p>重复情况：<br><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-02-10-29-13.png" srcset="/img/loading.gif" lazyload></p>
 <p>另外还想再次说这个子字符串好有意思啊，他不是2^n那种遍历方法的，而是j&#x3D;i那种双重for循环的，看了眼数据范围还在想要不要搞2^n做法呢</p>
 <p>正确解答方法：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">appealSum</span>(<span class="hljs-params">self, s</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type s: str</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># 一种每个字符贡献度的思想，还是很有特点的</span><br>        res = <span class="hljs-number">0</span><br>        char_dict = &#123;&#125;<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(s)):<br>            <span class="hljs-keyword">if</span> char_dict.get(s[i]) <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>                res += (i + <span class="hljs-number">1</span>) * (<span class="hljs-built_in">len</span>(s)-i)<br>            <span class="hljs-keyword">else</span>:<br>                res += (i - char_dict[s[i]]) * (<span class="hljs-built_in">len</span>(s) - i)<br>            char_dict[s[i]] = i<br>        <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
@@ -431,17 +431,17 @@
       
         <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
       
-        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
-      
         <a href="/tags/HARD/">#HARD</a>
-      
-        <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">#字典树</a>
       
         <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">#哈希表</a>
       
         <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">#滑动窗口</a>
       
+        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
+      
         <a href="/tags/%E6%9E%9A%E4%B8%BE/">#枚举</a>
+      
+        <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">#字典树</a>
       
         <a href="/tags/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/">#哈希函数</a>
       

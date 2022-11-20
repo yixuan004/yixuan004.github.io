@@ -23,20 +23,20 @@
 <meta property="og:site_name" content="Curious;的个人划水博客">
 <meta property="og:description" content="周赛综述&amp;总结： 前两题难度还是比较低的，第三题的话感觉dp这个思路还值得复盘研究一下，常见的一维dp数组感觉是有两种思路，一种是存储当前位置的一些状态值，另外一种是存储截止到这个位置下的状态值； 第一题：简单字符串模拟，有一些mod的使用，熟练度的题目； 第二题：从大到小贪心就行了，最后一次直接 +&#x3D; target - 1； 第三题：一眼看上去很像背包，这种题多半就是dp了，就">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/2022-01-16-21-16-46.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-16-21-16-46.png">
 <meta property="article:published_time" content="2022-01-16T09:27:04.000Z">
-<meta property="article:modified_time" content="2022-11-20T01:50:08.886Z">
+<meta property="article:modified_time" content="2022-11-20T07:36:37.863Z">
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="模拟">
 <meta property="article:tag" content="数组">
 <meta property="article:tag" content="EASY">
 <meta property="article:tag" content="MEDIUM">
 <meta property="article:tag" content="字符串">
+<meta property="article:tag" content="数学">
 <meta property="article:tag" content="贪心">
 <meta property="article:tag" content="动态规划">
-<meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/2022-01-16-21-16-46.png">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-16-21-16-46.png">
   
   
   
@@ -369,7 +369,7 @@
 <p>TLE的写法，这里dp数组存储的是每个状态的：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">mostPoints</span>(<span class="hljs-params">self, questions</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type questions: List[List[int]]</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        questions.reverse()<br>        dp = [x[<span class="hljs-number">0</span>] <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> questions]  <span class="hljs-comment"># 每个位置上先初始化</span><br>        <br>        <br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(questions)):  <span class="hljs-comment"># 每个位置有选得到和选不到两种状态的dp</span><br>            <span class="hljs-keyword">if</span> i - questions[i][<span class="hljs-number">1</span>] - <span class="hljs-number">1</span> &lt; <span class="hljs-number">0</span>:<br>                <span class="hljs-keyword">pass</span><br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-comment"># 选和不选两种状态</span><br>                <span class="hljs-comment"># 选的话</span><br>                tmp_choose = questions[i][<span class="hljs-number">0</span>] + <span class="hljs-built_in">max</span>(dp[<span class="hljs-number">0</span>:i-questions[i][<span class="hljs-number">1</span>]])<br>                <span class="hljs-comment"># 不选的话</span><br>                tmp_not_choose = <span class="hljs-built_in">max</span>(dp[i-questions[i][<span class="hljs-number">1</span>]: i])<br>                dp[i] = <span class="hljs-built_in">max</span>(tmp_choose, tmp_not_choose)<br>                <br>                <span class="hljs-comment"># print(dp)</span><br><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">max</span>(dp)<br></code></pre></td></tr></table></figure>
 
-<p>优化后的写法， 这里dp数组存储的是截止到这个状态的，下图是思路：<br><img src="/images/2022-01-16-21-16-46.png" srcset="/img/loading.gif" lazyload></p>
+<p>优化后的写法， 这里dp数组存储的是截止到这个状态的，下图是思路：<br><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-16-21-16-46.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">mostPoints</span>(<span class="hljs-params">self, questions</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type questions: List[List[int]]</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <br>        dp = [<span class="hljs-number">0</span> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> questions]<br>        questions.reverse()<br>        <br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(questions)):<br>            <span class="hljs-keyword">if</span> i - questions[i][<span class="hljs-number">1</span>] - <span class="hljs-number">1</span> &lt; <span class="hljs-number">0</span>:  <span class="hljs-comment"># 越界了的状态，维护不断增加的dp</span><br>                dp[i] = <span class="hljs-built_in">max</span>(dp[i-<span class="hljs-number">1</span>], questions[i][<span class="hljs-number">0</span>])<br>            <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># 没有越界的话，因为不断增加</span><br>                dp[i] = <span class="hljs-built_in">max</span>(dp[i-<span class="hljs-number">1</span>], questions[i][<span class="hljs-number">0</span>] + dp[i - questions[i][<span class="hljs-number">1</span>] - <span class="hljs-number">1</span>])<br>        <br>        <span class="hljs-comment"># print(max(dp))</span><br>        <br>        <span class="hljs-keyword">return</span> dp[<span class="hljs-built_in">len</span>(questions) - <span class="hljs-number">1</span>]<br></code></pre></td></tr></table></figure>
                 
               </div>
@@ -420,11 +420,11 @@
       
         <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">#字符串</a>
       
+        <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+      
         <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
       
         <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
-      
-        <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
       
     </div>
   

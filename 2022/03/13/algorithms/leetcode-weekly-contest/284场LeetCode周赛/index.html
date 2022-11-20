@@ -23,10 +23,10 @@
 <meta property="og:site_name" content="Curious;的个人划水博客">
 <meta property="og:description" content="周赛综述&amp;总结： 这周三个题还是相对友善一点点的：第一题读题有些困难hhh读好了一些角标标记的操作就可以了；第二题感觉一下想过去就是个哈希表记录，感觉也是状态好才能现场写出来吧；第三题需要考虑很多种case是个比较细节的题，感觉还是模拟为主。总结来说这周还都属于是一下想过去有思路的题，希望未来能进一步保持啊啊啊啊啊； 第一题：角标的基础题，感觉读明白题后很快就做出来了，注意需要一个绝对值">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/2022-03-13-22-25-47.png">
-<meta property="og:image" content="http://example.com/images/2022-03-13-22-26-06.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-13-22-25-47.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-13-22-26-06.png">
 <meta property="article:published_time" content="2022-03-13T13:43:04.000Z">
-<meta property="article:modified_time" content="2022-11-20T01:50:08.887Z">
+<meta property="article:modified_time" content="2022-11-20T07:36:40.173Z">
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="模拟">
 <meta property="article:tag" content="数组">
@@ -35,7 +35,7 @@
 <meta property="article:tag" content="贪心">
 <meta property="article:tag" content="哈希表">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/2022-03-13-22-25-47.png">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-13-22-25-47.png">
   
   
   
@@ -324,11 +324,11 @@
 <li><code>dig</code> 中的元素互不相同。</li>
 </ul>
 <p>示例1：</p>
-<p><img src="/images/2022-03-13-22-25-47.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-13-22-25-47.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs lua">输入：n = <span class="hljs-number">2</span>, artifacts = <span class="hljs-string">[[0,0,0,0],[0,1,1,1]]</span>, dig = <span class="hljs-string">[[0,0],[0,1]]</span><br>输出：<span class="hljs-number">1</span><br>解释： <br>不同颜色表示不同的工件。挖掘的单元格用 <span class="hljs-string">&#x27;D&#x27;</span> 在网格中进行标记。<br>有 <span class="hljs-number">1</span> 个工件可以提取，即红色工件。<br>蓝色工件在单元格 (<span class="hljs-number">1</span>,<span class="hljs-number">1</span>) 的部分尚未裸露出来，所以无法提取该工件。<br>因此，返回 <span class="hljs-number">1</span> 。<br></code></pre></td></tr></table></figure>
 
 <p>示例2：</p>
-<p><img src="/images/2022-03-13-22-26-06.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-13-22-26-06.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lua">输入：n = <span class="hljs-number">2</span>, artifacts = <span class="hljs-string">[[0,0,0,0],[0,1,1,1]]</span>, dig = <span class="hljs-string">[[0,0],[0,1],[1,1]]</span><br>输出：<span class="hljs-number">2</span><br>解释：红色工件和蓝色工件的所有部分都裸露出来（用 <span class="hljs-string">&#x27;D&#x27;</span> 标记），都可以提取。因此，返回 <span class="hljs-number">2</span> 。 <br></code></pre></td></tr></table></figure>
 
 <p>提示：</p>

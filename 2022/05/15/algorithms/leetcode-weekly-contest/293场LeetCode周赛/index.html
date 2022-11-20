@@ -23,9 +23,9 @@
 <meta property="og:site_name" content="Curious;的个人划水博客">
 <meta property="og:description" content="周赛综述&amp;总结： 没想到一周过后学校就各个地方都封了，快乐没有了啊gg，感觉最近也是越来越没干劲，还是通过多刷一刷题缓解迷茫吧~ 周赛练思路，平常练面试基础题了，之前朋友说的“基础不牢，地动山摇”是真的太有道理了，上一周也是又被上了一课hhh 第一题：第一题还是要仔细读题，然后按照题目的内容模拟操作就可以了，这里开始开读错了一次题，应该是前后 i 和 i-1 之间不相同就可以了，pytho">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/2022-05-16-10-17-08.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-16-10-17-08.png">
 <meta property="article:published_time" content="2022-05-15T08:24:58.000Z">
-<meta property="article:modified_time" content="2022-11-20T01:50:08.887Z">
+<meta property="article:modified_time" content="2022-11-20T07:36:44.190Z">
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="数组">
 <meta property="article:tag" content="排序">
@@ -37,7 +37,7 @@
 <meta property="article:tag" content="位运算">
 <meta property="article:tag" content="计数">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/2022-05-16-10-17-08.png">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-16-10-17-08.png">
   
   
   
@@ -355,7 +355,7 @@
 <li><code>1 &lt;= candidates[i] &lt;= 10^7</code></li>
 </ul>
 <h2 id="分析和解答-2"><a href="#分析和解答-2" class="headerlink" title="分析和解答"></a>分析和解答</h2><p>二进制的题目，本来开始的时候没有什么思路，后来边和同学讨论边做，同学说要不要先转化成二进制看看，然后转成二进制后发现只要纵向遍历，看看哪一列的1最多就可以了，根据之前刷题的经验，纵向遍历就是把 <code>for j in range(len(a[0]))</code> 放在 <code>for i in range(len(a))</code> 之外，但是内部循环还是 <code>a[i][j]</code> 就可以了；</p>
-<p><img src="/images/2022-05-16-10-17-08.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-16-10-17-08.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">largestCombination</span>(<span class="hljs-params">self, candidates</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type candidates: List[int]</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        candidates.sort()<br>        <br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">convert_to_bin</span>(<span class="hljs-params">num, pad=<span class="hljs-number">31</span></span>):<br>            tmp_list = []<br>            <span class="hljs-keyword">while</span> num &gt; <span class="hljs-number">0</span>:<br>                tmp_list.append(num&amp;<span class="hljs-number">1</span>)<br>                num &gt;&gt;= <span class="hljs-number">1</span><br>            <br>            tmp_list.reverse()<br>            tmp_list = [<span class="hljs-number">0</span>] * (pad-<span class="hljs-built_in">len</span>(tmp_list)) + tmp_list<br>            <br>            <span class="hljs-keyword">return</span> tmp_list<br>        <br>        a = []<br>        <br>        <br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(candidates)):<br>            a.append(convert_to_bin(candidates[i]))<br>            <span class="hljs-comment"># print(candidates[i], convert_to_bin(candidates[i]))</span><br>        <br>        res = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(a[<span class="hljs-number">0</span>])):<br>            tmp = <span class="hljs-number">0</span><br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(a)):<br>                <span class="hljs-keyword">if</span> a[i][j] == <span class="hljs-number">1</span>:<br>                    tmp += <span class="hljs-number">1</span><br>            res = <span class="hljs-built_in">max</span>(res, tmp)<br>        <br>        <span class="hljs-keyword">return</span> res<br></code></pre></td></tr></table></figure>
                 
               </div>

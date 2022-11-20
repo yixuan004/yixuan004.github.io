@@ -23,16 +23,16 @@
 <meta property="og:site_name" content="Curious;的个人划水博客">
 <meta property="og:description" content="429.N叉树的层序遍历（中等） 题目大意： 给定一个 N 叉树，返回其节点值的层序遍历。（即从左到右，逐层遍历）。 树的序列化输入是用层序遍历，每组子节点都由 null 值分隔（参见示例）。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/2022-03-14-21-02-01.png">
-<meta property="og:image" content="http://example.com/images/2022-03-14-21-02-42.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-14-21-02-01.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-14-21-02-42.png">
 <meta property="article:published_time" content="2022-03-14T12:55:27.000Z">
-<meta property="article:modified_time" content="2022-11-20T01:50:08.884Z">
+<meta property="article:modified_time" content="2022-11-20T07:36:33.729Z">
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="MEDIUM">
 <meta property="article:tag" content="树">
 <meta property="article:tag" content="广度优先搜索">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/2022-03-14-21-02-01.png">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-14-21-02-01.png">
   
   
   
@@ -288,11 +288,11 @@
 <p>给定一个 N 叉树，返回其节点值的层序遍历。（即从左到右，逐层遍历）。</p>
 <p>树的序列化输入是用层序遍历，每组子节点都由 null 值分隔（参见示例）。</p>
 <p>示例1：</p>
-<p><img src="/images/2022-03-14-21-02-01.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-14-21-02-01.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs inform7">输入：root = <span class="hljs-comment">[1,null,3,2,4,null,5,6]</span><br>输出：<span class="hljs-comment">[<span class="hljs-comment">[1]</span>,<span class="hljs-comment">[3,2,4]</span>,<span class="hljs-comment">[5,6]</span>]</span><br></code></pre></td></tr></table></figure>
 
 <p>示例2：</p>
-<p><img src="/images/2022-03-14-21-02-42.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-14-21-02-42.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">输入：root = [<span class="hljs-number">1</span>,<span class="hljs-literal">null</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-literal">null</span>,<span class="hljs-literal">null</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-literal">null</span>,<span class="hljs-number">8</span>,<span class="hljs-literal">null</span>,<span class="hljs-number">9</span>,<span class="hljs-number">10</span>,<span class="hljs-literal">null</span>,<span class="hljs-literal">null</span>,<span class="hljs-number">11</span>,<span class="hljs-literal">null</span>,<span class="hljs-number">12</span>,<span class="hljs-literal">null</span>,<span class="hljs-number">13</span>,<span class="hljs-literal">null</span>,<span class="hljs-literal">null</span>,<span class="hljs-number">14</span>]<br>输出：[[<span class="hljs-number">1</span>],[<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>],[<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>,<span class="hljs-number">10</span>],[<span class="hljs-number">11</span>,<span class="hljs-number">12</span>,<span class="hljs-number">13</span>],[<span class="hljs-number">14</span>]]<br></code></pre></td></tr></table></figure>
 
 <p>提示：</p>

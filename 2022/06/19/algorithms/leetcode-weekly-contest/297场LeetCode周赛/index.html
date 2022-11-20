@@ -23,21 +23,21 @@
 <meta property="og:site_name" content="Curious;的个人划水博客">
 <meta property="og:description" content="周赛综述&amp;总结： 题目难度：t1(1283)+t2(1658)+t3(1886)； 这周实在是人被虐傻了，一个半小时内只把第一个题坎坷的做出来了。第二个题问题定义很奇怪，还真是第一次见这么写转移的，没想到本质上不是搜索问题而是dp问题，后来给zy做那个周赛题的时候可能也积累到一种思路，就是说看起来像是dfs的问题如果数据范围比较奇怪的话，可能背后隐藏的就是dp类的问题。如果说第二题看起来像">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/2022-06-19-16-46-14.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-06-19-16-46-14.png">
 <meta property="article:published_time" content="2022-06-19T07:54:36.000Z">
-<meta property="article:modified_time" content="2022-11-20T01:50:08.888Z">
+<meta property="article:modified_time" content="2022-11-20T07:36:46.040Z">
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="模拟">
 <meta property="article:tag" content="数组">
 <meta property="article:tag" content="EASY">
 <meta property="article:tag" content="MEDIUM">
-<meta property="article:tag" content="动态规划">
-<meta property="article:tag" content="位运算">
-<meta property="article:tag" content="回溯">
 <meta property="article:tag" content="矩阵">
+<meta property="article:tag" content="位运算">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="回溯">
 <meta property="article:tag" content="状态压缩">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/2022-06-19-16-46-14.png">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-06-19-16-46-14.png">
   
   
   
@@ -330,7 +330,7 @@
 <p>每次可能的移动都需要付出对应的代价，代价用一个下标从 <strong>0</strong> 开始的二维数组 <code>moveCost</code> 表示，该数组大小为 <code>(m * n) x n</code> ，其中 <code>moveCost[i][j]</code> 是从值为 <code>i</code> 的单元格移动到下一行第 <code>j</code> 列单元格的代价。从 <code>grid</code> 最后一行的单元格移动的代价可以忽略。</p>
 <p><code>grid</code> 一条路径的代价是：所有路径经过的单元格的 <strong>值之和</strong> 加上 所有移动的 <strong>代价之和</strong> 。从 <strong>第一行</strong> 任意单元格出发，返回到达 <strong>最后一行</strong> 任意单元格的最小路径代价。</p>
 <p>示例1：</p>
-<p><img src="/images/2022-06-19-16-46-14.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-06-19-16-46-14.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：grid = [[5,3],[4,0],[2,1]], moveCost = [[9,8],[1,5],[10,12],[18,6],[2,4],[14,3]]<br>输出：17<br>解释：最小代价的路径是<span class="hljs-number"> 5 </span>-&gt;<span class="hljs-number"> 0 </span>-&gt;<span class="hljs-number"> 1 </span>。<br>- 路径途经单元格值之和<span class="hljs-number"> 5 </span>+<span class="hljs-number"> 0 </span>+<span class="hljs-number"> 1 </span>=<span class="hljs-number"> 6 </span>。<br>- 从<span class="hljs-number"> 5 </span>移动到<span class="hljs-number"> 0 </span>的代价为<span class="hljs-number"> 3 </span>。<br>- 从<span class="hljs-number"> 0 </span>移动到<span class="hljs-number"> 1 </span>的代价为<span class="hljs-number"> 8 </span>。<br>路径总代价为<span class="hljs-number"> 6 </span>+<span class="hljs-number"> 3 </span>+<span class="hljs-number"> 8 </span>=<span class="hljs-number"> 17 </span>。<br></code></pre></td></tr></table></figure>
 
 <p>示例2：</p>
@@ -415,13 +415,13 @@
       
         <a href="/tags/MEDIUM/">#MEDIUM</a>
       
-        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
+        <a href="/tags/%E7%9F%A9%E9%98%B5/">#矩阵</a>
       
         <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">#位运算</a>
       
-        <a href="/tags/%E5%9B%9E%E6%BA%AF/">#回溯</a>
+        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
       
-        <a href="/tags/%E7%9F%A9%E9%98%B5/">#矩阵</a>
+        <a href="/tags/%E5%9B%9E%E6%BA%AF/">#回溯</a>
       
         <a href="/tags/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/">#状态压缩</a>
       

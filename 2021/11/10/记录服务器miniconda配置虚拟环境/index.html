@@ -23,17 +23,17 @@
 <meta property="og:site_name" content="Curious;的个人划水博客">
 <meta property="og:description" content="在服务器上之前自己一直用的是virtualenv的环境建立虚拟环境，有一种比较依赖本机已经安装了相关python的感觉。另外昨天在使用virtualenv的时候发现pip的版本对应有些问题，会报sys.stderr.write(f”ERROR: {exc}”)这个错 大佬同学推荐了一个miniconda的方法，感觉安装起来很方便，虚拟环境感觉都可以使用类似的方法了">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/2021-11-10-09-43-27.png">
-<meta property="og:image" content="http://example.com/images/2021-11-13-16-20-10.png">
-<meta property="og:image" content="http://example.com/images/2021-11-13-16-21-01.png">
-<meta property="og:image" content="http://example.com/images/2021-11-13-16-21-42.png">
-<meta property="og:image" content="http://example.com/images/2021-11-13-16-35-55.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-10-09-43-27.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-13-16-20-10.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-13-16-21-01.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-13-16-21-42.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-13-16-35-55.png">
 <meta property="article:published_time" content="2021-11-10T01:23:12.000Z">
-<meta property="article:modified_time" content="2022-11-20T01:50:08.929Z">
+<meta property="article:modified_time" content="2022-11-20T07:36:11.792Z">
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="macOS基础操作">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/2021-11-10-09-43-27.png">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-10-09-43-27.png">
   
   
   
@@ -284,20 +284,20 @@
 <span id="more"></span>
 
 <p>Reference：<br><code>https://conda.io/en/latest/miniconda.html</code></p>
-<h1 id="安装Linux-Installers"><a href="#安装Linux-Installers" class="headerlink" title="安装Linux Installers"></a>安装Linux Installers</h1><p><img src="/images/2021-11-10-09-43-27.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="安装Linux-Installers"><a href="#安装Linux-Installers" class="headerlink" title="安装Linux Installers"></a>安装Linux Installers</h1><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-10-09-43-27.png" srcset="/img/loading.gif" lazyload></p>
 <p>下载后会得到一个<code>Miniconda3-latest-Linux-x86_64.sh</code>，上传到服务器上后可通过bash直接安装</p>
 <h1 id="建立、启动虚拟环境"><a href="#建立、启动虚拟环境" class="headerlink" title="建立、启动虚拟环境"></a>建立、启动虚拟环境</h1><p>可通过如下命令建立启动虚拟环境，</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">conda create -n myenv python=3.8 // 安装python</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">conda activate myenv</span><br><span class="hljs-meta prompt_">(myenv)$ </span><span class="language-bash">pip install ...</span> <br></code></pre></td></tr></table></figure>
 
 <h1 id="安装torch，torchvision，cudatoolkit"><a href="#安装torch，torchvision，cudatoolkit" class="headerlink" title="安装torch，torchvision，cudatoolkit"></a>安装torch，torchvision，cudatoolkit</h1><p>使用conda可以不依赖pip进行安装，conda安装一些内容好像可以非常方便。自己在尝试pip install pytorch的时候经常出现和cuda版本对应不上的问题，还有就是pytorch0.4.1的版本中没有boolTensor，所以需要把pytorch搞成1.x版本并且和cuda版本对应的上</p>
 <p>首先使用nvidia-smi查看当前cuda</p>
-<p><img src="/images/2021-11-13-16-20-10.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-13-16-20-10.png" srcset="/img/loading.gif" lazyload></p>
 <p>在pytorch官网<a target="_blank" rel="noopener" href="https://pytorch.org/get-started/previous-versions/%E4%B8%8A%E6%9F%A5%E7%9C%8Bprevious">https://pytorch.org/get-started/previous-versions/上查看previous</a> version，一般来说1.4.0，1.6.0比较稳定？</p>
-<p><img src="/images/2021-11-13-16-21-01.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-13-16-21-01.png" srcset="/img/loading.gif" lazyload></p>
 <p>输入命令进行安装：</p>
-<p><img src="/images/2021-11-13-16-21-42.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-13-16-21-42.png" srcset="/img/loading.gif" lazyload></p>
 <p>测试如下：</p>
-<p><img src="/images/2021-11-13-16-35-55.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-13-16-35-55.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="另外一种直接pip-install的方式（from-zkh）"><a href="#另外一种直接pip-install的方式（from-zkh）" class="headerlink" title="另外一种直接pip install的方式（from zkh）"></a>另外一种直接pip install的方式（from zkh）</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113<br></code></pre></td></tr></table></figure>
                 
               </div>
