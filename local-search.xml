@@ -196,9 +196,9 @@
       
       <tag>位运算</tag>
       
-      <tag>矩阵</tag>
-      
       <tag>回溯</tag>
+      
+      <tag>矩阵</tag>
       
       <tag>状态压缩</tag>
       
@@ -309,9 +309,9 @@
       
       <tag>字符串</tag>
       
-      <tag>位运算</tag>
-      
       <tag>HARD</tag>
+      
+      <tag>位运算</tag>
       
       <tag>哈希表</tag>
       
@@ -1301,9 +1301,9 @@
       
       <tag>链表</tag>
       
-      <tag>计数</tag>
-      
       <tag>数学</tag>
+      
+      <tag>计数</tag>
       
     </tags>
     
@@ -1480,9 +1480,9 @@
       
       <tag>前缀和</tag>
       
-      <tag>计数</tag>
-      
       <tag>数学</tag>
+      
+      <tag>计数</tag>
       
     </tags>
     
@@ -1560,9 +1560,9 @@
       
       <tag>双指针</tag>
       
-      <tag>位运算</tag>
-      
       <tag>HARD</tag>
+      
+      <tag>位运算</tag>
       
       <tag>哈希表</tag>
       
