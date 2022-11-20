@@ -615,8 +615,7 @@ sup > a::before,
   padding-top: 2rem;
   color: var(--subtitle-color);
   transform: translateZ(0);
-  -webkit-animation: scroll-down 1.5s infinite;
-          animation: scroll-down 1.5s infinite;
+  animation: scroll-down 1.5s infinite;
 }
 #scroll-top-button {
   position: fixed;
@@ -640,20 +639,13 @@ sup > a::before,
 }
 #scroll-top-button:hover i,
 #scroll-top-button:active i {
-  -webkit-animation-name: scroll-top;
-          animation-name: scroll-top;
-  -webkit-animation-duration: 1s;
-          animation-duration: 1s;
-  -webkit-animation-delay: 0.1s;
-          animation-delay: 0.1s;
-  -webkit-animation-timing-function: ease-in-out;
-          animation-timing-function: ease-in-out;
-  -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
-  -webkit-animation-direction: alternate;
-          animation-direction: alternate;
+  animation-name: scroll-top;
+  animation-duration: 1s;
+  animation-delay: 0.1s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  animation-direction: alternate;
 }
 #local-search-result .search-list-title {
   border-left: 3px solid #0d47a1;
@@ -904,7 +896,6 @@ i.iconfont {
   transition: background-color 0.2s ease-in-out;
 }
 .fade-in-up {
-  -webkit-animation-name: fade-in-up;
   animation-name: fade-in-up;
 }
 .hidden-mobile {
@@ -951,16 +942,6 @@ i.iconfont {
   transition-timing-function: ease-in-out;
   border-radius: 0.2rem;
 }
-@-webkit-keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -969,20 +950,6 @@ i.iconfont {
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
-  }
-}
-@-webkit-keyframes scroll-down {
-  0% {
-    opacity: 0.8;
-    top: 0;
-  }
-  50% {
-    opacity: 0.4;
-    top: -1em;
-  }
-  100% {
-    opacity: 0.8;
-    top: 0;
   }
 }
 @keyframes scroll-down {
@@ -997,17 +964,6 @@ i.iconfont {
   100% {
     opacity: 0.8;
     top: 0;
-  }
-}
-@-webkit-keyframes scroll-top {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-0.35rem);
-  }
-  100% {
-    transform: translateY(0);
   }
 }
 @keyframes scroll-top {
@@ -1413,27 +1369,19 @@ post-custom {
 .post-prevnext .post-prev:active i,
 .post-prevnext .post-next:hover i,
 .post-prevnext .post-next:active i {
-  -webkit-animation-duration: 1s;
   animation-duration: 1s;
-  -webkit-animation-delay: 0.1s;
   animation-delay: 0.1s;
-  -webkit-animation-timing-function: ease-in-out;
   animation-timing-function: ease-in-out;
-  -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
-  -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
-  -webkit-animation-direction: alternate;
   animation-direction: alternate;
 }
 .post-prevnext .post-prev:hover i,
 .post-prevnext .post-prev:active i {
-  -webkit-animation-name: post-prev-anim;
   animation-name: post-prev-anim;
 }
 .post-prevnext .post-next:hover i,
 .post-prevnext .post-next:active i {
-  -webkit-animation-name: post-next-anim;
   animation-name: post-next-anim;
 }
 .post-prevnext .post-next {
@@ -1490,34 +1438,12 @@ mjx-container svg:focus,
   overflow: hidden;
   text-overflow: ellipsis;
 }
-@-webkit-keyframes post-prev-anim {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(-0.35rem);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
 @keyframes post-prev-anim {
   0% {
     transform: translateX(0);
   }
   50% {
     transform: translateX(-0.35rem);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-@-webkit-keyframes post-next-anim {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(0.35rem);
   }
   100% {
     transform: translateX(0);
