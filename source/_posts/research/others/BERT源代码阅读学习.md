@@ -42,7 +42,7 @@ Self-Attention with Relative Position Representations: https://arxiv.org/pdf/180
 
 #### 1.1.2 Multi-Head Self Attention
 
-![image-20220711105642016](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img.assets/image-20220711105642016.png)
+![image-20220711105642016](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220711105642016.png)
 
 #### 1.1.3 BERT Embedding
 
