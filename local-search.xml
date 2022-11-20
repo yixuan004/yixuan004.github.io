@@ -192,13 +192,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>动态规划</tag>
+      <tag>矩阵</tag>
       
       <tag>位运算</tag>
       
-      <tag>回溯</tag>
+      <tag>动态规划</tag>
       
-      <tag>矩阵</tag>
+      <tag>回溯</tag>
       
       <tag>状态压缩</tag>
       
@@ -266,9 +266,9 @@
       
       <tag>字符串</tag>
       
-      <tag>贪心</tag>
-      
       <tag>数学</tag>
+      
+      <tag>贪心</tag>
       
       <tag>几何</tag>
       
@@ -311,9 +311,9 @@
       
       <tag>HARD</tag>
       
-      <tag>位运算</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>位运算</tag>
       
       <tag>计数</tag>
       
@@ -350,19 +350,19 @@
       
       <tag>字符串</tag>
       
-      <tag>树</tag>
-      
-      <tag>深度优先搜索</tag>
-      
-      <tag>动态规划</tag>
-      
       <tag>HARD</tag>
       
-      <tag>哈希表</tag>
+      <tag>数学</tag>
       
       <tag>矩阵</tag>
       
-      <tag>数学</tag>
+      <tag>哈希表</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>树</tag>
+      
+      <tag>深度优先搜索</tag>
       
       <tag>二叉搜索树</tag>
       
@@ -457,19 +457,19 @@
       
       <tag>字符串</tag>
       
-      <tag>贪心</tag>
-      
-      <tag>动态规划</tag>
-      
       <tag>HARD</tag>
       
-      <tag>字典树</tag>
+      <tag>贪心</tag>
       
       <tag>哈希表</tag>
       
       <tag>滑动窗口</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>枚举</tag>
+      
+      <tag>字典树</tag>
       
       <tag>哈希函数</tag>
       
@@ -560,15 +560,15 @@
     
     <tags>
       
+      <tag>HARD</tag>
+      
+      <tag>动态规划</tag>
+      
       <tag>树</tag>
       
       <tag>深度优先搜索</tag>
       
       <tag>二叉树</tag>
-      
-      <tag>动态规划</tag>
-      
-      <tag>HARD</tag>
       
     </tags>
     
@@ -671,13 +671,13 @@
       
       <tag>字符串</tag>
       
+      <tag>矩阵</tag>
+      
       <tag>贪心</tag>
       
       <tag>哈希表</tag>
       
       <tag>前缀和</tag>
-      
-      <tag>矩阵</tag>
       
       <tag>计数</tag>
       
@@ -753,13 +753,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>贪心</tag>
+      <tag>数学</tag>
       
-      <tag>动态规划</tag>
+      <tag>贪心</tag>
       
       <tag>哈希表</tag>
       
-      <tag>数学</tag>
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -840,9 +840,9 @@
       
       <tag>位运算</tag>
       
-      <tag>栈</tag>
-      
       <tag>枚举</tag>
+      
+      <tag>栈</tag>
       
       <tag>递归</tag>
       
@@ -906,11 +906,11 @@
       
       <tag>EASY</tag>
       
+      <tag>栈</tag>
+      
       <tag>树</tag>
       
       <tag>深度优先搜索</tag>
-      
-      <tag>栈</tag>
       
     </tags>
     
@@ -939,11 +939,11 @@
       
       <tag>EASY</tag>
       
+      <tag>栈</tag>
+      
       <tag>树</tag>
       
       <tag>深度优先搜索</tag>
-      
-      <tag>栈</tag>
       
     </tags>
     
@@ -1182,6 +1182,12 @@
       
       <tag>字符串</tag>
       
+      <tag>数学</tag>
+      
+      <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
+      
       <tag>树</tag>
       
       <tag>深度优先搜索</tag>
@@ -1189,12 +1195,6 @@
       <tag>广度优先搜索</tag>
       
       <tag>二叉树</tag>
-      
-      <tag>贪心</tag>
-      
-      <tag>哈希表</tag>
-      
-      <tag>数学</tag>
       
     </tags>
     
@@ -1256,9 +1256,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>二分查找</tag>
-      
       <tag>计数</tag>
+      
+      <tag>二分查找</tag>
       
     </tags>
     
@@ -1297,13 +1297,13 @@
       
       <tag>字符串</tag>
       
-      <tag>贪心</tag>
+      <tag>数学</tag>
       
-      <tag>链表</tag>
+      <tag>贪心</tag>
       
       <tag>计数</tag>
       
-      <tag>数学</tag>
+      <tag>链表</tag>
       
     </tags>
     
@@ -1474,6 +1474,8 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>数学</tag>
+      
       <tag>贪心</tag>
       
       <tag>哈希表</tag>
@@ -1481,8 +1483,6 @@
       <tag>前缀和</tag>
       
       <tag>计数</tag>
-      
-      <tag>数学</tag>
       
     </tags>
     
@@ -1517,11 +1517,11 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>数学</tag>
+      
       <tag>哈希表</tag>
       
       <tag>设计</tag>
-      
-      <tag>数学</tag>
       
     </tags>
     
@@ -1558,17 +1558,17 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>双指针</tag>
-      
       <tag>HARD</tag>
-      
-      <tag>位运算</tag>
       
       <tag>哈希表</tag>
       
-      <tag>回溯</tag>
+      <tag>位运算</tag>
+      
+      <tag>双指针</tag>
       
       <tag>计数</tag>
+      
+      <tag>回溯</tag>
       
       <tag>枚举</tag>
       
@@ -1760,13 +1760,13 @@
       
       <tag>字符串</tag>
       
-      <tag>位运算</tag>
+      <tag>矩阵</tag>
       
       <tag>哈希表</tag>
       
-      <tag>矩阵</tag>
-      
       <tag>滑动窗口</tag>
+      
+      <tag>位运算</tag>
       
     </tags>
     
@@ -1803,11 +1803,11 @@
       
       <tag>字符串</tag>
       
+      <tag>数学</tag>
+      
       <tag>贪心</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>数学</tag>
       
     </tags>
     
@@ -1905,9 +1905,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>矩阵</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1936,9 +1936,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>数学</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>组合数学</tag>
       
@@ -1969,9 +1969,9 @@
       
       <tag>EASY</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>链表</tag>
       
@@ -2037,9 +2037,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>矩阵</tag>
-      
       <tag>数学</tag>
+      
+      <tag>矩阵</tag>
       
     </tags>
     
@@ -2122,11 +2122,11 @@
       
       <tag>字符串</tag>
       
-      <tag>贪心</tag>
+      <tag>数学</tag>
       
       <tag>矩阵</tag>
       
-      <tag>数学</tag>
+      <tag>贪心</tag>
       
     </tags>
     
@@ -2163,11 +2163,11 @@
       
       <tag>字符串</tag>
       
+      <tag>数学</tag>
+      
       <tag>哈希表</tag>
       
       <tag>前缀和</tag>
-      
-      <tag>数学</tag>
       
     </tags>
     
@@ -2225,13 +2225,13 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>矩阵</tag>
+      
       <tag>深度优先搜索</tag>
       
       <tag>广度优先搜索</tag>
       
       <tag>并查集</tag>
-      
-      <tag>矩阵</tag>
       
     </tags>
     
@@ -2260,9 +2260,9 @@
       
       <tag>数组</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>HARD</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2291,9 +2291,9 @@
       
       <tag>字符串</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>HARD</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2456,13 +2456,13 @@
       
       <tag>字符串</tag>
       
+      <tag>哈希表</tag>
+      
       <tag>动态规划</tag>
       
       <tag>字典树</tag>
       
       <tag>记忆化搜索</tag>
-      
-      <tag>哈希表</tag>
       
     </tags>
     
@@ -2551,11 +2551,11 @@
       
       <tag>字符串</tag>
       
-      <tag>字典树</tag>
-      
       <tag>哈希表</tag>
       
       <tag>设计</tag>
+      
+      <tag>字典树</tag>
       
     </tags>
     
@@ -2767,11 +2767,11 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>数学</tag>
+      
       <tag>哈希表</tag>
       
       <tag>TODO优化</tag>
-      
-      <tag>数学</tag>
       
       <tag>水塘抽样</tag>
       
@@ -2903,9 +2903,9 @@
       
       <tag>字符串</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>数学</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
