@@ -85,7 +85,7 @@ References:
 
 在本文中，我们致力于开发一个“可伸缩”和“通用”的belief tracker，其中只有一个信念跟踪器用于处理任何域和槽类型。为了解决这个问题，我们提出了一种新的方法，称为slot-utterance matching belief tracker（槽-话语匹配的对话状态跟踪器），他是一种与域和槽独立的对话状态跟踪器，其结构如figure 1所示。
 
-![](/images/2021-09-27-12-06-39.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-09-27-12-06-39.png)
 
 灵感来自机器阅读理解技术，SUMBT考虑domain-slot type这个组合（例如 ‘restaurant-food’）将其视为一个问题，并在一对用户和系统话语中找到相应的槽值对，假设话语中存在期望的答案。
 
@@ -139,7 +139,7 @@ q_s slot_token_ids根据s domain-slot-types得到: torch.Size([3, 32])，因为�
 
 这里，作者采用了multi-head attention的注意力机制。多头注意力机制将查询矩阵Q、key矩阵K和value矩阵V映射为不同的线性h投影，然后在这些矩阵上执行缩放点积注意力机制。slot s 和 t处的话语之间的有注意上下文向量hst是：
 
-![](/images/2021-09-28-17-32-41.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-09-28-17-32-41.png)
 
 <font color='red'>
 这里的注意力机制可能需要结合代码和原理详细的学习一下，感觉主要是计算用户每一个词是在哪个domain-slot-type做一个分类的感觉？
@@ -151,7 +151,7 @@ q_s slot_token_ids根据s domain-slot-types得到: torch.Size([3, 32])，因为�
 
 在本项工作中，上下文向量h_t，还有RNN的上一个state被送入到RNN中，这是用来学习与目标的slot-values相接近的语义向量
 
-![](/images/2021-09-28-19-27-17.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-09-28-19-27-17.png)
 
 <font color='red'>
 等于说每次训练的时候，送入的是当前domain-slot-type和用户utterance的结合，在WOZ数据集上的反应就是，每次训练使用[area, food, price range]这个domain-slot-type结合用户的话术，通过注意力机制实现了用户话语更加关注哪个，然后将这个注意力机制结合之前状态等得到的hidden计算结果与slot-values匹配得到最小的
@@ -159,4 +159,4 @@ q_s slot_token_ids根据s domain-slot-types得到: torch.Size([3, 32])，因为�
 
 作者考虑到BERT是使用layer normalization进行nomal化的，RNN输出的d_t也被送入到一个layer normalizaiton层，来帮助训练训练收敛。
 
-![](/images/2021-09-28-19-46-31.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-09-28-19-46-31.png)

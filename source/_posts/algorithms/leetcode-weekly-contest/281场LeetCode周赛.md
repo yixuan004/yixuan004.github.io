@@ -106,7 +106,7 @@ class Solution(object):
 返回修改后链表的头节点 ```head``` 。
 
 示例1：
-![](/images/2022-02-27-22-48-01.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-02-27-22-48-01.png)
 ```
 输入：head = [0,3,1,0,4,5,2,0]
 输出：[4,11]
@@ -117,7 +117,7 @@ class Solution(object):
 ```
 
 示例2：
-![](/images/2022-02-27-22-48-28.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-02-27-22-48-28.png)
 ```
 输入：head = [0,1,0,3,0,2,2,0]
 输出：[1,3,4]

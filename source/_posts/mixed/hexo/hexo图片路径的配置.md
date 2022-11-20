@@ -7,7 +7,7 @@ categories:
 	- Crsenal
 ---
 
-在使用hexo搭建博客的时候，`./source/images`路径是一个全局的路径，放在这里的图片可以被博客中的内容检测到
+在使用hexo搭建博客的时候，`./sourcehttp://yixuan004.oss-cn-hangzhou.aliyuncs.com/img`路径是一个全局的路径，放在这里的图片可以被博客中的内容检测到
 
 但是这样会导致所有博客的图片内容全都混在一块，同时在本地用typora等看图片的时候，因为路径配置的不一样也会有问题存在
 

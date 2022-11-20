@@ -36,7 +36,7 @@ categories:
 问总共有多少条不同的路径？
 
 示例1：
-![](/images/2022-01-06-14-14-44.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-06-14-14-44.png)
 ```
 输入：m = 3, n = 7
 输出：28

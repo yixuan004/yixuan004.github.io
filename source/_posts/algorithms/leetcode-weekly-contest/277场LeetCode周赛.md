@@ -35,7 +35,7 @@ categories:
 
 <!--more-->
 
-![](/images/2022-01-24-00-09-08.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-24-00-09-08.png)
 
 # 第一题：5989.元素计数
 
@@ -241,7 +241,7 @@ class Solution(object):
 根据这 ```n``` 个玩家的陈述，返回可以认为是 **好人** 的 **最大** 数目。
 
 示例1：
-![](/images/2022-01-24-00-43-36.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-24-00-43-36.png)
 ```
 输入：statements = [[2,1,2],[1,2,2],[2,0,2]]
 输出：2
@@ -269,7 +269,7 @@ class Solution(object):
 ```
 
 示例2：
-![](/images/2022-01-24-00-43-46.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-24-00-43-46.png)
 ```
 输入：statements = [[2,0],[0,2]]
 输出：1

@@ -29,7 +29,7 @@ categories:
 
 示例1：
 
-![](/images/2022-03-14-21-02-01.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-14-21-02-01.png)
 ```
 输入：root = [1,null,3,2,4,null,5,6]
 输出：[[1],[3,2,4],[5,6]]
@@ -37,7 +37,7 @@ categories:
 
 示例2：
 
-![](/images/2022-03-14-21-02-42.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-14-21-02-42.png)
 ```
 输入：root = [1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]
 输出：[[1],[2,3,4,5],[6,7,8,9,10],[11,12,13],[14]]

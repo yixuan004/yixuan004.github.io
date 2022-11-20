@@ -39,7 +39,7 @@ categories:
 **注意**: 合并过程必须从两个树的根节点开始。
 
 示例1：
-![](/images/2022-02-14-15-33-49.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-02-14-15-33-49.png)
 ```
 输入：root1 = [1,3,2,5], root2 = [2,1,3,null,4,null,7]
 输出：[3,4,5,5,4,null,7]

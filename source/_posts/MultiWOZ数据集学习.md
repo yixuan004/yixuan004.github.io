@@ -40,7 +40,7 @@ MultiWOZ的全称是Multi Domain Wizard-of-Oz，其中Wizard-of-Oz是Wizard-of-O
 
 ·Domain（域）：Attraction，Hospital，Police，Hotel，Restaurant，Taxi，Train，其中后四个域属于扩展域，包括子任务Booking。每段对话涉及1-5个领域，因此长度和复杂性差别很大。全部的act和slot如下：
 
-![](/images/2021-09-13-20-49-44.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-09-13-20-49-44.png)
 
 ·数量及分布：10438个对话，其中3406个单领域对话，7032个多领域对话，多领域中，包含最少2-5个领域。70%的对话超过10个会和，其中单领域平均轮数为8.93，多领域为15.39。在数据里，对话的序号前面是SNG的就是单轮，MUL的就是多轮。
 
@@ -92,17 +92,17 @@ Wizard-of-Oz setup是由两个众包工人组成一队，一个扮演user，一�
 作者将标注中错误的value分为4类。如下的4种
 
 1. Early Markup：未来会出现的槽值被agent标注为了当前的值，如图所示，User说了：Help me find a moderate price british food place please，此时系统回复了restaurant one seven is a nice place. Do you want to book? 此时应该意图还没有锁在r-name=one seven上
-![](/images/2021-10-24-22-05-41.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-10-24-22-05-41.png)
 
 2. Annotation from Database：这些值没有在对话中出现，而是被程序错误的从数据库中抽取出来的。
-![](/images/2021-10-24-22-12-29.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-10-24-22-12-29.png)
 
 3. Typo：一些印刷或者排版书写错误
-![](/images/2021-10-24-22-33-29.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-10-24-22-33-29.png)
 
 
 4. Implicit Time Processing：一些隐式的时间表示，有可能是根据前面的相对时间加减计算出来的时间，也有时候会四舍五入到最接近的时间。这样会家中模型学习的负担
-![](/images/2021-10-24-22-33-40.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-10-24-22-33-40.png)
 
 ## 状态更新不一致
 
@@ -111,10 +111,10 @@ Wizard-of-Oz setup是由两个众包工人组成一队，一个扮演user，一�
 1. value来源有多个：一个槽值在对话状态可能有各种来源：由用户提供、由系统提供、从对话状态中不同的domain下的值继承过来的、来源于本体中定义的。
 
 2. value的释义不规范：多个value其实含义是一样的。2.1在定义这些内容的时候缺乏一个显式的规则。这就使得模型训练的时候造成困惑，比如说同时有18：00和6pm，其实都是对的，但是训练过程中ground truth只有一个，那么就会错误的惩罚另一个
-![](/images/2021-10-25-00-00-53.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-10-25-00-00-53.png)
 
 3. 跟踪策略不一致：众包工人标注时的标准不一致，有的只标注了用户提到的value，有的将用户统一的agent提到的value也标了进来
-![](/images/2021-10-25-09-13-23.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-10-25-09-13-23.png)
 
 ## 本体中的问题
 
@@ -144,7 +144,7 @@ schema将所有slot分成两类，一类叫做non-categorical，另一类叫做c
 non-categorical包括那些具有大量可能value的slot，schema中对这些slot不去预定义一个value的list，对于这类slot的value是从对话历史中提取出来的
 
 categorical包含了那些value有限的slot，以及在训练数据中具体value数量少于50个的slot。在schema里头对这类slot会列举出所有可能的value
-![](/images/2021-10-25-09-40-25.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-10-25-09-40-25.png)
 
 自：MWZ2.0数据集中的schema好像是比较明显的。
 
@@ -157,17 +157,17 @@ categorical包含了那些value有限的slot，以及在训练数据中具体val
 - unknown指的是那些在schema中的值无法满足用户特定的需求
 
 例如：
-![](/images/2021-10-25-09-43-09.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-10-25-09-43-09.png)
 
 ## Non-categorical Slots
 
 对于非分类槽位。上面已经说过，它的value是从历史对话中提取出来的。作者这里使用一种字符串匹配的方式找到对话历史中语义最接近的值。如果有多个，就取最近提到的那个
 
 在2.2中，在标注中允许一个slot有多个value，模型预测出来任意一个都算对
-![](/images/2021-10-25-09-48-10.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-10-25-09-48-10.png)
 
 当多个slot对应的是同一个value的时候，作者这里采用链式存储的思想。后来的slot不标注span，而是标注这个value对应的原始的slot
 
-![](/images/2021-10-25-09-54-53.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-10-25-09-54-53.png)
 
 这个图也显示了有在categorical和non-categorical上分别计算JointAcc的习惯

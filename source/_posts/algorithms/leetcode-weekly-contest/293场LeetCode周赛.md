@@ -206,7 +206,7 @@ class Solution(object):
 
 二进制的题目，本来开始的时候没有什么思路，后来边和同学讨论边做，同学说要不要先转化成二进制看看，然后转成二进制后发现只要纵向遍历，看看哪一列的1最多就可以了，根据之前刷题的经验，纵向遍历就是把 `for j in range(len(a[0]))` 放在 `for i in range(len(a))` 之外，但是内部循环还是 `a[i][j]` 就可以了；
 
-![](/images/2022-05-16-10-17-08.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-16-10-17-08.png)
 
 ```python
 class Solution(object):

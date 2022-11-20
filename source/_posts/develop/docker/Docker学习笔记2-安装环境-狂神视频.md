@@ -56,7 +56,7 @@ REDHAT_SUPPORT_PRODUCT_VERSION="7"
 
 参考帮助文档，docs.docker.com
 
-![](/images/2022-01-08-00-05-32.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-08-00-05-32.png)
 
 ```shell
 # 1、 卸载旧的版本
@@ -218,7 +218,7 @@ Client: Docker Engine - Community
 docker run hello-world
 ```
 
-![](/images/2022-01-08-00-06-12.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-08-00-06-12.png)
 
 
 ```shell
@@ -255,7 +255,7 @@ Reference: https://www.cnblogs.com/franson-2016/p/6412971.html
 
 ## 回顾HelloWorld流程
 
-![](/images/2022-01-08-00-09-18.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-08-00-09-18.png)
 
 
 ## 底层原理
@@ -266,15 +266,15 @@ Docker是一个Clinet-Server结构的系统，Docker的守护进程运行在主�
 
 DockerServer接收到Docker-Client的指令，就会执行这个命令！
 
-![](/images/2022-01-08-00-09-49.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-08-00-09-49.png)
 
 **Docker为什么比VM快？**
 
 1、Docker有着比虚拟机更少的抽象层。
 2、Docker利用的是宿主机的内核，vm需要是Guest OS。
 
-![](/images/2022-01-08-00-10-23.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-08-00-10-23.png)
 
 所以说，新建一个容器的时候，docker不需要像虚拟机一样重新加载一个操作系统内核，避免引导。虚拟机是加载Guest OS，分钟级别的，而Docker是利用宿主机的操作系统，省略了这个复杂的过程，秒级！
 
-![](/images/2022-01-08-00-10-57.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-08-00-10-57.png)

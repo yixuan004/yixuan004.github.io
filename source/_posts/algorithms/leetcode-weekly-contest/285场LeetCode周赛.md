@@ -256,7 +256,7 @@ Alice 和 Bob 是一场射箭比赛中的对手。比赛规则如下：
 
 示例1：
 
-![](/images/2022-03-20-23-45-26.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-20-23-45-26.png)
 ```
 输入：numArrows = 9, aliceArrows = [1,1,0,1,0,0,2,1,0,1,2,0]
 输出：[0,0,0,0,1,1,0,0,1,2,3,1]

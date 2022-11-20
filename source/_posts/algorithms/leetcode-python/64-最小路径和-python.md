@@ -33,7 +33,7 @@ categories:
 
 
 示例1：
-![](/images/2022-01-06-14-30-08.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-06-14-30-08.png)
 ```
 输入：grid = [[1,3,1],[1,5,1],[4,2,1]]
 输出：7

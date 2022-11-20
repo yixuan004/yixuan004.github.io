@@ -49,7 +49,7 @@ categories:
 
 示例1：
 
-![](/images/2022-06-19-17-05-41.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-06-19-17-05-41.png)
 ```
 输入：nums = [1,3,5,2,4,8,2,2]
 输出：1

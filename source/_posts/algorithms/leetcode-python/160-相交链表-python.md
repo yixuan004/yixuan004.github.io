@@ -27,7 +27,7 @@ categories:
 
 图示两个链表在节点```c1```开始相交：
 
-![](/images/2022-01-17-16-20-00.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-17-16-20-00.png)
 
 题目数据 保证 整个链式结构中不存在环。
 
@@ -46,7 +46,7 @@ categories:
 评测系统将根据这些输入创建链式数据结构，并将两个头节点 headA 和 headB 传递给你的程序。如果程序能够正确返回相交节点，那么你的解决方案将被 视作正确答案 。
 
 示例1：
-![](/images/2022-01-17-16-28-41.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-17-16-28-41.png)
 ```
 输入：intersectVal = 8, listA = [4,1,8,4,5], listB = [5,6,1,8,4,5], skipA = 2, skipB = 3
 输出：Intersected at '8'
@@ -56,7 +56,7 @@ categories:
 ```
 
 示例2：
-![](/images/2022-01-17-16-28-58.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-17-16-28-58.png)
 ```
 输入：intersectVal = 2, listA = [1,9,1,2,4], listB = [3,2,4], skipA = 3, skipB = 1
 输出：Intersected at '2'
@@ -66,7 +66,7 @@ categories:
 ```
 
 示例3：
-![](/images/2022-01-17-16-29-05.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-17-16-29-05.png)
 ```
 输入：intersectVal = 0, listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2
 输出：null
@@ -95,7 +95,7 @@ categories:
 
 下边这个图也是看了题解后才明白的，这样最多走a+b这个长度的次数，两个走的长度是一样的，如果有交集则必定能相交！
 
-![](/images/2022-01-17-16-16-56.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-17-16-16-56.png)
 
 ```python
 class Solution(object):

@@ -203,7 +203,7 @@ class Solution(object):
 
 示例1：
 
-![](/images/2022-04-18-18-31-09.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-04-18-18-31-09.png)
 ```
 输入：grid = [[23,17,15,3,20],[8,1,20,27,11],[9,4,6,2,21],[40,9,1,10,6],[22,7,4,5,3]]
 输出：3
@@ -217,7 +217,7 @@ class Solution(object):
 
 示例2：
 
-![](/images/2022-04-18-18-31-15.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-04-18-18-31-15.png)
 ```
 输入：grid = [[4,3,2],[7,6,1],[8,8,8]]
 输出：0

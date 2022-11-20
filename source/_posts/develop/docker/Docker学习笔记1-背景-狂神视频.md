@@ -113,7 +113,7 @@ docs.docker.com，Docker的文档是非常详细的
 
 **容器化技术不是模拟的一个完整的操作系统**
 
-![](/images/2022-01-05-15-40-13.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-05-15-40-13.png)
 
  
 > 比较Docker和虚拟机技术的不同
@@ -154,7 +154,7 @@ Docker是内核级别的虚拟化，一个物理机上运行很多个容器实�
 
 # Docker的基本组成
 
-![](/images/2022-01-05-15-55-22.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-05-15-55-22.png)
 
 分成了三个部分，客户端、服务器、仓库
 

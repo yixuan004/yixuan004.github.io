@@ -37,14 +37,14 @@ categories:
 - 所有左子树和右子树自身必须也是二叉搜索树。
 
 示例1：
-![](/images/2022-03-07-22-56-46.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-07-22-56-46.png)
 ```
 输入：root = [2,1,3]
 输出：true
 ```
 
 示例2：
-![](/images/2022-03-07-23-10-32.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-07-23-10-32.png)
 ```
 输入：root = [5,1,4,null,null,3,6]
 输出：false

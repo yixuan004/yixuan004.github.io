@@ -31,7 +31,7 @@ categories:
 
 
 示例1：
-![](/images/2021-12-15-18-56-13.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-12-15-18-56-13.png)
 ```
 输入：[1,8,6,2,5,4,8,3,7]
 输出：49 

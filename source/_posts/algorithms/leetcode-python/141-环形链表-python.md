@@ -36,7 +36,7 @@ categories:
 如果链表中存在环，则返回```true```。 否则，返回```false```。
 
 示例1：
-![](/images/2022-01-05-23-41-23.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-05-23-41-23.png)
 ```
 输入：head = [3,2,0,-4], pos = 1
 输出：true
@@ -44,7 +44,7 @@ categories:
 ```
 
 示例2：
-![](/images/2022-01-05-23-41-35.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-05-23-41-35.png)
 ```
 输入：head = [1,2], pos = 0
 输出：true
@@ -52,7 +52,7 @@ categories:
 ```
 
 示例3：
-![](/images/2022-01-05-23-41-45.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-05-23-41-45.png)
 ```
 输入：head = [1], pos = -1
 输出：false

@@ -258,7 +258,7 @@ class Solution(object):
 ```
 
 优化后的写法， 这里dp数组存储的是截止到这个状态的，下图是思路：
-![](/images/2022-01-16-21-16-46.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-16-21-16-46.png)
 ```python
 class Solution(object):
     def mostPoints(self, questions):

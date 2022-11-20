@@ -555,6 +555,6 @@ docker cp 容器id:容器内路径 目的的主机路径
 
 ## docker命令小结
 
-![](/images/2022-01-08-00-24-45.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-01-08-00-24-45.png)
 
 docker的命令是十分多的，上边是常见的容器和镜像命令

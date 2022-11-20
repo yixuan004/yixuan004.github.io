@@ -122,7 +122,7 @@ class Solution(object):
 
 示例1：
 
-![](/images/2022-03-13-22-25-47.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-13-22-25-47.png)
 ```
 输入：n = 2, artifacts = [[0,0,0,0],[0,1,1,1]], dig = [[0,0],[0,1]]
 输出：1
@@ -135,7 +135,7 @@ class Solution(object):
 
 示例2：
 
-![](/images/2022-03-13-22-26-06.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-13-22-26-06.png)
 ```
 输入：n = 2, artifacts = [[0,0,0,0],[0,1,1,1]], dig = [[0,0],[0,1],[1,1]]
 输出：2

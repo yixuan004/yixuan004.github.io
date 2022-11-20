@@ -16,36 +16,36 @@ categories:
 
 1. 新建project
 
-![](/images/2021-11-24-22-57-01.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-24-22-57-01.png)
 
 2. 选择路径这里，这里venv可以随意选择（个人感觉最好不选择，但是不一定能跳过这一步）
 
-![](/images/2021-11-24-22-58-37.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-24-22-58-37.png)
 
 3. 打开File -> Preference，选择Interpreter
 
-![](/images/2021-11-24-23-00-48.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-24-23-00-48.png)
 
 这里的Interpreter需要选择远程的ssh Interpreter
-![](/images/2021-11-24-23-01-51.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-24-23-01-51.png)
 
-![](/images/2021-11-24-23-05-04.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-24-23-05-04.png)
 
-![](/images/2021-11-24-23-05-14.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-24-23-05-14.png)
 
-![](/images/2021-11-24-23-05-57.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-24-23-05-57.png)
 
 4. 设置deployment，设置有远程文件夹和本地文件夹的同步
 
-![](/images/2021-11-24-23-09-45.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-24-23-09-45.png)
 
 5. 测试torch.cuda.is_available()
 
-![](/images/2021-11-24-23-10-41.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-24-23-10-41.png)
 
 6. 设置本地删除文件后，远程也会随之删除
 
-![](/images/2021-11-24-23-12-10.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-24-23-12-10.png)
 
 # Reference
 

@@ -114,7 +114,7 @@ class Solution(object):
 
 示例 1：
 
-![](/images/2022-05-08-21-27-52.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-08-21-27-52.png)
 ```
 输入：root = [4,8,5,0,1,null,6]
 输出：5
@@ -128,7 +128,7 @@ class Solution(object):
 
 示例 2：
 
-![](/images/2022-05-08-21-28-58.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-08-21-28-58.png)
 ```
 输入：root = [1]
 输出：1
@@ -198,7 +198,7 @@ class Solution(object):
 
 Alice 在给 Bob 用手机打字。数字到字母的 **对应** 如下图所示。
 
-![](/images/2022-05-08-21-36-14.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-08-21-36-14.png)
 
 为了 **打出** 一个字母，Alice 需要 **按** 对应字母 `i` 次，`i` 是该字母在这个按键上所处的位置。
 - 比方说，为了按出字母 `'s'` ，Alice 需要按 `'7'` 四次。类似的， Alice 需要按 `'5'` 两次得到字母  `'k'` 。
@@ -238,7 +238,7 @@ Alice 可能发出的文字信息包括：
 
 像是数学找规律的题目，背后隐藏的其实是dp的内容，有点像跳台阶那种做法，可惜自己规律找错了没有写出来，具体内容写在详解里的照片中了；
 
-![](/images/2022-05-08-21-43-04.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-08-21-43-04.png)
 
 另外在代码实现上，发现直接初始化所有的这种类似于离线的操作可能会超时，所以来说的话还是写了一版动态的思路，参照之前的经验，
 
@@ -347,7 +347,7 @@ class Solution(object):
 
 示例 1：
 
-![](/images/2022-05-08-21-49-28.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-08-21-49-28.png)
 ```
 输入：grid = [["(","(","("],[")","(",")"],["(","(",")"],["(","(",")"]]
 输出：true
@@ -359,7 +359,7 @@ class Solution(object):
 
 示例2：
 
-![](/images/2022-05-08-21-50-00.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-08-21-50-00.png)
 ```
 输入：grid = [[")",")"],["(","("]]
 输出：false
@@ -378,7 +378,7 @@ class Solution(object):
 
 在优化剪枝上，一种是 `@lru_cache(1000*1000)` 靠着编译器来优化，另外一种是记录visited数组，类似于下面图里写的意思，还有就是说匹配上的括号长度一定是 **偶数** 的：
 
-![](/images/2022-05-08-21-56-39.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-08-21-56-39.png)
 
 这个题还遇到很多玄学问题，就是说两个优化都加上就过不了，但是只留其中一个优化就可以。。。dfs结构还是比较简单的！
 

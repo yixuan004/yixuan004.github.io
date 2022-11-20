@@ -27,14 +27,14 @@ categories:
 给你一个二叉树的根节点 ```root``` ， 检查它是否轴对称。
 
 示例1：
-![](/images/2022-02-14-15-53-42.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-02-14-15-53-42.png)
 ```
 输入：root = [1,2,2,3,4,4,3]
 输出：true
 ```
 
 示例2：
-![](/images/2022-02-14-15-53-53.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-02-14-15-53-53.png)
 ```
 输入：root = [1,2,2,null,3,null,3]
 输出：false

@@ -164,13 +164,13 @@ class Solution(object):
 
 给你一个二维整数数组 `stockPrices` ，其中 `stockPrices[i] = [day_i, price_i]` 表示股票在 `day_i` 的价格为 `price_i` 。**折线图** 是一个二维平面上的若干个点组成的图，横坐标表示日期，纵坐标表示价格，折线图由相邻的点连接而成。比方说下图是一个例子：
 
-![](/images/2022-05-25-00-57-12.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-25-00-57-12.png)
 
 请你返回要表示一个折线图所需要的 **最少线段数** 。
 
 示例1：
 
-![](/images/2022-05-25-00-58-50.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-25-00-58-50.png)
 ```
 输入：stockPrices = [[1,7],[2,6],[3,5],[4,4],[5,4],[6,3],[7,2],[8,1]]
 输出：3
@@ -185,7 +185,7 @@ class Solution(object):
 
 示例2：
 
-![](/images/2022-05-25-00-59-13.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-05-25-00-59-13.png)
 ```
 输入：stockPrices = [[3,4],[1,2],[7,8],[2,3]]
 输出：1

@@ -18,7 +18,7 @@ Reference：
 
 # 安装Linux Installers
 
-![](/images/2021-11-10-09-43-27.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-10-09-43-27.png)
 
 下载后会得到一个```Miniconda3-latest-Linux-x86_64.sh```，上传到服务器上后可通过bash直接安装
 
@@ -38,19 +38,19 @@ $ conda activate myenv
 
 首先使用nvidia-smi查看当前cuda
 
-![](/images/2021-11-13-16-20-10.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-13-16-20-10.png)
 
 在pytorch官网https://pytorch.org/get-started/previous-versions/上查看previous version，一般来说1.4.0，1.6.0比较稳定？
 
-![](/images/2021-11-13-16-21-01.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-13-16-21-01.png)
 
 输入命令进行安装：
 
-![](/images/2021-11-13-16-21-42.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-13-16-21-42.png)
 
 测试如下：
 
-![](/images/2021-11-13-16-35-55.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-13-16-35-55.png)
 
 
 # 另外一种直接pip install的方式（from zkh）

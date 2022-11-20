@@ -38,7 +38,7 @@ Reference：
 
 1. 设置代理的方法，首先查找梯子代理的端口：
 
-![](/images/2021-12-06-11-45-05.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-12-06-11-45-05.png)
 
 通过git config命令来设置
 ```shell

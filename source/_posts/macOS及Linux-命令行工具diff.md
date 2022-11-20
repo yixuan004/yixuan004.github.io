@@ -43,12 +43,12 @@ $ vim ~/.zshrc
 在最后一行加入
 alias diff=colordiff
 ```
-![](/images/2021-09-16-23-42-12.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-09-16-23-42-12.png)
 
 
 # 3. 效果展示
 
-![](/images/2021-09-16-23-49-33.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-09-16-23-49-33.png)
 
 
 

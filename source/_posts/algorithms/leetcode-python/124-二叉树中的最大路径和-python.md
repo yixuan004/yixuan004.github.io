@@ -33,7 +33,7 @@ categories:
 
 示例1：
 
-![](/images/2022-04-30-10-00-18.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-04-30-10-00-18.png)
 ```
 输入：root = [1,2,3]
 输出：6
@@ -42,7 +42,7 @@ categories:
 
 示例2：
 
-![](/images/2022-04-30-10-00-43.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-04-30-10-00-43.png)
 ```
 输入：root = [-10,9,20,null,null,15,7]
 输出：42

@@ -62,7 +62,7 @@ eight
 nine
 ```
 
-![](/images/2021-11-30-00-12-10.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2021-11-30-00-12-10.png)
 
 
 

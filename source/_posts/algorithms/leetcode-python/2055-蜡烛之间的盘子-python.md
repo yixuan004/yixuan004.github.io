@@ -35,7 +35,7 @@ categories:
 
 
 示例1：
-![](/images/2022-03-08-21-16-07.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-08-21-16-07.png)
 ```
 输入：s = "**|**|***|", queries = [[2,5],[5,9]]
 输出：[2,3]
@@ -45,7 +45,7 @@ categories:
 ```
 
 示例2：
-![](/images/2022-03-08-21-16-18.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-03-08-21-16-18.png)
 ```
 输入：s = "***|**|*****|**||**|*", queries = [[1,17],[4,5],[14,17],[5,11],[15,16]]
 输出：[9,0,0,0,0]
