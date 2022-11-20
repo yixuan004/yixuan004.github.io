@@ -43,7 +43,7 @@ filename_case: 0
 render_drafts: false
 post_asset_folder: true
 marked:
-  prependRoot: false
+  prependRoot: true
   postAsset: true
 relative_link: false
 future: true
@@ -59,7 +59,8 @@ prismjs:
   preprocess: true
   line_number: true
   tab_replace: ''
-tmp_root: '/_posts/'
+# tmp_root: '/_posts/'
+tmp_root: ''
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')

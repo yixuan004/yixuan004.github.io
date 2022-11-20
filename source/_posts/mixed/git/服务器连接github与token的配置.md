@@ -21,4 +21,4 @@ categories:
 
 这里生成一个新的token，clone等操作的时候用这个token就可以
 
-![](./服务器连接github与token的配置.assets/2022-11-18-16-42-36.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-11-18-16-42-36.png)
