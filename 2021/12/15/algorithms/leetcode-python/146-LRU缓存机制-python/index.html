@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>146.LRU缓存机制-python | Curious;的个人划水博客</title>
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="shortcut icon" href="/">
+  <link rel="alternate" href="/atom.xml" title="Curious;的个人划水博客" type="application/atom+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="146.LRU缓存机制（中等） 题目大意： 运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制 。实现 LRUCache 类：  LRUCache(int capacity) 以正整数作为容量 capacity 初始化 LRU 缓存 int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。 void put(int key,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="146.LRU缓存机制-python">
+<meta property="og:url" content="http://example.com/2021/12/15/algorithms/leetcode-python/146-LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6-python/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="146.LRU缓存机制（中等） 题目大意： 运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制 。实现 LRUCache 类：  LRUCache(int capacity) 以正整数作为容量 capacity 初始化 LRU 缓存 int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。 void put(int key,">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-15T03:43:06.000Z">
+<meta property="article:modified_time" content="2022-11-20T01:50:08.882Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="MEDIUM">
+<meta property="article:tag" content="哈希表">
+<meta property="article:tag" content="链表">
+<meta property="article:tag" content="设计">
+<meta property="article:tag" content="双向链表">
+<meta name="twitter:card" content="summary">
+    
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+  <link href='//cdn.bootcss.com/node-waves/0.7.5/waves.min.css' rel='stylesheet'>
+  
+<link rel="stylesheet" href="/style.css">
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+
+
+  <script>setLoadingBarProgress(20)</script> 
+  <header class="l_header">
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+			<a class="logo flat-box" href='/' >
+				Curious;的个人划水博客
+			</a>
+			<div class='menu'>
+				<ul class='h-list'>
+					
+						<li>
+							<a class='flat-box nav-home' href='/'>
+								Home
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-archives' href='/archives'>
+								Archives
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-gallery' target="_blank" rel="noopener" href='https://photos.google.com/album/AF1QipNoqKYgspQo5O1YhlFXGCQ7p575KBH3Yxf8WHL4?hl=zh-CN'>
+								Gallery
+							</a>
+						</li>
+					
+						<li>
+							<a class='flat-box nav-about' href='/about'>
+								About
+							</a>
+						</li>
+					
+				</ul>
+				<div class='underline'></div>
+			</div>
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="Search" />
+						<span class="icon icon-search"></span>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a href='javascript:void(0)'><span class="icon icon-search flat-box"></span></a></li>
+				
+				<li class='s-menu'><a href='javascript:void(0)'><span class="icon icon-menu flat-box"></span></a></li>
+			</ul>
+		</div>
+		
+		<div class='nav-sub container container--flex'>
+			<a class="logo" class="flat-box" href='javascript:void(0)'>
+				Word of Forks
+			</a>
+
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a href='javascript:void(0)'><span class="icon icon-chat_bubble_outline flat-box"></span></a></li>
+				<li class='s-top'><a href='javascript:void(0)'><span class="icon icon-arrow_upward flat-box"></span></a></li>
+				<li class='s-toc'><a href='javascript:void(0)'><span class="icon icon-format_list_numbered flat-box"></span></a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+<aside class="menu-phone">
+	<nav>
+		
+			<a href="/" class="nav-home nav">
+				Home
+			</a>
+		
+			<a href="/archives" class="nav-archives nav">
+				Archives
+			</a>
+		
+			<a target="_blank" rel="noopener" href="https://photos.google.com/album/AF1QipNoqKYgspQo5O1YhlFXGCQ7p575KBH3Yxf8WHL4?hl=zh-CN" class="nav-gallery nav">
+				Gallery
+			</a>
+		
+			<a href="/about" class="nav-about nav">
+				About
+			</a>
+		
+	</nav>
+</aside>
+
+    <script>setLoadingBarProgress(40);</script>
+  <div class="l_body">
+    <div class='container clearfix'>
+      <div class='l_main'>
+        <article id="post-algorithms/leetcode-python/146-LRU缓存机制-python"
+  class="post white-box article-type-post"
+  itemscope itemprop="blogPost">
+	<section class='meta'>
+	<h2 class="title">
+  	<a href="/2021/12/15/algorithms/leetcode-python/146-LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6-python/">
+    	146.LRU缓存机制-python
+    </a>
+  </h2>
+	<time>
+	  12月 15, 2021
+	</time>
+	
+    
+    <div class='cats'>
+        <a href="/categories/LeetCode-python/">LeetCode-python</a>, <a href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/">LeetCode-热题 HOT 100</a>
+    </div>
+
+	</section>
+	
+		<section class="toc-wrapper"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E7%AD%94%E4%B8%8E%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">解答与分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89LRUCache%E7%B1%BB"><span class="toc-number">2.1.</span> <span class="toc-text">自定义LRUCache类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E6%9D%A5%E5%AE%8C%E6%88%90%E9%A2%98%E7%9B%AE%E8%A6%81%E6%B1%82%E7%9A%84%E6%93%8D%E4%BD%9C%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%A6%81%E6%B1%82"><span class="toc-number">2.2.</span> <span class="toc-text">使用双向链表来完成题目要求的操作时间复杂度要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LRUCache-init-%E4%B8%AD%E9%9C%80%E8%A6%81%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-number">2.3.</span> <span class="toc-text">LRUCache __init__中需要初始化的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90LRUCache%E4%B8%AD%E7%9A%84%E6%8F%92%E5%85%A5%EF%BC%88put%EF%BC%89%E6%93%8D%E4%BD%9C%E5%92%8C%E6%9F%A5%E6%89%BE%EF%BC%88get%EF%BC%89%E6%93%8D%E4%BD%9C"><span class="toc-number">2.4.</span> <span class="toc-text">分析LRUCache中的插入（put）操作和查找（get）操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%EF%BC%88put%EF%BC%89"><span class="toc-number">2.4.1.</span> <span class="toc-text">插入（put）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%EF%BC%88get%EF%BC%89"><span class="toc-number">2.4.2.</span> <span class="toc-text">查找（get）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0%E7%9A%84%E7%BC%96%E5%86%99"><span class="toc-number">2.5.</span> <span class="toc-text">双向链表操作函数的编写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E9%83%BD%E9%80%A0%E5%A5%BD%E4%BA%86%EF%BC%8C%E6%9C%80%E7%BB%88%E6%95%B4%E4%BD%93%E4%B8%8A%E7%9A%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E5%A6%82%E4%B8%8B%EF%BC%8C%E8%BF%98%E8%A6%81%E7%BB%8F%E5%B8%B8%E5%A4%8D%E4%B9%A0%E5%95%8A"><span class="toc-number">2.6.</span> <span class="toc-text">工具都造好了，最终整体上的代码实现如下，还要经常复习啊</span></a></li></ol></li></ol></section>
+	
+	<section class="article typo">
+  	<div class="article-entry" itemprop="articleBody">
+    	<p>146.LRU缓存机制（中等）</p>
+<p>题目大意：</p>
+<p>运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制 。<br>实现 LRUCache 类：</p>
+<ul>
+<li>LRUCache(int capacity) 以正整数作为容量 capacity 初始化 LRU 缓存</li>
+<li>int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。</li>
+<li>void put(int key, int value) 如果关键字已经存在，则变更其数据值；如果关键字不存在，则插入该组「关键字-值」。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据值，从而为新的数据值留出空间。</li>
+</ul>
+<p>进阶：你是否可以在 O(1) 时间复杂度内完成这两种操作？</p>
+<span id="more"></span>
+
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/lru-cache/">题目链接</a></p>
+<p>运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制 。<br>实现 LRUCache 类：</p>
+<ul>
+<li>LRUCache(int capacity) 以正整数作为容量 capacity 初始化 LRU 缓存</li>
+<li>int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。</li>
+<li>void put(int key, int value) 如果关键字已经存在，则变更其数据值；如果关键字不存在，则插入该组「关键字-值」。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据值，从而为新的数据值留出空间。</li>
+</ul>
+<p>进阶：你是否可以在 O(1) 时间复杂度内完成这两种操作？</p>
+<p>示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">输入</span><br><span class="line">[&quot;LRUCache&quot;, &quot;put&quot;, &quot;put&quot;, &quot;get&quot;, &quot;put&quot;, &quot;get&quot;, &quot;put&quot;, &quot;get&quot;, &quot;get&quot;, &quot;get&quot;]</span><br><span class="line">[[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]</span><br><span class="line">输出</span><br><span class="line">[null, null, null, 1, null, -1, null, -1, 3, 4]</span><br><span class="line"></span><br><span class="line">解释</span><br><span class="line">LRUCache lRUCache = new LRUCache(2);</span><br><span class="line">lRUCache.put(1, 1); // 缓存是 &#123;1=1&#125;</span><br><span class="line">lRUCache.put(2, 2); // 缓存是 &#123;1=1, 2=2&#125;</span><br><span class="line">lRUCache.get(1);    // 返回 1</span><br><span class="line">lRUCache.put(3, 3); // 该操作会使得关键字 2 作废，缓存是 &#123;1=1, 3=3&#125;</span><br><span class="line">lRUCache.get(2);    // 返回 -1 (未找到)</span><br><span class="line">lRUCache.put(4, 4); // 该操作会使得关键字 1 作废，缓存是 &#123;4=4, 3=3&#125;</span><br><span class="line">lRUCache.get(1);    // 返回 -1 (未找到)</span><br><span class="line">lRUCache.get(3);    // 返回 3</span><br><span class="line">lRUCache.get(4);    // 返回 4</span><br></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li>1 &lt;= capacity &lt;= 3000</li>
+<li>0 &lt;= key &lt;= 10000</li>
+<li>0 &lt;= value &lt;= 105</li>
+<li>最多调用 2 * 105 次 get 和 put</li>
+</ul>
+<h1 id="解答与分析"><a href="#解答与分析" class="headerlink" title="解答与分析"></a>解答与分析</h1><p>这个题实在是太经典了，而且是自己面试过程中真正被问到而没有做出来的题目，首先第一步要根据题目所给出的内容自定义LRUCache类，也借此进一步熟悉语法。</p>
+<h2 id="自定义LRUCache类"><a href="#自定义LRUCache类" class="headerlink" title="自定义LRUCache类"></a>自定义LRUCache类</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LRUCache</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, capacity</span>):</span><br><span class="line">        self.capacity = capacity</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self, key</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">put</span>(<span class="params">self, key, value</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        rtype: None</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="使用双向链表来完成题目要求的操作时间复杂度要求"><a href="#使用双向链表来完成题目要求的操作时间复杂度要求" class="headerlink" title="使用双向链表来完成题目要求的操作时间复杂度要求"></a>使用双向链表来完成题目要求的操作时间复杂度要求</h2><p>题目中要求的O(1)时间复杂度下完成各个操作，主要靠的是cache词典和双向链表中的一些操作，缓存（cache）在这个题中十分关键</p>
+<p>首先搞起来双向链表的基本模板</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BiLinkedList</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, key=-<span class="number">1</span>, val=-<span class="number">1</span>, prev=<span class="literal">None</span>, <span class="built_in">next</span>=<span class="literal">None</span></span>):</span><br><span class="line">        self.key = key</span><br><span class="line">        self.val = val</span><br><span class="line">        self.prev = prev</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="built_in">next</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="LRUCache-init-中需要初始化的内容"><a href="#LRUCache-init-中需要初始化的内容" class="headerlink" title="LRUCache __init__中需要初始化的内容"></a>LRUCache __init__中需要初始化的内容</h2><p>按照题目一步步的来分析，首先分析需要哪些内容放在LRUcatch的init中，首先是题目中给了的capacity代表这个LRU cache的最大容量，之后是一个为0的current_size代表当前LRU cache的容量，之后可以根据做一些特殊的判断。还有就是一个词典的cache，代表有哪些已经在LRUcache中了，这里最关键的是记住这个cache中存储的是key-node的mapping。还有就是初始化一个双向链表，注意这个双向链表的头和尾虽然直接初始化了，但是这两个节点并没有什么含义，所以head.next和tail.prev中间这些的才感觉是有用的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LRUCache</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, capacity</span>):</span><br><span class="line">        self.capacity = capacity</span><br><span class="line">        self.current_size = <span class="number">0</span></span><br><span class="line">        self.cache = &#123;&#125;</span><br><span class="line"></span><br><span class="line">        self.head = BiLinkedList()</span><br><span class="line">        self.tail = BiLinkedList()</span><br><span class="line">        self.head.<span class="built_in">next</span> = self.tail</span><br><span class="line">        self.tail.prev = self.head</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="分析LRUCache中的插入（put）操作和查找（get）操作"><a href="#分析LRUCache中的插入（put）操作和查找（get）操作" class="headerlink" title="分析LRUCache中的插入（put）操作和查找（get）操作"></a>分析LRUCache中的插入（put）操作和查找（get）操作</h2><h3 id="插入（put）"><a href="#插入（put）" class="headerlink" title="插入（put）"></a>插入（put）</h3><p>插入给了一个key和一个value。</p>
+<p>首先判断key是不是已经在cache中了</p>
+<ul>
+<li><p>如果已经在cache中了</p>
+<ul>
+<li>在cache中删除这个key对应的node，然后把这个节点的更新值头插法搞到链表的最前边去。<strong>这里体现了双向链表的作用还有cache中key-node mapping的作用，，mapping找到一个node后，基于双向链表可完成O(1)的删除</strong></li>
+</ul>
+</li>
+<li><p>如果不在的话</p>
+<ul>
+<li>首先判断目前的self.current_size和self.capacity的关系，<ul>
+<li>如果相等了，则删除目前双向链表尾部的，之后用头插法在前边插入上。</li>
+<li>如果self.current_size小于self.capacity，直接在头部插入后，self.capacity++就可以了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="查找（get）"><a href="#查找（get）" class="headerlink" title="查找（get）"></a>查找（get）</h3><p>查找只给了一个key，返回这个key对应的value，如果找不到就返回-1</p>
+<p>这个直接从cache中找就可以了，但是注意查找到的同样要删除，并且头插法到最前边来</p>
+<h2 id="双向链表操作函数的编写"><a href="#双向链表操作函数的编写" class="headerlink" title="双向链表操作函数的编写"></a>双向链表操作函数的编写</h2><p>综上所述，在该题中需要双向链表的三种操作：（注意这里只管链表的操作，是否能执行这些操作的判断在其他地方试）</p>
+<p>①头插法</p>
+<p>②尾部删除：特别注意这里的尾部删除，在超出capacity的时候会执行尾部删除，<strong>这个时候要拿到尾部删除后的node</strong>，以便从cache中将其移除！！！！！！！！</p>
+<p>③中间删除</p>
+<p>下边这些实现还要经常复习，主要是涉及顺序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add_to_head</span>(<span class="params">self, node</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    双向链表的头插法，current_size 和 cache的变化不在这里做，这里只管插入</span></span><br><span class="line"><span class="string">    注意这里，是插入到虚拟head之后的一个</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    node.<span class="built_in">next</span> = self.head.<span class="built_in">next</span></span><br><span class="line">    node.prev = self.head</span><br><span class="line">    self.head.<span class="built_in">next</span>.prev = node</span><br><span class="line">    self.head.<span class="built_in">next</span> = node</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">remove_tail</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    双向链表的删除尾，current_size 和 cache的变化不在这里做，这里只管删除</span></span><br><span class="line"><span class="string">    注意这里，是删除虚拟尾结点前边的一个！</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    temp = self.tail.prev</span><br><span class="line">    self.tail.prev = self.tail.prev.prev</span><br><span class="line">    self.tail.prev.<span class="built_in">next</span> = self.tail</span><br><span class="line">    temp.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">    temp.prev = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">return</span> temp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">remove_inter</span>(<span class="params">self, node</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    双向链表的中间节点删除</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    node.prev.<span class="built_in">next</span> = node.<span class="built_in">next</span></span><br><span class="line">    node.<span class="built_in">next</span>.prev = node.prev</span><br></pre></td></tr></table></figure>
+
+<h2 id="工具都造好了，最终整体上的代码实现如下，还要经常复习啊"><a href="#工具都造好了，最终整体上的代码实现如下，还要经常复习啊" class="headerlink" title="工具都造好了，最终整体上的代码实现如下，还要经常复习啊"></a>工具都造好了，最终整体上的代码实现如下，还要经常复习啊</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">使用双向链表的原因是因为双向链表的删除可以做到O(1)？也或许还有其他特性</span></span><br><span class="line"><span class="string">！注意题目中的关键字key存在于缓存中，要拿到关键字的值，也就是一个key-value的关系，一定要注意这个</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BiLinkedList</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, key=-<span class="number">1</span>, value=-<span class="number">1</span>, prev=<span class="literal">None</span>, <span class="built_in">next</span>=<span class="literal">None</span></span>):</span><br><span class="line">        self.key = key</span><br><span class="line">        self.value = value</span><br><span class="line">        self.prev = prev</span><br><span class="line">        self.prev = <span class="built_in">next</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LRUCache</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, capacity</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type capacity: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.capacity = capacity</span><br><span class="line">        self.current_size = <span class="number">0</span></span><br><span class="line">        self.cache = &#123;&#125; <span class="comment"># 这个mapping是key -&gt; node！！</span></span><br><span class="line">        <span class="comment"># 创建一个初始的头和一个初始的尾</span></span><br><span class="line">        self.head = BiLinkedList()</span><br><span class="line">        self.tail = BiLinkedList()</span><br><span class="line">        self.head.<span class="built_in">next</span> = self.tail</span><br><span class="line">        self.tail.prev = self.head</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add_to_head</span>(<span class="params">self, node</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        双向链表的头插法，current_size 和 cache的变化不在这里做，这里只管插入</span></span><br><span class="line"><span class="string">        注意这里，是插入到虚拟head之后的一个</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        node.<span class="built_in">next</span> = self.head.<span class="built_in">next</span></span><br><span class="line">        node.prev = self.head</span><br><span class="line">        self.head.<span class="built_in">next</span>.prev = node</span><br><span class="line">        self.head.<span class="built_in">next</span> = node</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">remove_tail</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        双向链表的删除尾，current_size 和 cache的变化不在这里做，这里只管删除</span></span><br><span class="line"><span class="string">        注意这里，是删除虚拟尾结点前边的一个！</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        temp = self.tail.prev</span><br><span class="line">        self.tail.prev = self.tail.prev.prev</span><br><span class="line">        self.tail.prev.<span class="built_in">next</span> = self.tail</span><br><span class="line">        temp.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">        temp.prev = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">return</span> temp</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">remove_inter</span>(<span class="params">self, node</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        双向链表的中间节点删除</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        node.prev.<span class="built_in">next</span> = node.<span class="built_in">next</span></span><br><span class="line">        node.<span class="built_in">next</span>.prev = node.prev</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self, key</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type key: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        # 注意get的时候，要把这个地方挪到最前边，因为LRU访问的时候要挪到前边来</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> self.cache.get(key) <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            node = self.cache.get(key)</span><br><span class="line">            self.remove_inter(node)</span><br><span class="line">            self.add_to_head(node)</span><br><span class="line">            <span class="keyword">return</span> node.value</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">put</span>(<span class="params">self, key, value</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type key: int</span></span><br><span class="line"><span class="string">        :type value: int</span></span><br><span class="line"><span class="string">        :rtype: None</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> self.cache.get(key) <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">            需要头插入，如果插入后长度超过了capacity，就要进行尾部删除</span></span><br><span class="line"><span class="string">            cache需要变动</span></span><br><span class="line"><span class="string">            &quot;&quot;&quot;</span></span><br><span class="line">            node = BiLinkedList(key=key, value=value)</span><br><span class="line">            self.add_to_head(node)</span><br><span class="line">            self.current_size += <span class="number">1</span></span><br><span class="line">            self.cache[key] = node</span><br><span class="line">            <span class="keyword">if</span> self.current_size &gt; self.capacity:  <span class="comment"># 超出容量了，要删除，同时cache也要删除</span></span><br><span class="line">                temp = self.remove_tail()</span><br><span class="line">                <span class="keyword">del</span> self.cache[temp.key]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">            已经有了，拿到一个node，需要先删除，然后挪到最前边</span></span><br><span class="line"><span class="string">            cache不需要变动</span></span><br><span class="line"><span class="string">            &quot;&quot;&quot;</span></span><br><span class="line">            node = self.cache.get(key)</span><br><span class="line">            self.remove_inter(node)</span><br><span class="line">            node = BiLinkedList(key=key, value=value)  <span class="comment"># 更新val值</span></span><br><span class="line">            self.cache[key] = node</span><br><span class="line">            self.add_to_head(node)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Your LRUCache object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"># obj = LRUCache(capacity)</span></span><br><span class="line"><span class="comment"># param_1 = obj.get(key)</span></span><br><span class="line"><span class="comment"># obj.put(key,value)</span></span><br></pre></td></tr></table></figure>
+  	</div>
+	  
+	  <div class="article-tags tags">
+      
+        <a href="/tags/MEDIUM/">MEDIUM</a>
+      
+        <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+      
+        <a href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
+      
+        <a href="/tags/%E8%AE%BE%E8%AE%A1/">设计</a>
+      
+        <a href="/tags/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/">双向链表</a>
+      
+	  </div>
+    
+		
+	
+		<div class="art-item-footer">
+				
+					<span class="art-item-left"><i class="icon icon-chevron-thin-left"></i>prev：<a href="/2021/12/15/algorithms/leetcode-python/15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C-python/" rel="prev"  title="15.三数之和-python">
+						15.三数之和-python 
+					</a></span>
+				
+				
+					<span class="art-item-right">next：<a href="/2021/12/14/algorithms/leetcode-python/383-%E8%B5%8E%E9%87%91%E4%BF%A1-python/" rel="next"  title="383.赎金信-python">
+						383.赎金信-python
+					</a><i class="icon icon-chevron-thin-right"></i></span>
+				
+		</div>
+	
+	</section>
+	
+</article>
+<script>
+	window.subData = {
+		title: '146.LRU缓存机制-python',
+		tools: true
+	}
+</script>
+
+      </div>
+      <aside class='l_side'>
+        
+  <section class='m_widget about'>
+
+<div class='header'>Curious;</div>
+<div class='content'>
+<div class='desc'>BUPT, Computer Science and Technology, 2021-2024; BJUT, Information Security, 2017-2021</div>
+</div>
+</section>
+
+  <section class='m_widget links'>
+<div class='header'>Links</div>
+<div class='content'>
+    <ul class="entry">
+    
+        <li><a class="flat-box" target="_blank" href="https://github.com/yixuan004">
+            <div class='name'>yixuan004</div>
+        </a></li>
+    
+    </ul>
+</div>
+</section>
+
+  <section class='m_widget categories'>
+<div class='header'>Categories</div>
+<div class='content'>
+    
+    <ul class="entry">
+    
+        <li><a class="flat-box" href="/categories/Crsenal/"><div class='name'>Crsenal</div><div class='badget'>16</div></a></li>
+    
+        <li><a class="flat-box" href="/categories/LeetCode-python/"><div class='name'>LeetCode-python</div><div class='badget'>72</div></a></li>
+    
+        <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode-%E7%83%AD%E9%A2%98-HOT-100/"><div class='name'>LeetCode-热题 HOT 100</div><div class='badget'>29</div></a></li>
+    
+        <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode%E5%91%A8%E8%B5%9B/"><div class='name'>LeetCode周赛</div><div class='badget'>26</div></a></li>
+    
+        <li><a class="flat-box" href="/categories/LeetCode-python/LeetCode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/"><div class='name'>LeetCode每日一题</div><div class='badget'>4</div></a></li>
+    
+        <li><a class="flat-box" href="/categories/NLP/"><div class='name'>NLP</div><div class='badget'>6</div></a></li>
+    
+        <li><a class="flat-box" href="/categories/docker/"><div class='name'>docker</div><div class='badget'>4</div></a></li>
+    
+        <li><a class="flat-box" href="/categories/%E7%AC%94%E8%AF%95%E7%BB%83%E4%B9%A0-python/"><div class='name'>笔试练习-python</div><div class='badget'>1</div></a></li>
+    
+    </ul>
+    
+</div>
+</section>
+
+  
+<div class="m_widget tagcloud">
+    <div class="header">Tags</div>
+    <div class='content'>
+        <a href="/tags/Dataset/" style="font-size: 14px; color: #808080">Dataset</a> <a href="/tags/Dialogue/" style="font-size: 14px; color: #808080">Dialogue</a> <a href="/tags/Dialogue-State-Tracking/" style="font-size: 14.75px; color: #707070">Dialogue State Tracking</a> <a href="/tags/EASY/" style="font-size: 19.63px; color: #080808">EASY</a> <a href="/tags/HARD/" style="font-size: 16.63px; color: #484848">HARD</a> <a href="/tags/LeetCode-python/" style="font-size: 14px; color: #808080">LeetCode-python</a> <a href="/tags/MEDIUM/" style="font-size: 20px; color: #000">MEDIUM</a> <a href="/tags/NLP/" style="font-size: 15.88px; color: #585858">NLP</a> <a href="/tags/TODO%E4%BC%98%E5%8C%96/" style="font-size: 14.38px; color: #787878">TODO优化</a> <a href="/tags/Transformer/" style="font-size: 14px; color: #808080">Transformer</a> <a href="/tags/git/" style="font-size: 14.75px; color: #707070">git</a> <a href="/tags/hexo/" style="font-size: 14.75px; color: #707070">hexo</a> <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" style="font-size: 16.63px; color: #484848">macOS基础操作</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 14.38px; color: #787878">二分查找</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" style="font-size: 14.75px; color: #707070">二叉搜索树</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 16.63px; color: #484848">二叉树</a> <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" style="font-size: 15.13px; color: #686868">优先队列</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 16.25px; color: #505050">位运算</a> <a href="/tags/%E5%87%A0%E4%BD%95/" style="font-size: 14px; color: #808080">几何</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 14px; color: #808080">分治</a> <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/" style="font-size: 15.13px; color: #686868">前缀和</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 18.13px; color: #282828">动态规划</a> <a href="/tags/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" style="font-size: 14px; color: #808080">双向链表</a> <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 15.88px; color: #585858">双指针</a> <a href="/tags/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/" style="font-size: 14px; color: #808080">哈希函数</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 18.5px; color: #202020">哈希表</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 15.5px; color: #606060">回溯</a> <a href="/tags/%E5%A0%86/" style="font-size: 15.13px; color: #686868">堆</a> <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/" style="font-size: 14.75px; color: #707070">字典树</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 18.88px; color: #181818">字符串</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D/" style="font-size: 14px; color: #808080">字符串匹配</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 14px; color: #808080">并查集</a> <a href="/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" style="font-size: 15.88px; color: #585858">广度优先搜索</a> <a href="/tags/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" style="font-size: 14px; color: #808080">归并排序</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 17.75px; color: #303030">排序</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 18.13px; color: #282828">数学</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 19.25px; color: #101010">数组</a> <a href="/tags/%E6%95%B0%E8%AE%BA/" style="font-size: 14px; color: #808080">数论</a> <a href="/tags/%E6%9E%9A%E4%B8%BE/" style="font-size: 15.13px; color: #686868">枚举</a> <a href="/tags/%E6%A0%88/" style="font-size: 15.13px; color: #686868">栈</a> <a href="/tags/%E6%A0%91/" style="font-size: 17.75px; color: #303030">树</a> <a href="/tags/%E6%A8%A1%E6%8B%9F/" style="font-size: 17px; color: #404040">模拟</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 14px; color: #808080">正则表达式</a> <a href="/tags/%E6%B0%B4%E5%A1%98%E6%8A%BD%E6%A0%B7/" style="font-size: 14px; color: #808080">水塘抽样</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" style="font-size: 17.38px; color: #383838">深度优先搜索</a> <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" style="font-size: 15.5px; color: #606060">滑动窗口</a> <a href="/tags/%E6%BB%9A%E5%8A%A8%E5%93%88%E5%B8%8C/" style="font-size: 14px; color: #808080">滚动哈希</a> <a href="/tags/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/" style="font-size: 14px; color: #808080">状态压缩</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 16.25px; color: #505050">矩阵</a> <a href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 14px; color: #808080">组合数学</a> <a href="/tags/%E8%AE%A1%E6%95%B0/" style="font-size: 16.25px; color: #505050">计数</a> <a href="/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/" style="font-size: 14px; color: #808080">记忆化搜索</a> <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" style="font-size: 14px; color: #808080">论文笔记</a> <a href="/tags/%E8%AE%BE%E8%AE%A1/" style="font-size: 14.75px; color: #707070">设计</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 17.75px; color: #303030">贪心</a> <a href="/tags/%E9%80%92%E5%BD%92/" style="font-size: 14px; color: #808080">递归</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 15.5px; color: #606060">链表</a> <a href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/" style="font-size: 14px; color: #808080">随机化</a>
+    </div>
+</div>
+
+
+
+      </aside>
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+  </div>
+  <footer id="footer" class="clearfix">
+
+	<div class="social-wrapper">
+  	
+      
+        <a href="https://github.com/yixuan004" class="social github"
+          target="_blank" rel="external">
+          <span class="icon icon-github"></span>
+        </a>
+      
+        <a href="https://twitter.com/kevinsfork" class="social twitter"
+          target="_blank" rel="external">
+          <span class="icon icon-twitter"></span>
+        </a>
+      
+        <a href="/atom.xml" class="social rss"
+          target="_blank" rel="external">
+          <span class="icon icon-rss"></span>
+        </a>
+      
+    
+  </div>
+  
+  <div>Theme <a target="_blank" rel="noopener" href='https://github.com/stkevintan/hexo-theme-material-flow' class="codename">MaterialFlow</a> designed by <a href="http://keyin.me/" target="_blank">Kevin Tan</a>.</div>
+  
+</footer>
+
+
+  <script>setLoadingBarProgress(80);</script>
+  
+
+<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src='//cdn.bootcss.com/node-waves/0.7.5/waves.min.js'></script>
+<script src="//cdn.bootcss.com/scrollReveal.js/3.3.2/scrollreveal.min.js"></script>
+
+<script src="/js/jquery.fitvids.js"></script>
+
+<script>
+	var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+	var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+	var ALGOLIA_API_KEY = "";
+	var ALGOLIA_APP_ID = "";
+	var ALGOLIA_INDEX_NAME = "";
+  var AZURE_SERVICE_NAME = "";
+  var AZURE_INDEX_NAME = "";
+  var AZURE_QUERY_KEY = "";
+  var BAIDU_API_ID = "";
+  var SEARCH_SERVICE = "hexo";
+  var ROOT = "/"||"/";
+  if(!ROOT.endsWith('/'))ROOT += '/';
+</script>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/app.js"></script>
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>
