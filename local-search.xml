@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>emnlp2022_ACA论文阅读</title>
+    <link href="/2022/11/21/research/papers/relation-extraction/emnlp2022-ACA%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
+    <url>/2022/11/21/research/papers/relation-extraction/emnlp2022-ACA%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</url>
+    
+    <content type="html"><![CDATA[<h1 id="EMNLP2022-Adversarial-Class-Augmentation论文阅读"><a href="#EMNLP2022-Adversarial-Class-Augmentation论文阅读" class="headerlink" title="EMNLP2022_Adversarial Class Augmentation论文阅读"></a>EMNLP2022_Adversarial Class Augmentation论文阅读</h1><p>EMNLP是刚刚camera ready的版本，相较于2022.11月下旬这个时间点来说是最新的顶会之一</p><p>motivation：</p><p>在持续学习中，常常出现灾难性遗忘问题，也就是说当模型学习新关系的时候，旧关系的性能就下降了。以前的研究针对的都默认了CRE模型已经充分学习了旧关系，而当新关系出现的时候想办法恢复旧关系；</p><p>但是作者发现，有可能是已经学习到的关系没有很好的鲁棒性，比如说当一个父子关系出现的时候，前面兄弟关系和这块就很容易混了，因为以前学习关系的鲁棒性太差了，可能模型在开始学习的时候，比如默认认为人名之间就是一个child的关系，但是后续出现father关系的时候，前面那种比较简单的可能就被flush或者怎么弄掉了；</p><p>主要贡献如下+自己总结：</p><ul><li><p>自己总结</p><ul><li>是一种model agnostic的方法，模型无关比较general</li></ul></li><li><p>作者总结</p><ul><li><p>1）我们对两种强CRE方法进行了一系列的<strong>实证研究</strong>，并观察到灾难性遗忘<strong>与类似关系的存在密切相关</strong>；</p></li><li><p>2）我们<strong>发现了CRE中灾难性遗忘的一个重要原因</strong>，这在之前的所有工作中都被忽略了：<strong>CRE模型存在识别新关系的学习捷径，而这些学习捷径对其类似关系的出现不够鲁棒</strong>；</p></li><li><p>3）我们提出了一种对抗类增强机制，以帮助CRE模型学习更稳健的表示。在两个基准测试上的实验结果表明，我们的方法可以始终如一地提高两种最先进方法的性能。</p></li></ul></li></ul><h2 id="0-Abstract"><a href="#0-Abstract" class="headerlink" title="0. Abstract"></a>0. Abstract</h2><p>连续关系提取（Continual Relation Extraction, CRE）旨在从类增量的数据流中不断学习新的关系。而现有的CRE模型通常存在<strong>灾难性遗忘问题，即当模型学习新关系时候，旧关系的性能严重下降。</strong>大多数先前的工作都将灾难性遗忘归因于新关系出现时所学表征的“腐败”，并隐含假设CRE模型已经充分学习了旧关系。</p><p>在本文中，通过实证研究，我们认为这一假设可能不成立，而灾难性遗忘的一个重要原因是，学习到的表示对于随后的学习过程中出现类似关系没有很好的鲁棒性。<font color="red">后续举例来说，就是在比如一个父子关系出现的时候，前面兄弟关系和这块就很容易混了，这样的感觉</font> </p><p>为了解决这一问题，我们鼓励模型通过简单而有效的<strong>对抗类增强机制（Adversarial Class Augmentation, ACA）</strong>学习更精确和更健壮的表示，该机制易于实现且模型不可知（model-agnostic）。<font color="red">模型无关的方法，就是比较general的</font> </p><p>实验结果表明，ACA可在两个流行的基准上持续改进最先进的持续学习关系提取模型的性能。</p><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><ul><li>para1</li></ul><p>关系提取（Relation Extraction）旨在检测句子中两个给定实体的关系。传统的关系提取模型是在具有预先定义的关系集合的固定数据集上训练的，无法处理不断出现新关系的现实生活情况。为此，引入了连续关系提取。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121100920508.png" alt="image-20221121100920508" style="zoom:80%;"><p>（图1：使用三个任务进行连续关系提取的展示，其中每个任务涉及两个新的关系。从简单训练任务中学习到的表示不能处理难的测试数据，其中包含固有难以区分的类似关系，例如“孩子”和“父亲”）<font color="red">学习到的表示对于随后出现的关系鲁棒性差，比如当一个兄弟关系出现的时候，以前学习的父子关系可能就被分类成兄弟关系了</font> </p><p>如图1所示，CRE被公式化为一个类增量问题，它在一系列任务上训练模型。在每项任务中，模型需要学习一些新的关系，并根据所有看到的关系进行评估。与其他持续学习系统一样，CRE模型也遭受灾难性遗忘，即，在学习新关系时，先前学习的关系的性能严重下降。</p><p><font color="red">从简单跑代码作者输出的日志来看，假设TACRED有40个关系，就是4个4个不断增量的</font> </p><ul><li>para2</li></ul><p>CRE的主流研究主要将灾难性遗忘归因于新任务到来时所学知识的腐败。为此，引入了各种复杂的基于排练的机制来更好的保留或恢复知识，如关系原型、课程元学习、对比回放和知识提炼。所有这些方法都隐含地假设模型已经充分学习了旧关系，然而在本文中，我们发现这一假设可能不成立。</p><p><font color="red">没有充分学习旧关系——学习到旧关系的鲁棒性差，比如之前学习到的一个兄弟关系，后边新的父子关系来了后，之前学到的可能就被同化了这种感觉，主要是比较相似的关系</font> </p><ul><li>para3</li></ul><p>通过一系列的实证研究，我们发现灾难性遗忘大多发生在某些特定关系上，而当它们类似关系出现时，往往会发生显著的性能下降。根据我们的观察，我们发现了灾难性遗忘的另一个原因：</p><p>i.e.：由于对于相对容易的训练任务，CRE模型首先没有学习到足够鲁棒的关系表示</p><p>以图一中的“child”为例，由于任务1中<strong>没有hard negative类</strong> <font color="red">（在对比学习中，hard negative是一个很关键的问题，如何引入并且特殊的针对hard negative，对指标上来说还是非常work的）</font> ，<strong>CRE倾向于依赖虚假的快捷方式（例如实体类型）来识别“child”</strong>。<font color="red">这里我的感觉是说，比如通过简单的识别是一个名字词性的，就能判断是child了，但是后面的出来了这个就不行了</font> </p><p>虽然学习到的不精确表示，可以处理任务1和任务2的测试集，但他们不够健壮，无法将任务3的“child”与其类似关系“father”区分开来。因此，当“father”出现时，“child”的表现将显著下降。相比之下，“architecture”等关系在任务3中仍然表现良好，因为他们的类似关系尚未出现</p><ul><li>para4</li></ul><p>最近，对抗性数据增强成为一个强有力的baseline，以防止模型从简单的数据集中学习虚假的快捷方式。受这些工作的启发，我们引入了一种简单而有效的<strong>对抗类增强（Adversarial Class Augmentation, ACA）</strong>，以增强CRE模型的鲁棒性。具体而言，ACA利用两种类扩充方法，即混合类扩充和反向类扩充，为新任务构建hard negative类。当任务到达时，ACA联合训练与对抗性增强类的新关系，以学习鲁棒性表示。</p><p>注意，我们的方法与之前的所有工作都是正交的：<strong>ACA专注于更好地学习新出现关系的知识</strong><font color="red">（因为默认不是旧的关系学习不够好，是觉的旧的学的太简单了？）</font> ，而之前的方法都是为了保留或者恢复旧关系的学习知识。因此，将ACA纳入之前的CRE模型可以更进一步的提升性能和表现。</p><ul><li>para5</li></ul><p>我们将我们的贡献归纳为：</p><p>1）我们对两种强CRE方法进行了一系列的<strong>实证研究</strong>，并观察到灾难性遗忘<strong>与类似关系的存在密切相关</strong>；</p><p>2）我们<strong>发现了CRE中灾难性遗忘的一个重要原因</strong>，这在之前的所有工作中都被忽略了：<strong>CRE模型存在识别新关系的学习捷径，而这些学习捷径对其类似关系的出现不够鲁棒</strong>；</p><p>3）我们提出了一种对抗类增强机制，以帮助CRE模型学习更稳健的表示。在两个基准测试上的实验结果表明，我们的方法可以始终如一地提高两种最先进方法的性能。</p><h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h2><h3 id="2-1-Relation-Extraction"><a href="#2-1-Relation-Extraction" class="headerlink" title="2.1 Relation Extraction"></a>2.1 Relation Extraction</h3><p>关系提取</p><h3 id="2-2-Continual-Learning"><a href="#2-2-Continual-Learning" class="headerlink" title="2.2 Continual Learning"></a>2.2 Continual Learning</h3><p>持续学习</p><h3 id="2-3-Shortcuts-Learning-Phenomenon"><a href="#2-3-Shortcuts-Learning-Phenomenon" class="headerlink" title="2.3 Shortcuts Learning Phenomenon"></a>2.3 Shortcuts Learning Phenomenon</h3><p><font color="red">上面两个或多或少有一些了解了，这个现象还不是很了解。在这里记录一下</font> </p><ul><li>para1</li></ul><p>快捷学习方式表明，DNN模型倾向于在数据集中学习不可靠的快捷方式，从而导致实际应用中的泛化能力较差。最近，研究人员揭示了不同类型语言任务的捷径学习现象，如自然语言推理、信息提取、阅读理解和问题回答。</p><p>Geirhos等人指出，捷径学习现象之所以发生，是因为“最小努力原则”，即人（动物和机器）自然会将解决任务的工作量最小化。</p><p>最近，数据增强和对抗性训练被用来<strong>缓解合成数据的捷径学习现象</strong>。<strong>据我们所知，我们是第一个从捷径学习的角度分析CRE中灾难性遗忘的工作</strong>，并提出了一种对抗性数据增强方法来缓解它。</p><p><font color="red">将方法用在CRE任务上？进行组合创新？这种和dropout那些方法感觉背后原理会不会是相同的</font> </p><h2 id="3-Task-Formulation"><a href="#3-Task-Formulation" class="headerlink" title="3. Task Formulation"></a>3. Task Formulation</h2><ul><li>para1</li></ul><p>在持续学习关系抽取CRE任务中，模型是在一系列的任务<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135334433.png" style="zoom:50%;">上训练的，每个Task<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135412043.png" alt="image-20221121135412043" style="zoom:50%;">可以被表示为三元组<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135618595.png" alt="image-20221121135618595" style="zoom:50%;">，其中<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135643185.png" alt="image-20221121135643185" style="zoom:50%;">是new relation的集合，<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135707936.png" alt="image-20221121135707936" style="zoom:50%;">分别是训练集和测试集</p><p>每个属于训练集和测试集的实例<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135848599.png" alt="image-20221121135848599" style="zoom:50%;">，属于特定关系<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135919557.png" alt="image-20221121135919557" style="zoom:50%;"></p><p><font color="red">这里应该是说，就是每个Task内部，只包含这个task的关系</font> </p><p>CRE的目标是在新任务上不断训练模型，以学习新的关系，同时避免忘记以前学习过的关系</p><p>更正式的说，在第i个任务中，模型从</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>research</category>
+      
+      <category>relation extraction</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>relation extraction</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>MySQL报错解决</title>
     <link href="/2022/11/20/develop/mysql/MySQL%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/"/>
     <url>/2022/11/20/develop/mysql/MySQL%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/</url>
@@ -593,13 +620,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>动态规划</tag>
+      <tag>矩阵</tag>
       
       <tag>位运算</tag>
       
-      <tag>回溯</tag>
+      <tag>动态规划</tag>
       
-      <tag>矩阵</tag>
+      <tag>回溯</tag>
       
       <tag>状态压缩</tag>
       
@@ -667,9 +694,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>贪心</tag>
-      
       <tag>数学</tag>
+      
+      <tag>贪心</tag>
       
       <tag>几何</tag>
       
@@ -710,11 +737,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>HARD</tag>
+      <tag>哈希表</tag>
       
       <tag>位运算</tag>
       
-      <tag>哈希表</tag>
+      <tag>HARD</tag>
       
       <tag>计数</tag>
       
@@ -751,19 +778,19 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>树</tag>
-      
-      <tag>深度优先搜索</tag>
-      
-      <tag>动态规划</tag>
-      
-      <tag>HARD</tag>
-      
       <tag>哈希表</tag>
       
       <tag>矩阵</tag>
       
+      <tag>HARD</tag>
+      
       <tag>数学</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>树</tag>
+      
+      <tag>深度优先搜索</tag>
       
       <tag>二叉搜索树</tag>
       
@@ -858,19 +885,19 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>动态规划</tag>
-      
-      <tag>HARD</tag>
-      
-      <tag>字典树</tag>
-      
       <tag>哈希表</tag>
-      
-      <tag>贪心</tag>
       
       <tag>滑动窗口</tag>
       
+      <tag>HARD</tag>
+      
+      <tag>贪心</tag>
+      
+      <tag>动态规划</tag>
+      
       <tag>枚举</tag>
+      
+      <tag>字典树</tag>
       
       <tag>哈希函数</tag>
       
@@ -961,15 +988,15 @@
     
     <tags>
       
+      <tag>HARD</tag>
+      
+      <tag>动态规划</tag>
+      
       <tag>树</tag>
       
       <tag>深度优先搜索</tag>
       
       <tag>二叉树</tag>
-      
-      <tag>动态规划</tag>
-      
-      <tag>HARD</tag>
       
     </tags>
     
@@ -987,7 +1014,7 @@
     
     <categories>
       
-      <category>笔试练习-python</category>
+      <category>LeetCode-python</category>
       
     </categories>
     
@@ -1074,11 +1101,11 @@
       
       <tag>哈希表</tag>
       
-      <tag>贪心</tag>
+      <tag>矩阵</tag>
       
       <tag>前缀和</tag>
       
-      <tag>矩阵</tag>
+      <tag>贪心</tag>
       
       <tag>计数</tag>
       
@@ -1154,13 +1181,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>数学</tag>
       
       <tag>贪心</tag>
       
-      <tag>数学</tag>
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1241,9 +1268,9 @@
       
       <tag>位运算</tag>
       
-      <tag>栈</tag>
-      
       <tag>枚举</tag>
+      
+      <tag>栈</tag>
       
       <tag>递归</tag>
       
@@ -1583,6 +1610,12 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>哈希表</tag>
+      
+      <tag>数学</tag>
+      
+      <tag>贪心</tag>
+      
       <tag>树</tag>
       
       <tag>深度优先搜索</tag>
@@ -1590,12 +1623,6 @@
       <tag>广度优先搜索</tag>
       
       <tag>二叉树</tag>
-      
-      <tag>哈希表</tag>
-      
-      <tag>贪心</tag>
-      
-      <tag>数学</tag>
       
     </tags>
     
@@ -1657,9 +1684,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>二分查找</tag>
-      
       <tag>计数</tag>
+      
+      <tag>二分查找</tag>
       
     </tags>
     
@@ -1698,13 +1725,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>贪心</tag>
+      <tag>数学</tag>
       
-      <tag>链表</tag>
+      <tag>贪心</tag>
       
       <tag>计数</tag>
       
-      <tag>数学</tag>
+      <tag>链表</tag>
       
     </tags>
     
@@ -1877,13 +1904,13 @@
       
       <tag>哈希表</tag>
       
-      <tag>贪心</tag>
+      <tag>数学</tag>
       
       <tag>前缀和</tag>
       
-      <tag>计数</tag>
+      <tag>贪心</tag>
       
-      <tag>数学</tag>
+      <tag>计数</tag>
       
     </tags>
     
@@ -1920,9 +1947,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>设计</tag>
-      
       <tag>数学</tag>
+      
+      <tag>设计</tag>
       
     </tags>
     
@@ -1959,17 +1986,17 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>HARD</tag>
+      <tag>哈希表</tag>
       
       <tag>位运算</tag>
       
-      <tag>哈希表</tag>
+      <tag>HARD</tag>
       
       <tag>双指针</tag>
       
-      <tag>回溯</tag>
-      
       <tag>计数</tag>
+      
+      <tag>回溯</tag>
       
       <tag>枚举</tag>
       
@@ -2161,13 +2188,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>位运算</tag>
-      
       <tag>哈希表</tag>
       
       <tag>矩阵</tag>
       
       <tag>滑动窗口</tag>
+      
+      <tag>位运算</tag>
       
     </tags>
     
@@ -2204,11 +2231,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>动态规划</tag>
+      <tag>数学</tag>
       
       <tag>贪心</tag>
       
-      <tag>数学</tag>
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2306,9 +2333,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>矩阵</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2337,9 +2364,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>数学</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>组合数学</tag>
       
@@ -2523,11 +2550,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>贪心</tag>
-      
       <tag>矩阵</tag>
       
       <tag>数学</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -2566,9 +2593,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>前缀和</tag>
-      
       <tag>数学</tag>
+      
+      <tag>前缀和</tag>
       
     </tags>
     
@@ -2626,13 +2653,13 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>矩阵</tag>
+      
       <tag>深度优先搜索</tag>
       
       <tag>广度优先搜索</tag>
       
       <tag>并查集</tag>
-      
-      <tag>矩阵</tag>
       
     </tags>
     
@@ -2661,9 +2688,9 @@
       
       <tag>数组</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>HARD</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2692,9 +2719,9 @@
       
       <tag>字符串</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>HARD</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2791,9 +2818,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>链表</tag>
-      
       <tag>设计</tag>
+      
+      <tag>链表</tag>
       
       <tag>双向链表</tag>
       
@@ -2857,13 +2884,13 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>哈希表</tag>
+      
       <tag>动态规划</tag>
       
       <tag>字典树</tag>
       
       <tag>记忆化搜索</tag>
-      
-      <tag>哈希表</tag>
       
     </tags>
     
@@ -2952,11 +2979,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>字典树</tag>
-      
       <tag>哈希表</tag>
       
       <tag>设计</tag>
+      
+      <tag>字典树</tag>
       
     </tags>
     
@@ -3170,9 +3197,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>TODO优化</tag>
-      
       <tag>数学</tag>
+      
+      <tag>TODO优化</tag>
       
       <tag>水塘抽样</tag>
       

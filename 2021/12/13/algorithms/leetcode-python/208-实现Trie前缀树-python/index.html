@@ -28,9 +28,9 @@
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="字符串">
 <meta property="article:tag" content="MEDIUM">
-<meta property="article:tag" content="字典树">
 <meta property="article:tag" content="哈希表">
 <meta property="article:tag" content="设计">
+<meta property="article:tag" content="字典树">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -357,11 +357,11 @@
       
         <a href="/tags/MEDIUM/">#MEDIUM</a>
       
-        <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">#字典树</a>
-      
         <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">#哈希表</a>
       
         <a href="/tags/%E8%AE%BE%E8%AE%A1/">#设计</a>
+      
+        <a href="/tags/%E5%AD%97%E5%85%B8%E6%A0%91/">#字典树</a>
       
     </div>
   
@@ -483,6 +483,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -676,6 +682,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

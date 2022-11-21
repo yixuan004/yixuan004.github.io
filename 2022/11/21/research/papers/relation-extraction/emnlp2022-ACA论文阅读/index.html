@@ -1,0 +1,778 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="EMNLP2022_Adversarial Class Augmentation论文阅读EMNLP是刚刚camera ready的版本，相较于2022.11月下旬这个时间点来说是最新的顶会之一 motivation： 在持续学习中，常常出现灾难性遗忘问题，也就是说当模型学习新关系的时候，旧关系的性能就下降了。以前的研究针对的都默认了CRE模型已经充分学习了旧关系，而当新关系出现的时候想办法恢复旧关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="emnlp2022_ACA论文阅读">
+<meta property="og:url" content="http://example.com/2022/11/21/research/papers/relation-extraction/emnlp2022-ACA%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="EMNLP2022_Adversarial Class Augmentation论文阅读EMNLP是刚刚camera ready的版本，相较于2022.11月下旬这个时间点来说是最新的顶会之一 motivation： 在持续学习中，常常出现灾难性遗忘问题，也就是说当模型学习新关系的时候，旧关系的性能就下降了。以前的研究针对的都默认了CRE模型已经充分学习了旧关系，而当新关系出现的时候想办法恢复旧关">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121100920508.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135334433.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135412043.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135618595.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135643185.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135707936.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135848599.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135919557.png">
+<meta property="article:published_time" content="2022-11-21T01:42:00.000Z">
+<meta property="article:modified_time" content="2022-11-21T06:06:55.187Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="relation extraction">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121100920508.png">
+  
+  
+  
+  <title>emnlp2022_ACA论文阅读 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Curious;的个人划水博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="emnlp2022_ACA论文阅读"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-21 09:42" pubdate>
+          2022年11月21日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          29 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">emnlp2022_ACA论文阅读</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="EMNLP2022-Adversarial-Class-Augmentation论文阅读"><a href="#EMNLP2022-Adversarial-Class-Augmentation论文阅读" class="headerlink" title="EMNLP2022_Adversarial Class Augmentation论文阅读"></a>EMNLP2022_Adversarial Class Augmentation论文阅读</h1><p>EMNLP是刚刚camera ready的版本，相较于2022.11月下旬这个时间点来说是最新的顶会之一</p>
+<p>motivation：</p>
+<p>在持续学习中，常常出现灾难性遗忘问题，也就是说当模型学习新关系的时候，旧关系的性能就下降了。以前的研究针对的都默认了CRE模型已经充分学习了旧关系，而当新关系出现的时候想办法恢复旧关系；</p>
+<p>但是作者发现，有可能是已经学习到的关系没有很好的鲁棒性，比如说当一个父子关系出现的时候，前面兄弟关系和这块就很容易混了，因为以前学习关系的鲁棒性太差了，可能模型在开始学习的时候，比如默认认为人名之间就是一个child的关系，但是后续出现father关系的时候，前面那种比较简单的可能就被flush或者怎么弄掉了；</p>
+<p>主要贡献如下+自己总结：</p>
+<ul>
+<li><p>自己总结</p>
+<ul>
+<li>是一种model agnostic的方法，模型无关比较general</li>
+</ul>
+</li>
+<li><p>作者总结</p>
+<ul>
+<li><p>1）我们对两种强CRE方法进行了一系列的<strong>实证研究</strong>，并观察到灾难性遗忘<strong>与类似关系的存在密切相关</strong>；</p>
+</li>
+<li><p>2）我们<strong>发现了CRE中灾难性遗忘的一个重要原因</strong>，这在之前的所有工作中都被忽略了：<strong>CRE模型存在识别新关系的学习捷径，而这些学习捷径对其类似关系的出现不够鲁棒</strong>；</p>
+</li>
+<li><p>3）我们提出了一种对抗类增强机制，以帮助CRE模型学习更稳健的表示。在两个基准测试上的实验结果表明，我们的方法可以始终如一地提高两种最先进方法的性能。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="0-Abstract"><a href="#0-Abstract" class="headerlink" title="0. Abstract"></a>0. Abstract</h2><p>连续关系提取（Continual Relation Extraction, CRE）旨在从类增量的数据流中不断学习新的关系。而现有的CRE模型通常存在<strong>灾难性遗忘问题，即当模型学习新关系时候，旧关系的性能严重下降。</strong>大多数先前的工作都将灾难性遗忘归因于新关系出现时所学表征的“腐败”，并隐含假设CRE模型已经充分学习了旧关系。</p>
+<p>在本文中，通过实证研究，我们认为这一假设可能不成立，而灾难性遗忘的一个重要原因是，学习到的表示对于随后的学习过程中出现类似关系没有很好的鲁棒性。<font color="red">后续举例来说，就是在比如一个父子关系出现的时候，前面兄弟关系和这块就很容易混了，这样的感觉</font> </p>
+<p>为了解决这一问题，我们鼓励模型通过简单而有效的<strong>对抗类增强机制（Adversarial Class Augmentation, ACA）</strong>学习更精确和更健壮的表示，该机制易于实现且模型不可知（model-agnostic）。<font color="red">模型无关的方法，就是比较general的</font> </p>
+<p>实验结果表明，ACA可在两个流行的基准上持续改进最先进的持续学习关系提取模型的性能。</p>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><ul>
+<li>para1</li>
+</ul>
+<p>关系提取（Relation Extraction）旨在检测句子中两个给定实体的关系。传统的关系提取模型是在具有预先定义的关系集合的固定数据集上训练的，无法处理不断出现新关系的现实生活情况。为此，引入了连续关系提取。</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121100920508.png" srcset="/img/loading.gif" lazyload alt="image-20221121100920508" style="zoom:80%;">
+
+<p>（图1：使用三个任务进行连续关系提取的展示，其中每个任务涉及两个新的关系。从简单训练任务中学习到的表示不能处理难的测试数据，其中包含固有难以区分的类似关系，例如“孩子”和“父亲”）<font color="red">学习到的表示对于随后出现的关系鲁棒性差，比如当一个兄弟关系出现的时候，以前学习的父子关系可能就被分类成兄弟关系了</font> </p>
+<p>如图1所示，CRE被公式化为一个类增量问题，它在一系列任务上训练模型。在每项任务中，模型需要学习一些新的关系，并根据所有看到的关系进行评估。与其他持续学习系统一样，CRE模型也遭受灾难性遗忘，即，在学习新关系时，先前学习的关系的性能严重下降。</p>
+<p><font color="red">从简单跑代码作者输出的日志来看，假设TACRED有40个关系，就是4个4个不断增量的</font> </p>
+<ul>
+<li>para2</li>
+</ul>
+<p>CRE的主流研究主要将灾难性遗忘归因于新任务到来时所学知识的腐败。为此，引入了各种复杂的基于排练的机制来更好的保留或恢复知识，如关系原型、课程元学习、对比回放和知识提炼。所有这些方法都隐含地假设模型已经充分学习了旧关系，然而在本文中，我们发现这一假设可能不成立。</p>
+<p><font color="red">没有充分学习旧关系——学习到旧关系的鲁棒性差，比如之前学习到的一个兄弟关系，后边新的父子关系来了后，之前学到的可能就被同化了这种感觉，主要是比较相似的关系</font> </p>
+<ul>
+<li>para3</li>
+</ul>
+<p>通过一系列的实证研究，我们发现灾难性遗忘大多发生在某些特定关系上，而当它们类似关系出现时，往往会发生显著的性能下降。根据我们的观察，我们发现了灾难性遗忘的另一个原因：</p>
+<p>i.e.：由于对于相对容易的训练任务，CRE模型首先没有学习到足够鲁棒的关系表示</p>
+<p>以图一中的“child”为例，由于任务1中<strong>没有hard negative类</strong> <font color="red">（在对比学习中，hard negative是一个很关键的问题，如何引入并且特殊的针对hard negative，对指标上来说还是非常work的）</font> ，<strong>CRE倾向于依赖虚假的快捷方式（例如实体类型）来识别“child”</strong>。<font color="red">这里我的感觉是说，比如通过简单的识别是一个名字词性的，就能判断是child了，但是后面的出来了这个就不行了</font> </p>
+<p>虽然学习到的不精确表示，可以处理任务1和任务2的测试集，但他们不够健壮，无法将任务3的“child”与其类似关系“father”区分开来。因此，当“father”出现时，“child”的表现将显著下降。相比之下，“architecture”等关系在任务3中仍然表现良好，因为他们的类似关系尚未出现</p>
+<ul>
+<li>para4</li>
+</ul>
+<p>最近，对抗性数据增强成为一个强有力的baseline，以防止模型从简单的数据集中学习虚假的快捷方式。受这些工作的启发，我们引入了一种简单而有效的<strong>对抗类增强（Adversarial Class Augmentation, ACA）</strong>，以增强CRE模型的鲁棒性。具体而言，ACA利用两种类扩充方法，即混合类扩充和反向类扩充，为新任务构建hard negative类。当任务到达时，ACA联合训练与对抗性增强类的新关系，以学习鲁棒性表示。</p>
+<p>注意，我们的方法与之前的所有工作都是正交的：<strong>ACA专注于更好地学习新出现关系的知识</strong><font color="red">（因为默认不是旧的关系学习不够好，是觉的旧的学的太简单了？）</font> ，而之前的方法都是为了保留或者恢复旧关系的学习知识。因此，将ACA纳入之前的CRE模型可以更进一步的提升性能和表现。</p>
+<ul>
+<li>para5</li>
+</ul>
+<p>我们将我们的贡献归纳为：</p>
+<p>1）我们对两种强CRE方法进行了一系列的<strong>实证研究</strong>，并观察到灾难性遗忘<strong>与类似关系的存在密切相关</strong>；</p>
+<p>2）我们<strong>发现了CRE中灾难性遗忘的一个重要原因</strong>，这在之前的所有工作中都被忽略了：<strong>CRE模型存在识别新关系的学习捷径，而这些学习捷径对其类似关系的出现不够鲁棒</strong>；</p>
+<p>3）我们提出了一种对抗类增强机制，以帮助CRE模型学习更稳健的表示。在两个基准测试上的实验结果表明，我们的方法可以始终如一地提高两种最先进方法的性能。</p>
+<h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h2><h3 id="2-1-Relation-Extraction"><a href="#2-1-Relation-Extraction" class="headerlink" title="2.1 Relation Extraction"></a>2.1 Relation Extraction</h3><p>关系提取</p>
+<h3 id="2-2-Continual-Learning"><a href="#2-2-Continual-Learning" class="headerlink" title="2.2 Continual Learning"></a>2.2 Continual Learning</h3><p>持续学习</p>
+<h3 id="2-3-Shortcuts-Learning-Phenomenon"><a href="#2-3-Shortcuts-Learning-Phenomenon" class="headerlink" title="2.3 Shortcuts Learning Phenomenon"></a>2.3 Shortcuts Learning Phenomenon</h3><p><font color="red">上面两个或多或少有一些了解了，这个现象还不是很了解。在这里记录一下</font> </p>
+<ul>
+<li>para1</li>
+</ul>
+<p>快捷学习方式表明，DNN模型倾向于在数据集中学习不可靠的快捷方式，从而导致实际应用中的泛化能力较差。最近，研究人员揭示了不同类型语言任务的捷径学习现象，如自然语言推理、信息提取、阅读理解和问题回答。</p>
+<p>Geirhos等人指出，捷径学习现象之所以发生，是因为“最小努力原则”，即人（动物和机器）自然会将解决任务的工作量最小化。</p>
+<p>最近，数据增强和对抗性训练被用来<strong>缓解合成数据的捷径学习现象</strong>。<strong>据我们所知，我们是第一个从捷径学习的角度分析CRE中灾难性遗忘的工作</strong>，并提出了一种对抗性数据增强方法来缓解它。</p>
+<p><font color="red">将方法用在CRE任务上？进行组合创新？这种和dropout那些方法感觉背后原理会不会是相同的</font> </p>
+<h2 id="3-Task-Formulation"><a href="#3-Task-Formulation" class="headerlink" title="3. Task Formulation"></a>3. Task Formulation</h2><ul>
+<li>para1</li>
+</ul>
+<p>在持续学习关系抽取CRE任务中，模型是在一系列的任务<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135334433.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">上训练的，每个Task<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135412043.png" srcset="/img/loading.gif" lazyload alt="image-20221121135412043" style="zoom:50%;">可以被表示为三元组<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135618595.png" srcset="/img/loading.gif" lazyload alt="image-20221121135618595" style="zoom:50%;">，其中<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135643185.png" srcset="/img/loading.gif" lazyload alt="image-20221121135643185" style="zoom:50%;">是new relation的集合，<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135707936.png" srcset="/img/loading.gif" lazyload alt="image-20221121135707936" style="zoom:50%;">分别是训练集和测试集</p>
+<p>每个属于训练集和测试集的实例<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135848599.png" srcset="/img/loading.gif" lazyload alt="image-20221121135848599" style="zoom:50%;">，属于特定关系<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135919557.png" srcset="/img/loading.gif" lazyload alt="image-20221121135919557" style="zoom:50%;"></p>
+<p><font color="red">这里应该是说，就是每个Task内部，只包含这个task的关系</font> </p>
+<p>CRE的目标是在新任务上不断训练模型，以学习新的关系，同时避免忘记以前学习过的关系</p>
+<p>更正式的说，在第i个任务中，模型从</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/research/" class="category-chain-item">research</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/research/relation-extraction/" class="category-chain-item">relation extraction</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/relation-extraction/">#relation extraction</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>emnlp2022_ACA论文阅读</div>
+      <div>http://example.com/2022/11/21/research/papers/relation-extraction/emnlp2022-ACA论文阅读/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/20/develop/mysql/MySQL%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" title="MySQL报错解决">
+                        <span class="hidden-mobile">MySQL报错解决</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

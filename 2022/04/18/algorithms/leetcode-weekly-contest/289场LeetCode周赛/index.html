@@ -34,9 +34,9 @@
 <meta property="article:tag" content="EASY">
 <meta property="article:tag" content="MEDIUM">
 <meta property="article:tag" content="哈希表">
-<meta property="article:tag" content="贪心">
-<meta property="article:tag" content="前缀和">
 <meta property="article:tag" content="矩阵">
+<meta property="article:tag" content="前缀和">
+<meta property="article:tag" content="贪心">
 <meta property="article:tag" content="计数">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/2022-04-18-18-31-09.png">
@@ -415,11 +415,11 @@
       
         <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">#哈希表</a>
       
-        <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
+        <a href="/tags/%E7%9F%A9%E9%98%B5/">#矩阵</a>
       
         <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/">#前缀和</a>
       
-        <a href="/tags/%E7%9F%A9%E9%98%B5/">#矩阵</a>
+        <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
       
         <a href="/tags/%E8%AE%A1%E6%95%B0/">#计数</a>
       
@@ -543,6 +543,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -736,6 +742,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
