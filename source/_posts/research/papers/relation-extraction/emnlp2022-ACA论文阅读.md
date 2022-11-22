@@ -47,7 +47,7 @@ motivation：
 
 关系提取（Relation Extraction）旨在检测句子中两个给定实体的关系。传统的关系提取模型是在具有预先定义的关系集合的固定数据集上训练的，无法处理不断出现新关系的现实生活情况。为此，引入了连续关系提取。
 
-<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121100920508.png" alt="image-20221121100920508" style="zoom:80%;" />
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121100920508.png" style="zoom:80%;" />
 
 （图1：使用三个任务进行连续关系提取的展示，其中每个任务涉及两个新的关系。从简单训练任务中学习到的表示不能处理难的测试数据，其中包含固有难以区分的类似关系，例如“孩子”和“父亲”）<font color='red'>学习到的表示对于随后出现的关系鲁棒性差，比如当一个兄弟关系出现的时候，以前学习的父子关系可能就被分类成兄弟关系了</font> 
 
@@ -115,15 +115,15 @@ Geirhos等人指出，捷径学习现象之所以发生，是因为“最小努�
 
 - para1
 
-在持续学习关系抽取CRE任务中，模型是在一系列的任务<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135334433.png" style="zoom:50%;" />上训练的，每个Task<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135412043.png" alt="image-20221121135412043" style="zoom:50%;" />可以被表示为三元组<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135618595.png" alt="image-20221121135618595" style="zoom:50%;" />，其中<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135643185.png" alt="image-20221121135643185" style="zoom:50%;" />是new relation的集合，<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135707936.png" alt="image-20221121135707936" style="zoom:50%;" />分别是训练集和测试集
+在持续学习关系抽取CRE任务中，模型是在一系列的任务<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135334433.png" style="zoom:50%;" />上训练的，每个Task<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135412043.png" style="zoom:50%;" />分别是训练集和测试集
 
-每个属于训练集和测试集的实例<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135848599.png" alt="image-20221121135848599" style="zoom:50%;" />，属于特定关系<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135919557.png" alt="image-20221121135919557" style="zoom:50%;" />
+每个属于训练集和测试集的实例<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121135848599.png" style="zoom:50%;" />
 
 <font color='red'>这里应该是说，就是每个Task内部，只包含这个task的关系</font> 
 
 CRE的目标是在新任务上不断训练模型，以学习新的关系，同时避免忘记以前学习过的关系
 
-更正式的说，在第i个任务中，模型从训练集<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121141659300.png" alt="image-20221121141659300" style="zoom:50%;" />中学习新关系<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121141720567.png" alt="image-20221121141720567" style="zoom:50%;" />，并且应该能识别所有看到的关系，举例来说，模型将在所有见过的测试集<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121141832840.png" style="zoom:50%;" />中被预测。
+更正式的说，在第i个任务中，模型从训练集<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121141659300.png" style="zoom:50%;" />中被预测。
 
 为了缓解CRE中的灾难性遗忘，先前的工作采用了一个存储器来存储每个旧关系中的几个典型实例（如10个），在随后的训练过程中，记忆中的实例将被回放，以减轻灾难性遗忘。
 
@@ -137,13 +137,13 @@ CRE的目标是在新任务上不断训练模型，以学习新的关系，同�
 
 - para1
 
-我们使用Forgetting Rate(FR)来测量关系的平均遗忘。假定一个关系<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121142704688.png" alt="image-20221121142704688" style="zoom:50%;" />出现在task<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121142743421.png" style="zoom:50%;" />中，模型完成任务序列<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121142834081.png" alt="image-20221121142834081" style="zoom:50%;" />后<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121142704688.png" alt="image-20221121142704688" style="zoom:50%;" />的FR被定义为：
+我们使用Forgetting Rate(FR)来测量关系的平均遗忘。假定一个关系<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121142704688.png" style="zoom:50%;" />的FR被定义为：
 
-![image-20221121142912434](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121142912434.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121142912434.png)
 
-![image-20221121142949069](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121142949069.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121142949069.png)
 
-其中<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121143208087.png" alt="image-20221121143208087" style="zoom:50%;" />分别是任务$j$上的模型训练之后$r$的性能退化和F1分数。FewRel和TACRED的序列长度k均为10
+其中<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121143208087.png" style="zoom:50%;" />分别是任务$j$上的模型训练之后$r$的性能退化和F1分数。FewRel和TACRED的序列长度k均为10
 
 <font color='red'>自己来解读一下这个式子， 假设i是5，k现在是8了，那么对于一个关系r（比如说“child”），他的遗忘率就是6 7 8三轮性能退化pd的平均值。假设对于j=7这个轮次的时候，性能退化是5 6轮（第i轮开始）的F1分数，减去当前轮F1分数的一个最大值</font>
 
@@ -151,7 +151,7 @@ CRE的目标是在新任务上不断训练模型，以学习新的关系，同�
 
 - para2
 
-![image-20221121144353081](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121144353081.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121144353081.png)
 
 （表1：我们将FewRel中的关系根据FR分类成三组。MS是max similarity的缩写。F1和F1* 分别是EMAR/RP-CRE的Macro-F1分数和将所有数据训练在一起的监督模型。∆ 是两个CRE模型和监督模型之间的性能差距。）
 
@@ -181,7 +181,7 @@ CRE的目标是在新任务上不断训练模型，以学习新的关系，同�
 
 给定某个关系r及其对应的坏情况，我们标记存在r的前5个最相似关系的情况。
 
-![image-20221121153016411](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121153016411.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121153016411.png)
 
 （表2：50次不同任务序列中的灾难性遗忘分析。"#CF"代表所有的灾难性遗忘case，"#SIM"是坏的案例，伴随着前5名相似关系的出现。）<font color='red'>解读来说，就是当新关系混进来训练后，相似关系会更加容易导致灾难性遗忘</font> 
 
@@ -211,7 +211,7 @@ CRE的目标是在新任务上不断训练模型，以学习新的关系，同�
 
 表3显示了两个CRE模型和监督模型的检索结果的结果。与监督模型相比，两种CRE方法检索到了更多无关的实例，特别是对于遭受严重遗忘的关系，这表明CRE模型确实学习到了缺乏鲁棒性的表示。
 
-![image-20221121162216060](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121162216060.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121162216060.png)
 
 ## 5. Methodology
 
@@ -221,13 +221,13 @@ CRE的目标是在新任务上不断训练模型，以学习新的关系，同�
 
 我们的ACA是模型不可知的（model-agnostic，这种一般是比较通用的方法），并利用流行的最先进的CRE模型作为骨干。因此，我们首先简要介绍了这些CRE模型的两阶段训练过程。
 
-CRE模型旨在完成一系列任务：<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121162510011.png" alt="image-20221121162510011" style="zoom:50%;" />，在不失一般性的情况下，我们用两个组件来表示CRE模型：
+CRE模型旨在完成一系列任务：<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121162510011.png" style="zoom:50%;" />，在不失一般性的情况下，我们用两个组件来表示CRE模型：
 
 1） 编码器，其将输入实例x映射到表示向量；
 
 2） 一个分类器，它在当前任务之前的所有关系上产生概率分布，作为x的预测。
 
-![image-20221121162631977](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121162631977.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121162631977.png)
 
 （图2：(a)演示了现有典型CRE模型的学习过程以及我们的Adversarial class扩充机制。(b)Hybrid-class augmentation. (c)Reversed-class augmentation. We use “[E11]/[E12]” and “[E21]/[E22]” to mark the **head entity e1** and **tail entity e2**, respectively.）
 
@@ -248,9 +248,9 @@ CRE模型旨在完成一系列任务：<img src="http://yixuan004.oss-cn-hangzho
 
 #### 5.2.1 Hybrid-class Augmentation（混合类扩充）
 
-![image-20221121170641828](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121170641828.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121170641828.png)
 
-给定N个新的关系<font color='red'>（在TACRED40个关系，分成10个阶段的时候，那就是给了4个关系？）</font> ，我们将他们随机配对，得到N//2（下取整）个关系对。我们基于这些关系对构造混合合成类。具体来说，对于一个关系pair<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121163654872.png" alt="image-20221121163654872" style="zoom:50%;" />其中含有关系<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121163712522.png" alt="image-20221121163712522" style="zoom:50%;" />，给定两个实例，<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121165707741.png" alt="image-20221121165707741" style="zoom:50%;" />，为额外的**合成类**<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121170141637.png" style="zoom:50%;" />生成混合实例<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121170210641.png" alt="image-20221121170210641" style="zoom:50%;" />。
+给定N个新的关系<font color='red'>（在TACRED40个关系，分成10个阶段的时候，那就是给了4个关系？）</font> ，我们将他们随机配对，得到N//2（下取整）个关系对。我们基于这些关系对构造混合合成类。具体来说，对于一个关系pair<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121163654872.png" style="zoom:50%;" />。
 
 <font color='red'>对于上面的图来说，wp和wq是具有ri的关系，wm和wn是一个rj的关系，然后把wp和wn给拿出来，这里注意si后面的...和sj前面的...，这两个拼到一块生成x_hybrid</font> 
 
@@ -258,7 +258,7 @@ As shown in Figure 2(b), we first extract a span si that contains the head entit
 
 and a span sj that contains the tail entity e2j but excludes the head entity e1 j from xj, and
 
-concat在一起生成$x_{hybrid}$，<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121171005939.png" alt="image-20221121171005939" style="zoom:50%;" />
+concat在一起生成$x_{hybrid}$，<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121171005939.png" style="zoom:50%;" />
 
 we can construct N//2 extra classes
 
@@ -266,7 +266,7 @@ we can construct N//2 extra classes
 
 #### 5.2.2 Reversed-class Augmentation（反向class的数据增强）
 
-![image-20221121171300841](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121171300841.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121171300841.png)
 
 我们将我们的关系分为两类，对称关系和非对称关系。<font color='red'>这里和那个DialogRE是一样的</font> 
 
@@ -290,9 +290,9 @@ FewRel、TACRED
 
 Following previous work (Han et al., 2020; Wu et al., 2021; Cui et al., 2021; Zhao et al., 2022), our experiments are conducted upon the following two widely datasets, and the training-test-validation split ratio is 3:1:1
 
-![image-20221121172053203](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121172053203.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121172053203.png)
 
-![image-20221121172105421](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121172105421.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121172105421.png)
 
 #### 6.1.2 Evaluation Metrics
 
@@ -308,7 +308,7 @@ Following previous work (Han et al., 2020; Wu et al., 2021; Cui et al., 2021; Zh
 
 ### 6.2 Main Results
 
-![image-20221121172404281](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121172404281.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121172404281.png)
 
 在T10的一个，是一个很关键的指标
 
@@ -316,7 +316,7 @@ Following previous work (Han et al., 2020; Wu et al., 2021; Cui et al., 2021; Zh
 
 ### 7.1 Ablation Study
 
-![image-20221121193510756](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121193510756.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121193510756.png)
 
 为了进一步探讨我们提出的两类增强方法的有效性，我们进行了消融研究。表5显示了两个基准上不同增强方法的EMAR结果。我们发现，这两种增强都有助于模型性能，并且它们相互补充。此外，反向类扩充比混合类扩充更有效。我们认为原因是反向类扩充可以保持所构建句子的流畅性，而混合类扩充不能。
 
@@ -324,13 +324,13 @@ Following previous work (Han et al., 2020; Wu et al., 2021; Cui et al., 2021; Zh
 
 - para1
 
-![image-20221121194028368](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121194028368.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121194028368.png)
 
 我们提出的ACA旨在学习能够更好地区分类似关系的鲁棒表示。为了进一步确认我们方法的有效性，我们首先复制了在我们的试点实验中引入的检索测试（更多详细信息，请参见附录C）。表6显示了EMAR和EMAR+ACA在两个基准上的结果。如图所示，ACA可以显著提高检索结果的精度，表明我们的方法确实有助于模型学习更稳健的表示。
 
 - para2
 
-![image-20221121194557449](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121194557449.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121194557449.png)
 
 我们还进行了一个案例研究，直观地展示了我们方法的有效性。我们考虑两种类似的关系P25（“母亲”）和P26（“配偶”），当P26出现时，EMAR灾难性地忘记了P25。在模型学习P25和P26之后，我们分别使用t-SNE来可视化属于这两个关系所有实例的表示。如图3所示：
 
@@ -352,7 +352,7 @@ Following previous work (Han et al., 2020; Wu et al., 2021; Cui et al., 2021; Zh
 
 <font color='red'>Memory size is the number ofmemorized instances for each relation, which is a key factor for the model performance of rehearsal-based CRE methods.</font> 
 
-![image-20221121195046584](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121195046584.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121195046584.png)
 
 ### 7.4 Error Analysis
 
@@ -360,7 +360,7 @@ Following previous work (Han et al., 2020; Wu et al., 2021; Cui et al., 2021; Zh
 1） ACA主要提高了最大相似度较大的关系的性能并降低了遗忘率；
 2） **尽管ACA是有效的，但具有最大相似性的关系仍然受到营养不良的影响并且与监督模型有很大的性能差距。因此，今后的工作应该更加关注这些关系。**
 
-![image-20221121195407114](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121195407114.png)
+![](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221121195407114.png)
 
 ## 8. Conclusion
 
@@ -380,3 +380,4 @@ Following previous work (Han et al., 2020; Wu et al., 2021; Cui et al., 2021; Zh
 
 3） ACA在初始训练阶段之前进行课堂模拟，这在骨干CRE模型之上引入了额外的计算开销。
 
+## 10. 总结贡献&自己的思考

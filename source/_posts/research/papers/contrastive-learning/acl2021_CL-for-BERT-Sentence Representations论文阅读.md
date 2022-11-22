@@ -8,7 +8,7 @@ categories:
 	- contrastive learning
 ---
 
-## acl2021_CL-for-BERT-Sentence Representations论文阅读
+# acl2021_CL-for-BERT-Sentence Representations论文阅读
 
 论文全称：Self-Guided Contrastive Learning for BERT Sentence Representations
 

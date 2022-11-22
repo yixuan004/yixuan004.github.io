@@ -8,7 +8,7 @@ categories:
 	- contrastive learning
 ---
 
-## acl2021_CLINE论文阅读
+# acl2021_CLINE论文阅读
 
 总结贡献：
 
