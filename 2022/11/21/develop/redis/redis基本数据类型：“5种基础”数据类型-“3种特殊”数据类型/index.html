@@ -1,0 +1,1017 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="该篇博客介绍redis的基本数据类型，以及基础类型的背后实现原理（底层） “5种基础”数据类型：String、List、Set、Zset、Hash； “3种特殊”数据类型：HyperLogLogs（基数统计），Bitmaps（位图）和geospatial（地理位置）；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型">
+<meta property="og:url" content="http://example.com/2022/11/21/develop/redis/redis%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9A%E2%80%9C5%E7%A7%8D%E5%9F%BA%E7%A1%80%E2%80%9D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E2%80%9C3%E7%A7%8D%E7%89%B9%E6%AE%8A%E2%80%9D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="该篇博客介绍redis的基本数据类型，以及基础类型的背后实现原理（底层） “5种基础”数据类型：String、List、Set、Zset、Hash； “3种特殊”数据类型：HyperLogLogs（基数统计），Bitmaps（位图）和geospatial（地理位置）；">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221122004411738.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221122004634498.png">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-4bb6237bead5da2e7e0bfe272cb05dcc_1440w.webp">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221122112259957.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221122143836992.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221122151156018.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221122152338290.png">
+<meta property="article:published_time" content="2022-11-21T15:43:50.000Z">
+<meta property="article:modified_time" content="2022-11-22T08:03:37.659Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221122004411738.png">
+  
+  
+  
+  <title>redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Curious;的个人划水博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-21 23:43" pubdate>
+          2022年11月21日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          48 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>该篇博客介绍redis的基本数据类型，以及基础类型的背后实现原理（底层）</p>
+<p>“5种基础”数据类型：String、List、Set、Zset、Hash；</p>
+<p>“3种特殊”数据类型：HyperLogLogs（基数统计），Bitmaps（位图）和geospatial（地理位置）；</p>
+<span id="more"></span>
+
+<h1 id="redis基本数据类型：“5种基础”数据类型-“3种特殊”数据类型"><a href="#redis基本数据类型：“5种基础”数据类型-“3种特殊”数据类型" class="headerlink" title="redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型"></a>redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型</h1><p>reference: </p>
+<p><a target="_blank" rel="noopener" href="https://gogocoder.com/home">https://gogocoder.com/home</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/371375530">https://zhuanlan.zhihu.com/p/371375530</a></p>
+<h2 id="1-“5种基础”数据类型"><a href="#1-“5种基础”数据类型" class="headerlink" title="1. “5种基础”数据类型"></a>1. “5种基础”数据类型</h2><p>redis所有的key（键）都是字符串。我们在谈基础数据结构时，讨论的是存储value（值）</p>
+<p>主要包括常见的5种数据类型，分别是：String、List、Set、Zset、Hash</p>
+<h3 id="1-1-redis数据结构简介"><a href="#1-1-redis数据结构简介" class="headerlink" title="1.1 redis数据结构简介"></a>1.1 redis数据结构简介</h3><p>首先对于redis来说，所有的key都是字符串。我们在谈基础数据结构时，讨论的是存储值的数据类型，主要包括常见的5种数据类型：分别是String、List、Set、Zset、Hash</p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221122004411738.png" srcset="/img/loading.gif" lazyload alt="image-20221122004411738"></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221122004634498.png" srcset="/img/loading.gif" lazyload alt="image-20221122004634498"></p>
+<ul>
+<li>String字符串</li>
+</ul>
+<p>结构存储的值：可以是字符串、整数或浮点数。</p>
+<p>结构的读写能力：对整个字符串或字符串的一部分进行操作；对整数或者浮点数进行自增或自减操作；</p>
+<ul>
+<li>List列表</li>
+</ul>
+<p>结构存储的值：一个链表，链表上的每个节点都包含一个字符串</p>
+<p>结构的读写能力：对链表的两端进行push和pop操作，读取单个或多个元素；根据值查找或删除元素</p>
+<ul>
+<li>Set集合</li>
+</ul>
+<p>结构存储的值：包含字符串的无序集合</p>
+<p>结构的读写能力：字符串的集合，包含基础的方法有查看是否存在、获取、删除；还包含计算交集、并集、差集等；</p>
+<ul>
+<li>Zset集合</li>
+</ul>
+<p>结构存储的值：包含键值对的散列表，有序</p>
+<p>结构的读写能力：字符串成员与浮点数之间的有序映射；元素的排列顺序由分数的大小决定；包含方法有添加、获取、删除单个元素以及<strong>根据分值范围或成员，来获取元素</strong></p>
+<ul>
+<li>Hash散列</li>
+</ul>
+<p>结构存储的值：包含键值对的无序散列表</p>
+<p>结构的读写能力：包含方法有添加、获取、删除单个元素</p>
+<p><font color="red">数据场景设计，114为什么？</font> </p>
+<h3 id="1-2-基础数据结构详解"><a href="#1-2-基础数据结构详解" class="headerlink" title="1.2 基础数据结构详解"></a>1.2 基础数据结构详解</h3><p><strong>重点在于：这个结构怎么用，结构能用来做什么？</strong>围绕图例、执行和场景来描述</p>
+<h4 id="1-2-1-String"><a href="#1-2-1-String" class="headerlink" title="1.2.1 String"></a>1.2.1 String</h4><p>String是redis种最基本的数据类型，一个key对应一个value</p>
+<p>redis的String可以包含任何数据，如数字、字符串、jpg图片或者序列化的对象</p>
+<ul>
+<li><strong>图例</strong>：下图是一个String类型的实例，其中key为hello，值为world</li>
+</ul>
+<img src="https://pic1.zhimg.com/80/v2-4bb6237bead5da2e7e0bfe272cb05dcc_1440w.webp" srcset="/img/loading.gif" lazyload alt="img" style="zoom:50%;">
+
+<ul>
+<li><strong>命令使用</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">简述</th>
+<th align="center">使用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">GET</td>
+<td align="center">获取存储在给定键中的值</td>
+<td align="center">GET name</td>
+</tr>
+<tr>
+<td align="center">SET</td>
+<td align="center">设置存储在给定键中的值</td>
+<td align="center">SET name VALUE</td>
+</tr>
+<tr>
+<td align="center">DEL</td>
+<td align="center">删除存储在给定键中的值</td>
+<td align="center">DEL name</td>
+</tr>
+<tr>
+<td align="center">INCR</td>
+<td align="center">将键的值+1</td>
+<td align="center">INCR key</td>
+</tr>
+<tr>
+<td align="center">DECR</td>
+<td align="center">将键的值-1</td>
+<td align="center">DECR key</td>
+</tr>
+<tr>
+<td align="center">INCRBY</td>
+<td align="center">将键存储的值加上整数</td>
+<td align="center">INCRBY key amount</td>
+</tr>
+<tr>
+<td align="center">DECRYBY</td>
+<td align="center">将键存储的值减去整数</td>
+<td align="center">DECRBY key amount</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>实战场景</strong></li>
+</ul>
+<ol>
+<li>缓存：经典使用场景，把常用信息，字符串，图片或者视频等信息放到redis中，redis作为缓存层，mysql做持久化层，降低mysql读写压力；<font color="red">将内存中的数据保存到关系型数据库的过程成为持久化</font></li>
+</ol>
+<p><font color="red">为什么不用redis做主数据库（持久化层），而只是用redis做缓存？</font> </p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/384184784">https://www.zhihu.com/question/384184784</a></p>
+<p>redis本身就是内存型数据库，但缺点也很明显：</p>
+<p>1）受限于内存大小；</p>
+<p>2）不能支持关系型数据库等要求；</p>
+<ol start="2">
+<li>计数器：redis是单进程单线程模型，一个命令执行完才会执行下一个，同时数据可以一步落地到其他的数据源；</li>
+<li>session：常见方案spring session + redis实现session共享<font color="red">（现在还不理解）</font></li>
+</ol>
+<h4 id="1-2-2-List列表"><a href="#1-2-2-List列表" class="headerlink" title="1.2.2 List列表"></a>1.2.2 List列表</h4><p>redis的list实际上就就是链表（redis用双端队列实现list）</p>
+<p>使用list结构，我们可以轻松实现最新消息排队功能（比如新浪微博的timeline）。</p>
+<p>list的另一个应用就是消息队列，可以用list的push操作，将任务存放在list中，然后工作线程再用pop操作将任务取出进行执行</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221122112259957.png" srcset="/img/loading.gif" lazyload alt="image-20221122112259957" style="zoom:50%;">
+
+<ul>
+<li>命令使用</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">简述</th>
+<th align="center">使用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">RPUSH</td>
+<td align="center">将给定值推入到列表右端</td>
+<td align="center">RPUSH key value</td>
+</tr>
+<tr>
+<td align="center">LPUSH</td>
+<td align="center">将给定值推入到列表左端</td>
+<td align="center">LPUSH key value</td>
+</tr>
+<tr>
+<td align="center">RPOP</td>
+<td align="center">从列表的右端弹出一个值，并弹出被返回的值</td>
+<td align="center">RPOP key</td>
+</tr>
+<tr>
+<td align="center">LPOP</td>
+<td align="center">从列表的左端弹出一个值，并返回被弹出的值</td>
+<td align="center">LPOP key</td>
+</tr>
+<tr>
+<td align="center">LRANGE</td>
+<td align="center">获取列表在给定范围上的所有值</td>
+<td align="center">LTRIM KEY_NAME START STOP</td>
+</tr>
+<tr>
+<td align="center">LINDEX</td>
+<td align="center">通过索引获取列表中的元素，可以用负数下标，-1表示最后一个，-2表示倒数第二个</td>
+<td align="center">LINDEX key index</td>
+</tr>
+<tr>
+<td align="center">LTRIM</td>
+<td align="center">对一个列表进行修剪(trim)，只保留指定区间内的元素，不在指定区间之内的元素都将删除</td>
+<td align="center">LTRIM KEY_NAME START STOP</td>
+</tr>
+</tbody></table>
+<p><font color="red">在智能114系统中，使用的是这种List列表的方法，每次通过LPUSH把一个dict给放进去，然后每次用LINDEX + 0的方式把这个给取出来，r.delete(requestParameters[‘callId’])，写上新的再给放回去</font> </p>
+<p><font color="red">反思来说，实际上使用那个简单的String就可以了，这里用list的话实际上也只用到了0，而且没有发挥双向链表这个left right的特点</font> </p>
+<ul>
+<li>使用列表的技巧</li>
+</ul>
+<p>可以作为以下几种方案使用</p>
+<ol>
+<li>lpush+lpop&#x3D;Stack（栈）</li>
+<li>lpush+rpop&#x3D;Queue（队列）</li>
+<li>lpush+ltrim&#x3D;Capped Collection（有限集合）</li>
+<li>lpush+brpop&#x3D;Message Queue（消息队列，）</li>
+</ol>
+<ul>
+<li>命令执行</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">127.0.0.1:6379&gt; lpush mylist 1 2 ll ls mem<br>(integer) 5<br>127.0.0.1:6379&gt; lrange mylist 0 -1<br>1) &quot;mem&quot;<br>2) &quot;ls&quot;<br>3) &quot;ll&quot;<br>4) &quot;2&quot;<br>5) &quot;1&quot;<br>127.0.0.1:6379&gt; lindex mylist -1<br>&quot;1&quot;<br>127.0.0.1:6379&gt; lindex mylist 10        # index不在 mylist 的区间范围内<br>(nil)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>实战场景微博</li>
+</ul>
+<ol>
+<li>timeline：有人发布微博，用lpush加入时间轴，展示新的列表信息</li>
+<li>消息队列</li>
+</ol>
+<h4 id="1-2-3-Set集合"><a href="#1-2-3-Set集合" class="headerlink" title="1.2.3 Set集合"></a>1.2.3 Set集合</h4><p>redis的Set是String类型的无序集合，集合成员是唯一的，这就意味着集合中不能出现重复的数据</p>
+<p>redis种集合是通过哈希表实现的，所以添加、删除、查找的复杂度都是O1</p>
+<ul>
+<li>图例</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221122143836992.png" srcset="/img/loading.gif" lazyload alt="image-20221122143836992" style="zoom:50%;">
+
+<ul>
+<li>命令使用</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">简述</th>
+<th align="center">使用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">SADD</td>
+<td align="center">向集合添加一个或多个成员</td>
+<td align="center">SADD key value</td>
+</tr>
+<tr>
+<td align="center">SCARD</td>
+<td align="center">获取集合的成员数</td>
+<td align="center">SCARD key</td>
+</tr>
+<tr>
+<td align="center">SMEMBER</td>
+<td align="center">返回集合中的所有成员</td>
+<td align="center">SMEMBER key member</td>
+</tr>
+<tr>
+<td align="center">SISMEMBER</td>
+<td align="center">判断member元素是否是集合key的成员</td>
+<td align="center">SISMEMBER key member</td>
+</tr>
+</tbody></table>
+<ul>
+<li>命令执行</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">127.0.0.1:6379&gt; sadd myset hao hao1 xiaohao hao<br>(integer) 3<br>127.0.0.1:6379&gt; smember myset<br>1) &quot;xiaohao&quot;<br>2) &quot;hao1&quot;<br>3) &quot;hao&quot;<br>127.0.0.1:6379&gt; sismember myset hao<br>(integer) 1<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>实战场景</li>
+</ul>
+<ol>
+<li>标签（tag），给用户添加标签，或者用户给消息添加标签，这样有同一标签或者类似标签的可以给推荐关注的事或关注的人；</li>
+<li>点赞，或点踩，收藏等，可以放到set中实现；</li>
+</ol>
+<p><font color="red">这里就是一个重复的判重，包含了判重，然后这些set之间可能也可以取交集并集这样的</font> </p>
+<h4 id="1-2-4-Zset有序集合"><a href="#1-2-4-Zset有序集合" class="headerlink" title="1.2.4 Zset有序集合"></a>1.2.4 Zset有序集合</h4><p>redis有序集合和集合一样，也是string类型元素的集合，且不允许重复的成员。</p>
+<p><strong>不同的是每个元素都会关联一个double类型的分数，redis正是通过分数来为集合中的成员进行从小到大的排序</strong></p>
+<p>有序集合的成员是唯一的，但分数（score）却可以重复。集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是O(1)</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221122151156018.png" srcset="/img/loading.gif" lazyload alt="image-20221122151156018" style="zoom:50%;">
+
+<ul>
+<li>命令使用</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">127.0.0.1:6379&gt; zadd myscoreset 100 hao 90 xiaohao<br>(integer) 2<br>127.0.0.1:6379&gt; ZRANGE myscoreset 0 -1<br>1) &quot;xiaohao&quot;<br>2) &quot;hao&quot;<br>127.0.0.1:6379&gt; ZSCORE myscoreset hao<br>&quot;100&quot;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>实战场景</li>
+</ul>
+<ol>
+<li>排行榜：有序集合经典使用场景。例如小说视频等网站需要对用户上传的小说视频做排行榜，榜单可以按照用户的关注数、更新时间，字数等进行打分，做排行</li>
+</ol>
+<p><font color="red">这里就是说，看起来一定是要一个[数值]的分数？</font> </p>
+<h4 id="1-2-5-Hash散列"><a href="#1-2-5-Hash散列" class="headerlink" title="1.2.5 Hash散列"></a>1.2.5 Hash散列</h4><p>redis hash是一个string类型的field（字段）和value（值）的映射表，hash特别适合用于存储对象</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221122152338290.png" srcset="/img/loading.gif" lazyload alt="image-20221122152338290" style="zoom:50%;">
+
+<ul>
+<li>命令使用</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">简述</th>
+<th align="center">使用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">HSET</td>
+<td align="center">添加键值对</td>
+<td align="center">HSET hash-key sub-key1 value1</td>
+</tr>
+<tr>
+<td align="center">HGET</td>
+<td align="center">获取指定散列键的值</td>
+<td align="center">HGET hash-key key1</td>
+</tr>
+<tr>
+<td align="center">HGETALL</td>
+<td align="center">获取散列种包含的所有键值对</td>
+<td align="center">HGETALL hash-key</td>
+</tr>
+<tr>
+<td align="center">HDEL</td>
+<td align="center">如果给定键存在于散列种，那么就移除这个键</td>
+<td align="center">HDEL hash-key sub-key1</td>
+</tr>
+</tbody></table>
+<ul>
+<li>命令执行</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs shell">127.0.0.1:6379&gt; hset user name1 hao<br>(integer) 1<br>127.0.0.1:6379&gt; hset user email1 hao@163.com<br>(integer) 1<br>127.0.0.1:6379&gt; hgetall user<br>1) &quot;name1&quot;<br>2) &quot;hao&quot;<br>3) &quot;email1&quot;<br>4) &quot;hao@163.com&quot;<br>127.0.0.1:6379&gt; hget user user<br>(nil)<br>127.0.0.1:6379&gt; hget user name1<br>&quot;hao&quot;<br>127.0.0.1:6379&gt; hset user name2 xiaohao<br>(integer) 1<br>127.0.0.1:6379&gt; hset user email2 xiaohao@163.com<br>(integer) 1<br>127.0.0.1:6379&gt; hgetall user<br>1) &quot;name1&quot;<br>2) &quot;hao&quot;<br>3) &quot;email1&quot;<br>4) &quot;hao@163.com&quot;<br>5) &quot;name2&quot;<br>6) &quot;xiaohao&quot;<br>7) &quot;email2&quot;<br>8) &quot;xiaohao@163.com&quot;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>实战场景</li>
+</ul>
+<ol>
+<li>缓存：能直观，相比string更节省空间的维护缓存信息，如用<code>&lt;typo id=&quot;typo-2936&quot; data-origin=&quot;能&quot; ignoretag=&quot;true&quot;&gt;户&lt;/typo&gt;信息，视频信息</code>等</li>
+</ol>
+<p><font color="red">如果114系统重构，将可能会使用这个来替代现有的list，可能是更加符合设计逻辑的</font></p>
+<p><font color="red">整体来说，如果重构114那个系统，那么每次读取信息也可以用list，来读-1，最后来把这个redis当成消息队列，把日志写到mysql数据库里面去</font> </p>
+<h2 id="2-“5种基础”数据类型背后的实现原理（底层数据结构）"><a href="#2-“5种基础”数据类型背后的实现原理（底层数据结构）" class="headerlink" title="2. “5种基础”数据类型背后的实现原理（底层数据结构）"></a>2. “5种基础”数据类型背后的实现原理（底层数据结构）</h2><h2 id="3-“3种特殊”数据类型"><a href="#3-“3种特殊”数据类型" class="headerlink" title="3. “3种特殊”数据类型"></a>3. “3种特殊”数据类型</h2><p>redis除了上文提到的5种基础数据类型（String，List，Set，Zset，Hash）以外，还有3种特殊的数据类型，分别是HyperLogLogs（基数统计），Bitmaps（位图）和geospatial（地理位置）</p>
+<h3 id="3-1-HyperLogLogs（基数统计）"><a href="#3-1-HyperLogLogs（基数统计）" class="headerlink" title="3.1 HyperLogLogs（基数统计）"></a>3.1 HyperLogLogs（基数统计）</h3><p>Redis2.8.9更新了这个数据结构</p>
+<ul>
+<li><strong>什么是基数？</strong></li>
+</ul>
+<p>举个例子，A&#x3D;{1,2,3,4,5}，B&#x3D;{3,5,6,7,9}；那么基数（不重复的元素）&#x3D;1,2,4,6,7,9</p>
+<p><strong>允许容错，即可以接受一定的误差</strong></p>
+<ul>
+<li><strong>hyperloglogs基数统计用来解决什么问题？</strong></li>
+</ul>
+<p>这个结构可以<strong>非常省内存的去统计各种计数</strong>，比如注册IP数、每日访问ip数的页面实时uv（unique visitor，实时访客）、在线用户数、共同好友数等。</p>
+<ul>
+<li><strong>它的优势体现在哪？</strong></li>
+</ul>
+<p>一个大型的网站，每天IP比如有100万，粗算一个IP消耗15字节，那么100万个ip就是15M。</p>
+<p>而HyperLogLog在redis中每个键占用的内容都是12k，理论存储接近2^64个值，不管存储的内容是什么，它一个基于基数估算的算法，只能比较准确的估算出基数，可以使用少量固定的内存去存储并识别集合中的唯一的元素。</p>
+<p>这个估算的基数不一定准确，是一个带有0.81%标准错误的近似值，对于可以接受一定容错的业务场景，比如IP数统计，UV等，是可以忽略不计的</p>
+<ul>
+<li>相关命令的使用</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">127.0.0.1:6379&gt; pfadd key1 a b c d e f g h i    # 创建第一组元素<br>(integer) 1<br>127.0.0.1:6379&gt; pfcount key1                    # 统计元素的基数数量<br>(integer) 9<br>127.0.0.1:6379&gt; pfadd key2 c j k l m e g a      # 创建第二组元素<br>(integer) 1<br>127.0.0.1:6379&gt; pfcount key2<br>(integer) 8<br>127.0.0.1:6379&gt; pfmerge key3 key1 key2          # 合并两组：key1 key2 -&gt; key3 并集<br>OK<br>127.0.0.1:6379&gt; pfcount key3<br>(integer) 13<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-2-Bitmap（位存储）"><a href="#3-2-Bitmap（位存储）" class="headerlink" title="3.2 Bitmap（位存储）"></a>3.2 Bitmap（位存储）</h3>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/redis/">#redis</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型</div>
+      <div>http://example.com/2022/11/21/develop/redis/redis基本数据类型：“5种基础”数据类型-“3种特殊”数据类型/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/21/develop/redis/Redis%E6%80%BB%E7%BB%93/" title="Redis总结">
+                        <span class="hidden-mobile">Redis总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

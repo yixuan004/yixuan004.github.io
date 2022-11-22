@@ -44,7 +44,7 @@
 <meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220714011050659.png">
 <meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220714011019848.png">
 <meta property="article:published_time" content="2022-08-07T00:00:00.000Z">
-<meta property="article:modified_time" content="2022-11-20T16:28:36.014Z">
+<meta property="article:modified_time" content="2022-11-21T15:46:17.697Z">
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="contrastive learning">
 <meta name="twitter:card" content="summary_large_image">
@@ -294,7 +294,7 @@
             
               <div class="markdown-body">
                 
-                <h2 id="acl2021-CL-for-BERT-Sentence-Representations论文阅读"><a href="#acl2021-CL-for-BERT-Sentence-Representations论文阅读" class="headerlink" title="acl2021_CL-for-BERT-Sentence Representations论文阅读"></a>acl2021_CL-for-BERT-Sentence Representations论文阅读</h2><p>论文全称：Self-Guided Contrastive Learning for BERT Sentence Representations</p>
+                <h1 id="acl2021-CL-for-BERT-Sentence-Representations论文阅读"><a href="#acl2021-CL-for-BERT-Sentence-Representations论文阅读" class="headerlink" title="acl2021_CL-for-BERT-Sentence Representations论文阅读"></a>acl2021_CL-for-BERT-Sentence Representations论文阅读</h1><p>论文全称：Self-Guided Contrastive Learning for BERT Sentence Representations</p>
 <p>总结贡献：</p>
 <ul>
 <li>两个bert构造正负例：①一个参数不参与优化的Bert，对所有层的transformer隐藏层做maxpooling，即(batch,len,768)-&gt;(batch,1,768)，再取均值作为句子的输出表征；②一个参数优化的bert，直接用最后一层[CLS]作为句子表征；来自同一句话的①②表征构成正例，不同句子的①②表征作为负例。</li>

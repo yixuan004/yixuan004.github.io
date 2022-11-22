@@ -1,0 +1,782 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="该篇博客记录一些redis high level的总结性话语，适合用于redis的简单介绍，以及一些上层的概述">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis总结">
+<meta property="og:url" content="http://example.com/2022/11/21/develop/redis/Redis%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="该篇博客记录一些redis high level的总结性话语，适合用于redis的简单介绍，以及一些上层的概述">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221114211746821.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221114212525454.png">
+<meta property="article:published_time" content="2022-11-21T12:24:07.000Z">
+<meta property="article:modified_time" content="2022-11-21T15:48:44.568Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221114211746821.png">
+  
+  
+  
+  <title>Redis总结 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Curious;的个人划水博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Redis总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-21 20:24" pubdate>
+          2022年11月21日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          69 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Redis总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>该篇博客记录一些redis high level的总结性话语，适合用于redis的简单介绍，以及一些上层的概述</p>
+<span id="more"></span>
+
+<h1 id="Redis总结"><a href="#Redis总结" class="headerlink" title="Redis总结"></a>Redis总结</h1><h2 id="1-Redis在项目中的使用"><a href="#1-Redis在项目中的使用" class="headerlink" title="1. Redis在项目中的使用"></a>1. Redis在项目中的使用</h2><h3 id="1-1-智能114系统"><a href="#1-1-智能114系统" class="headerlink" title="1.1 智能114系统"></a>1.1 智能114系统</h3><h4 id="1-1-1-记录用户历史的交互信息"><a href="#1-1-1-记录用户历史的交互信息" class="headerlink" title="1.1.1 记录用户历史的交互信息"></a>1.1.1 记录用户历史的交互信息</h4><p>简述：</p>
+<ul>
+<li><p>每个用户在每次呼叫的时候会分配一个唯一的<code>callId</code>，在并发场景下，通过这个<code>callId</code>来对用户序列交互式通话进行记录；</p>
+</li>
+<li><p>每次用户请求过来的时候，通过<code>callId</code>作为key读取上一对话状态的<code>lastTaskStatus</code>、历史请求参数<code>historyRequestParameters</code>、历史相应参数<code>historyResponseParameters</code>，上一对话状态的查号召回结果（查号场景下）<code>lastSeachRecall</code>。供程序内部的流程和状态跳转进行使用；</p>
+</li>
+<li><p>每次用户请求经程序处理结束后，先通过<code>callId</code>再次取出记录的上述各种信息（<code>lastTaskStatus</code>,<code>historyRequestParameters</code>,<code>historyResponseParameters</code>,<code>lastSeachRecall</code>）等，执行<code>delete</code>删除该条<code>callId</code>对应的信息，然后把这些信息refresh后（如append最新的内容），然后重新在<code>lpush</code>回内存型数据库中。这一过程中还包含一个<code>timestamp</code>的记录；</p>
+</li>
+<li><p>在程序中<code>dialog</code>参数传值为<code>end</code>时，会将该<code>callId</code>存储于redis中的内容全部取出，记录日志；</p>
+</li>
+<li><p>程序和部署环境对系统安全有一些要求，这里在安装和部署redis的时候还做了一些安全性修改，比如说端口从6379改成6380，以及把一些敏感命令的操作的关键词重命名一样，记得有一个<code>flushall</code>，还有像<code>delete</code>这样的，好像是修改一个redis的config文件。另外这些修改后，如果从程序内部还想要执行这些操作，则需要修改安装后whl包的源码内容，修改对应操作的关键字；</p>
+</li>
+</ul>
+<p>使用redis的理由：</p>
+<p><font color="red">下面这两条比较浅层，真正要说的时候感觉还得复习完八股文后</font> </p>
+<ul>
+<li>内存型数据库，访问速度快。作为一个线上运行的商业级别系统，程序对效率有要求；</li>
+<li>支持json（或者说是字典）格式的数据记录，存取从操作上来说比较方便；</li>
+</ul>
+<p>代码拆解：</p>
+<ul>
+<li>函数，refresh redis的这个过程，每次响应的时候来干</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">refreshRedis</span>(<span class="hljs-params">requestParameters, taskStatus, lastSearchRecall, historyRequestParameters, historyResponseParameters, returnInfo</span>):<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    TODO 待补充</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    <span class="hljs-keyword">try</span>:<br>        historyRequestParameters.append(requestParameters)<br>        historyResponseParameters.append(returnInfo)<br>        mapping = &#123;<br>            <span class="hljs-string">&#x27;timestamp&#x27;</span>: time.time(),<br>            <span class="hljs-string">&#x27;lastTaskStatus&#x27;</span>: taskStatus,<br>            <span class="hljs-string">&#x27;lastSearchRecall&#x27;</span>: lastSearchRecall,<br>            <span class="hljs-string">&#x27;historyRequestParameters&#x27;</span>: historyRequestParameters,<br>            <span class="hljs-string">&#x27;historyResponseParameters&#x27;</span>: historyResponseParameters<br>        &#125;<br>        r.delete(requestParameters[<span class="hljs-string">&#x27;callId&#x27;</span>]) <span class="hljs-comment"># 这里需要修改redis的源代码</span><br>        r.lpush(<br>            requestParameters[<span class="hljs-string">&#x27;callId&#x27;</span>],<br>            json.dumps(mapping, ensure_ascii=<span class="hljs-literal">False</span>)<br>        )<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;SUCCESS&#x27;</span><br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;ERROR&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>读redis，init过程</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs shell">&#x27;&#x27;&#x27; 读redis，init过程 &#x27;&#x27;&#x27;<br>if requestParameters[&#x27;dialog&#x27;] == &#x27;begin&#x27;:<br>    r.delete(requestParameters[&#x27;callId&#x27;]) # begin时候清空redis<br>    # debug，状态跳转<br>    if debugFlag:<br>        writeText = &#x27;&#x27;<br>        writeText = &quot;【跳转到0000会话初始】传值中dialog为begin&quot;<br>        Debug.debugModeWriteLog(<br>            callId = requestParameters[&#x27;callId&#x27;], <br>            writeText = writeText<br>        )<br>    lastTaskStatus = &#x27;0000&#x27;<br>    historyRequestParameters = []<br>    historyResponseParameters = []<br>    lastSearchRecall = []<br>    # 为了防止一直begin，在这里需要refresh<br>else:<br>    redisDict = r.lindex(requestParameters[&#x27;callId&#x27;], 0)<br>    if redisDict is None:<br>        taskStatus = &#x27;0501&#x27;<br>        returnInfo[&#x27;resultTag&#x27;] = statusToTag[taskStatus]<br>        returnInfo[&#x27;resultInfo&#x27;] = &#123;&#125;<br>        return json.dumps(returnInfo, ensure_ascii=False)<br>    redisDict = json.loads(redisDict)<br>    lastTaskStatus = redisDict[&#x27;lastTaskStatus&#x27;]<br>    historyRequestParameters = redisDict[&#x27;historyRequestParameters&#x27;]<br>    historyResponseParameters = redisDict[&#x27;historyResponseParameters&#x27;]<br>    lastSearchRecall = redisDict[&#x27;lastSearchRecall&#x27;]<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>函数，将redis中的内容输出为日志</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">recordRedis</span>(<span class="hljs-params">requestParameters</span>):<br>    redisJson = r.lindex(requestParameters[<span class="hljs-string">&#x27;callId&#x27;</span>], <span class="hljs-number">0</span>)<br>    redisDict = json.loads(redisJson)<br>    today = <span class="hljs-built_in">str</span>(date.today().strftime(<span class="hljs-string">&quot;%Y%m%d&quot;</span>)) <span class="hljs-comment"># 取消中间的空格</span><br>    <span class="hljs-keyword">try</span>:<br>        os.mkdir(<span class="hljs-string">&#x27;logs/&#x27;</span>+today+<span class="hljs-string">&#x27;/&#x27;</span>)<br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-keyword">pass</span><br>    fileDir =  <span class="hljs-string">&#x27;logs/&#x27;</span> + today + <span class="hljs-string">&#x27;/&#x27;</span> + <span class="hljs-built_in">str</span>(requestParameters[<span class="hljs-string">&#x27;callId&#x27;</span>]) + <span class="hljs-string">&#x27;.json&#x27;</span><br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(fileDir, <span class="hljs-string">&#x27;a+&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> writer:<br>        writer.write(json.dumps(redisDict, indent=<span class="hljs-number">4</span>, ensure_ascii=<span class="hljs-literal">False</span>))<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="1-1-2-多进程的数据同步问题"><a href="#1-1-2-多进程的数据同步问题" class="headerlink" title="1.1.2 多进程的数据同步问题"></a>1.1.2 多进程的数据同步问题</h4><p>在uwsgi+nginx这样的并发配置场景下，有主进程还有很多worker进程，如通过<code>ps -ef | grep [PID|NAME]</code>等可进行查看，会包含UID，PID，PPID等信息，PPID就是这个进程的父进程ID，如果说父进程id是1的话就代表这个进程是主进程，这些之后整理在linux操作系统相关那一个文档中吧；</p>
+<p>背景：</p>
+<ul>
+<li>由于程序效率要求，每次只在冷启动的时候读取一次配置文件中的各项内容，特别是数量较大的关键词词典等，如果每次接口请求的时候都读取将会造成大量的无用消耗；</li>
+<li>而由于多进程模式下，各个进程不共享参数，那么即使设计了如<code>reloadKeyword</code>这样的接口，那么通过这个接口进行请求完成词典更新的时候，也只会使得这个进程的数据得到更新，而其它进程则还是老版预加载数据，造成了数据不同步的问题（也就是说被分发到这个已经被更新的进程上的请求会读取到新的数据，而被分发到未更新进程的，则会是获取老数据）；</li>
+<li>尚不知道工业界的解决办法，本来有个简单版的解决办法，在请求的时候设置一个多次调用的逻辑，这个多次调用的逻辑不能在外部执行，设想的是由client端或者某种脚本的方式来执行，但是这个方式不够优雅，进而开始寻找比较优雅的解决办法；</li>
+</ul>
+<p>解决方法：</p>
+<ul>
+<li>设计<code>currentReloadTime</code>代表该进程当前的reload时间。设计<code>redisReloadTime</code>代表redis内部记录的全局系统reload时间，这个时间用规范化的字符串<code>datetime.datetime.now().strftime(&#39;%Y-%m-%d %H:%M:%S.%f&#39;)</code>进行表示；</li>
+<li>在冷启动的时候，相当于为每个进程初始化一个<code>currentReloadTime</code>，然后往redis内部传入一个当前时间的<code>redisReloadTime</code>（注：这两个时间在开始的时候是不相等的，另外由于冷启动和redis那边是分离的，也就是每次冷启动的时候首先要在redis中清掉这个）；</li>
+<li>在调用<code>/reloadKeywords</code>接口的时候，会刷新<code>redisReloadTime</code>这个时间为调用的时间；</li>
+<li>在每次程序的单一个进程收到请求的时候，首先从远程读取<code>redisReloadTime</code>。将程序的<code>currentReloadTime</code>值和这个<code>redisReloadTime</code>值进行如下比较：<ul>
+<li>如果当前进程的<code>currentReloadTime</code>小于这个<code>redisReloadTime</code>，则需要执行更新词典操作，执行如<code>reloadCommonQueryWord()</code>等函数后，把当前的时间值赋值给<code>currentReloadTime</code></li>
+<li>如果当前进程的<code>currentReloadTime</code>大于这个<code>redisReloadTime</code>了，那么则说明当前这个进程已经处在最新状态，不需要再更新了；</li>
+</ul>
+</li>
+<li>在上面这样说法的操作下，调用<code>reloadKeyword</code>接口只会影响几个进程接下来的最新一次请求的时间效率，相对于原版每次都影响有了一定程度的优化，起到了一定的热更新效果，不过还是未知工业界的热更新操作是怎么做到的；</li>
+</ul>
+<p>代码拆解：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 每个进程的全局变量，首次启动的时候设置为当前的时间</span><br><span class="hljs-keyword">global</span> currentReloadTime<br>currentReloadTime = <span class="hljs-built_in">str</span>(datetime.datetime.now().strftime(<span class="hljs-string">&#x27;%Y-%m-%d %H:%M:%S.%f&#x27;</span>))<br><br><span class="hljs-comment"># sleep0.5秒，使得redisReloadTime在</span><br>time.sleep(<span class="hljs-number">0.5</span>)<br><br><span class="hljs-comment"># 往redis里给一个redisReloadTime，这种情况下某些进程的currentReloadTime会早于redisReloadTime，代表需要更新</span><br>redisReloadTimeDict = &#123;<br>    <span class="hljs-string">&quot;redisReloadTime&quot;</span>: <span class="hljs-built_in">str</span>(datetime.datetime.now().strftime(<span class="hljs-string">&#x27;%Y-%m-%d %H:%M:%S.%f&#x27;</span>))<br>&#125;<br><span class="hljs-keyword">if</span> r.lindex(<span class="hljs-string">&#x27;redisReloadTime&#x27;</span>, <span class="hljs-number">0</span>) <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>    r.delete(<span class="hljs-string">&#x27;redisReloadTime&#x27;</span>)<br>r.lpush(<br>    <span class="hljs-string">&#x27;redisReloadTime&#x27;</span>,<br>    json.dumps(redisReloadTimeDict, ensure_ascii=<span class="hljs-literal">False</span>)<br>)<br><br><span class="hljs-comment"># 更新redis类的几个词典，判断时间的操作，如果currentReloadTime小于redisReloadTime</span><br><span class="hljs-comment"># 从远程redis读取redisReloadTime，如果读取不到要把这个redisReloadTime放过去</span><br>previousRedisReloadTime = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">if</span> r.lindex(<span class="hljs-string">&#x27;redisReloadTime&#x27;</span>, <span class="hljs-number">0</span>) <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>    redisReloadTimeDict = &#123;<br>        <span class="hljs-string">&quot;redisReloadTime&quot;</span>: <span class="hljs-built_in">str</span>(datetime.datetime.now().strftime(<span class="hljs-string">&#x27;%Y-%m-%d %H:%M:%S.%f&#x27;</span>))<br>    &#125;<br>    r.delete(<span class="hljs-string">&#x27;redisReloadTime&#x27;</span>)<br>    <span class="hljs-comment"># push进去</span><br>    r.lpush(<br>        <span class="hljs-string">&#x27;redisReloadTime&#x27;</span>,<br>        json.dumps(redisReloadTimeDict, ensure_ascii=<span class="hljs-literal">False</span>)<br>    )<br>    previousRedisReloadTime = redisReloadTimeDict[<span class="hljs-string">&#x27;redisReloadTime&#x27;</span>]<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;callId: &quot;</span> + callId + <span class="hljs-string">&quot;, 出现了取不到redisReloadTime的情况，重新置总体上的redisReloadTime是: &quot;</span> + <span class="hljs-built_in">str</span>(redisReloadTimeDict[<span class="hljs-string">&#x27;redisReloadTime&#x27;</span>]))<br><span class="hljs-keyword">else</span>:<br>    redisJson = r.lindex(<span class="hljs-string">&#x27;redisReloadTime&#x27;</span>, <span class="hljs-number">0</span>)<br>    redisDict = json.loads(redisJson)<br>    previousRedisReloadTime = redisDict[<span class="hljs-string">&#x27;redisReloadTime&#x27;</span>]<br><br><span class="hljs-keyword">global</span> currentReloadTime<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;callId: &quot;</span> + callId + <span class="hljs-string">&quot;, 该进程的currentReloadTime是: &quot;</span> + <span class="hljs-built_in">str</span>(currentReloadTime))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;callId: &quot;</span> + callId + <span class="hljs-string">&quot;, 总体上的previousRedisReloadTime是: &quot;</span> + <span class="hljs-built_in">str</span>(previousRedisReloadTime))<br><span class="hljs-keyword">if</span> currentReloadTime &lt; previousRedisReloadTime: <span class="hljs-comment"># 需要执行更新操作了，这个更新操作走之前那个版本写的redis逻辑</span><br>    reloadCommonQueryWord()<br>    loadDoctorMovecarPriority()<br>    <span class="hljs-comment"># 更新完成后，置currentReloadTime为这个更新后的时间</span><br>    currentReloadTime = <span class="hljs-built_in">str</span>(datetime.datetime.now().strftime(<span class="hljs-string">&#x27;%Y-%m-%d %H:%M:%S.%f&#x27;</span>))<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;callId: &quot;</span> + callId + <span class="hljs-string">&quot;, 更新完成, 该进程的currentReloadTime是: &quot;</span> + <span class="hljs-built_in">str</span>(currentReloadTime))<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;callId: &quot;</span> + callId + <span class="hljs-string">&quot;, 更新完成, 总体上的previousRedisReloadTime是: &quot;</span> + <span class="hljs-built_in">str</span>(previousRedisReloadTime))<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;callId: &quot;</span> + callId + <span class="hljs-string">&quot;, 更新reloadKeywords类词典后（减去更新json类词典后是加载用时，不知道要多久）: &quot;</span> + <span class="hljs-built_in">str</span>(datetime.datetime.now().strftime(<span class="hljs-string">&#x27;%Y-%m-%d %H:%M:%S.%f&#x27;</span>)))<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;callId: &quot;</span> + callId + <span class="hljs-string">&quot;, currentReloadTime &gt; previousRedisReloadTime, 无需更新, &quot;</span> + <span class="hljs-built_in">str</span>(datetime.datetime.now().strftime(<span class="hljs-string">&#x27;%Y-%m-%d %H:%M:%S.%f&#x27;</span>)))<br><br>response = Entrance._114(requests, config, model, keywords, posClient, dictSearch, _114cfgs, INTENT_CLASSIFICATION_CONFIGS, QUERY_PHONENUMBER_CONFIGS)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;callId: &quot;</span> + callId + <span class="hljs-string">&quot;, 该次会话给出的response是: &quot;</span> + <span class="hljs-built_in">str</span>(response))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;callId: &quot;</span> + callId + <span class="hljs-string">&quot;, 该次会话给出的response时间是: &quot;</span> +  <span class="hljs-built_in">str</span>(datetime.datetime.now().strftime(<span class="hljs-string">&#x27;%Y-%m-%d %H:%M:%S.%f&#x27;</span>)))<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-1-3-智能114系统中redis使用到的内容详解"><a href="#1-1-3-智能114系统中redis使用到的内容详解" class="headerlink" title="1.1.3 智能114系统中redis使用到的内容详解"></a>1.1.3 智能114系统中redis使用到的内容详解</h4><p>TODO，读完redis八股文相关</p>
+<h2 id="2-Redis综合上层概念"><a href="#2-Redis综合上层概念" class="headerlink" title="2. Redis综合上层概念"></a>2. Redis综合上层概念</h2><h3 id="2-1-Redis是什么"><a href="#2-1-Redis是什么" class="headerlink" title="2.1 Redis是什么"></a>2.1 Redis是什么</h3><p>redis是一个基于C语言开发的高性能key-value的内存数据库，可以用作数据库、缓存、消息中间件等。是一种NoSQL（Not-only SQL，泛指非关系型数据库）的数据库</p>
+<p><font color="red">补充：关系型数据库，也就是依据关系模型来创建的数据库。类似于“一对一、一对多、多对多”等关系模型。关系型数据库可以很好的存储一些关系模型的数据，比如一个老师对应多个学生，一本书对应多个作者等等，MySQL是最典型的关系型数据库</font> </p>
+<p>redis作为一个内存型数据库，有着这些特点：</p>
+<ol>
+<li>性能优秀，数据在内存中，读写速度非常快，支持并发10W QPS；</li>
+</ol>
+<p><font color="red">内存：见操作系统笔记</font> </p>
+<p><font color="red">QPS：见基础知识杂烩笔记</font> </p>
+<ol start="2">
+<li><p>单进程单线程，是线程安全的（采用IO多路复用机制）；</p>
+</li>
+<li><p>丰富的数据类型，支持：String，List，Hash，set，Sorted Set</p>
+</li>
+</ol>
+<h3 id="2-2-Redis为什么这么快"><a href="#2-2-Redis为什么这么快" class="headerlink" title="2.2 Redis为什么这么快"></a>2.2 Redis为什么这么快</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/460236324">https://zhuanlan.zhihu.com/p/460236324</a></p>
+<h4 id="2-2-1-到底有多快"><a href="#2-2-1-到底有多快" class="headerlink" title="2.2.1 到底有多快"></a>2.2.1 到底有多快</h4><p>根据官方数据，Redis的QPS可以达到约100000。下图横轴是连接数，纵轴是QPS</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221114211746821.png" srcset="/img/loading.gif" lazyload alt="image-20221114211746821" style="zoom:50%;">
+
+<h4 id="2-2-2-基于内存实现"><a href="#2-2-2-基于内存实现" class="headerlink" title="2.2.2 基于内存实现"></a>2.2.2 基于内存实现</h4><p>Redis是基于内存的数据库，和磁盘数据相比，完全吊打次破案的读写速度。</p>
+<p><strong>不论读写操作都是在内存上完成的。</strong></p>
+<ul>
+<li>内存操作</li>
+</ul>
+<p>内存直接由CPU控制，CPU内部继承的内存控制器……</p>
+<h4 id="2-2-3-高效的数据结构"><a href="#2-2-3-高效的数据结构" class="headerlink" title="2.2.3 高效的数据结构"></a>2.2.3 高效的数据结构</h4><p>学习MySQL的时候，直到为提高检索使用了B+ Tree数据结构，<strong>所以Redis速度快也可数据结构有关</strong></p>
+<p>redis支持5种数据类型，<strong>String、List、Hash、Set、SortedSet</strong></p>
+<p>不同的数据类型底层使用了一种或者多种数据结构来支撑，目标就是为了追求更快的速度</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221114212525454.png" srcset="/img/loading.gif" lazyload alt="image-20221114212525454" style="zoom:67%;">
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/redis/">#redis</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Redis总结</div>
+      <div>http://example.com/2022/11/21/develop/redis/Redis总结/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/11/21/develop/redis/redis%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9A%E2%80%9C5%E7%A7%8D%E5%9F%BA%E7%A1%80%E2%80%9D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E2%80%9C3%E7%A7%8D%E7%89%B9%E6%AE%8A%E2%80%9D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/21/research/papers/relation-extraction/emnlp2022-ACA%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" title="emnlp2022_ACA论文阅读">
+                        <span class="hidden-mobile">emnlp2022_ACA论文阅读</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
