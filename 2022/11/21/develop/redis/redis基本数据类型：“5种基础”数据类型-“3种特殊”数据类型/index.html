@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221122151156018.png">
 <meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221122152338290.png">
 <meta property="article:published_time" content="2022-11-21T15:43:50.000Z">
-<meta property="article:modified_time" content="2022-11-22T08:03:37.659Z">
+<meta property="article:modified_time" content="2022-11-22T08:56:15.443Z">
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary_large_image">
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.7k 字
+          6.4k 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          48 分钟
+          54 分钟
         
       </span>
     
@@ -605,7 +605,35 @@
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">127.0.0.1:6379&gt; pfadd key1 a b c d e f g h i    # 创建第一组元素<br>(integer) 1<br>127.0.0.1:6379&gt; pfcount key1                    # 统计元素的基数数量<br>(integer) 9<br>127.0.0.1:6379&gt; pfadd key2 c j k l m e g a      # 创建第二组元素<br>(integer) 1<br>127.0.0.1:6379&gt; pfcount key2<br>(integer) 8<br>127.0.0.1:6379&gt; pfmerge key3 key1 key2          # 合并两组：key1 key2 -&gt; key3 并集<br>OK<br>127.0.0.1:6379&gt; pfcount key3<br>(integer) 13<br></code></pre></td></tr></table></figure>
 
-<h3 id="3-2-Bitmap（位存储）"><a href="#3-2-Bitmap（位存储）" class="headerlink" title="3.2 Bitmap（位存储）"></a>3.2 Bitmap（位存储）</h3>
+<h3 id="3-2-Bitmap（位存储）"><a href="#3-2-Bitmap（位存储）" class="headerlink" title="3.2 Bitmap（位存储）"></a>3.2 Bitmap（位存储）</h3><p>bitmap即位图数据结构，都是操作二进制位来进行记录，只有0和1两个状态</p>
+<ul>
+<li>用来解决什么问题？</li>
+</ul>
+<p>比如：统计用户信息：活跃&#x2F;不活跃，登录&#x2F;未登录，打卡&#x2F;未打卡，两个状态都可以使用bitmaps</p>
+<p>如果存储一年的打卡状态需要多少内存？365天&#x3D;365bit，1byte&#x3D;8bit，那么就只要46个字节左右</p>
+<ul>
+<li>相关命令的使用</li>
+</ul>
+<p>使用bitmap来记录周一到周日的打卡！周一：1 周二：0 周三：0 周四：1 ……</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell">127.0.0.1:6379&gt; setbit sign 0 1<br>(integer) 0<br>127.0.0.1:6379&gt; setbit sign 1 1<br>(integer) 0<br>127.0.0.1:6379&gt; setbit sign 2 0<br>(integer) 0<br>127.0.0.1:6379&gt; setbit sign 3 1<br>(integer) 0<br>127.0.0.1:6379&gt; setbit sign 4 0<br>(integer) 0<br>127.0.0.1:6379&gt; setbit sign 5 0<br>(integer) 0<br>127.0.0.1:6379&gt; setbit sign 6 1<br>(integer) 0<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">查看某一天是否有打卡！</span><br>127.0.0.1:6379&gt; getbit sign 3<br>(integer) 1<br>127.0.0.1:6379&gt; getbit sign 5<br>(integer) 0<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">统计操作，统计 打卡的天数！</span><br>127.0.0.1:6379&gt; bitcount sign # 统计这周的打卡记录，就可以看到是否有全勤！<br>(integer) 3<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 
               </div>
             
