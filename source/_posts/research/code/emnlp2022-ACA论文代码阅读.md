@@ -48,7 +48,7 @@ CUDA_VISIBLE_DEVICES=$1 python3 main/emar.py \
 
 从`if __name__ == '__main__'`开始看，首先使用`get_config()`函数，主要就是读取shell文件中配置的各个超参数
 
-```shell
+```python
 if __name__ == '__main__':
     config = get_config()
 
@@ -836,4 +836,90 @@ logger.info(f'Avg total test acc: {test_total_record}')
 
 print("log file has been saved in: ", log_path)
 ```
+
+## 2. 代码中阅读到的问题和重点记录
+
+- 作者使用的是special token的方式，依次加入`[E11] [E12] [E21] [E22]`，bert的词表大小是30522，所以开始的编号是0-30511的，这几个token也就依次被定位为30522, 30523, 30524, 30525这样的；
+- 对于这些special token的加入，作者是在预处理数据的时候就完成了，数据预处理的时候是先用relation type对应到各个样例，这样relation type在json文件中是第一层，就可以让持续学习比较好处理这种文件；
+- config文件和shell文件中的下面这几个参数，是针对fewrel数据集来用的，而TACRED数据集是定死的，训练集340，测试集40，没有验证集；
+
+```python
+parser.add_argument('--num_of_train', default=420, type=int)
+parser.add_argument('--num_of_val', default=140, type=int)
+parser.add_argument('--num_of_test', default=140, type=int)
+```
+
+- 作者在划分数据集的时候这里代码有一点bug，这里因为是<=的符号，所以最后出来的都是41个数据，也不知道是不是他对齐的工作都是这么操作的，这个从作者输出的confusion matrix中也能看出来
+
+https://github.com/Wangpeiyi9979/ACA/blob/898238415202d4bd6b7b555660b82732ab03483e/sampler.py#L114
+
+```shell
+if i < len(rel_samples) // 5 and count <= 40:
+    count += 1
+    test_dataset[self.rel2id[relation]].append(tokenized_sample)
+else:
+    count1 += 1
+    train_dataset[self.rel2id[relation]].append(tokenized_sample)
+    if count1 >= 320:
+        break
+```
+
+```shell
++----------+----------+----------+---------+----------+
+|          | per:scho | per:orig | per:age | per:stat |
++----------+----------+----------+---------+----------+
+| per:scho | 35       | 0        | 0       | 0        |
++----------+----------+----------+---------+----------+
+| per:orig | 0        | 40       | 0       | 1        |
++----------+----------+----------+---------+----------+
+| per:age  | 0        | 0        | 41      | 0        |
++----------+----------+----------+---------+----------+
+| per:stat | 1        | 1        | 0       | 39       |
++----------+----------+----------+---------+----------+
+```
+
+- 在实现ACA的方法的时候，作者写的还是和论文里差不多的，论文里说用第一种关系重建生成N//2种，用第二种反向生成N种，在代码里看起来这是最理想的情况，如果遇到一些特殊情况，或者反向的时候是那种对称的关系，那么就可能不到这个种类数目；
+- 另外在代码这里涉及到一个model.incremental_learning，这个地方感觉不是很理解，他这个add_class的数目是3倍的`rel_per_task`，那么对于TACRED每个task新进来4个关系的话，这个add_relation_num就变成12，加起来就是40+12=52种关系分类，但是每一次最多也就是40 + 4 + 2种关系的分类，这种在训练的过程里，是需要模型来学习这种关系吗？因为感觉模型的fc层，不是从4 8 12 16这样一直加上来的；；；另外这里也没理解这个`with torch.no_grad()`的作用；
+
+```python
+if config.aca:
+    """
+    def incremental_learning(self, old_class, add_class):
+        weight = self.fc.weight.data
+        self.fc = nn.Linear(768, old_class + add_class, bias=False).cuda()
+        with torch.no_grad():
+            self.fc.weight.data[:old_class] = weight[:old_class]  # 把之前的复制进来构建这个层增量？
+    """
+    logger.info('remove aca node')
+    model.incremental_learning(config.num_of_relation, add_relation_num)  # 不理解为什么add_relation_num是config.rel_per_task * 3
+```
+
+- 反向关系也直接定义成一种新的关系，像群里师兄说的，这个关系会不会没什么意义，而很多反向关系是可以在数据集中找到的，不知道这些数据集中有没有对反向关系的定义，如果我开始学习了B->A是一种反向新定义的没有含义的关系，但是B->A这个关系在之后训练出现了，那感觉就很容易分类错误？
+- 那种拼接的方式也确实像师兄说的比较粗暴，看起来只是怎么取了5个词，强行给拼到一块上一样；
+
+- cur_acc就是在当前task的几个关系上的F1-Score，total_acc就是在当前+之前见过的所有关系上的F1-score，看起来作者主表格中挂的应该是total_acc
+
+```python
+test_data_1 = []
+"""
+current_relations：新增加进来的几个relation
+"""
+for relation in current_relations:
+test_data_1 += test_data[relation]
+
+test_data_2 = []
+"""
+在所有见过的relation上测
+"""
+for relation in seen_relations:
+test_data_2 += historic_test_data[relation]
+cur_acc = evaluate_strict_model(config, test_data_1,seen_relations, rel2id, mode="cur", pid2name=pid2name, model=model)
+total_acc =  evaluate_strict_model(config, test_data_2 ,seen_relations, rel2id, mode="total", logger=logger, pid2name=pid2name, model=model)
+
+save_representation_to_file(config, model, sampler, id2rel, f'reps/{config.exp_name}/{i}/{episode}.pt' ,memorized_samples)
+```
+
+- 一般来说，学习的顺序和采样的情况都会影响，作者就是很多随机策略，每次换一个seed这样的，5次实验，每次跑10个task，然后比如TACRED就是随机打乱后采样320个训练数据加40个测试数据；
+
+- 看起来像是一个train_simple_model + train_model的学习范式，在train_simple_model的时候把aca的数据混进去，但好像后续就不需要了（对EMAR还没了解太多）；
 
