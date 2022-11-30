@@ -1,8 +1,11 @@
 ---
 title: Docker学习笔记1-背景-狂神视频
 date: 2022-01-05 09:25:45
+tags:
+  - docker
 categories:
-    - docker
+	- develop
+	- docker
 ---
 
 在未来的项目部署中一定还会用到Docker，k8s等，该篇博客主要记录学习Docker的过程

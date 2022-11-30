@@ -1,8 +1,11 @@
 ---
 title: docker-Learning
 date: 2021-12-06 11:51:51
+tags:
+  - docker
 categories:
-	- docker
+  - develop
+  - docker
 ---
 
 背景：docker有一种更加轻量级虚拟机的感觉，正好在一个课程中需要使用HBase、Hadoop等，又不方便在本地安装，所以可以使用docker的方式，也借此机会学习docker
@@ -41,7 +44,7 @@ CuriousdeMacBook-Pro:getting-started curious$  docker build -t docker101tutorial
 基于上一步中生成的映像启动容器。运行容器会启动具有私有资源的应用程序，这些资源与计算机的其余部分安全隔离。
 
 ```shell
-CuriousdeMacBook-Pro:getting-started curious$ docker run -d - p 80:80 --name docker-tutorial docker101tutorial cfd8702ce730feb351565711d7a44d147476d8faa18b03ae2d4815cc137d121b
+CuriousdeMacBook-Pro:getting-started curious$ docker run -d -p 80:80 --name docker-tutorial docker101tutorial cfd8702ce730feb351565711d7a44d147476d8faa18b03ae2d4815cc137d121b
 ```
 
 4. 保存并分享镜像

@@ -1,8 +1,11 @@
 ---
 title: Docker学习笔记3-Docker常用命令-狂神视频
 date: 2022-01-08 00:14:06
+tags:
+  - docker
 categories:
-    - docker
+  - develop
+  - docker
 ---
 
 Docker的常用命令，主要分为镜像和容器两个部分，也是Docker学习的基础
