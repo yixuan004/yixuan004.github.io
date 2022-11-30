@@ -16,22 +16,22 @@
   <meta name="author" content="Curious;">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在使用hexo搭建博客的时候，.&#x2F;sourcehttp:&#x2F;&#x2F;yixuan004.oss-cn-hangzhou.aliyuncs.com&#x2F;img路径是一个全局的路径，放在这里的图片可以被博客中的内容检测到 但是这样会导致所有博客的图片内容全都混在一块，同时在本地用typora等看图片的时候，因为路径配置的不一样也会有问题存在 所以，目标是统一这边的路径配置，让博客推到github上成功的同时，也能">
+    <meta name="description" content="redis线程模型TODO">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo图片路径的配置">
-<meta property="og:url" content="http://example.com/2022/11/19/mixed/hexo/hexo%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E7%9A%84%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:title" content="redis线程模型">
+<meta property="og:url" content="http://example.com/2022/11/23/develop/redis/redis%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="Curious;的个人划水博客">
-<meta property="og:description" content="在使用hexo搭建博客的时候，.&#x2F;sourcehttp:&#x2F;&#x2F;yixuan004.oss-cn-hangzhou.aliyuncs.com&#x2F;img路径是一个全局的路径，放在这里的图片可以被博客中的内容检测到 但是这样会导致所有博客的图片内容全都混在一块，同时在本地用typora等看图片的时候，因为路径配置的不一样也会有问题存在 所以，目标是统一这边的路径配置，让博客推到github上成功的同时，也能">
+<meta property="og:description" content="redis线程模型TODO">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-19T08:19:33.000Z">
-<meta property="article:modified_time" content="2022-11-20T07:36:52.727Z">
+<meta property="article:published_time" content="2022-11-23T13:04:06.000Z">
+<meta property="article:modified_time" content="2022-11-30T05:33:11.339Z">
 <meta property="article:author" content="Curious;">
-<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>hexo图片路径的配置 - Curious;的个人划水博客</title>
+  <title>redis线程模型 - Curious;的个人划水博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="hexo图片路径的配置"></span>
+            <span id="subtitle" data-typed-text="redis线程模型"></span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-19 16:19" pubdate>
-          2022年11月19日 下午
+        <time datetime="2022-11-23 21:04" pubdate>
+          2022年11月23日 晚上
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          13 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          10 分钟
+          1 分钟
         
       </span>
     
@@ -268,28 +268,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">hexo图片路径的配置</h1>
+            <h1 style="display: none">redis线程模型</h1>
             
             
               <div class="markdown-body">
                 
-                <p>在使用hexo搭建博客的时候，<code>./sourcehttp://yixuan004.oss-cn-hangzhou.aliyuncs.com/img</code>路径是一个全局的路径，放在这里的图片可以被博客中的内容检测到</p>
-<p>但是这样会导致所有博客的图片内容全都混在一块，同时在本地用typora等看图片的时候，因为路径配置的不一样也会有问题存在</p>
-<p>所以，目标是统一这边的路径配置，让博客推到github上成功的同时，也能在本地typora看到，并方便迁移</p>
-<span id="more"></span>
-
-<h1 id="hexo图片路径的配置"><a href="#hexo图片路径的配置" class="headerlink" title="hexo图片路径的配置"></a>hexo图片路径的配置</h1><h2 id="1-安装插件hexo-asset-image"><a href="#1-安装插件hexo-asset-image" class="headerlink" title="1. 安装插件hexo-asset-image"></a>1. 安装插件hexo-asset-image</h2><h3 id="1-1-reference"><a href="#1-1-reference" class="headerlink" title="1.1 reference"></a>1.1 reference</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Strong997/article/details/97767929?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-97767929-blog-100524856.pc_relevant_multi_platform_whitelistv4&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-97767929-blog-100524856.pc_relevant_multi_platform_whitelistv4&amp;utm_relevant_index=2">https://blog.csdn.net/Strong997/article/details/97767929?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-97767929-blog-100524856.pc_relevant_multi_platform_whitelistv4&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-97767929-blog-100524856.pc_relevant_multi_platform_whitelistv4&amp;utm_relevant_index=2</a></p>
-<h3 id="1-2-操作"><a href="#1-2-操作" class="headerlink" title="1.2 操作"></a>1.2 操作</h3><p>使用npm进行安装，命令如下</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install https://github.com/CodeFalling/hexo-asset-image --save<br></code></pre></td></tr></table></figure>
-
-<p>注意，这里很多其他博客提供的安装命令如下，但实际尝试的时候可能由于版本等问题，导致无法生效，这些命令可能不好使</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install hexo-renderer-marked --save<br>npm install hexo-asset-image --save<br></code></pre></td></tr></table></figure>
-
-<p>之后，将<code>_config.yml</code>文件的做如下修改（注：后面的marked可能是不需要的，可能是对应<code>hexo-render-marked</code>的配置）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">_config.yml<br>post_asset_folder: true<br>marked:<br>  prependRoot: true<br>  postAsset: true<br></code></pre></td></tr></table></figure>
-
-<p>在上述配置后，在执行<code>hexo new [FILENAME]</code>的时候，会自动生成这个文件名字的md和对应的文件名字的文件夹，这里可以在文件夹后加入<code>.assets</code>，和目前我自己本机的typora环境对应上</p>
-<p>至此操作完成</p>
+                <h1 id="redis线程模型"><a href="#redis线程模型" class="headerlink" title="redis线程模型"></a>redis线程模型</h1><p>TODO</p>
 
                 
               </div>
@@ -308,7 +292,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Crsenal/" class="category-chain-item">Crsenal</a>
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
   
   
 
@@ -323,7 +307,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/hexo/">#hexo</a>
+        <a href="/tags/redis/">#redis</a>
       
     </div>
   
@@ -335,8 +319,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>hexo图片路径的配置</div>
-      <div>http://example.com/2022/11/19/mixed/hexo/hexo图片路径的配置/</div>
+      <div>redis线程模型</div>
+      <div>http://example.com/2022/11/23/develop/redis/redis线程模型/</div>
     </div>
     <div class="license-meta">
       
@@ -348,7 +332,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月19日</div>
+          <div>2022年11月23日</div>
         </div>
       
       
@@ -380,9 +364,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/19/mixed/git/%E4%BF%AE%E6%94%B9hosts%E6%96%87%E4%BB%B6%E4%BD%BF%E5%BE%97%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%AF%E4%BB%A5%E8%AE%BF%E9%97%AEgithub/" title="修改hosts文件使得服务器可以访问github">
+                      <a href="/2022/11/25/develop/linux/linux%E7%8E%AF%E5%A2%83%E7%9B%B8%E5%85%B3%E5%8F%8A%E5%91%BD%E4%BB%A4%E5%88%86%E7%B1%BB%E6%80%BB%E7%BB%93/" title="linux环境相关及命令分类总结">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">修改hosts文件使得服务器可以访问github</span>
+                        <span class="hidden-mobile">linux环境相关及命令分类总结</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -390,8 +374,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/19/research/others/BERT%E6%BA%90%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E5%AD%A6%E4%B9%A0/" title="BERT源代码阅读学习">
-                        <span class="hidden-mobile">BERT源代码阅读学习</span>
+                      <a href="/2022/11/23/research/papers/relation-extraction/Positive-Unlabeled-Learning%E6%96%B9%E5%90%91%E8%B0%83%E7%A0%94/" title="Positive-Unlabeled-Learning方向调研">
+                        <span class="hidden-mobile">Positive-Unlabeled-Learning方向调研</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

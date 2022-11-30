@@ -322,30 +322,30 @@
 
 <h4 id="1-3-2-Pretext-Task-in-NLP"><a href="#1-3-2-Pretext-Task-in-NLP" class="headerlink" title="1.3.2 Pretext Task in NLP"></a>1.3.2 Pretext Task in NLP</h4><p>自监督学习（self-supervised learning）中经常采用一种被称为Pretext Task自监督任务来训练模型，<strong>根据数据的特点构造虚标样本的技术。</strong>在NLP领域常用的用于构造Pretext Task的增强方法有：</p>
 <ul>
-<li>Center and Neighbor Word Prediction：典型代表就是训练Word2Vec的Skip-gram和CBOW <font color="red">这个还不是很了解</font></li>
-<li>Next and Neighbor Sentence Prediction：句子级别的上下文预测，典型就是BERT中的NSP <font color="red">MLM没有写在这里，但是也算是一种？</font></li>
-<li>Autoregressive Language Modeling：单向的语言模型建模，代表作是GPT。<font color="red">暂时不太了解</font></li>
-<li>Sentence Permutation：在GAPT中被使用，将一定长度的文本中的句子打乱，然后预测句子的先后次序。<font color="red">这个听起来有点像NSP，但好像有个排序在里面？</font></li>
+<li>Center and Neighbor Word Prediction：典型代表就是训练Word2Vec的Skip-gram和CBOW <font color='red'>这个还不是很了解</font></li>
+<li>Next and Neighbor Sentence Prediction：句子级别的上下文预测，典型就是BERT中的NSP <font color='red'>MLM没有写在这里，但是也算是一种？</font></li>
+<li>Autoregressive Language Modeling：单向的语言模型建模，代表作是GPT。<font color='red'>暂时不太了解</font></li>
+<li>Sentence Permutation：在GAPT中被使用，将一定长度的文本中的句子打乱，然后预测句子的先后次序。<font color='red'>这个听起来有点像NSP，但好像有个排序在里面？</font></li>
 </ul>
-<p><font color="blue">Pretext self-supervised</font> </p>
+<p><font color='blue'>Pretext self-supervised</font> </p>
 <h4 id="1-3-4-架构"><a href="#1-3-4-架构" class="headerlink" title="1.3.4 架构"></a>1.3.4 架构</h4><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220706013341299.png" srcset="/img/loading.gif" lazyload alt="image-20220706013341299"></p>
 <p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220706013410011.png" srcset="/img/loading.gif" lazyload alt="image-20220706013410011"></p>
-<p><font color="blue">一个batch里面的负例太少了，从之前的一些batch拿过来；；；momentum （以batch为单位进行更新），第一个epoch中10个batch，到第9个batch的时候是用什么时候的参数，一直用epoch开始的参数，参数的波动太大了；；随机梯度下降，Momentum-SGD，借助于上一次更新的“速度”</font> </p>
+<p><font color='blue'>一个batch里面的负例太少了，从之前的一些batch拿过来；；；momentum （以batch为单位进行更新），第一个epoch中10个batch，到第9个batch的时候是用什么时候的参数，一直用epoch开始的参数，参数的波动太大了；；随机梯度下降，Momentum-SGD，借助于上一次更新的“速度”</font> </p>
 <ul>
 <li>第一种架构：端到端（End2End），只将batch内的不同样本组成的样本对作为负例，典型的代表就是SimCLR（A Simple Framework for Contrastive Learning of Visual Representations，下文2.1章节），这种方法需要强大的batch才能保证效果</li>
 </ul>
 <p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220705211549766.png" srcset="/img/loading.gif" lazyload alt="image-20220705211549766"></p>
-<p><font color="blue">batch越大，2N-2越大，越可能在剩下的2N-2场景下出现实际上是正例的内容</font> </p>
+<p><font color='blue'>batch越大，2N-2越大，越可能在剩下的2N-2场景下出现实际上是正例的内容</font> </p>
 <ul>
 <li>第二种架构：TODO</li>
 </ul>
-<p><font color="red">看到这个架构后有点想到BBN那种把长尾数据做采样后分成两路输入的，但是这个是一对数据，那个是采样后的两张数据，分成两路训练然后融合；</font> </p>
+<p><font color='red'>看到这个架构后有点想到BBN那种把长尾数据做采样后分成两路输入的，但是这个是一对数据，那个是采样后的两张数据，分成两路训练然后融合；</font> </p>
 <h4 id="1-3-5-Training-Method"><a href="#1-3-5-Training-Method" class="headerlink" title="1.3.5 Training Method"></a>1.3.5 Training Method</h4><p>CL的中心思想是拉进相似的样本的表征，推开不相似的样本的表征，一般用余弦相似度来度量表征向量的距离或者相似度<br>$$<br>{\rm cos_sim}(A, B) &#x3D; \frac{A \cdot B}{\left| A \right|\left| B \right|}<br>$$<br>CL一般使用NCE Loss来聚焦于对比正负样本对之间的距离或者相似度差异</p>
 <p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220705213650253.png" srcset="/img/loading.gif" lazyload alt="image-20220705213650253"></p>
 <p>如果负样本较多则采用NCE的一个变体InfoNCE</p>
 <p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220705213703141.png" srcset="/img/loading.gif" lazyload alt="image-20220705213703141"></p>
-<p><font color="red">这里的$ \tau $ 有一种那个根号下dk的感觉？因为sim这个值域不是很确定或者做一个放缩来保证梯度？</font></p>
-<p> <font color="red">这个形式上就很像softmax？</font> </p>
+<p><font color='red'>这里的$ \tau $ 有一种那个根号下dk的感觉？因为sim这个值域不是很确定或者做一个放缩来保证梯度？</font></p>
+<p> <font color='red'>这个形式上就很像softmax？</font> </p>
 <h2 id="2-论文阅读"><a href="#2-论文阅读" class="headerlink" title="2. 论文阅读"></a>2. 论文阅读</h2><h3 id="2-1-A-Simple-Framework-for-Contrastive-Learning-of-Visual-Representations"><a href="#2-1-A-Simple-Framework-for-Contrastive-Learning-of-Visual-Representations" class="headerlink" title="2.1 A Simple Framework for Contrastive Learning of Visual Representations"></a>2.1 A Simple Framework for Contrastive Learning of Visual Representations</h3><h4 id="2-1-1-abstract"><a href="#2-1-1-abstract" class="headerlink" title="2.1.1 abstract"></a>2.1.1 abstract</h4><p>SimCLR一个用于视觉对比表示学习的简单框架。简化了近期提出的对比自监督学习算法，而不需要专门的架构或存储库。为了了解是什么使得对比预测任务能够学习有用的表示，系统的研究了框架的组成部分：</p>
 <p>1）数据增强的composition在定义有效的预测任务中起到关键作用；</p>
 <p>2）在【表示】和【对比损失】之间引入【可学习的非线性变换】大大提高了学习表示的质量；</p>
@@ -358,9 +358,9 @@
 <p>3）奠定的结构，已经成为其他对比学习模型的标准构成部分；</p>
 <h5 id="如何构造正负例"><a href="#如何构造正负例" class="headerlink" title="如何构造正负例"></a>如何构造正负例</h5><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220705235252477.png" srcset="/img/loading.gif" lazyload alt="image-20220705235252477"></p>
 <p>对于某张图片，从可能的增强操作集合T中，随机抽取 t1<del>T 与 t2</del>T 两种，将其作用在原始图像上，形成 $ &lt;x_1, x_2&gt; $，两者互为正例，训练时Batch内任意其他的图像，都可以作为x1或者x2的负例</p>
-<p><font color="red">这个batch上是怎么个训练方法，用来测试的数据集上是什么数据？如果这样batch的话，只有两个正例，而负例可能有很多，会不会涉及到一些样本类别不均衡的问题？</font> </p>
-<p>对比表示学习希望学习到某个表示模型，能够将图片映射到某个投影空间<font color="red">（这里指的是一种embedding或者representation表示？）</font> ，并在这个空间内拉近正例的距离，推远负例的距离。也就是说，迫使表示模型能够忽略表面因素，学习图像内在的一致结构信息，即学会某些类型的不变性（遮挡不变性、旋转不变性、颜色不变性等）；；；SimCLR给出的图像增强方法难度提升，十分有效</p>
-<p><font color="blue">在原始数据上的数据增强，后续可能有一些方法在数据表征层面做的一些数据增强</font> </p>
+<p><font color='red'>这个batch上是怎么个训练方法，用来测试的数据集上是什么数据？如果这样batch的话，只有两个正例，而负例可能有很多，会不会涉及到一些样本类别不均衡的问题？</font> </p>
+<p>对比表示学习希望学习到某个表示模型，能够将图片映射到某个投影空间<font color='red'>（这里指的是一种embedding或者representation表示？）</font> ，并在这个空间内拉近正例的距离，推远负例的距离。也就是说，迫使表示模型能够忽略表面因素，学习图像内在的一致结构信息，即学会某些类型的不变性（遮挡不变性、旋转不变性、颜色不变性等）；；；SimCLR给出的图像增强方法难度提升，十分有效</p>
+<p><font color='blue'>在原始数据上的数据增强，后续可能有一些方法在数据表征层面做的一些数据增强</font> </p>
 <h5 id="构造表示学习系统"><a href="#构造表示学习系统" class="headerlink" title="构造表示学习系统"></a>构造表示学习系统</h5><p>指导原则：通过这个系统，将训练数据投影到某个表示空间内，采取某种方式使得正例距离比较近，负例距离比较远；</p>
 <p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220706000430506.png" srcset="/img/loading.gif" lazyload alt="image-20220706000430506"></p>
 <p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220705235035619.png" srcset="/img/loading.gif" lazyload alt="image-20220705235035619"></p>
@@ -368,14 +368,14 @@
 <p>对于batchsize为N的一个集合，对于每个元素，执行aug1和aug2，并分别过两次f和g得到h和z的representation</p>
 <p>这样有aug1集合有N张，aug2集合有N张，两者相对应的，比如1和2是一个源数据得到的两种增强（3和4是下一个源数据得到的两种增强），这样的话除去这两张图片，剩下的2N-2是负样本；；在这2N样本中两两计算相似度，以备损失函数度量过程中使用；；；在损失函数度量上，使用的好像就是上文提到的L_infoNCE，在正样本对之间进行度量，假设1作为anchor的时候，就是1和2这个sim 比上 1和2N（除了自己）的sim这样的；；；交换anchor后，得到两种加在一起的；；；</p>
 <p>为什么用z来进行sim度量，好像是一种经验性的做法，然后h是得到的representation，经过这样的Contrastive Learning后，得到f用于表征</p>
-<p><font color="red">作者给了很大的batch size，那么这种感觉会不会让这个类似的softmax的式子有某种变化？比如说更加难以优化，但是泛化性更强？</font> </p>
-<p><font color="blue">原始方法提出的效果只有在大batch_size的时候效果才好；；BERT就是一个典型的自监督方式，通过预训练得到的一个模型；；；大部分把自监督看做无监督，或者说虽然不需要人工标注数据，其实是自己给自己构建了label自动化的方法；</font> </p>
+<p><font color='red'>作者给了很大的batch size，那么这种感觉会不会让这个类似的softmax的式子有某种变化？比如说更加难以优化，但是泛化性更强？</font> </p>
+<p><font color='blue'>原始方法提出的效果只有在大batch_size的时候效果才好；；BERT就是一个典型的自监督方式，通过预训练得到的一个模型；；；大部分把自监督看做无监督，或者说虽然不需要人工标注数据，其实是自己给自己构建了label自动化的方法；</font> </p>
 <h1 id="2022-7-12-补充这里loss的一些细节：https-www-jianshu-com-p-c33a79603f43"><a href="#2022-7-12-补充这里loss的一些细节：https-www-jianshu-com-p-c33a79603f43" class="headerlink" title="2022.7.12_补充这里loss的一些细节：https://www.jianshu.com/p/c33a79603f43"></a>2022.7.12_补充这里loss的一些细节：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c33a79603f43">https://www.jianshu.com/p/c33a79603f43</a></h1><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220706012230880.png" srcset="/img/loading.gif" lazyload alt="image-20220706012230880"></p>
 <p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220706010205402.png" srcset="/img/loading.gif" lazyload alt="image-20220706010205402"></p>
-<p><font color="blue">向量层面的数据增强，representation，近三年（2020）的ACL EMNLP，找几个引用比较多的，现在主要是用作表征的，先看通用一些的；；；看BERT&#x2F;Transformer的实现-形成一个，代码层面定位到训练参数；；；；BERT&#x2F;Transformer的论文仔细读一下，Attention is all you need，positional embedding相对绝对？哪些点是有助于模型这些效果</font> </p>
+<p><font color='blue'>向量层面的数据增强，representation，近三年（2020）的ACL EMNLP，找几个引用比较多的，现在主要是用作表征的，先看通用一些的；；；看BERT&#x2F;Transformer的实现-形成一个，代码层面定位到训练参数；；；；BERT&#x2F;Transformer的论文仔细读一下，Attention is all you need，positional embedding相对绝对？哪些点是有助于模型这些效果</font> </p>
 <p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220706164929885.png" srcset="/img/loading.gif" lazyload alt="image-20220706164929885"></p>
 <p>d_model 是什么然后根号下</p>
-<p><font color="blue">到8月写实习生考勤表的时候，细化到每周做了什么，</font> </p>
+<p><font color='blue'>到8月写实习生考勤表的时候，细化到每周做了什么，</font> </p>
 
                 
               </div>

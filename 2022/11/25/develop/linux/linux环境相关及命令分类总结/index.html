@@ -1,0 +1,799 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="linux环境相关及命令分类总结1. linux环境相关1.1 环境变量（软链接）全局的环境变量路径在&#x2F;etc&#x2F;profile这个文件 对于每个用户的环境变量，在~&#x2F;.bashrc这个文件 在修改环境变量后，需要使用source命令，使修改后的文件立即生效 如将python3使用用户进行安装，安装在&#x2F;home&#x2F;bupt_114&#x2F;lyx_python3这个目录下，那么可以把环境变量设置成： 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux环境相关及命令分类总结">
+<meta property="og:url" content="http://example.com/2022/11/25/develop/linux/linux%E7%8E%AF%E5%A2%83%E7%9B%B8%E5%85%B3%E5%8F%8A%E5%91%BD%E4%BB%A4%E5%88%86%E7%B1%BB%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="linux环境相关及命令分类总结1. linux环境相关1.1 环境变量（软链接）全局的环境变量路径在&#x2F;etc&#x2F;profile这个文件 对于每个用户的环境变量，在~&#x2F;.bashrc这个文件 在修改环境变量后，需要使用source命令，使修改后的文件立即生效 如将python3使用用户进行安装，安装在&#x2F;home&#x2F;bupt_114&#x2F;lyx_python3这个目录下，那么可以把环境变量设置成： 1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-24T16:38:55.000Z">
+<meta property="article:modified_time" content="2022-11-28T06:44:50.104Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>linux环境相关及命令分类总结 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Curious;的个人划水博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="linux环境相关及命令分类总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-25 00:38" pubdate>
+          2022年11月25日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          52 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">linux环境相关及命令分类总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <span id="more"></span>
+
+
+<h1 id="linux环境相关及命令分类总结"><a href="#linux环境相关及命令分类总结" class="headerlink" title="linux环境相关及命令分类总结"></a>linux环境相关及命令分类总结</h1><h2 id="1-linux环境相关"><a href="#1-linux环境相关" class="headerlink" title="1. linux环境相关"></a>1. linux环境相关</h2><h3 id="1-1-环境变量（软链接）"><a href="#1-1-环境变量（软链接）" class="headerlink" title="1.1 环境变量（软链接）"></a>1.1 环境变量（软链接）</h3><p>全局的环境变量路径在<code>/etc/profile</code>这个文件</p>
+<p>对于每个用户的环境变量，在<code>~/.bashrc</code>这个文件</p>
+<p>在修改环境变量后，需要使用<code>source</code>命令，使修改后的文件立即生效</p>
+<p>如将python3使用用户进行安装，安装在<code>/home/bupt_114/lyx_python3</code>这个目录下，那么可以把环境变量设置成：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">export PATH=$PATH:/home/bupt_114/lyx_python3/bin<br>export PATH=$PATH:/home/bupt_114/lyx_python3/lib<br></code></pre></td></tr></table></figure>
+
+<p>此外，软链接（符号链接）也是一种方式，而且似乎是更合理的方式<font color='red'>但是还不知道针对非root用户的软链接链接到哪，如果是root的话，应该是软连接到&#x2F;usr&#x2F;bin&#x2F;这个地方</font> </p>
+<h2 id="2-Linux命令总结"><a href="#2-Linux命令总结" class="headerlink" title="2. Linux命令总结"></a>2. Linux命令总结</h2><h3 id="2-1-基础命令"><a href="#2-1-基础命令" class="headerlink" title="2.1 基础命令"></a>2.1 基础命令</h3><ul>
+<li><p><code>pwd</code>：查看当前路径</p>
+</li>
+<li><p><code>ls</code>：查看目录下的文件</p>
+<ul>
+<li><code>ls -l/ll</code>：以长格式的形式查看当前目录下所有可见文件的详细属性</li>
+</ul>
+</li>
+<li><p><code>cp</code>：拷贝文件，<code>cp [-r] source_file dst_file</code></p>
+</li>
+<li><p><code>mv</code>：移动文件（同时可以起到重命名的作用），<code>mv source_file dst_file</code></p>
+</li>
+<li><p><code>rm -rf</code>：删除文件，注意这里删除了文件就找不回来了</p>
+</li>
+</ul>
+<h3 id="2-2-服务器间文件传输——scp-r-NAME-IP-PATH"><a href="#2-2-服务器间文件传输——scp-r-NAME-IP-PATH" class="headerlink" title="2.2 服务器间文件传输——scp -r [NAME]@[IP]:[PATH] "></a>2.2 服务器间文件传输——<code>scp -r [NAME]@[IP]:[PATH] </code></h3><p>示例：<code>scp -r bupt_114@10.109.246.188:/home/bupt_114/</code></p>
+<h3 id="2-3-权限相关（文件-x2F-用户）"><a href="#2-3-权限相关（文件-x2F-用户）" class="headerlink" title="2.3 权限相关（文件&#x2F;用户）"></a>2.3 权限相关（文件&#x2F;用户）</h3><h4 id="2-3-1-修改单个文件的用户权限——chown-USER-USER-FILE"><a href="#2-3-1-修改单个文件的用户权限——chown-USER-USER-FILE" class="headerlink" title="2.3.1 修改单个文件的用户权限——chown [USER]:[USER] [FILE]"></a>2.3.1 修改单个文件的用户权限——<code>chown [USER]:[USER] [FILE]</code></h4><p>示例：<code>chown bupt_114:bupt_114 test.txt</code></p>
+<p>常用场景：在服务器之间传输文件的时候，可能习惯首先传到root目录下，或者是root用户和其他用户的文件传输，</p>
+<h4 id="2-3-2-修改读写权限——chmod-R-MODE-NUM-FILE-DIR"><a href="#2-3-2-修改读写权限——chmod-R-MODE-NUM-FILE-DIR" class="headerlink" title="2.3.2 修改读写权限——chmod -R [MODE_NUM] [FILE/DIR]"></a>2.3.2 修改读写权限——<code>chmod -R [MODE_NUM] [FILE/DIR]</code></h4><p>示例：<code>chmod -R 777 test/</code></p>
+<p>-R：处理指定目录以及其子目录下的所有文件</p>
+<p>777：可读、可写、可执行</p>
+<h4 id="2-3-3-查看当前用户——whoami-id-un-who-H"><a href="#2-3-3-查看当前用户——whoami-id-un-who-H" class="headerlink" title="2.3.3 查看当前用户——whoami/id -un/who -H"></a>2.3.3 查看当前用户——<code>whoami/id -un/who -H</code></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">(base) lyx@h9:~$ whoami<br>lyx<br><br>(base) lyx@h9:~$ id -un<br>lyx<br><br>(base) lyx@h9:~$ who -H  # 查看当前登陆的所有用户<br>名称   线路       时间           备注<br>lyx      pts/12       2022-11-26 11:33 (10.28.232.177)<br>lyx      pts/13       2022-11-26 11:56 (10.28.232.177)<br>lyx      pts/9        2022-11-26 11:33 (10.28.232.177)<br>lyx      pts/17       2022-11-26 11:56 (10.28.232.177)<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-3-4-查看当前用户所属的组——groups-NAME-cat-etc-group"><a href="#2-3-4-查看当前用户所属的组——groups-NAME-cat-etc-group" class="headerlink" title="2.3.4 查看当前用户所属的组——groups [NAME]|||cat /etc/group"></a>2.3.4 查看当前用户所属的组——<code>groups [NAME]|||cat /etc/group</code></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">(base) lyx@h9:~$ groups lyx<br>lyx : sudoer docker<br></code></pre></td></tr></table></figure>
+
+<p>在linux中，每个用户都有一个用户组，用户组其实就是一组用户的集合，这些用户共享着所在用户组中的一些资源和权限，但是各自又拥有各自的私有资源</p>
+<p>这就和家庭一样，你的兄弟姐妹（不同的用户）属于同一个家庭（用户组）。你们共同享有这个家庭（共享资源），无论是谁有困难父母都会帮助你们（共享权限），但是你私有的，比如日记（私有资源），未经你允许其他人是无权查看的（私有权限）。</p>
+<p>一个用户是可以属于多个用户组的，就好像既属于家庭，又属于学校一样</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">(base) lyx@h9:~$ cat /etc/group<br>...<br>sudoer:x:1001:<br>zkh:x:1002:<br>yxy:x:1003:<br>lyx:x:1004:<br>docker:x:998:lyx<br>...<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-3-5-将普通用户添加到sudoers管理员组（sudo相关）"><a href="#2-3-5-将普通用户添加到sudoers管理员组（sudo相关）" class="headerlink" title="2.3.5 将普通用户添加到sudoers管理员组（sudo相关）"></a>2.3.5 将普通用户添加到sudoers管理员组（sudo相关）</h4><p>使用root用户进行visudo（一种方式）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">[root@svr6 /]# visudo <br><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-comment"># Allow root to run any commands anywhere</span></span> <br>root ALL=(ALL) ALL <br>bupt_114 ALL=(ALL) ALL<br></code></pre></td></tr></table></figure>
+
+<p>另外一种方式，通过passwd那边的路径</p>
+<blockquote>
+<p><strong>注册名：口令：用户标识号：组标识号：用户名：用户主目录：命令解释程序</strong> </p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~$ cat /etc/passwd<br>lyx:x:1003:1001:,,,:/home/lyx:/bin/bash<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改为下面这样</span><br>bupt@h9:~$ sudo vim /etc/passwd<br>lyx:x:1003:1003:,,,:/home/lyx:/bin/bash<br></code></pre></td></tr></table></figure>
+
+<p>再次登录lyx用户， 发现sudoers权限被取消了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">(base) lyx@h9:~$ sudo ls<br>[sudo] lyx 的密码： <br>lyx 不在 sudoers 文件中。此事将被报告。<br></code></pre></td></tr></table></figure>
+
+<p>要检查用户的sudo访问权限，请运行以下命令:</p>
+<p>假设用户名为lyx</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">具有sudo权限时候</span><br>(base) lyx@h9:~$ sudo -l -U lyx<br>匹配 %2$s 上 %1$s 的默认条目：<br>    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin<br><br>用户 lyx 可以在 h9 上运行以下命令：<br>    (ALL) ALL<br>(base) lyx@h9:~$<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">不具有sudo权限的时候</span><br>bupt@h9:~$ sudo -l -U lyx<br>用户 lyx 无权在 h9 上运行 sudo。<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-3-6-一次用户权限配置的解决"><a href="#2-3-6-一次用户权限配置的解决" class="headerlink" title="2.3.6 一次用户权限配置的解决"></a>2.3.6 一次用户权限配置的解决</h4><p>背景是lyx用户具有sudo权限，但是不在sudoers文件中。并且使用<code>groups lyx</code>查看，lyx用户属于sudoer和docker组中</p>
+<p>解决，主要依靠的是<code>/etc/sudoers</code>、<code>/etc/passwd</code>、<code>/etc/groups</code>这几个文件</p>
+<p>1）查看<code>/etc/passwd</code>文件，这里发现lyx用户的组标识号是1001，而实际上不应该是这样的，1001代表就加进root那边的组里了，修改成1003，代表还原回自己的这个组来：</p>
+<blockquote>
+<p><strong>注册名：口令：用户标识号：组标识号：用户名：用户主目录：命令解释程序</strong> </p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~$ cat /etc/passwd<br>lyx:x:1003:1001:,,,:/home/lyx:/bin/bash<br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改为下面这样</span><br>bupt@h9:~$ sudo vim /etc/passwd<br>lyx:x:1003:1003:,,,:/home/lyx:/bin/bash<br></code></pre></td></tr></table></figure>
+
+<p>2）修改1003后，再次groups查看，发现此时被归为其他用户的组里了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">(base) lyx@h9:~$ groups lyx<br>lyx : yxy docker<br></code></pre></td></tr></table></figure>
+
+<p>查看<code>/etc/group</code>文件，发现这里对应的组标识号还是有对不上的情况，每个人没有对应到自己的用户组号上的感觉（不知道在安装的时候，这块是咋搞的）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">yxy:x:1003:<br>lyx:x:1004:<br></code></pre></td></tr></table></figure>
+
+<p>3）这里把passwd那边和group这边的都修改成一个自己定义的2003（需要使用root用户）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">passwd</span><br>bupt@h9:~$ sudo vim /etc/passwd<br>lyx:x:2003:2003:,,,:/home/lyx:/bin/bash<br><br>bupt@h9:~$ sudo vim /etc/group<br>lyx:x:2003:<br></code></pre></td></tr></table></figure>
+
+<p>再次groups查看，发现可以，并且失去了root权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">(base) lyx@h9:~$ groups lyx<br>lyx : lyx docker<br><br>(base) lyx@h9:~$ sudo ls<br>[sudo] lyx 的密码： <br>lyx 不在 sudoers 文件中。此事将被报告。<br>(base) lyx@h9:~$ <br></code></pre></td></tr></table></figure>
+
+<h4 id="2-3-7-添加-x2F-删除用户——sudo-userdel-NAME-sudo-useradd-NAME"><a href="#2-3-7-添加-x2F-删除用户——sudo-userdel-NAME-sudo-useradd-NAME" class="headerlink" title="2.3.7 添加&#x2F;删除用户——sudo userdel [NAME]/sudo useradd [NAME]"></a>2.3.7 添加&#x2F;删除用户——<code>sudo userdel [NAME]/sudo useradd [NAME]</code></h4><ul>
+<li>通过这样的useradd命令，进行用户添加，会自动在<code>/home/</code>目录下创建属于这个用户的一个目录</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo useradd [NAME]<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>userdel命令会删除用户（但好像这个用户的文件夹不会被已删除）</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs shell">```<br><br><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-comment">## 2.4 进程查看相关</span></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-comment">### 2.4.1 通过进程id/程序名称查看——`ps [-ef/-aux] | grep [ID/NAME]`</span></span><br><br>示例，查看包含有python的进程：`ps -ef | grep python`<br><br>```shell<br>(base) lyx@h9:~$ ps -ef | grep python<br>root        1113       1  0 10月11 ?      00:00:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers<br>root        1231       1  0 10月11 ?      00:00:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal<br>yxy        86552   86537  0 11月04 ?      00:11:07 python /home/yxy/.vscode-server/extensions/ms-python.python-2022.18.0/pythonFiles/get_output_via_markers.py /home/yxy/.vscode-server/extensions/ms-python.python-2022.18.0/pythonFiles/tensorboard_launcher.py /data/sdb1/yxy/event_extraction/exp/2022-11-04/FewFC_paie_bartLarge_20221104161231/tensorboard<br>...<br></code></pre></td></tr></table></figure>
+
+<p>示例，通过进程号查看进程：<code>ps -ef | grep 86552</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">(base) lyx@h9:~$ ps -ef | grep 86552<br>yxy        86552   86537  0 11月04 ?      00:11:07 python /home/yxy/.vscode-server/extensions/ms-python.python-2022.18.0/pythonFiles/get_output_via_markers.py /home/yxy/.vscode-server/extensions/ms-python.python-2022.18.0/pythonFiles/tensorboard_launcher.py /data/sdb1/yxy/event_extraction/exp/2022-11-04/FewFC_paie_bartLarge_20221104161231/tensorboard<br>yxy        86636   86552  0 11月04 ?      02:12:53 /data/sdb1/yxy/miniconda3/envs/torch/lib/python3.8/site-packages/tensorboard_data_server/bin/server --logdir=/data/sdb1/yxy/event_extraction/exp/2022-11-04/FewFC_paie_bartLarge_20221104161231/tensorboard --reload=5 --samples-per-plugin= --port=0 --port-file=/tmp/tensorboard_data_server_ho53fawj/port --die-after-stdin --error-file=/tmp/tensorboard_data_server_ho53fawj/startup_error<br>yxy        86723   86552  0 11月04 ?      00:00:00 /data/sdb1/yxy/miniconda3/envs/torch/bin/python -c from multiprocessing.resource_tracker import main;main(8)<br>yxy        86730   86552  0 11月04 ?      00:02:08 /data/sdb1/yxy/miniconda3/envs/torch/bin/python -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=9, pipe_handle=14) --multiprocessing-fork<br>lyx      3069868 3066086  0 14:45 pts/17   00:00:00 grep --color=auto 86552<br></code></pre></td></tr></table></figure>
+
+<p>示例，使用<code>-aux</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">(base) lyx@h9:~$ ps -aux | grep python<br>root        1113  0.0  0.0  42764  7368 ?        Ss   10月11   0:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers<br>root        1231  0.0  0.0 121216  4280 ?        Ssl  10月11   0:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal<br>yxy        86552  0.0  0.0 2347560 89332 ?       Sl   11月04  11:09 python /home/yxy/.vscode-server/extensions/ms-python.python-2022.18.0/pythonFiles/get_output_via_markers.py /home/yxy/.vscode-server/extensions/ms-python.python-2022.18.0/pythonFiles/tensorboard_launcher.py /data/sdb1/yxy/event_extraction/exp/2022-11-04/FewFC_paie_bartLarge_20221104161231/tensorboard<br></code></pre></td></tr></table></figure>
+
+<p><code>-ef</code>与<code>-aux</code>的参数解释：</p>
+<ul>
+<li><p><code>-e</code>列出全部的进程；<code>-f</code>显示全部的列（UID，PID，PPID，StartTime，Time，CMD）</p>
+</li>
+<li><p><code>-aux</code></p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell">USER PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND<br>USER: 行程拥有者<br>PID: pid<br><span class="hljs-meta prompt_">%</span><span class="language-bash">CPU: 占用的 CPU 使用率</span><br><span class="hljs-meta prompt_">%</span><span class="language-bash">MEM: 占用的记忆体使用率</span><br>VSZ: 占用的虚拟记忆体大小<br>RSS: 占用的记忆体大小<br>TTY: 终端的次要装置号码 (minor device number of tty)<br>STAT: 该行程的状态<br>	linux的进程有5种状态：<br>		D 不可中断 uninterruptible sleep (usually IO)<br>		R 运行 runnable (on run queue)<br>		S 中断 sleeping<br>		T 停止 traced or stopped<br>		Z 僵死 a defunct (”zombie”) process<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-4-2-top命令"><a href="#2-4-2-top命令" class="headerlink" title="2.4.2 top命令"></a>2.4.2 top命令</h4>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/linux/" class="category-chain-item">linux</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/linux/">#linux</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>linux环境相关及命令分类总结</div>
+      <div>http://example.com/2022/11/25/develop/linux/linux环境相关及命令分类总结/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/11/25/develop/nginx/nginx%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/" title="nginx离线安装">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">nginx离线安装</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/23/develop/redis/redis%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/" title="redis线程模型">
+                        <span class="hidden-mobile">redis线程模型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
