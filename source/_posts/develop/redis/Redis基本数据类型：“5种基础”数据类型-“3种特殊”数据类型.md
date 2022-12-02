@@ -5,6 +5,7 @@ tags:
     - redis
 categories:
 	- develop
+   - redis
 ---
 
 该篇博客介绍redis的基本数据类型，以及基础类型的背后实现原理（底层）

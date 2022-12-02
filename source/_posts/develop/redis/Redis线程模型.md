@@ -5,6 +5,7 @@ tags:
     - redis
 categories:
 	- develop
+    - redis
 ---
 
 # redis线程模型
