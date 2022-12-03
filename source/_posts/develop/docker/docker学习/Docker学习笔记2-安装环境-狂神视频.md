@@ -6,6 +6,7 @@ tags:
 categories:
 	- develop
 	- docker
+	- docker学习
 ---
 
 本篇博客记录根据狂神视频学习的Docker安装过程和一些安装后的基本配置

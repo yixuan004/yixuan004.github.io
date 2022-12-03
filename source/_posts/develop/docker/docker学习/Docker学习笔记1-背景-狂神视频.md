@@ -6,6 +6,7 @@ tags:
 categories:
 	- develop
 	- docker
+	- docker学习
 ---
 
 在未来的项目部署中一定还会用到Docker，k8s等，该篇博客主要记录学习Docker的过程

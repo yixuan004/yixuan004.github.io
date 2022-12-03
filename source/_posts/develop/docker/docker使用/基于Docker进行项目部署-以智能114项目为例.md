@@ -6,6 +6,7 @@ tags:
 categories:
 	- develop
 	- docker
+	- docker使用
 ---
 
 背景：该篇博客记录使用docker进行项目部署的例子，介绍了Dockerfile以及一些常用的docker命令、一些遇到问题的QA等

@@ -6,6 +6,7 @@ tags:
 categories:
 	- develop
 	- docker
+	- docker使用
 ---
 
 背景：很多场景下我们需要对服务进行离线部署

@@ -6,6 +6,7 @@ tags:
 categories:
   - develop
   - docker
+  - docker学习
 ---
 
 Docker的常用命令，主要分为镜像和容器两个部分，也是Docker学习的基础
