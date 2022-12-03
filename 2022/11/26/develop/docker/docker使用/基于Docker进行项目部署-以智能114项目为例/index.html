@@ -1,0 +1,804 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="背景：该篇博客记录使用docker进行项目部署的例子，介绍了Dockerfile以及一些常用的docker命令、一些遇到问题的QA等 主要涉及uWSGI+Django、NGINX、Redis这几个服务的Dockerfile以及build、run运行方式 未来将在这个博客中补充MySQL与ElasticSearch的镜像制作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Docker进行项目部署-以智能114项目为例">
+<meta property="og:url" content="http://example.com/2022/11/26/develop/docker/docker%E4%BD%BF%E7%94%A8/%E5%9F%BA%E4%BA%8EDocker%E8%BF%9B%E8%A1%8C%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2-%E4%BB%A5%E6%99%BA%E8%83%BD114%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="背景：该篇博客记录使用docker进行项目部署的例子，介绍了Dockerfile以及一些常用的docker命令、一些遇到问题的QA等 主要涉及uWSGI+Django、NGINX、Redis这几个服务的Dockerfile以及build、run运行方式 未来将在这个博客中补充MySQL与ElasticSearch的镜像制作">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-26T08:22:17.000Z">
+<meta property="article:modified_time" content="2022-12-02T06:32:27.650Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>基于Docker进行项目部署-以智能114项目为例 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Curious;的个人划水博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="基于Docker进行项目部署-以智能114项目为例"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-26 16:22" pubdate>
+          2022年11月26日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          103 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">基于Docker进行项目部署-以智能114项目为例</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>背景：该篇博客记录使用docker进行项目部署的例子，介绍了Dockerfile以及一些常用的docker命令、一些遇到问题的QA等</p>
+<p>主要涉及<code>uWSGI+Django</code>、<code>NGINX</code>、<code>Redis</code>这几个服务的Dockerfile以及build、run运行方式</p>
+<p>未来将在这个博客中补充<code>MySQL</code>与<code>ElasticSearch</code>的镜像制作</p>
+<span id="more"></span>
+
+<h1 id="基于Docker进行项目部署-以智能114项目为例"><a href="#基于Docker进行项目部署-以智能114项目为例" class="headerlink" title="基于Docker进行项目部署-以智能114项目为例"></a>基于Docker进行项目部署-以智能114项目为例</h1><h2 id="1-docker简介-amp-操作过程中的QA"><a href="#1-docker简介-amp-操作过程中的QA" class="headerlink" title="1. docker简介&amp;操作过程中的QA"></a>1. docker简介&amp;操作过程中的QA</h2><h3 id="1-1-常见问题——制作docker镜像启动后立刻退出"><a href="#1-1-常见问题——制作docker镜像启动后立刻退出" class="headerlink" title="1.1 常见问题——制作docker镜像启动后立刻退出"></a>1.1 常见问题——制作docker镜像启动后立刻退出</h3><p>该问题的原因一般是因为程序是以后台方式进行挂载的，而docker的镜像中要保持有前台运行的程序，才能以<code>run -d</code>的后台方式启动</p>
+<h4 id="1-1-1-uWSGI-Django"><a href="#1-1-1-uWSGI-Django" class="headerlink" title="1.1.1 uWSGI+Django"></a>1.1.1 uWSGI+Django</h4><p>uWSGI的配置文件<code>uwsgi.ini</code>中可能设置了<code>daemonize</code>参数，该参数的作用是将日志文件输出到指定的路径中，如<code>daemonize = /home/lyx/_114/zfx-114-query-system/_114django/wsgi_logs/wsgi.log</code>，然而如果加入了该参数的方式启动，就会出现上述说明的问题，一般来说注释掉这个参数就可以；</p>
+<h4 id="1-1-2-NGINX"><a href="#1-1-2-NGINX" class="headerlink" title="1.1.2 NGINX"></a>1.1.2 NGINX</h4><p>nginx启动后立即退出也是一样的问题，但是nginx的问题不在配置文件中，要改一下Dockerfile中的CMD内容，改成下面这种方式取消daemon就可以了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-1-3-Redis"><a href="#1-1-3-Redis" class="headerlink" title="1.1.3 Redis"></a>1.1.3 Redis</h4><p>redis在普通的启动方式中，为了避免退出ssh链接就用不了了，需要把配置文件中的<code>daemonize</code>参数换成<code>yes</code>，而如果使用docker的方式启动，那么为了避免他直接去后台运行了，还要把这个参数改回<code>no</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">daemonize no<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-2-常见问题——docker内部的ip访问问题"><a href="#1-2-常见问题——docker内部的ip访问问题" class="headerlink" title="1.2 常见问题——docker内部的ip访问问题"></a>1.2 常见问题——docker内部的ip访问问题</h3><p>个人理解，在使用docker进行环境搭建的时候，尽量避免使用<code>localhost</code>、<code>0.0.0.0</code>、<code>127.0.0.1</code>这样的ip，而是改用绝对ip的方式，直接写上主机地址，比如<code>10.109.246.1xx</code>这样的方式，各个依赖环境之间通过这个ip+端口的方式来通信；</p>
+<h2 id="2-Dockerfile的说明"><a href="#2-Dockerfile的说明" class="headerlink" title="2. Dockerfile的说明"></a>2. Dockerfile的说明</h2><p>在执行<code>docker build</code>命令的时候，会自动读取指定目录下存在的Dockerfile文件，按照Dockerfile文件中的内容进行build，内部分为几个步骤，将在下面的操作过程中进行学习，下面简述一下Dockerfile的几个组成部分，以及一般编写流程</p>
+<h3 id="2-1-Dockerfile组成部分"><a href="#2-1-Dockerfile组成部分" class="headerlink" title="2.1 Dockerfile组成部分"></a>2.1 Dockerfile组成部分</h3><p>大概顺序解释一下下面这个文件中的内容：</p>
+<ul>
+<li><p><code>FROM python:3.6</code>：在一个官方python3.6的基础上进行docker的构建；</p>
+</li>
+<li><p><code>MAINTAINER LiuYixuan</code>：该镜像的开发者是我；</p>
+</li>
+<li><p><code>ADD ./ /home/lyx/_114/zfx-114-query-system</code>：个人的感觉上来说，是本地路径是<code>./</code>也就是dockerfile所在的这个路径，在执行<code>docker build</code>的时候，要从这个目录操作。然后后面一个路径是docker内部的一个路径，这个感觉来说和外面没有绝对的对应关系，但是为了项目路径的统一，这里写的还是前缀比较长的<code>/home/lyx/_114/zfx-114-query-system</code>；</p>
+</li>
+<li><p><code>WORKDIR</code>：这个路径似乎会是在docker run起来后执行的路径；</p>
+</li>
+<li><p><code>ENV</code>：添加到环境变量中的内容，如Java-jdk的一些环境变量；</p>
+</li>
+<li><p><code>RUN ...</code>：安装项目的各项内容，中间通过 <code>&amp;&amp; \</code>来对各行做一个连接，来避免镜像层数过多体积增加；</p>
+</li>
+<li><p><code>EXPOSE</code>：暴露端口，外部可以访问内部的什么端口；</p>
+</li>
+<li><p><code>CMD</code>：docker run的时候自动执行什么，如果是写一个<code>CMD [&quot;/bin/bash&quot;] </code>就可以卡在bash来运行；</p>
+</li>
+</ul>
+<h3 id="2-2-个人编写过程中的Dockerfile编写流程"><a href="#2-2-个人编写过程中的Dockerfile编写流程" class="headerlink" title="2.2 个人编写过程中的Dockerfile编写流程"></a>2.2 个人编写过程中的Dockerfile编写流程</h3><p>主要是说<code>RUN</code>那个步骤的流程，一般来说要先更新apt的镜像源，然后安装<code>vim/unzip/tar</code>等：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">更新apt的镜像源，并安装</span><br>sed -i s@/deb.debian.org/@/mirrors.aliyun.com/@g /etc/apt/sources.list &amp;&amp; \<br>apt-get clean &amp;&amp; \<br>apt-get update &amp;&amp; \<br>apt-get install vim -y &amp;&amp; \<br>apt-get install unzip &amp;&amp; \<br>apt-get install tar &amp;&amp; \<br>apt-get install procps -y &amp;&amp; \<br></code></pre></td></tr></table></figure>
+
+<p>然后再安装一下java jdk那些的，这里还添加了环境变量，要加在RUN操作的上面</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">ENV JAVA_HOME=/usr/local/java/jdk1.8.0_351<br>ENV JRE_HOME=$JAVA_HOME/jre<br>ENV CLASSPATH=.:$JAVA_HOME/lib:$&#123;JRE_HOME&#125;/lib<br>ENV PATH=$JAVA_HOME/bin:$PATH<br><br>RUN \<br>...<br><span class="hljs-meta prompt_"># </span><span class="language-bash">安装jdk8，将JAVA_HOME/bin 添加至PATH环境变量</span><br>mkdir /usr/local/java/ &amp;&amp; \<br>tar -xvf /home/lyx/_114/zfx-114-query-system/packages/jvm/jdk-8u351-linux-x64.tar.gz -C /usr/local/java/<br>...<br></code></pre></td></tr></table></figure>
+
+<p>后续，再进行程序的安装，如<code>requirements.txt</code>的安装；</p>
+<h2 id="3-自己项目部署操作过程中常用的docker命令"><a href="#3-自己项目部署操作过程中常用的docker命令" class="headerlink" title="3. 自己项目部署操作过程中常用的docker命令"></a>3. 自己项目部署操作过程中常用的docker命令</h2><h3 id="3-1-docker-build-t-NAME-TAG"><a href="#3-1-docker-build-t-NAME-TAG" class="headerlink" title="3.1 docker build -t [NAME]:[TAG] ."></a>3.1 <code>docker build -t [NAME]:[TAG] .</code></h3><p>将项目打包为镜像，示例<code>docker build -t 114_uwsgi_django:v1 .</code></p>
+<p><code>-t</code>： 镜像的名字及标签，通常 name:tag 或者 name 格式；可以在一次构建中为一个镜像设置多个标签；</p>
+<p><code>[NAME]:[TAG]</code>：标记名字和版本，例如<code>114_uwsgi_django:v1</code>；</p>
+<p><code>.</code>：在当前这个路径下，读取Dockerfile；</p>
+<h3 id="3-2-docker-images"><a href="#3-2-docker-images" class="headerlink" title="3.2 docker images"></a>3.2 <code>docker images</code></h3><p>查看当前有的docker镜像内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">(base) lyx@h9:~$ docker images<br>REPOSITORY         TAG       IMAGE ID       CREATED         SIZE<br>114_uwsgi_django   v1        f0bc2cd90666   4 hours ago     8.62GB<br>114_nginx          v1        f8b8ed535b64   21 hours ago    198MB<br>114_redis          v1        614e3bc05a87   3 days ago      169MB<br>redis              6.2       48da0c367062   2 weeks ago     113MB<br>redis              latest    3358aea34e8c   2 weeks ago     117MB<br>nginx              latest    88736fe82739   2 weeks ago     142MB<br>python             3.6       54260638d07c   11 months ago   902MB<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-3-docker-rmi-f-IMAGE-ID"><a href="#3-3-docker-rmi-f-IMAGE-ID" class="headerlink" title="3.3 docker rmi -f [IMAGE ID]"></a>3.3 <code>docker rmi -f [IMAGE ID]</code></h3><p>一般配合<code>docker images</code>来使用，来删除一些镜像，如下删除<code>114_uwsgi_django</code>这个镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker rmi -f f0bc2cd90666<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-4-docker-ps"><a href="#3-4-docker-ps" class="headerlink" title="3.4 docker ps"></a>3.4 <code>docker ps</code></h3><p>查看运行中的docker镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">(base) lyx@h9:~$ docker ps<br>CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS        PORTS                                                 NAMES<br>57b17e5e8c21   114_uwsgi_django:v1   &quot;uwsgi --ini ./_114d…&quot;   4 hours ago    Up 4 hours    0.0.0.0:5002-&gt;5002/tcp, :::5002-&gt;5002/tcp             mystifying_blackwell<br>fa1939b0e915   114_nginx:v1          &quot;/docker-entrypoint.…&quot;   21 hours ago   Up 21 hours   80/tcp, 0.0.0.0:8082-&gt;8082/tcp, :::8082-&gt;8082/tcp     agitated_meitner<br>9144e2cd2c7f   114_redis:v1          &quot;docker-entrypoint.s…&quot;   3 days ago     Up 3 days     6379/tcp, 0.0.0.0:6380-&gt;6380/tcp, :::6380-&gt;6380/tcp   optimistic_visvesvaraya<br></code></pre></td></tr></table></figure>
+
+<p>可以加入<code>-a</code>参数，查看处在不运行状态的镜像</p>
+<p><font color='red'>这里看起来有彩蛋hh，不指定名字的话，像是会随机一个名字一样</font> </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">(base) lyx@h9:~$ docker ps -a<br>CONTAINER ID   IMAGE                 COMMAND                  CREATED        STATUS                      PORTS                                                 NAMES<br>57b17e5e8c21   114_uwsgi_django:v1   &quot;uwsgi --ini ./_114d…&quot;   4 hours ago    Up 4 hours                  0.0.0.0:5002-&gt;5002/tcp, :::5002-&gt;5002/tcp             mystifying_blackwell<br>4e3093d46a86   3fedf6bfe88b          &quot;uwsgi --ini ./_114d…&quot;   4 hours ago    Exited (137) 4 hours ago                                                          laughing_proskuriakova<br>350b34c97216   0022c7522caf          &quot;uwsgi --ini ./_114d…&quot;   5 hours ago    Exited (137) 4 hours ago                                                          jovial_meninsky<br>c347d9c11265   aa4aae1cd0d9          &quot;uwsgi --ini ./_114d…&quot;   5 hours ago    Exited (137) 5 hours ago                                                          compassionate_solomon<br>5882b99cf01e   90471887ed85          &quot;uwsgi --ini ./_114d…&quot;   20 hours ago   Exited (137) 5 hours ago                                                          hardcore_diffie<br>dd2c38df5a2d   33ee6e4b8a40          &quot;uwsgi --ini ./_114d…&quot;   20 hours ago   Exited (137) 20 hours ago                                                         silly_lamarr<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-5-停止正在运行的镜像——docker-kill-CONTAINER-ID"><a href="#3-5-停止正在运行的镜像——docker-kill-CONTAINER-ID" class="headerlink" title="3.5 停止正在运行的镜像——docker kill [CONTAINER ID]"></a>3.5 停止正在运行的镜像——<code>docker kill [CONTAINER ID]</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker kill 57b17e5e8c21<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-6-批量清除处于Exited状态的容器"><a href="#3-6-批量清除处于Exited状态的容器" class="headerlink" title="3.6 批量清除处于Exited状态的容器"></a>3.6 批量清除处于Exited状态的容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">显示所有的容器，过滤出Exited状态的容器，取出这些容器的ID，</span><br>docker ps -a|grep Exited|awk &#x27;&#123;print $1&#125;&#x27;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">查询所有的容器，过滤出Exited状态的容器，列出容器ID，删除这些容器</span><br>docker rm `docker ps -a|grep Exited|awk &#x27;&#123;print $1&#125;&#x27;`<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-7-docker镜像启动——docker-run-p-port-port-v-out-in-itd-NAME-TAG"><a href="#3-7-docker镜像启动——docker-run-p-port-port-v-out-in-itd-NAME-TAG" class="headerlink" title="3.7 docker镜像启动——docker run [-p port:port] [-v out:in] [-itd NAME:TAG]"></a>3.7 docker镜像启动——<code>docker run [-p port:port] [-v out:in] [-itd NAME:TAG]</code></h3><p>docker启动的时候使用<code>docker run</code>命令，有很多可选参数，也是非常关键的一项内容</p>
+<p>另外备注，这个run一般会有好多行，可以用<code>\</code>来做换行符</p>
+<p>用下面这个114系统的启动为例子</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run \<br>    -p 5002:5002 \<br>    -v /data/sdb2/lyx/mount-files-202211270941/_114config.json:/home/lyx/_114/zfx-114-query-system/_114django/_114config.json \<br>    -v /data/sdb2/lyx/mount-files-202211270941/Configs:/home/lyx/_114/zfx-114-query-system/_114django/Configs \<br>    -v /data/sdb2/lyx/mount-files-202211270941/debug-logs:/home/lyx/_114/zfx-114-query-system/_114django/debug-logs \<br>    -v /data/sdb2/lyx/mount-files-202211270941/logs:/home/lyx/_114/zfx-114-query-system/_114django/logs \<br>    -v /data/sdb2/lyx/mount-files-202211270941/wsgi_logs:/home/lyx/_114/zfx-114-query-system/_114django/wsgi_logs \<br>    -v /data/sdb2/lyx/mount-files-202211270941/stopwords.txt:/usr/local/lib/python3.6/site-packages/pyhanlp/static/data/dictionary/stopwords.txt \<br>    -v /data/sdb2/lyx/mount-files-202211270941/CustomDictionary1.txt:/usr/local/lib/python3.6/site-packages/pyhanlp/static/data/dictionary/custom/CustomDictionary1.txt \<br>    -d 114_uwsgi_django:v1<br></code></pre></td></tr></table></figure>
+
+<h2 id="4-制作uWSGI-Django的镜像并运行"><a href="#4-制作uWSGI-Django的镜像并运行" class="headerlink" title="4. 制作uWSGI+Django的镜像并运行"></a>4. 制作uWSGI+Django的镜像并运行</h2><h3 id="4-1-Dockerfile"><a href="#4-1-Dockerfile" class="headerlink" title="4.1 Dockerfile"></a>4.1 Dockerfile</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> python:<span class="hljs-number">3.6</span><br><br><span class="hljs-keyword">MAINTAINER</span> LiuYixuan<br><br><span class="hljs-keyword">ADD</span><span class="language-bash"> ./ /home/lyx/_114/zfx-114-query-system</span><br><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /home/lyx/_114/zfx-114-query-system</span><br><br><span class="hljs-keyword">ENV</span> JAVA_HOME=/usr/local/java/jdk1.<span class="hljs-number">8.0</span>_351<br><span class="hljs-keyword">ENV</span> JRE_HOME=$JAVA_HOME/jre<br><span class="hljs-keyword">ENV</span> CLASSPATH=.:$JAVA_HOME/lib:$&#123;JRE_HOME&#125;/lib<br><span class="hljs-keyword">ENV</span> PATH=$JAVA_HOME/bin:$PATH<br><br><span class="hljs-comment"># 安装vim和requirements，并配置pyhanlp的数据</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> \</span><br><span class="language-bash">    <span class="hljs-comment"># 更新apt的镜像源，并安装</span></span><br>    sed -i s@/deb.debian.org/@/mirrors.aliyun.com/@g /etc/apt/sources.list &amp;&amp; \<br>    apt-get clean &amp;&amp; \<br>    apt-get update &amp;&amp; \<br>    apt-get install vim -y &amp;&amp; \<br>    apt-get install unzip &amp;&amp; \<br>    apt-get install tar &amp;&amp; \<br>    apt-get install procps -y &amp;&amp; \<br>    <br>    <span class="hljs-comment"># 安装jdk8，将JAVA_HOME/bin 添加至PATH环境变量</span><br>    mkdir /usr/local/java/ &amp;&amp; \<br>    tar -xvf /home/lyx/_114/zfx-<span class="hljs-number">114</span>-query-system/packages/jvm/jdk-<span class="hljs-number">8</span>u351-linux-x64.tar.gz -C /usr/local/java/ &amp;&amp; \<br>    <span class="hljs-comment"># export &quot;JAVA_HOME=/usr/local/java/jdk1.8.0_351&quot; &gt;&gt; ~/.bashrc &amp;&amp; \</span><br>    <span class="hljs-comment"># export &quot;JRE_HOME=$&#123;JAVA_HOME&#125;/jre&quot; &gt;&gt; ~/.bashrc &amp;&amp; \</span><br>    <span class="hljs-comment"># export &quot;CLASSPATH=.:$&#123;JAVA_HOME&#125;/lib:$&#123;JRE_HOME&#125;/lib&quot; &gt;&gt; ~/.bashrc &amp;&amp; \</span><br>    <span class="hljs-comment"># export &quot;PATH=$&#123;JAVA_HOME&#125;/bin:$PATH&quot; &gt;&gt; ~/.bashrc &amp;&amp; \</span><br>    <span class="hljs-comment"># source ~/.bashrc &amp;&amp; \</span><br><br>    <span class="hljs-comment"># requirements</span><br>    pip install /home/lyx/_114/zfx-<span class="hljs-number">114</span>-query-system/packages/pip/pip-<span class="hljs-number">21.1</span>.<span class="hljs-number">2</span>-py3-none-any.whl &amp;&amp; \<br>    pip install /home/lyx/_114/zfx-<span class="hljs-number">114</span>-query-system/packages/base/* --no-deps &amp;&amp; \<br>    pip install -e /home/lyx/_114/zfx-<span class="hljs-number">114</span>-query-system/packages/cpca/chinese_province_city_area_mapper-master/. --no-deps &amp;&amp; \<br>    pip install -e /home/lyx/_114/zfx-<span class="hljs-number">114</span>-query-system/packages/cpca/chinese_province_city_area_mapper/. --no-deps &amp;&amp; \<br>    <br>    <span class="hljs-comment"># hanlp</span><br>    <span class="hljs-comment">## jar</span><br>    cp /home/lyx/_114/zfx-<span class="hljs-number">114</span>-query-system/packages/hanlp/hanlp-<span class="hljs-number">1.8</span>.<span class="hljs-number">1</span>.jar /usr/local/lib/python3.<span class="hljs-number">6</span>/site-packages/pyhanlp/  &amp;&amp; \<br>    cp /home/lyx/_114/zfx-<span class="hljs-number">114</span>-query-system/packages/hanlp/hanlp-<span class="hljs-number">1.8</span>.<span class="hljs-number">1</span>.jar /usr/local/lib/python3.<span class="hljs-number">6</span>/site-packages/pyhanlp/static/ &amp;&amp; \<br>    <span class="hljs-comment">## properties</span><br>    cp /home/lyx/_114/zfx-<span class="hljs-number">114</span>-query-system/packages/hanlp/hanlp.properties /usr/local/lib/python3.<span class="hljs-number">6</span>/site-packages/pyhanlp/static/ &amp;&amp; \<br>    cp /home/lyx/_114/zfx-<span class="hljs-number">114</span>-query-system/packages/hanlp/hanlp.properties.in /usr/local/lib/python3.<span class="hljs-number">6</span>/site-packages/pyhanlp/static/ &amp;&amp; \<br>    <span class="hljs-comment">## data</span><br>    cp -r /home/lyx/_114/zfx-<span class="hljs-number">114</span>-query-system/packages/hanlp/data /usr/local/lib/python3.<span class="hljs-number">6</span>/site-packages/pyhanlp/static/ &amp;&amp; \<br>    <span class="hljs-comment">## custom</span><br>    rm -rf /usr/local/lib/python3.<span class="hljs-number">6</span>/site-packages/pyhanlp/static/data/dictionary/custom &amp;&amp; \<br>    cp -r /home/lyx/_114/zfx-<span class="hljs-number">114</span>-query-system/packages/hanlp/custom /usr/local/lib/python3.<span class="hljs-number">6</span>/site-packages/pyhanlp/static/data/dictionary/ &amp;&amp; \<br>    <br>    <span class="hljs-comment">## stopwords</span><br>    rm -rf /usr/local/lib/python3.<span class="hljs-number">6</span>/site-packages/pyhanlp/static/data/dictionary/stopwords.txt &amp;&amp; \<br>    rm -rf /usr/local/lib/python3.<span class="hljs-number">6</span>/site-packages/pyhanlp/static/data/dictionary/stopwords.txt.bin &amp;&amp; \<br>    cp /home/lyx/_114/zfx-<span class="hljs-number">114</span>-query-system/packages/hanlp/stopwords.txt /usr/local/lib/python3.<span class="hljs-number">6</span>/site-packages/pyhanlp/static/data/dictionary/ &amp;&amp; \<br>    cp /home/lyx/_114/zfx-<span class="hljs-number">114</span>-query-system/packages/hanlp/stopwords.txt.bin /usr/local/lib/python3.<span class="hljs-number">6</span>/site-packages/pyhanlp/static/data/dictionary/ &amp;&amp; \<br>    <span class="hljs-comment">## CustomDictionary1</span><br>    cp /home/lyx/_114/zfx-<span class="hljs-number">114</span>-query-system/packages/hanlp/CustomDictionary1.txt /usr/local/lib/python3.<span class="hljs-number">6</span>/site-packages/pyhanlp/static/data/dictionary/custom/ &amp;&amp; \<br><br>    <span class="hljs-comment"># 把CustomDictionary1.txt和stopwords.txt给软链接挂载出来到Configs（挂载-v可能就不需要这样了）</span><br>    <span class="hljs-comment"># ln -s /usr/local/lib/python3.6/site-packages/pyhanlp/static/data/dictionary/custom/CustomDictionary1.txt /home/lyx/_114/zfx-114-query-system/_114django/Configs/CustomDictionary1.txt &amp;&amp; \</span><br>    <span class="hljs-comment"># ln -s /usr/local/lib/python3.6/site-packages/pyhanlp/static/data/dictionary/stopwords.txt /home/lyx/_114/zfx-114-query-system/_114django/Configs/stopwords.txt &amp;&amp; \</span><br><br>    <span class="hljs-comment"># pwd查看一下</span><br>    pwd<br>    <br><span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">5002</span><br><br><span class="hljs-comment"># runserver启动django</span><br><span class="hljs-comment"># CMD [&quot;python&quot;, &quot;./_114django/manage.py&quot;, &quot;runserver&quot;, &quot;0.0.0.0:4444&quot;]</span><br><br><span class="hljs-comment"># 卡到一个bash来挂载</span><br><span class="hljs-comment"># CMD [&quot;/bin/bash&quot;] </span><br><br><span class="hljs-comment"># uwsgi挂载</span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;uwsgi&quot;</span>, <span class="hljs-string">&quot;--ini&quot;</span>, <span class="hljs-string">&quot;./_114django/uwsgi-online.ini&quot;</span>]</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-2-镜像build-amp-run"><a href="#4-2-镜像build-amp-run" class="headerlink" title="4.2 镜像build&amp;run"></a>4.2 镜像build&amp;run</h3><h4 id="4-2-1-build"><a href="#4-2-1-build" class="headerlink" title="4.2.1 build"></a>4.2.1 build</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker build -t 114_uwsgi_django:v1 .<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-2-2-run"><a href="#4-2-2-run" class="headerlink" title="4.2.2 run"></a>4.2.2 run</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run \<br>    -p 5002:5002 \<br>    -v /data/sdb2/lyx/mount-files-202211270941/_114config.json:/home/lyx/_114/zfx-114-query-system/_114django/_114config.json \<br>    -v /data/sdb2/lyx/mount-files-202211270941/Configs:/home/lyx/_114/zfx-114-query-system/_114django/Configs \<br>    -v /data/sdb2/lyx/mount-files-202211270941/debug-logs:/home/lyx/_114/zfx-114-query-system/_114django/debug-logs \<br>    -v /data/sdb2/lyx/mount-files-202211270941/logs:/home/lyx/_114/zfx-114-query-system/_114django/logs \<br>    -v /data/sdb2/lyx/mount-files-202211270941/wsgi_logs:/home/lyx/_114/zfx-114-query-system/_114django/wsgi_logs \<br>    -v /data/sdb2/lyx/mount-files-202211270941/stopwords.txt:/usr/local/lib/python3.6/site-packages/pyhanlp/static/data/dictionary/stopwords.txt \<br>    -v /data/sdb2/lyx/mount-files-202211270941/CustomDictionary1.txt:/usr/local/lib/python3.6/site-packages/pyhanlp/static/data/dictionary/custom/CustomDictionary1.txt \<br>    -d 114_uwsgi_django:v1<br></code></pre></td></tr></table></figure>
+
+<h2 id="5-制作nginx的镜像"><a href="#5-制作nginx的镜像" class="headerlink" title="5. 制作nginx的镜像"></a>5. 制作nginx的镜像</h2><p>Reference：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43810267/article/details/119883350">https://blog.csdn.net/weixin_43810267/article/details/119883350</a></p>
+<h3 id="5-1-Dockerfile"><a href="#5-1-Dockerfile" class="headerlink" title="5.1 Dockerfile"></a>5.1 Dockerfile</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs shell">FROM nginx:latest<br><br>MAINTAINER LiuYixuan<br><br>ADD ./ /usr/src/nginx<br><br>WORKDIR /usr/src/nginx<br><br>RUN \<br><br>    # 更新apt的镜像源，并安装一些常用依赖（后续可以取消）<br>    sed -i s@/deb.debian.org/@/mirrors.aliyun.com/@g /etc/apt/sources.list &amp;&amp; \<br>    apt-get clean &amp;&amp; \<br>    apt-get update &amp;&amp; \<br>    apt-get install vim -y &amp;&amp; \<br>    apt-get install unzip &amp;&amp; \<br>    apt-get install tar &amp;&amp; \<br>    apt-get install procps -y &amp;&amp; \<br>    <br>    # nginx<br>    cp /usr/src/nginx/nginx.conf /etc/nginx/nginx.conf &amp;&amp; \<br>    mkdir /var/log/nginx/logs &amp;&amp; \<br>    touch /var/log/nginx/logs/access.http.log &amp;&amp; \<br><br>    # 查看<br>    pwd<br><br>EXPOSE 8082<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">卡到bash运行=</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">CMD [<span class="hljs-string">&quot;/bin/bash&quot;</span>]</span><br><br>CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-2-镜像build-amp-run"><a href="#5-2-镜像build-amp-run" class="headerlink" title="5.2 镜像build&amp;run"></a>5.2 镜像build&amp;run</h3><h4 id="5-2-1-build"><a href="#5-2-1-build" class="headerlink" title="5.2.1 build"></a>5.2.1 build</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker build -t 114_nginx:v1 .<br></code></pre></td></tr></table></figure>
+
+<h4 id="5-2-2-run"><a href="#5-2-2-run" class="headerlink" title="5.2.2 run"></a>5.2.2 run</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -p 8082:8082 -d 114_nginx:v1<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-3-一些报错的解决"><a href="#5-3-一些报错的解决" class="headerlink" title="5.3 一些报错的解决"></a>5.3 一些报错的解决</h3><ul>
+<li>curl: (56) Recv failure: 连接被对方重设</li>
+</ul>
+<p>可能的原因之一是，用交互模式卡在<code>/bin/bash</code>的时候，忘记启动nginx</p>
+<h2 id="6-制作redis的镜像"><a href="#6-制作redis的镜像" class="headerlink" title="6. 制作redis的镜像"></a>6. 制作redis的镜像</h2><p>Reference：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/kendoziyu/p/15814418.html">https://www.cnblogs.com/kendoziyu/p/15814418.html</a></p>
+<h3 id="6-1-Dockerfile"><a href="#6-1-Dockerfile" class="headerlink" title="6.1 Dockerfile"></a>6.1 Dockerfile</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs shell">FROM redis:6.2<br><br>MAINTAINER LiuYixuan<br><br>ADD ./ /home/redis1<br><br>WORKDIR /home/redis1<br><br>RUN \<br><br>    # 更新apt的镜像源，并安装一些常用依赖（后续可以取消）<br>    sed -i s@/deb.debian.org/@/mirrors.aliyun.com/@g /etc/apt/sources.list &amp;&amp; \<br>    apt-get clean &amp;&amp; \<br>    apt-get update &amp;&amp; \<br>    apt-get install vim -y &amp;&amp; \<br>    apt-get install unzip &amp;&amp; \<br>    apt-get install tar &amp;&amp; \<br>    apt-get install procps -y &amp;&amp; \<br>    <br>    # 查看<br>    pwd<br><br>EXPOSE 6380<br><br>CMD [&quot;/usr/local/bin/redis-server&quot;, &quot;/home/redis1/redis.conf&quot;]<br><span class="hljs-meta prompt_"># </span><span class="language-bash">CMD [<span class="hljs-string">&quot;/bin/bash&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="6-2-镜像build-amp-run"><a href="#6-2-镜像build-amp-run" class="headerlink" title="6.2 镜像build&amp;run"></a>6.2 镜像build&amp;run</h3><h4 id="6-2-1-build"><a href="#6-2-1-build" class="headerlink" title="6.2.1 build"></a>6.2.1 build</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker build -t 114_redis:v1 .<br></code></pre></td></tr></table></figure>
+
+<h4 id="6-2-2-run"><a href="#6-2-2-run" class="headerlink" title="6.2.2 run"></a>6.2.2 run</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -p 6380:6380 -d 114_redis:v1<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/docker/" class="category-chain-item">docker</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/docker/docker%E4%BD%BF%E7%94%A8/" class="category-chain-item">docker使用</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/docker/">#docker</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>基于Docker进行项目部署-以智能114项目为例</div>
+      <div>http://example.com/2022/11/26/develop/docker/docker使用/基于Docker进行项目部署-以智能114项目为例/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/12/02/develop/elasticsearch/ElasticSearch%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" title="ElasticSearch报错解决">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ElasticSearch报错解决</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/25/develop/docker/docker%E4%BD%BF%E7%94%A8/Docker%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/" title="Docker离线安装">
+                        <span class="hidden-mobile">Docker离线安装</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
