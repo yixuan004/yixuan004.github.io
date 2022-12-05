@@ -16,22 +16,22 @@
   <meta name="author" content="Curious;">
   <meta name="keywords" content="">
   
-    <meta name="description" content="背景：单独使用docker构建了多个镜像了，然而在项目的时候，这些镜像需要一个个启动，以智能114系统为例，依赖环境包括uWSGI+Django、NGINX、Redis、MySQL、ElasticSearch，如果是一个个启动docker镜像，感觉总还是有不方便的时候 docker-compose应该是提供了一种编排方法，具体还要在学习的使用细看">
+    <meta name="description" content="github-GnuTLS-recv-error报错的完整内容是： 1GnuTLS recv error (-110): The TLS connection was non-properly terminated  搜索到的解决办法详见这篇博客：https:&#x2F;&#x2F;blog.csdn.net&#x2F;joey_ada&#x2F;article&#x2F;details&#x2F;123580592，依次执行以下代码，然后再执行git相关">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于DockerCompose进行镜像组合部署-以智能114项目为例">
-<meta property="og:url" content="http://example.com/2022/12/02/develop/docker/docker%E4%BD%BF%E7%94%A8/%E5%9F%BA%E4%BA%8EDockerCompose%E8%BF%9B%E8%A1%8C%E9%95%9C%E5%83%8F%E7%BB%84%E5%90%88%E9%83%A8%E7%BD%B2-%E4%BB%A5%E6%99%BA%E8%83%BD114%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B-1/index.html">
+<meta property="og:title" content="github-GnuTLS-recv-error">
+<meta property="og:url" content="http://example.com/2022/12/03/mixed/git/github-GnuTLS-recv-error/index.html">
 <meta property="og:site_name" content="Curious;的个人划水博客">
-<meta property="og:description" content="背景：单独使用docker构建了多个镜像了，然而在项目的时候，这些镜像需要一个个启动，以智能114系统为例，依赖环境包括uWSGI+Django、NGINX、Redis、MySQL、ElasticSearch，如果是一个个启动docker镜像，感觉总还是有不方便的时候 docker-compose应该是提供了一种编排方法，具体还要在学习的使用细看">
+<meta property="og:description" content="github-GnuTLS-recv-error报错的完整内容是： 1GnuTLS recv error (-110): The TLS connection was non-properly terminated  搜索到的解决办法详见这篇博客：https:&#x2F;&#x2F;blog.csdn.net&#x2F;joey_ada&#x2F;article&#x2F;details&#x2F;123580592，依次执行以下代码，然后再执行git相关">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-12-02T06:32:42.000Z">
-<meta property="article:modified_time" content="2022-12-02T14:16:11.795Z">
+<meta property="article:published_time" content="2022-12-03T12:58:04.000Z">
+<meta property="article:modified_time" content="2022-12-03T13:08:08.200Z">
 <meta property="article:author" content="Curious;">
-<meta property="article:tag" content="docker">
+<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>基于DockerCompose进行镜像组合部署-以智能114项目为例 - Curious;的个人划水博客</title>
+  <title>github-GnuTLS-recv-error - Curious;的个人划水博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="基于DockerCompose进行镜像组合部署-以智能114项目为例"></span>
+            <span id="subtitle" data-typed-text="github-GnuTLS-recv-error"></span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-12-02 14:32" pubdate>
-          2022年12月2日 下午
+        <time datetime="2022-12-03 20:58" pubdate>
+          2022年12月3日 晚上
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          218 字
+          308 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          2 分钟
+          3 分钟
         
       </span>
     
@@ -268,16 +268,19 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">基于DockerCompose进行镜像组合部署-以智能114项目为例</h1>
+            <h1 style="display: none">github-GnuTLS-recv-error</h1>
             
             
               <div class="markdown-body">
                 
-                <p>背景：单独使用docker构建了多个镜像了，然而在项目的时候，这些镜像需要一个个启动，以智能114系统为例，依赖环境包括<code>uWSGI+Django</code>、<code>NGINX</code>、<code>Redis</code>、<code>MySQL</code>、<code>ElasticSearch</code>，如果是一个个启动docker镜像，感觉总还是有不方便的时候</p>
-<p>docker-compose应该是提供了一种编排方法，具体还要在学习的使用细看</p>
-<span id="more"></span>
+                <h1 id="github-GnuTLS-recv-error"><a href="#github-GnuTLS-recv-error" class="headerlink" title="github-GnuTLS-recv-error"></a>github-GnuTLS-recv-error</h1><p>报错的完整内容是：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">GnuTLS recv error (-110): The TLS connection was non-properly terminated<br></code></pre></td></tr></table></figure>
 
-<h1 id="基于DockerCompose进行镜像组合-以智能114系统为例"><a href="#基于DockerCompose进行镜像组合-以智能114系统为例" class="headerlink" title="基于DockerCompose进行镜像组合-以智能114系统为例"></a>基于DockerCompose进行镜像组合-以智能114系统为例</h1><h2 id="DockerCompose"><a href="#DockerCompose" class="headerlink" title="DockerCompose"></a>DockerCompose</h2>
+<p>搜索到的解决办法详见这篇博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/joey_ada/article/details/123580592%EF%BC%8C%E4%BE%9D%E6%AC%A1%E6%89%A7%E8%A1%8C%E4%BB%A5%E4%B8%8B%E4%BB%A3%E7%A0%81%EF%BC%8C%E7%84%B6%E5%90%8E%E5%86%8D%E6%89%A7%E8%A1%8Cgit%E7%9B%B8%E5%85%B3%E7%9A%84%E6%93%8D%E4%BD%9C">https://blog.csdn.net/joey_ada/article/details/123580592，依次执行以下代码，然后再执行git相关的操作</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">export GIT_TRACE_PACKET=1<br>export GIT_TRACE=1<br>export GIT_CURL_VERBOSE=1<br></code></pre></td></tr></table></figure>
+
+<p>这个后期加入<code>~/.bashrc</code>内容中，然后完成<code>source ~/.bashrc</code>，就可以完成环境变量了</p>
+
                 
               </div>
             
@@ -295,17 +298,17 @@
     
       <span class="category-chain">
         
-  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  <a href="/categories/Develop/" class="category-chain-item">Develop</a>
   
   
     <span>></span>
     
-  <a href="/categories/develop/docker/" class="category-chain-item">docker</a>
+  <a href="/categories/Develop/mixed/" class="category-chain-item">mixed</a>
   
   
     <span>></span>
     
-  <a href="/categories/develop/docker/docker%E4%BD%BF%E7%94%A8/" class="category-chain-item">docker使用</a>
+  <a href="/categories/Develop/mixed/git/" class="category-chain-item">git</a>
   
   
 
@@ -324,7 +327,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/docker/">#docker</a>
+        <a href="/tags/git/">#git</a>
       
     </div>
   
@@ -336,8 +339,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>基于DockerCompose进行镜像组合部署-以智能114项目为例</div>
-      <div>http://example.com/2022/12/02/develop/docker/docker使用/基于DockerCompose进行镜像组合部署-以智能114项目为例-1/</div>
+      <div>github-GnuTLS-recv-error</div>
+      <div>http://example.com/2022/12/03/mixed/git/github-GnuTLS-recv-error/</div>
     </div>
     <div class="license-meta">
       
@@ -349,7 +352,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年12月2日</div>
+          <div>2022年12月3日</div>
         </div>
       
       
@@ -381,12 +384,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2022/12/03/develop/docker/docker%E5%AD%A6%E4%B9%A0/Docker%E4%B8%8A%E5%B1%82%E9%97%AE%E9%A2%98%E6%95%B4%E5%90%88/" title="Docker上层问题整合">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Docker上层问题整合</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/12/02/develop/elasticsearch/ElasticSearch%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" title="ElasticSearch报错解决">
-                        <span class="hidden-mobile">ElasticSearch报错解决</span>
+                      <a href="/2022/12/02/develop/docker/docker%E4%BD%BF%E7%94%A8/%E5%9F%BA%E4%BA%8EDockerCompose%E8%BF%9B%E8%A1%8C%E9%95%9C%E5%83%8F%E7%BB%84%E5%90%88%E9%83%A8%E7%BD%B2-%E4%BB%A5%E6%99%BA%E8%83%BD114%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B/" title="基于DockerCompose进行镜像组合部署-以智能114项目为例">
+                        <span class="hidden-mobile">基于DockerCompose进行镜像组合部署-以智能114项目为例</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

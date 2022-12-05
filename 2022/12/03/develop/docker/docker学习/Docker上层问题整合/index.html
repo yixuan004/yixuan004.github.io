@@ -1,0 +1,795 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Docker上层问题整合 Reference： 什么是Docker？看这一篇干货文章就够了！https:&#x2F;&#x2F;www.zhihu.com&#x2F;search?type&#x3D;content&amp;q&#x3D;docker Docker官网：https:&#x2F;&#x2F;www.docker.com&#x2F; 1. 容器技术的起源 （container）假设公司正在开发一套系统，程序员自己从头到尾搭建了一套环境开始写代码 写完代码后程序员要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker上层问题整合">
+<meta property="og:url" content="http://example.com/2022/12/03/develop/docker/docker%E5%AD%A6%E4%B9%A0/Docker%E4%B8%8A%E5%B1%82%E9%97%AE%E9%A2%98%E6%95%B4%E5%90%88/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="Docker上层问题整合 Reference： 什么是Docker？看这一篇干货文章就够了！https:&#x2F;&#x2F;www.zhihu.com&#x2F;search?type&#x3D;content&amp;q&#x3D;docker Docker官网：https:&#x2F;&#x2F;www.docker.com&#x2F; 1. 容器技术的起源 （container）假设公司正在开发一套系统，程序员自己从头到尾搭建了一套环境开始写代码 写完代码后程序员要">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221203212303162.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221203212319604.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221203212345547.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221203214444105.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221203220720058.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221203223346199.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221204000446589.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221204000957700.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221204145529900.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221204150854246.png">
+<meta property="article:published_time" content="2022-12-03T13:09:18.000Z">
+<meta property="article:modified_time" content="2022-12-04T07:28:57.407Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221203212303162.png">
+  
+  
+  
+  <title>Docker上层问题整合 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Curious;的个人划水博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Docker上层问题整合"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-03 21:09" pubdate>
+          2022年12月3日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          38 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Docker上层问题整合</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Docker上层问题整合"><a href="#Docker上层问题整合" class="headerlink" title="Docker上层问题整合"></a>Docker上层问题整合</h1><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221203212303162.png" srcset="/img/loading.gif" lazyload alt="image-20221203212303162" style="zoom:25%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221203212319604.png" srcset="/img/loading.gif" lazyload alt="image-20221203212319604" style="zoom:25%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221203212345547.png" srcset="/img/loading.gif" lazyload alt="image-20221203212345547" style="zoom:25%;" /></p>
+<p>Reference：</p>
+<p>什么是Docker？看这一篇干货文章就够了！<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?type=content&amp;q=docker">https://www.zhihu.com/search?type=content&amp;q=docker</a></p>
+<p>Docker官网：<a target="_blank" rel="noopener" href="https://www.docker.com/">https://www.docker.com/</a></p>
+<h2 id="1-容器技术的起源-（container）"><a href="#1-容器技术的起源-（container）" class="headerlink" title="1. 容器技术的起源 （container）"></a>1. 容器技术的起源 （container）</h2><p>假设公司正在开发一套系统，程序员自己从<strong>头到尾搭建了一套环境</strong>开始写代码</p>
+<p>写完代码后程序员要把代码交给测试同学测试，这时候测试同学开始<strong>从头到尾搭建这套环境</strong>，测试过程中出现问题程序员也不用有问题，把锅直接甩给测试同学，因为明明在我的环境上是可以运行的hhhhhhh</p>
+<p>测试同学测试完成后，终于可以上线了，这时候运维同学又要<strong>重新从头到尾搭建这套环境</strong>，废了很大的力气搭建好环境开始上线，上线系统就崩溃了，也是很有可能的</p>
+<p>复盘上述过程：不仅重复搭建了多套环境，同时还有软件、代码版本不同步的问题，<strong>容器技术应运而生</strong></p>
+<p>在以往，先搭好一套虚拟机环境（VMware）然后给测试和运维clone出来就可以了，在容器技术产生之前确实还是好办法，但是这个方法没有那么好</p>
+<p>现在云计算及其底层就是虚拟机技术，云计算厂商买回来一堆硬件，搭建好数据中心后使用虚拟机技术就可以将硬件资源进行切分了，比如切分出100台虚拟机，这样就可以卖给很多用户了，那么虚拟机技术有什么不足呢？</p>
+<h2 id="2-容器技术-vs-虚拟机"><a href="#2-容器技术-vs-虚拟机" class="headerlink" title="2. 容器技术 vs 虚拟机"></a>2. 容器技术 vs 虚拟机</h2><p>我们知道和一个单纯的应用程序相比，<strong>操作系统是一个很重而且很笨重的程序</strong></p>
+<p>操作系统需要占用很多资源，大家对此肯定深有体会，刚装好的系统什么都没有部署，磁盘占用几十G，内存占用几G。使用虚拟机技术来说，需要部署3个应用，虚拟机技术可以这样划分：开三个虚拟机，VM1占用2GB内存，VM2占用1GB内存，VM3占用4GB内存：</p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221203214444105.png" srcset="/img/loading.gif" lazyload alt="image-20221203214444105"></p>
+<p>这样虚拟机本身内存就占了7GB（2+1+4），我们没有办法划分出更多虚拟机，从而部署更多的应用程序，我们部署的是应用程序，要用的也是应用程序而不是操作系统</p>
+<p>如果有一种技术，可以避免把内存等资源浪费在“无用”的操作系统上岂不太香？<strong>这是问题一，主要原因在于操作系统太重了</strong></p>
+<p><strong>还有另一个问题，就是启动的问题，操作系统启动是非常慢的</strong>，因为操作系统要从头到尾把该检测了的检测了、该加载的加载了，这个过程非常缓慢，还是太慢了</p>
+<p><strong><font color='red'>容器技术的提出，获得了虚拟机运行应用程序的好处，而改善了操作系统存在的上述两个问题</font></strong> </p>
+<h2 id="3-什么是容器"><a href="#3-什么是容器" class="headerlink" title="3. 什么是容器"></a>3. 什么是容器</h2><p>容器一词的英文是container，其实container还有集装箱的意思，集装箱绝对是商业史上一项伟大的发明，降低了海洋贸易运输成本，来看看集装箱的好处</p>
+<ul>
+<li><strong>集装箱之间相互隔离</strong></li>
+<li><strong>长期反复使用</strong></li>
+<li><strong>快速装载和卸载</strong></li>
+<li><strong>规格标准，在港口和船上都可以摆放</strong></li>
+</ul>
+<p>回到软件中的容器，容器和集装箱在概念上很相似的！</p>
+<p>现代软件开发的一大目的就是隔离，应用程序在运行时相互独立互不干扰，这种隔离其实实现起来很不容易的，一种解决方案是上面提到的虚拟机技术，通过将应用程序部署在不同的虚拟机中实现隔离，图例如下</p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221203220720058.png" srcset="/img/loading.gif" lazyload alt="image-20221203220720058"></p>
+<p>虚拟机有上述提到的各种缺点，容器技术则一定程度上克服了这些缺点</p>
+<p>与虚拟机通过操作系统实现隔离不同，容器技术之隔离应用程序的运行时环境，但容器之间可以共享同一个操作系统，这里的运行时环境指的是应用程序运行依赖的各种库以及配置</p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221203223346199.png" srcset="/img/loading.gif" lazyload alt="image-20221203223346199"></p>
+<p>从图中可以看到，<strong>容器更加轻量级而且占用的资源更少</strong>，与操作系统动辄几G的内存占用相比，容器技术只需要数M的空间，因此我们可以在同样规格的硬件上<strong>大量部署容器</strong>，这是虚拟机所不能比拟的，而且不同于操作系统分钟级的启动，几乎瞬时启动，容器技术为打包服务栈提供了一种更加高效的方式</p>
+<p>那么我们该怎么使用容器呢？就要讲到docker了</p>
+<p>注意，容器是一种通用技术，docker只是其中的一种实现</p>
+<h2 id="4-什么是docker"><a href="#4-什么是docker" class="headerlink" title="4. 什么是docker"></a>4. 什么是docker</h2><p>docker是一个使用Go语言实现的开源项目，可以让我们方便的创建和使用容器，docker将程序以及程序所有的依赖都打包到docker container，<strong>这样程序在任何环境都会有一致的表现</strong></p>
+<p>这里的程序运行依赖的容器（container）好比集装箱，容器所处的操作系统环境就好比货船&#x2F;港口，程序的表现只和集装箱（容器）有关系，和集装箱放在哪个货船或哪个港口（操作系统）没有关系。</p>
+<p>因此我们看到docker是可以屏蔽环境差异的，也就是说，只要程序打包到了docker中，那么无论在什么环境下程序的行为都是一致的，不会再有“在我的环境上可以运行”的程序员鬼话了hhhhh，真正实现<strong>“build once, run every where”</strong></p>
+<p>此外docker的一个好处就是实现快速部署，当前公司的一个常见应用场景，一个原因是容器启动速度非常快，另外一个原因就是确保一个容器中的程序正确运行，那么就能确信无论在生产环境部署多少都能正确运行！</p>
+<h2 id="5-如何使用docker"><a href="#5-如何使用docker" class="headerlink" title="5. 如何使用docker"></a>5. 如何使用docker</h2><p>docker中有几个这样的概念：</p>
+<ul>
+<li>Dockerfile</li>
+<li>image</li>
+<li>container</li>
+</ul>
+<p>实际上可以把image理解为可执行程序，container就是运行起来的进程</p>
+<p>那么写程序需要源代码，写image就需要Dockerfile，Dockerfile就是image的源代码，docker就是“编译器”</p>
+<p>因此我们只需要在Dockerfile中指定需要哪些程序、依赖什么样的配置，之后把Dockerfile交给“编译器”docker进行“编译”，这就是docker build命令，生成的可执行程序就是image，之后就可以运行这个image了，这就是docker run命令，image运行起来之后就是docker container；</p>
+<h3 id="5-1-补充问题：为什么在编写dockerfile的过程中，需要减小层数，把RUN中的所有命令用-amp-amp-连接到一起？"><a href="#5-1-补充问题：为什么在编写dockerfile的过程中，需要减小层数，把RUN中的所有命令用-amp-amp-连接到一起？" class="headerlink" title="5.1 补充问题：为什么在编写dockerfile的过程中，需要减小层数，把RUN中的所有命令用&amp;&amp;连接到一起？"></a>5.1 补充问题：为什么在编写dockerfile的过程中，需要减小层数，把RUN中的所有命令用&amp;&amp;连接到一起？</h3><p>Reference：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/liumiaocn/article/details/103175638">https://blog.csdn.net/liumiaocn/article/details/103175638</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/liumiaocn/article/details/100922774">https://blog.csdn.net/liumiaocn/article/details/100922774</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42309691/article/details/123016159">https://blog.csdn.net/weixin_42309691/article/details/123016159</a></p>
+<p>使用Dockerfile进行镜像构建，离不开RUN命令，相较于docker run的run命令，Dockerfile中的RUN是镜像创建阶段使用的命令，而docker run则是使用镜像阶段启动的命令，主要介绍RUN命令常见的技巧和使用注意事项；</p>
+<h4 id="5-1-1-基本原则1：尽量减少一个Dockerfile中RUN命令的个数"><a href="#5-1-1-基本原则1：尽量减少一个Dockerfile中RUN命令的个数" class="headerlink" title="5.1.1 基本原则1：尽量减少一个Dockerfile中RUN命令的个数"></a>5.1.1 基本原则1：尽量减少一个Dockerfile中RUN命令的个数</h4><p>RUN命令在构建的时候会创建一个新层，如非特殊的必要，建议一个Dockerfile在需要使用RUN命令的时候，尽可能只用一个RUN命令，将多条RUN命令进行合并，可以有效降低构建镜像的层数</p>
+<p><font color='red'>层数指什么？</font> </p>
+<p>比如说有多个镜像都从相同的base镜像构建而来，那么Docker Host只需要在磁盘上保存一份base镜像，同时内存中也只需要加载一份base镜像，就可以为所有的容器服务了。而且镜像的每一层都可以被共享。</p>
+<h2 id="6-docker是如何工作的？"><a href="#6-docker是如何工作的？" class="headerlink" title="6. docker是如何工作的？"></a>6. docker是如何工作的？</h2><p>实际上docker使用了常见的Client-Server架构，也就是Client-server模式，docker client负责处理用户输入的各种命令，比如docker build、docker run，真正工作的其实是server，也就是docker demon，值得注意的是，docker client和dcoker demon可以运行在同一台机器上</p>
+<p>讲解一下docker的工作流程</p>
+<h3 id="6-1-docker-build"><a href="#6-1-docker-build" class="headerlink" title="6.1 docker build"></a>6.1 docker build</h3><p>当我们写完dockerfile，交给docker“编译”的时候使用这个命令，在client接收到后把请求转发给docker daemon，接着docker daemon根据dockerfile创建出“可执行程序”image</p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221204000446589.png" srcset="/img/loading.gif" lazyload alt="image-20221204000446589"></p>
+<p>自己来理解一下这个图，dockker build命令从Client发给Docker daemon，然后构建出images来，images也可以直接使用别人的images，比如这里图里画的redis</p>
+<h3 id="6-2-docker-run"><a href="#6-2-docker-run" class="headerlink" title="6.2 docker run"></a>6.2 docker run</h3><p>有了“可执行程序”image后就可以运行程序了，接下来使用命令docker run，docker daemon接收到了该命令后找到具体的image，然后加载到内存开始执行，image执行起来就是所谓的container</p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221204000957700.png" srcset="/img/loading.gif" lazyload alt="image-20221204000957700"></p>
+<p>自己再来理解一下，就是从images那边，再执行变成进程container，一个image可以启动多份进程</p>
+<p><font color='red'>（便于进行A&#x2F;B test？）</font> </p>
+<h3 id="6-3-docker-pull"><a href="#6-3-docker-pull" class="headerlink" title="6.3 docker pull"></a>6.3 docker pull</h3><p>docker build和docker run是两个最核心的命令，会有这两个命令基本上docker就可以用起来了，剩下就是一些补充，那么docker pull是什么意思</p>
+<p>docker中的image类似于“可执行程序”，我们可以从哪里下载到别人写好的应用程序呢？很简单，那就是比如App Store，即应用商店。与之类似，既然image也可以被看作是一种“可执行程序”，那么有没有“Docker Image Store”呢？答案是肯定的，这就是Docker Hub，docker官方的“应用商店”，你可以在这里下载到别人编写好的image，这样就不用自己编写dockerfile了（或者说，可以在别人镜像的基础上来进一步构建）</p>
+<p>docker registry可以用来存放各种image，公共的可以攻任何人下载image的仓库就是Docker Hub，那么该怎么从Docker Hub中下载image呢，就要用到docker pull命令了</p>
+<p>因此，这个命令的实现也很简单，就是用户通过docker client发送命令，docker daemon接收到命令后向docker registry发送image下载请求，下载后存放在本地，这样我们就可以使用image了</p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221204145529900.png" srcset="/img/loading.gif" lazyload alt="image-20221204145529900"></p>
+<h2 id="7-Docker的底层实现"><a href="#7-Docker的底层实现" class="headerlink" title="7. Docker的底层实现"></a>7. Docker的底层实现</h2><p>docker基于linux内核提供这样几项功能实现的：</p>
+<ul>
+<li>NameSpace</li>
+</ul>
+<p>我们知道Linux中的PID、IPC、网络等资源是全局的，而NameSpace机制是一种资源隔离方案，在该机制下这些资源就不再是全局的了，而是属于某个特定的NameSpace，各个NameSpace下的资源互不干扰，这就使得每个NameSpace看上去就像一个独立的操作系统一样，但是只有NameSpace还是不够</p>
+<ul>
+<li>Control groups</li>
+</ul>
+<p>虽然有了NameSpace技术可以实现资源隔离，但进程还是可以不受控的访问系统资源，比如CPU、内存、磁盘、网络等，为了控制容器中进程对资源的访问，docker采用control groups技术（也就是cgroup），有了cgroup就可以控制容器中进程对系统资源的消耗了，比如你可以限制某个容器使用内存的上限、可以在哪些CPU上运行等</p>
+<h2 id="8-总结"><a href="#8-总结" class="headerlink" title="8. 总结"></a>8. 总结</h2><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221204150854246.png" srcset="/img/loading.gif" lazyload alt="image-20221204150854246"></p>
+<p>docker是目前非常流行的技术，很多公司在生产环境中使用，但是docker依赖的底层技术实际上很早就出现了， 以docker的形式重新焕发活力，并且能很好的解决面临的问题</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/docker/" class="category-chain-item">docker</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/docker/docker%E5%AD%A6%E4%B9%A0/" class="category-chain-item">docker学习</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/docker/">#docker</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Docker上层问题整合</div>
+      <div>http://example.com/2022/12/03/develop/docker/docker学习/Docker上层问题整合/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/12/04/develop/docker/docker%E5%AD%A6%E4%B9%A0/Docker%E7%9A%84%E5%88%86%E5%B1%82%E7%BB%93%E6%9E%84/" title="Docker的分层结构">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Docker的分层结构</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/03/mixed/git/github-GnuTLS-recv-error/" title="github-GnuTLS-recv-error">
+                        <span class="hidden-mobile">github-GnuTLS-recv-error</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
