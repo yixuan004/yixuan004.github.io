@@ -4,7 +4,9 @@ date: 2022-11-19 16:48:51
 tags:
     - git
 categories:
-	- Crsenal
+	- Develop
+	- mixed
+	- git
 ---
 
 之前有过在本机上如何访问github的操作，原理上来说是让git相关的时候走本机代理配置的端口，但是在该服务器上操作的时候这个不是很好用

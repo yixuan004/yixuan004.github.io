@@ -4,7 +4,9 @@ date: 2022-11-18 16:23:08
 tags:
     - git
 categories:
-	- Crsenal
+	- Develop
+	- mixed
+	- git
 ---
 
 有时候换了常用的git开发环境，在一个新环境上`git clone`，`git push`项目的时候，需要重新输入用户名和密码（token）

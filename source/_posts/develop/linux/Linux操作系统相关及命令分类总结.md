@@ -51,10 +51,11 @@ export PATH=$PATH:/home/bupt_114/lyx_python3/lib
 
 
 
-### 2.2 服务器间文件传输——`scp -r [NAME]@[IP]:[PATH] `
+### 2.2 服务器间文件传输——`scp -r [FILE] [NAME]@[IP]:[PATH] `
 
-示例：`scp -r bupt_114@10.109.246.188:/home/bupt_114/`
+示例，将一个本地的文件传到服务器上：`scp -r xxx.tar bupt_114@10.109.246.188:/home/bupt_114/`
 
+示例，从远程服务器传输一个文件到本地（如从公网服务器传内容到本地）：`scp -r -P 54322 bupt@39.98.206.100:/home/bupt/projects/robot_end ./`
 
 
 ### 2.3 权限相关（文件/用户）

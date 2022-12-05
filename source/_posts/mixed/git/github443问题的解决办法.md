@@ -4,7 +4,9 @@ date: 2021-12-06 00:56:27
 tags:
     - git
 categories:
-	- Crsenal
+	- Develop
+	- mixed
+	- git
 ---
 
 背景：github经常遇到443问题，例如Failed to connect to github.com port 443: Operation timed out，这种情况下需要一些解决办法；
