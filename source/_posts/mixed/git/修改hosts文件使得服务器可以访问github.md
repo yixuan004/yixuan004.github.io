@@ -4,7 +4,7 @@ date: 2022-11-19 16:48:51
 tags:
     - git
 categories:
-	- Develop
+	- develop
 	- mixed
 	- git
 ---

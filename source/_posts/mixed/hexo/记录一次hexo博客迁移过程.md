@@ -4,7 +4,9 @@ date: 2021-12-05 23:53:36
 tags: 
     - hexo
 categories:
-	- Crsenal
+	- develop
+	- mixed
+	- hexo
 ---
 
 背景：换了一个新电脑，需要把原来在github上配置的yixuan004.github.io博客环境重新在本地部署，中间涉及到一些软件的安装等

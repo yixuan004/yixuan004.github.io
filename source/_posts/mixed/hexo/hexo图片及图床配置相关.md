@@ -4,7 +4,9 @@ date: 2022-11-19 16:19:33
 tags: 
   - hexo
 categories:
-	- Crsenal
+	- develop
+	- mixed
+	- hexo
 ---
 
 本来是打算使用各种插件，使得图片文件上传到github的时候，图片就也保存在github上

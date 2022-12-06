@@ -4,8 +4,9 @@ date: 2021-12-06 11:51:51
 tags:
   - docker
 categories:
-  - develop
-  - docker
+	- develop
+	- docker
+	- docker学习
 ---
 
 背景：docker有一种更加轻量级虚拟机的感觉，正好在一个课程中需要使用HBase、Hadoop等，又不方便在本地安装，所以可以使用docker的方式，也借此机会学习docker

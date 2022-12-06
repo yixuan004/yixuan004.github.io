@@ -5,7 +5,7 @@ tags:
     - redis
 categories:
 	- develop
-    - redis
+	- redis
 ---
 
 该篇博客记录一些redis high level的总结性话语，适合用于redis的简单介绍，以及一些上层的概述
