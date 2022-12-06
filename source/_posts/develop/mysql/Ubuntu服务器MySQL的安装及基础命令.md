@@ -5,6 +5,7 @@ tags:
     - mysql
 categories:
 	- develop
+	- mysql
 ---
 
 背景：之前只基本在服务器上使用mysql，也曾经尝试过安装但是没有整理笔记，这次顺着项目部署，整理一下笔记

@@ -2,9 +2,10 @@
 title: MySQL报错解决
 date: 2022-11-20 22:24:11
 tags:
-    - mysql
+	- mysql
 categories:
 	- develop
+	- mysql
 ---
 
 这里记录MySQL一些报错的解决过程，主要以ERROR CODE作为标识
