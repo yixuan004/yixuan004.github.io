@@ -11,6 +11,22 @@
     <content type="html"><![CDATA[]]></content>
     
     
+    <categories>
+      
+      <category>develop</category>
+      
+      <category>计算机基础</category>
+      
+      <category>os</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>os</tag>
+      
+    </tags>
     
   </entry>
   
@@ -24,6 +40,22 @@
     <content type="html"><![CDATA[<h1 id="计算机网络常见问题整合"><a href="#计算机网络常见问题整合" class="headerlink" title="计算机网络常见问题整合"></a>计算机网络常见问题整合</h1><p>reference：</p><p><a href="https://www.zhihu.com/question/515249396/answer/2338409590">https://www.zhihu.com/question/515249396/answer/2338409590</a></p><p>一些没看懂的地方可能也不整理在这个博客了，很多地方感觉说不清楚，或者反而感觉说的不是很有道理的</p><h2 id="1-基础"><a href="#1-基础" class="headerlink" title="1. 基础"></a>1. 基础</h2><h3 id="1-1-说一下计算机网络体系结构"><a href="#1-1-说一下计算机网络体系结构" class="headerlink" title="1.1 说一下计算机网络体系结构"></a>1.1 说一下计算机网络体系结构</h3><p>计算机网络体系结构一般有三种：OSI七层模型、TCP&#x2F;IP四层模型、五层结构</p><p>OSI七层模型：应用、表示、会话、传输、互联网、数据链路、物理</p><p>TCP&#x2F;IP四层模型：应用层（应用、表示、会话），传输，互联网，网络接口（数据链路、物理）</p><p>五层结构：应用（应用、表示、会话），传输，互联网，数据链路，物理</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221205225712921.png" alt="image-20221205225712921"></p><blockquote><p>以OSI七层模型为例，对每个层进行一个简单的介绍</p></blockquote><ul><li><p>应用层：通过应用进程之间的交互来完成特定的网络应用，比如http、FTP、DNS</p><ul><li><strong>HTTP协议（超文本传输协议，端口80）</strong>：感觉来说，http就是一种请求-响应协议，规定了POST&#x2F;GET&#x2F;PUT&#x2F;DELETE等方法，然后并且规范了一系列的状态码，是一种典型的应用层协议（客户端和服务器之间通信的，Client-Server）；</li><li><strong>FTP协议（文件传输协议，端口21）</strong>：同样是一种应用层协议（用户可通过客户机程序向&#x2F;从远程主机上传&#x2F;下载文件），规定了两种传输方式（ASCII、二进制），还有两种支持模式（standard、passive）；</li><li><strong>DNS协议（域名系统，端口53）</strong>：用来将域名转化为IP地址（也可以将IP地址转换为相应的域名地址）。这里自己扩展一下和自己相关的DNS，就是一般DNS解析服务器就是8.8.8.8这个IP地址，或者有一些公开的，但是有时候有些网站比如github他配置的映射可能不好使，那么就可以自己修改一下hosts文件，来改变一下这个域名-IP的映射关系；</li></ul></li><li><p>表示层：数据的表示、安全、压缩。确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取</p><ul><li>JPG、TIFF、GIF等协议是表示层协议</li></ul></li><li><p>会话层：建立、管理、终止会话，是用户应用程序和网络之间的接口，常见会话层协议</p><ul><li>PPTP点对点隧道协议、L2TP第二层隧道协议，VPN连接的时候见过</li><li>RPC远程过程调用，是一个计算机通信<a href="https://zh.wikipedia.org/wiki/%E7%B6%B2%E7%B5%A1%E5%82%B3%E8%BC%B8%E5%8D%94%E8%AD%B0">协议</a>。该协议允许运行于一台计算机的<a href="https://zh.wikipedia.org/wiki/%E7%A8%8B%E5%BA%8F">程序</a>调用另一个<a href="https://zh.wikipedia.org/wiki/%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4">地址空间</a>（通常为一个开放网络的一台计算机）的<a href="https://zh.wikipedia.org/wiki/%E5%AD%90%E7%A8%8B%E5%BA%8F">子程序</a>，而程序员就像调用本地程序一样，无需额外地为这个交互作用编程（无需关注细节）。RPC是一种服务器-客户端（Client&#x2F;Server）模式，经典实现是一个通过<strong>发送请求-接受回应</strong>进行信息交互的系统。</li></ul></li><li><p>传输层：提供源端与目标端之间提供可靠的透明数据传输，传输层为不同主机上运行的进程提供通信</p><ul><li>TCP、UDP</li></ul></li><li><p>网络层：将网络地址翻译成对应的物理地址，实现不同网络之间的路径选择</p><ul><li>ICMP：ping的红寺湖使用的是ICMP协议，用于在IP主机、路由器之间传递控制消息。控制消息是指网络通不通、主机是否可达、路由是否可用等网络本身的消息。</li><li>IP：IPv4、IPv6</li></ul></li><li><p>数据链路层：在物理层提供比特流服务的基础上，建立相邻节点之间的数据链路</p><ul><li>ARP：IP地址转化为MAC地址</li></ul></li><li><p>物理层：建立、维护、断开物理连接</p></li></ul><p>一张图概括来说，每层的协议内容如下：</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206000625560.png" alt="image-20221206000625560"></p><h3 id="1-2-那么数据在各层之间是怎么传输的（5层协议栈来说这个事）"><a href="#1-2-那么数据在各层之间是怎么传输的（5层协议栈来说这个事）" class="headerlink" title="1.2 那么数据在各层之间是怎么传输的（5层协议栈来说这个事）"></a>1.2 那么数据在各层之间是怎么传输的（5层协议栈来说这个事）</h3><p>对于发送方而言，从上层到下层层层包装，对于接收方而言，从下层到上层，层层解开包装</p><ul><li>发送方的应用进程，向接收方的应用进程传送数据</li><li>发送方首先将数据交给本主机的应用层，应用层加上本层控制信息H5就变成了下一层的数据单元</li><li>传输层收到这个数据单元后，加上本层控制信息的H4，再交给网络层，成为网络层的数据单元</li><li>网络层收到数据单元后，加上本层的控制信息H3，再交给数据链路层，成为数据链路层的数据单元</li><li>到了数据链路层，控制信息被分成两部分，分别加到本层单元的头部H2和尾部T2</li><li>最后的物理层，进行比特流的传输</li></ul><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206002229176.png" alt="image-20221206002229176"></p><p>这类似于写信（发快递），写一封信，没到一层，就加一个信封，写一些地址的信息。</p><p>到了目的地之后，又一层层解封</p><h2 id="2-网络综合"><a href="#2-网络综合" class="headerlink" title="2. 网络综合"></a>2. 网络综合</h2><h3 id="2-1-从浏览器地址输入url到显示主页的过程？非常常问"><a href="#2-1-从浏览器地址输入url到显示主页的过程？非常常问" class="headerlink" title="2.1 从浏览器地址输入url到显示主页的过程？非常常问"></a>2.1 从浏览器地址输入url到显示主页的过程？<font color='red'>非常常问</font></h3><p>大概的过程比较简单，但是有很多点可以挖：DNS解析、TCP三次握手、HTTP报文格式、TCP四次挥手等等</p><ol><li>DNS解析：将域名解析成对应的IP地址</li><li>TCP连接：与服务器通过三次握手，建立TCP连接</li><li>向服务器发送HTTP请求</li><li>服务器处理请求，返回HTTP响应</li><li>浏览器解析并渲染画面</li><li>断开连接：TCP四次挥手，连接结束</li></ol><p>以访问baidu.com为例：</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206002909085.png" alt="image-20221206002909085"></p><blockquote><p>各个过程都使用了哪些协议</p></blockquote><p>最开始是DNS协议，获取域名对应的IP</p><p>TCP：与服务器的连接和断开连接</p><p>HTTP：TCP连接建立完成后，使用协议传递HTTP报文</p><p>IP：使用TCP的时候，网络层用到IP协议（IPv4，IPv6）</p><p>OSPF：IP数据包在路由器之间，路由选择使用OSPF协议</p><p>ARP：路由器在与服务器通信时候，需要将IP地址转换为MAC地址，需要使用ARP协议</p><h3 id="2-2-说说DNS解析的过程？"><a href="#2-2-说说DNS解析的过程？" class="headerlink" title="2.2 说说DNS解析的过程？"></a>2.2 说说DNS解析的过程？</h3><p>DNS，英文全称是domain name system，域名解析系统，它的作用也很明确，就是域名和IP的相互映射</p><p>解析过程如下图，自己用文字来描述一遍：</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206124352777.png" alt="image-20221206124352777"></p><ol><li><p>首先在本地检查浏览器缓存，如果有则结束</p></li><li><p>否则在本地DNS服务器查找是否缓存对应域名和IP，如果有则结束</p></li><li><p>否则请求DNS解析服务</p><ol><li>请求根服务器，返回顶级域名服务器</li><li>请求顶级域名服务器，返回权威域名服务器</li><li>请求权限域名服务器，返回对应的IP地址</li></ol></li></ol><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206124419926.png" alt="image-20221206124419926"></p><p><strong>以访问baidu.com的IP地址为例子</strong></p><ul><li><p>首先会查找浏览器的缓存，看看能否找到baidu.com的IP地址</p></li><li><p>否则，会在本地DNS服务器查找，看看能否找到IP地址</p></li><li><p>本地DNS服务器向根域名服务器发送请求，根域名服务器返回负责<code>com</code>的顶级域名服务器的IP地址列表</p></li><li><p>本地DNS服务器再向其中一个负责<code>com</code>的顶级域名服务器发送一个请求，返回负责baidu.com的权限域名服务器的IP地址列表</p></li><li><p>本地DNS服务器想再向其中一个权限域名服务器发送一个请求，返回baidu.com对应的IP地址</p></li></ul><h3 id="2-3-说说WebSocket和Socket（套接字）的区别"><a href="#2-3-说说WebSocket和Socket（套接字）的区别" class="headerlink" title="2.3 说说WebSocket和Socket（套接字）的区别"></a>2.3 说说WebSocket和Socket（套接字）的区别</h3><ul><li>Socket感觉就是套接字的意思，<strong>IP地址+端口+协议</strong></li></ul><blockquote><p>具体来说，Socket是一套标准，它完成了对TCP&#x2F;IP的高度封装，屏蔽网络细节，以方便开发者更好的进行网络编程</p></blockquote><p>传输层实现端到端的通信，每个传输层有两个端点，传输层的端点是什么呢？不是主机，不是主机的IP地址，不是应用进程，也不是传输层的协议端口。<strong>传输层的端点叫做套接字Socket</strong></p><p>总之，套接字Socket&#x3D;（IP地址：端口号），套接字的表示方法是点分十进制的IP地址后面写上端口号，中间用冒号或逗号隔开。每一个传输层连接唯一地被通信两端的两个端点（即两个套接字）所确定。</p><ul><li>WebSocket是一个持久化的协议，伴随H5提出，用来解决http不支持持久化连接的问题</li><li>Socket是一个网络编程的标准接口</li></ul><h3 id="2-4-说一下了解的端口和对应的服务？"><a href="#2-4-说一下了解的端口和对应的服务？" class="headerlink" title="2.4 说一下了解的端口和对应的服务？"></a>2.4 说一下了解的端口和对应的服务？</h3><p>基础：FTP（21），ssh（22），DNS（53），HTTP（80），HTTPS（443）</p><p>应用：NGINX（8080），redis（6379），mysql（3306），elasticsearch（9200）</p><h2 id="3-HTTP"><a href="#3-HTTP" class="headerlink" title="3. HTTP"></a>3. HTTP</h2><h3 id="3-1-HTTP常用状态码和含义？"><a href="#3-1-HTTP常用状态码和含义？" class="headerlink" title="3.1 HTTP常用状态码和含义？"></a>3.1 HTTP常用状态码和含义？</h3><p>大概分类是：</p><ul><li>1XX：信息性状态码</li><li>2XX：成功状态码</li><li>3XX：重定向状态码</li><li>4XX：Client客户端错误状态码</li><li>5XX：服务端错误状态码</li></ul><blockquote><p>1XX</p><p>100：（继续）请求者应该继续提出请求。服务器返回此代码表示已经收到请求，正在等待其余部分</p></blockquote><p>——————————————</p><blockquote><p>2XX</p><p>200：（成功）服务器已经处理了请求。通常，这表示服务器提供了请求的资源</p><p>202：（已接受）服务器已接受请求，但尚未处理</p><p>204：（无内容）服务器成功处理了请求，但没有返回任何内容</p></blockquote><p>——————————————</p><blockquote><p>3XX - 详细</p><p>301：（永久性重定向）请求的网页已经永久移动到新位置。服务器返回此响应（对GET或HEAD请求的响应）时，会自动将请求者转到新位置。301是永久性重定向，比如建设一个网站后，将网站的url变换了，重新申请了一个域名，但是希望之前的用户访问之前url仍然可以访问到，就可以做一个重定向新的url下面</p><p>302：（临时性重定向）比如用户在未登录的时候访问个人中心页面，临时重定向到登录的url，然后再去捕获就可以？</p></blockquote><blockquote><p>3XX - 简版</p><p>301：请求资源永久移动，返回新URI</p><p>302：请求资源临时移动，继续使用原有URI</p></blockquote><p>——————————————</p><blockquote><p>4XX</p><p>400：客户端请求的语法错误，服务端无法理解</p><p>401：当前请求需要认证</p><p>403：服务器理解请求，但拒绝执行（forbidden）</p><p>404：not found</p><p>429：（在一次访问知乎时候见到的状态码）Too Many Requests</p></blockquote><p>——————————————</p><blockquote><p>5XX</p><p>500：服务器内部错误，程序内部写错了，会自动500，比如程序内部异常了</p></blockquote><p>——————————————</p><p>说一下301和302的区别？</p><ul><li>301：永久性移动，请求的资源已被永久移动到新位置。服务器返回此响应时候，会返回新的资源地址</li><li>302：临时性移动，服务器从另外的地址响应资源，但是客户端还应该使用这个地址</li></ul><h3 id="3-2-HTTP有哪些请求方式"><a href="#3-2-HTTP有哪些请求方式" class="headerlink" title="3.2 HTTP有哪些请求方式"></a>3.2 HTTP有哪些请求方式</h3><p>常用</p><ul><li>GET：对服务器获取资源的简单请求</li><li>POST：向服务器提交数据请求</li><li>PUT：修改指定资源</li><li>DELETE：删除URL标记的指定资源</li></ul><p>特殊</p><ul><li><p>CONNECT：用于代理服务器</p></li><li><p>TRANCE：主要用于回环测试</p></li><li><p>OPTIONS：返回所有可用的方法</p></li><li><p>HEAD：获取URL标记资源的首部</p></li></ul><p>其中POST、DELETE、PUT、GET的含义分别对应我们最熟悉的增、删、改、查</p><h3 id="3-3-说一下GET和POST的区别？"><a href="#3-3-说一下GET和POST的区别？" class="headerlink" title="3.3 说一下GET和POST的区别？"></a>3.3 说一下GET和POST的区别？</h3><p>可以从下几个方面来说GET和POST的区别，简单来说POST是新增，GET是查</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206123452097.png" alt="image-20221206123452097"></p><ol><li><p>从HTTP报文层面来看，GET请求将信息放在URL，POST将请求信息放在请求体中（一般比如说json的形式）。这一点使得GET请求的数据量有限，因为URL本身是有长度限制的，而POST请求的数据存放在报文体中，因此对大小没有限制。<font color='red'>在这个安全性上，我觉得如果都是HTTP那么就都是不安全的，放在URL和BODY中区别不大，强行来说安全的话，就是说POST的这个数据在地址栏上是不可见的</font> </p></li><li><p>从数据库层面来说，GET符合幂等性（多次操作结果一致）和安全性，而POST请求不符合。这个其实和GET&#x2F;POST请求的作用有关。按照HTTP的约定，GET请求用于查看信息，不会改变服务器上的信息。而POST请求用来改变服务器上的信息。正因为GET请求只查看信息，不改变信息，对数据库的一次或多次操作结果是一致的，认为它服务和幂等性。安全性指的是对数据库操作没有改变数据库中的数据。</p></li><li><p>从其他层面来看，GET请求能够被缓存，GET请求能够保存在浏览器的浏览记录了，GET请求的URL能保存为浏览器书签。</p></li></ol><p><strong>补充一下GET请求的长度限制问题：</strong></p><p>URL本身没有对数据的长度进行限制，真正限制GET长度的是浏览器</p><p>这个长度限制不只是针对数据这部分，而是针对整个url</p><h3 id="3-4-HTTP请求的过程与原理"><a href="#3-4-HTTP请求的过程与原理" class="headerlink" title="3.4 HTTP请求的过程与原理"></a>3.4 HTTP请求的过程与原理</h3><p><strong>这个过程其实和上面一个问题，访问一个网页的过程中发生了什么很有关系</strong></p><p>HTTP协议定义了浏览器怎么向服务器请求文档，以及服务器怎么把文档传给浏览器</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206125810308.png" alt="image-20221206125810308"></p><ul><li>每个服务器都有一个进程，它不断监听TCP的端口80，以便发现是否有浏览器向它发出连接建立请求</li><li>监听到连接请求，就会建立TCP连接</li><li>浏览器向服务器发出浏览某个页面的请求，服务器接着就返回所请求的页面作为响应</li><li>最后，释放TCP连接</li></ul><p>在浏览器和服务器之间的请求和响应的交互，必须按照规定的格式和遵循一定的规则，这些个事和规则就是超文本传输协议HTTP</p><h3 id="3-5-说一下HTTP的报文结构？"><a href="#3-5-说一下HTTP的报文结构？" class="headerlink" title="3.5 说一下HTTP的报文结构？"></a>3.5 说一下HTTP的报文结构？</h3><p>HTTP报文有两种，HTTP请求报文和HTTP响应报文</p><h4 id="3-5-1-HTTP请求报文"><a href="#3-5-1-HTTP请求报文" class="headerlink" title="3.5.1 HTTP请求报文"></a>3.5.1 HTTP请求报文</h4><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206143623249.png" alt="image-20221206143623249"></p><p>请求行：<code>GET / HTTP/1.1</code></p><ul><li>方法字段：POST GET等</li><li>URL字段</li><li>HTTP版本字段</li></ul><p>首部行：<code>User-Agent:  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5)</code></p><h4 id="3-5-2-HTTP响应报文"><a href="#3-5-2-HTTP响应报文" class="headerlink" title="3.5.2 HTTP响应报文"></a>3.5.2 HTTP响应报文</h4><p>HTTP响应报文的格式如下：</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206143840250.png" alt="image-20221206143840250"></p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206144041648.png" alt="image-20221206144041648"></p><p><strong>状态行、首部行、实体主体</strong></p><ul><li>状态行：协议版本字段、状态码、信息</li><li>首部行：可以分为请求Header、响应Header、通用Header<ul><li>请求首部：Accept可接受媒体资源的类型、Accept-Charset可接收的字符集</li><li>响应首部：ETag、资源的匹配信息，Location客户端重定向的URI</li><li>通用首部：Cache-Control控制缓存策略、Connection管理持久连接</li><li>实体首部：Content-Length实体主体的大小、Expires实体主体的过期时间、Last-Modified资源的最后修改时间</li></ul></li><li>实体主题：html信息等</li></ul><h3 id="3-6-URI和URL有什么区别"><a href="#3-6-URI和URL有什么区别" class="headerlink" title="3.6 URI和URL有什么区别"></a>3.6 URI和URL有什么区别</h3><p>URL是URI的子集</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206144518257.png" alt="image-20221206144518257" style="zoom:50%;" /><ul><li>URI，统一资源标识符：表示的是web上每一种可用的资源，如html文档、图像、视频片段等都是由一个URI进行标识的；</li><li>URL，统一资源定位符：是URI的一种子集，主要作用是提供资源的路径</li></ul><p>这篇博客说的比较好：<a href="https://www.jianshu.com/p/142c06b68027">https://www.jianshu.com/p/142c06b68027</a></p><p>URI是一种抽象广泛的定义，即不管用什么方法表示，只要能唯一标记某个资源，就叫URI。比如标记一个人，可以用DNA序列，电话号码，身份证，户籍地址，都可以叫做URI。可见，资源标记方式多种多样，可以使用具体的地址来标记资源，也可以使用其他方式标记资源</p><p>URL，是通过网络路径地址标记资源的符号，可以理解为URL就是资源的地址。那么上面例子中，户籍就是一种URL，通过户籍精确地找到这个人（如果不在家，可以跳转定位继续寻找）</p><h3 id="3-7-说下HTTP-x2F-1-0-1-1-2-0的区别？"><a href="#3-7-说下HTTP-x2F-1-0-1-1-2-0的区别？" class="headerlink" title="3.7 说下HTTP&#x2F;1.0, 1.1, 2.0的区别？"></a>3.7 说下HTTP&#x2F;1.0, 1.1, 2.0的区别？</h3><p><strong>关键需要记住HTTP&#x2F;1.0默认是短连接，可以强制开启。HTTP&#x2F;1.1默认长连接，HTTP&#x2F;2.0采用多路复用</strong></p><h4 id="3-7-1-HTTP-x2F-1-0"><a href="#3-7-1-HTTP-x2F-1-0" class="headerlink" title="3.7.1 HTTP&#x2F;1.0"></a>3.7.1 HTTP&#x2F;1.0</h4><ul><li>默认使用短连接，每次请求都需要建立一个TCP连接。它可以设置<code>Connection: keep-alive</code>这个字段，强制开启长连接</li></ul><h4 id="3-7-2-HTTP-x2F-1-1"><a href="#3-7-2-HTTP-x2F-1-1" class="headerlink" title="3.7.2 HTTP&#x2F;1.1"></a>3.7.2 HTTP&#x2F;1.1</h4><ul><li>引入了持久连接，即TCP连接默认不关闭，可以被多个请求复用</li><li>分块传输编码，即服务端每产生一块数据，就发送一块，用“流模式”取代“缓存模式”</li><li>管道机制，即在同一TCP连接里面，客户端可以同时发送多个请求</li></ul><h4 id="3-7-3-HTTP-x2F-2-0"><a href="#3-7-3-HTTP-x2F-2-0" class="headerlink" title="3.7.3 HTTP&#x2F;2.0"></a>3.7.3 HTTP&#x2F;2.0</h4><p>二进制协议、包头压缩、服务端推送（允许服务器未经请求，主动向客户端发送资源）</p><p>完全多路复用，在一个连接里，客户端和浏览器都可以同时发送多个请求或回应，而且不用按照顺序一一对应。</p><h3 id="3-8-HTTP如何实现长连接？在什么时候会超时"><a href="#3-8-HTTP如何实现长连接？在什么时候会超时" class="headerlink" title="3.8 HTTP如何实现长连接？在什么时候会超时"></a>3.8 HTTP如何实现长连接？在什么时候会超时</h3><blockquote><p><strong>什么是HTTP的长连接？</strong></p></blockquote><ol><li>HTTP分为长连接和短连接，本质上说的是TCP的长短连接。TCP连接是一个双向的通道，它是可以保持一段时间不关闭的，因此TCP连接才具有真正的长连接和短连接这一说法</li><li>TCP长连接可以复用一个TCP连接，来发起多次的HTTP请求，这样就可以减少资源消耗，比如一次请求HTML，如果是短连接的话，可能还要请求后续的JS&#x2F;CSS</li></ol><blockquote><p><strong>如何设置长连接？</strong></p></blockquote><p>通过在头部设置Connection字段指定为<code>keep-alive</code>，http&#x2F;1.0支持但默认关闭，http&#x2F;1.1开始默认长连接</p><blockquote><p><strong>在什么时候会超时呢？</strong></p></blockquote><ul><li>HTTP一般会有httpd守护进程，里面可以设置keep-alive timeout，当tcp连接闲置超过这个时间就会关闭，也可以在HTTP的header里面设置超时时间</li></ul><h3 id="3-9-怎么理解HTTP协议是无状态的"><a href="#3-9-怎么理解HTTP协议是无状态的" class="headerlink" title="3.9 怎么理解HTTP协议是无状态的"></a>3.9 怎么理解HTTP协议是无状态的</h3><p>这个<strong>无状态</strong>的<strong>状态</strong>，指的是客户端的状态，所以字面意思，就是HTTP协议中服务端不会保存客户端的任何信息</p><p><font color='red'>如果要保存客户端的信息，则需要客户端请求时候带着自己的内容，然后服务器这边做缓存层什么的，比如利用redis，像114那个项目一样</font> </p><p>比如当浏览器第一次发送请求给服务器的时候，服务器响应了；如果同个浏览器发起第二次请求给服务器时，它还是会响应，但是呢，服务器不知道你就是刚才的那个浏览器</p><blockquote><p><strong>那有什么办法记录状态呢？</strong></p></blockquote><p>主要有两个办法，Session和Cookie</p><h3 id="3-10-说说Session和Cookie有什么联系和区别"><a href="#3-10-说说Session和Cookie有什么联系和区别" class="headerlink" title="3.10 说说Session和Cookie有什么联系和区别"></a>3.10 说说Session和Cookie有什么联系和区别</h3><p>先来看看什么是Session和Cookie：</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206165110334.png" alt="image-20221206165110334" style="zoom:50%;" /><ul><li>Cookie是保存在客户端的一小块文本串的数据，客户端向服务器发起请求的时候，服务端会向客户端发送一个Cookie，客户端就把Cookie给保存起来。在客户端下一次向同一服务器再次发起请求时，Cookie被携带发送到服务器。服务端可以根据这个Cookie判断用户的身份和状态；</li><li>Session指的就是服务器和客户端一次会话的过程。它是另一种记录客户状态的机制。不同的是，cookie保存在客户端浏览器中，而session保存在服务器上。客户端浏览器访问服务器的时候，服务器把客户端信息以某种形式记录保存在服务器上，这就是session。客户端浏览器再次访问的时候，只需要从该session中查找用户的状态</li></ul><blockquote><p><strong>Session和Cookie到底有什么不同呢？</strong></p></blockquote><ul><li>存储位置不一样，Cookie保存在客户端，Session保存在服务器端</li><li>存储数据类型不一样，Cookie只保存ASCII，Session可以保存任意数据类型，一般情况下我们可以在Session中保存一些常用变量信息，比如说userId等</li><li>有效期不同，Cookie可以设置为长时间保持，比如我们经常使用的默认登录功能，Session一般有效时间比较短，客户端关闭或者Session超时都会失效</li><li>隐私策略不同，Cookie存储在客户端，比较容易遭到不法窃取（早起有人将用户的登录名和密码存储在cookie中导致信息被窃取）；Session存储在服务器端，安全型相较于Cookie好一些</li><li>存储大小不同，单个Cookie保存数据不能超过4K，Session可存储数据远高于Cookie</li></ul><blockquote><p><strong>Session和Cookie有什么关联呢？</strong></p></blockquote><p>可以使用Cookie记录Session的标识</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206170001302.png" alt="image-20221206170001302"></p><ul><li>用户第一次请求服务器时候，服务器根据用户提交的信息，创建对应的Session，请求返回时将此Session的唯一标识信息SessionID返回给浏览器，浏览器接收到服务器返回的SessionID信息后，会将此信息存入Cookie中，同时Cookie记录次SessionID是属于哪个域名</li><li>当用户第二次访问服务器的时候，请求会自动判断此域名下是否存在Cookie信息，如果存在，则自动将Cookie信息也发送到服务器，服务端会从Cookie中获取SessionID，再根据SessionID查找相对应的Session信息，如果没有找到，则说明用户没有登陆</li></ul><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206170510105.png" alt="image-20221206170510105"></p><h2 id="4-HTTPS"><a href="#4-HTTPS" class="headerlink" title="4. HTTPS"></a>4. HTTPS</h2><h3 id="4-1-说说HTTP和HTTPS的区别"><a href="#4-1-说说HTTP和HTTPS的区别" class="headerlink" title="4.1 说说HTTP和HTTPS的区别"></a>4.1 说说HTTP和HTTPS的区别</h3><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206152936508.png" alt="image-20221206152936508"></p><ol><li><p>HTTP是超文本传输协议，信息是明文传输，存在安全风险的问题。HTTPS则解决HTTP不安全的缺陷，在TCP和HTTP层之间加入了SSL&#x2F;TLS安全协议，使得报文能够加密传输；</p></li><li><p>HTTP连接建立相对简单，TCP三次握手之后便可进行HTTP的报文传输。而HTTPS在TCP三次握手之后，还需要进行SSL&#x2F;TLS的握手过程，才可进入加密报文传输；</p></li><li><p>HTTP的端口是80，HTTPS是443；</p></li><li><p>HTTPS协议需要向CA（证书权威机构）申请数字证书，来保证服务器的身份是可信的；</p></li></ol><h3 id="4-2-为什么要用HTTPS？解决了哪些问题？"><a href="#4-2-为什么要用HTTPS？解决了哪些问题？" class="headerlink" title="4.2 为什么要用HTTPS？解决了哪些问题？"></a>4.2 为什么要用HTTPS？解决了哪些问题？</h3><p>因为HTTP是明文传输，存在安全上的风险：</p><p>窃听风险：比如通信链路上可以获取通信内容，用户账号被盗</p><p>篡改风险：比如强制植入垃圾广告，视觉污染</p><p>冒充风险：比如冒充淘宝网站，用户金钱损失</p><p>所以引入了HTTPS，HTTPS在HTTP与TCP层之间加入了SSL&#x2F;TLS协议，可以很好的解决这些风险：</p><ul><li><strong>信息加密：交互信息无法被窃取</strong></li><li><strong>校验机制：无法篡改通信内容，篡改了就不能正常显示</strong></li><li><strong>身份证书：能证明真淘宝是真淘宝</strong></li></ul><h3 id="4-3-HTTPS工作流程是怎么样的？"><a href="#4-3-HTTPS工作流程是怎么样的？" class="headerlink" title="4.3 HTTPS工作流程是怎么样的？"></a>4.3 HTTPS工作流程是怎么样的？</h3><p>这道题有几个要点：公私钥、数字证书、加密、对称加密、非对称加密</p><p>HTTPS主要工作流程：</p><ol><li>客户端发起HTTPS请求，连接到服务端的443端口</li><li>服务端有一套数字证书（证书内容有公钥、证书颁发机构、失效日期等）</li><li>服务端将自己的数字证书发给客户端（公钥在证书里面，私钥是服务端拿着）</li><li>客户端收到数字证书之后，会验证证书的合法性。如果证书验证通过，就会生成一个随机的对称密钥，用证书的公钥加密。</li></ol><p><font color='red'>非对称加密，是为了把对称加密的密钥给过去，对称加密效率更高</font> </p><ol start="5"><li>客户端将公钥加密后的对称密钥，发送到服务器；</li><li>服务器接收到客户端发来的密钥之后，用自己之前保存的私钥对其进行非对称解密，解密之后就得到客户端的对称密钥，然后客户端对称密钥对传送数据进行对称加密，这样传输的数据就都是密文了</li><li>服务端将加密后的密文返回到客户端</li><li>客户端收到后，用自己的密钥进行对称解密，得到服务端返回的数据</li></ol><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206160858160.png" alt="image-20221206160858160"></p><p><font color='red'>主要记住，非对称加密，是用来加密对称加密密钥的</font> </p><h3 id="4-4-客户端怎么去校验证书的合法性"><a href="#4-4-客户端怎么去校验证书的合法性" class="headerlink" title="4.4 客户端怎么去校验证书的合法性"></a>4.4 客户端怎么去校验证书的合法性</h3><p>首先服务端证书从哪里来？</p><p>为了让服务器的公钥被大家信任，服务端的证书都是由CA签名的，CA就是网络世界里的公安局、公证中心，具有极高的可信度，所以由它来给公钥签名，信任的一方签发的证书，那么证书也是被信任的。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206161945286.png" alt="image-20221206161945286"></p><p>这个过程中，CA公钥是存储在操作系统或者浏览器的，不要用奇奇怪怪的浏览器？</p><p>CA签发证书的过程，如上图的左边部分：</p><ul><li>首先CA会把持有者的公钥、用途、颁发者、有效时间等信息打成一个包，然后对这些信息进行Hash计算，得到一个Hash值</li><li>然后CA会用自己的私钥将该Hash值加密，生成Certificate Signature，也就是CA对证书做了签名；</li><li>最后将Certificate Signature添加在文件证书上，形成数字证书；</li></ul><p>客户端校验服务端的数字证书的过程，如上图右边部分：</p><ul><li>首先客户端会用同样的Hash算法获取该证书的Hash值H1</li><li>通常浏览器和操作系统中继承了CA的公钥信息，浏览器收到证书后可以使用CA的公钥加密Certificate</li><li>Signature内容，公钥解密，得到一个Hash值H2</li><li>最后比较H1和H2，如果值相同，则是可信赖的整数，否则认为证书不可信</li></ul><p>如果被篡改，则由于没有CA私钥，那么CA公钥解密就内容不一致</p><h2 id="5-TCP（重点，比较多），传输层协议"><a href="#5-TCP（重点，比较多），传输层协议" class="headerlink" title="5. TCP（重点，比较多），传输层协议"></a>5. TCP（重点，比较多），传输层协议</h2><h3 id="5-1-TCP的三次握手机制"><a href="#5-1-TCP的三次握手机制" class="headerlink" title="5.1 TCP的三次握手机制"></a>5.1 TCP的三次握手机制</h3><p>TCP提供面向连接的服务，在传送数据前必须建立连接，TCP连接是通过三次握手建立的</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206172111561.png" alt="image-20221206172111561"></p><p>三次握手的过程：</p><ul><li>最开始，客户端和服务器都处于CLOSE状态，服务端监听客户端的请求，进入LISTEN状态</li><li>客户端发送连接请求，第一次握手（SYN&#x3D;1，seq&#x3D;x），发送完毕后，客户端就进入SYS_SENT状态</li><li>服务端确认连接，第二次握手（SYN&#x3D;1，ACK&#x3D;1，seq&#x3D;y，ack_num&#x3D;x+1），发送完毕后，服务端就进去SYN_RCVD（receive）状态</li><li>客户端收到服务端的确认之后，再次向服务器确认，这就是第三次握手（ACK&#x3D;1,seq&#x3D;x+1,ack&#x3D;y+1），发送完毕后，客户端进入ESTABILISHED（证实，获得接受）状态，当服务器接收到这个包时，也进入ESTABILISHED状态</li></ul><h3 id="5-2-TCP握手为什么是三次，为什么不能是两次或者四次？"><a href="#5-2-TCP握手为什么是三次，为什么不能是两次或者四次？" class="headerlink" title="5.2 TCP握手为什么是三次，为什么不能是两次或者四次？"></a>5.2 TCP握手为什么是三次，为什么不能是两次或者四次？</h3><h4 id="5-2-1-为什么不能是两次"><a href="#5-2-1-为什么不能是两次" class="headerlink" title="5.2.1 为什么不能是两次"></a>5.2.1 为什么不能是两次</h4><ul><li><strong>为了防止服务器端开启一些无用的连接增加开销</strong></li></ul><p>由于网络传输是有延时的（要通过网络光纤和各种中间代理服务器），在传输过程中，比如客户端发起来SYN&#x3D;1的第一次握手。</p><p>如果服务端就直接创建了这个连接，并返回包含SYN ACK seq ack_num等内容的数据包给客户端，这个数据包因为网络传输的原因丢失了，丢失之后客户端就一直没有接收到服务器返回的数据包</p><p>如果没有第三次握手告诉服务器客户端接收的到服务器端传输的数据的话，服务端是不知道客户端有没有接收到服务端返回的信息的。</p><p>服务端就认为这个连接是可用的，端口一直开着，等到客户端因超时重新发出请求时，服务器就会重新开启一个端口连接。这样一来，就会有很多无效端口白白地开着，资源浪费</p><p><font color='red'>这个可以理解为资源，一根管道？</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206200330876.png" alt="image-20221206200330876"></p><ul><li>防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误</li></ul><p>还有一种情况是已经失效的客户端发出的请求信息，由于某种原因传输到了服务器端，服务器端以为是客户端发出的有效请求，接受后产生错误</p><p><font color='red'>客户端没有对服务器端第二次握手的seq进行回应，在两次握手就是只要客户端请求了，就建立连接，那么我发起一个新的请求，建立连接了，但是之前阻塞的消息这个时候到了，就会有问题</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206200652943.png" alt="image-20221206200652943"></p><p>所以我们需要第三次握手来确认这个过程</p><p>通过第三次握手的数据告诉服务端，客户端有没有收到服务器第二次握手时传过去的数据，以及这个连接的序列号是不是有效的。若发送的这个数据是“收到且没有问题”的信息，接收后服务器就正常建立TCP连接，否则建立TCP连接失败，</p><p><font color='red'>超时这个，想象一个打电话的场景</font> </p><h4 id="5-2-2-为什么不是四次？"><a href="#5-2-2-为什么不是四次？" class="headerlink" title="5.2.2 为什么不是四次？"></a>5.2.2 为什么不是四次？</h4><p>因此三次握手已经足够创建可靠的连接，没有必要再多一次握手导致花费更多的时间建立连接</p><h3 id="5-3-三次握手中每一次没收到报文会发生什么情况？"><a href="#5-3-三次握手中每一次没收到报文会发生什么情况？" class="headerlink" title="5.3 三次握手中每一次没收到报文会发生什么情况？"></a>5.3 三次握手中每一次没收到报文会发生什么情况？</h3><ul><li>第一次握手，服务端未收到SYN报文</li></ul><p>服务端不会进行任何动作，而客户端由于一段时间没有收到服务端发来的确认报文，等待一段时间后会重新发送SYN报文，如果仍然没有回应，会重复这个过程，直到发送次数超过最大重传次数限制，就会返回建立连接失败</p><ul><li>第二次握手，客户端未收到服务端响应的SYN+ACK报文</li></ul><p>客户端会继续重传，直到次数限制</p><p>而服务端此时会阻塞在accept处，等待客户端发送ACK报文</p><ul><li>第三次握手，服务端未收到客户端发送过来的ACK报文</li></ul><p>服务端同样会采用类似客户端的超时重传机制，如果重试次数超过限制，则accept调用返回-1，服务端建立连接失败。<strong>而此时客户端认为自己已经建立连接成功，</strong>因此开始向服务端发送数据，但是服务端的accept()函数调用已经返回，此时不在监听状态，因此服务端接收到客户端发来的数据时，会发送RST（reset）报文给客户端，消除客户端单方面建立连接的状态</p><h3 id="5-4-第二次握手传回了ACK，为什么还要传回SYN"><a href="#5-4-第二次握手传回了ACK，为什么还要传回SYN" class="headerlink" title="5.4 第二次握手传回了ACK，为什么还要传回SYN"></a>5.4 第二次握手传回了ACK，为什么还要传回SYN</h3><p>ACK是为了告诉客户端传来的数据已经接收无误</p><p>传回SYN是为了告诉客户端，服务端响应的<strong>确实是客户端发送的报文</strong></p><h3 id="5-5-第三次握手可以携带数据吗"><a href="#5-5-第三次握手可以携带数据吗" class="headerlink" title="5.5 第三次握手可以携带数据吗"></a>5.5 第三次握手可以携带数据吗</h3><p>第三次握手是可以携带数据的，此时客户端已经处于ESTABILISED状态，对于客户端来说，它已经建立连接成功，并且确认服务端的接收和发送能力是正常的</p><p>第一次握手不能携带数据是出于安全的考虑，如果允许携带数据，每次在SYN报文中携带大量的数据，导致消耗服务端的资源和空间去处理报文，造成CPU和内存的消耗</p><p>这里引出下面SYN Flooding攻击</p><h3 id="5-6-说说半连接队列和SYN-Flood攻击的关系"><a href="#5-6-说说半连接队列和SYN-Flood攻击的关系" class="headerlink" title="5.6 说说半连接队列和SYN Flood攻击的关系"></a>5.6 说说半连接队列和SYN Flood攻击的关系</h3><blockquote><p><strong>什么是半连接队列？</strong></p></blockquote><p>TCP进入三次握手前，服务端会从CLOSED状态变为LISTEN状态，同时在内部创建了两个队列：半连接队列（SYN队列）和全连接队列（ACCEPT队列）</p><p>顾名思义，半连接队列存放的是三次握手未完成的连接，全连接队列存放的是完成三次握手的连接</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206203432334.png" alt="image-20221206203432334"></p><ul><li>TCP三次握手时，客户端发送SYN到服务器，服务端接收到后，回复ACK和SYN，状态由LISTEN变为SYN_RCVD，此时这个连接就进入了SYN队列，即半连接队列</li><li>当客户端回复ACK，服务端接收后，三次握手就完成了。这时连接会等待被具体的应用取走，在被取走之前，它被推入ACCEPT队列，即全连接队列</li></ul><blockquote><p><strong>什么是SYN Flood？</strong></p></blockquote><p>SYN Flooding是一种典型的DDoS（分布式拒绝服务攻击），它在短时间内伪造不存在的IP地址，向服务器发送大量SYN报文。当服务器回复SYN+ACK报文后，不会收到ACK回应报文，那么SYN队列里的连接就不会出队，久而久之就会沾满服务端的SYN接收队列（半连接队列），使得服务器不能为正常用户服务</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206204200042.png" alt="image-20221206204200042"></p><ul><li>SYN Proxy防火墙：服务器防火墙会对收到的每一个SYN报文进行代理和回应，并保持半连接。等发送方将ACK包返回后，再重新构造SYN包发到服务器，建立真正的TCP连接</li></ul><h3 id="5-7-说说TCP的四次挥手过程？"><a href="#5-7-说说TCP的四次挥手过程？" class="headerlink" title="5.7 说说TCP的四次挥手过程？"></a>5.7 说说TCP的四次挥手过程？</h3><p>TCP四次挥手关闭连接</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206205128324.png" alt="image-20221206205128324"></p><ul><li><p>数据传输结束之后，通信双方都可以主动发起断开连接请求，这里假定客户端发起</p></li><li><p>客户端发送释放连接报文，<strong>第一次挥手（FIN&#x3D;1，seq&#x3D;u）</strong>，发送完毕后，客户端进入<strong>FIN_WAIT_1</strong>状态；</p></li><li><p>服务端发送确认报文，<strong>第二次挥手（ACK&#x3D;1，seq&#x3D;v，ack_num&#x3D;u+1）</strong>，发送完毕后，服务端进入<strong>CLOSE_WAIT</strong>状态，客户端收到这个确认包后，进入<strong>FIN_WAIT_2</strong>状态</p></li><li><p>服务端发送释放连接报文，第三次挥手（ACK&#x3D;1，FIN&#x3D;1，seq&#x3D;w, ack_num&#x3D;u+1），发送完毕后服务器端进入<strong>LAST_ACK</strong>状态，等待来自客户端的最后一个ACK</p></li><li><p>客户端发送确认报文，<strong>第四次挥手（ACK&#x3D;1，seq&#x3D;u+1，ack&#x3D;w+1）</strong>，客户端接收到来自服务端的关闭请求，发送一个确认包，并进入TIME_WAIT状态，等待某个固定时间，之后没有收到服务端的ACK，认为服务端已经正常关闭连接，自己也关闭连接，进入CLOSED状态， 服务端收到这个后进入CLOSED状态</p></li></ul><h3 id="5-8-TCP挥手为什么需要四次呢？"><a href="#5-8-TCP挥手为什么需要四次呢？" class="headerlink" title="5.8 TCP挥手为什么需要四次呢？"></a>5.8 TCP挥手为什么需要四次呢？</h3><p>再来回顾下四次挥手双方发FIN包的过程，就能理解为什么需要四次了</p><ul><li>关闭连接时，客户端向服务端发送FIN时，仅仅表示客户端不再发送数据了，但是还能接收数据</li><li>服务端收到客户端的FIN报文时，先回一个ACK应答报文，而服务端可能还有数据需要处理和发送，等服务端不再发送数据时，才发送FIN报文给客户端来表示同意关闭现在的链接</li></ul><p>由上面过程可以知道，<strong>服务端通常需要等待完成数据的发送和处理</strong>，所以服务端的ACK和FIN一般都会分开发送，从而比三次握手导致多了一次</p><h3 id="5-9-TCP四次挥手过程中，为什么需要等待2MSL，才进入CLOSED关闭状态？"><a href="#5-9-TCP四次挥手过程中，为什么需要等待2MSL，才进入CLOSED关闭状态？" class="headerlink" title="5.9 TCP四次挥手过程中，为什么需要等待2MSL，才进入CLOSED关闭状态？"></a>5.9 TCP四次挥手过程中，为什么需要等待2MSL，才进入CLOSED关闭状态？</h3><p>MSL：报文最大生成时间</p><p>网络中可能存在来自发送方的数据包，当这些发送放的数据包被接收方处理后又会向对方发送响应，这样一来一回需要等待2倍的时间</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206210550194.png" alt="image-20221206210550194"></p><h3 id="5-10-TCP是如何保证可靠性的？"><a href="#5-10-TCP是如何保证可靠性的？" class="headerlink" title="5.10 TCP是如何保证可靠性的？"></a>5.10 TCP是如何保证可靠性的？</h3><p>TCP主要提供了：连接管理、校验和、序列号&#x2F;确认应答、流量控制、最大消息长度、超时重传、拥塞控制，等方法实现了可靠性传输</p><h4 id="5-10-1-连接管理"><a href="#5-10-1-连接管理" class="headerlink" title="5.10.1 连接管理"></a>5.10.1 连接管理</h4><p>TCP使用三次握手和四次挥手保证可靠地建立连接和释放连接</p><h4 id="5-10-2-校验和"><a href="#5-10-2-校验和" class="headerlink" title="5.10.2 校验和"></a>5.10.2 校验和</h4><p>TCP将保持它首部和数据的校验和。这是一个端到端的校验和，目的是奸恶数据在传输过程中的任何变化。如果接收端的检验和有差错，TCP将丢弃这个报文段，和不确认接收到此报文</p><p><font color='red'>有点像一种用hash算法，来保证文件完整性的</font> </p><h4 id="5-10-3-序列号-x2F-确认应答"><a href="#5-10-3-序列号-x2F-确认应答" class="headerlink" title="5.10.3 序列号&#x2F;确认应答"></a>5.10.3 序列号&#x2F;确认应答</h4><p>TCP给发送的每一个包进行编号，接收方会对收到的包进行应答，发送方就会知道接收方是否收到对应的包，如果发现没有收到，就会重发，这样就能保证数据的完整性。</p><p><font color='red'>好玩的比喻：老师上课讲课，会一直问听懂了吗，没听懂就再讲一遍</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206211312490.png" alt="image-20221206211312490"></p><h4 id="5-10-4-流量控制"><a href="#5-10-4-流量控制" class="headerlink" title="5.10.4 流量控制"></a>5.10.4 流量控制</h4><p>TCP连接的每一方都有固定大小的缓冲空间，TCP接收端只允许发送端，发送接收缓冲区能容纳的请求。当接收方来不及处理发送方发送的数据时候，能提示发送方降低发送的速率，防止包丢失。（可变大小的滑动窗口协议）</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206211620390.png" alt="image-20221206211620390"></p><h4 id="5-10-5-最大消息长度"><a href="#5-10-5-最大消息长度" class="headerlink" title="5.10.5 最大消息长度"></a>5.10.5 最大消息长度</h4><p>在建立TCP连接的时候，双方约定一个最大的长度作为发送的单位，重传时候也以这个单位进行重传。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206211710610.png" alt="image-20221206211710610"></p><h4 id="5-10-6-超时重传"><a href="#5-10-6-超时重传" class="headerlink" title="5.10.6 超时重传"></a>5.10.6 超时重传</h4><p>超时重传是指发送出去的数据包到接收到确认包之间的时间，如果超过了这个时间，就会被认为是丢包了，需要重传</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206211812925.png" alt="image-20221206211812925"></p><h4 id="5-10-7-拥塞控制"><a href="#5-10-7-拥塞控制" class="headerlink" title="5.10.7 拥塞控制"></a>5.10.7 拥塞控制</h4><p>如果网络非常拥堵，此时再发送数据就会加重网络负担，那么发送的数据段很可能超过了最大生存时间也没有到达接收方，就会产生丢包问题。为此TCP引入慢启动机制，先发出少量数据，就像探路一样，先摸清当前的网络拥堵状态后，再决定按照多大的速度传送数据</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206212027151.png" alt="image-20221206212027151"></p><h2 id="6-UDP"><a href="#6-UDP" class="headerlink" title="6. UDP"></a>6. UDP</h2><h3 id="6-1-说说TCP和UDP的区别？"><a href="#6-1-说说TCP和UDP的区别？" class="headerlink" title="6.1 说说TCP和UDP的区别？"></a>6.1 说说TCP和UDP的区别？</h3><p>最根本的区别：</p><p><strong>TCP是面向连接</strong></p><p><strong>而UDP是无连接</strong></p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206212122866.png" alt="image-20221206212122866"></p><p>TCP的传输更加可靠了，但是传输效率就比较慢，所需资源比较多，一般用在文件发送、邮件传输等场景</p><p>UDP的传输不可靠，但是传输效率就快了，所需资源也比较少，适合即时通讯等场景</p><p>比较形象的比喻来说，TCP是打电话，UDP是大喇叭</p><h3 id="6-2-说说TCP和UDP的应用场景？"><a href="#6-2-说说TCP和UDP的应用场景？" class="headerlink" title="6.2 说说TCP和UDP的应用场景？"></a>6.2 说说TCP和UDP的应用场景？</h3><ul><li><strong>TCP应用场景</strong>：效率要求相对低，但是准确性要求相对高的场景。因为传输中需要对数据确认、重发、排序等操作，相比之下效率没有UDP高。例如：文件传输（准确高要求高，但是速度可以相对慢），收发邮件等。</li><li><strong>UDP应用场景</strong>：效率要求相对高，对准确性要求相对低的场景。例如：在线视频、网络语音电话、直播等，偶尔断一下不是太大问题，并且不用重发</li></ul><h3 id="6-3-UDP协议为什么不可靠"><a href="#6-3-UDP协议为什么不可靠" class="headerlink" title="6.3 UDP协议为什么不可靠"></a>6.3 UDP协议为什么不可靠</h3><ul><li>不保证消息交付</li><li>不保证交付顺序</li><li>不跟踪连接状态</li><li>不进行拥塞控制</li></ul><h2 id="7-IP"><a href="#7-IP" class="headerlink" title="7. IP"></a>7. IP</h2><h3 id="7-1-IP协议的定义和作用"><a href="#7-1-IP协议的定义和作用" class="headerlink" title="7.1 IP协议的定义和作用"></a>7.1 IP协议的定义和作用</h3><blockquote><p><strong>IP协议是什么？</strong></p></blockquote><p>IP协议又被称为互联网协议，是支持网间互联的数据包协议，工作在网络层，主要目的是为了提高网络的扩展性</p><p>通过网际协议IP，可以把参与互联的，性能各异的网络看做一个统一的网络</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206213054804.png" alt="image-20221206213054804"></p><p>和传输层TCP相比，IP协议是一种无连接&#x2F;不可靠、尽力而为的数据包传输服务，和TCP协议一起构成了TCP&#x2F;IP协议的核心</p><blockquote><p><strong>IP协议有哪些作用？</strong></p></blockquote><p>IP协议主要有以下几个作用：</p><ul><li>寻址和路由：IP协议根据路由信息对IP数据报进行转发，直至目标主机</li><li>分段和重组：达到目标主机后，目标主机完成重组</li></ul><blockquote><p><strong>传输层协议和网络层协议有什么区别？</strong></p></blockquote><p>传输层负责进程间的逻辑通信</p><p>网络层提供主机间的逻辑通信</p><p><font color='red'>从协议栈上看，一个往上应用层兼容，一个往下物理层兼容</font> </p><h3 id="7-2-IP地址有哪些分类"><a href="#7-2-IP地址有哪些分类" class="headerlink" title="7.2 IP地址有哪些分类"></a>7.2 IP地址有哪些分类</h3><p>一个IP地址在整个互联网是唯一的，一般可以认为IP地址&#x3D;网络号 主机号</p><ol><li>网络号：它标志主机所连接的网络属于互联网的那一个网络</li><li>主机号：它标志着主机地址表示其属于该网络中的哪一台主机</li></ol><p>IP地址分为A B C D E五大类</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221206214250567.png" alt="image-20221206214250567"></p><p>172.16开头的是B类地址，</p><p>192.168开头的都是C类IP地址，企业局域网专用地址段</p><h4 id="7-3-域名和IP的关系？一个IP可以对应多个域名吗？"><a href="#7-3-域名和IP的关系？一个IP可以对应多个域名吗？" class="headerlink" title="7.3 域名和IP的关系？一个IP可以对应多个域名吗？"></a>7.3 域名和IP的关系？一个IP可以对应多个域名吗？</h4><ul><li>IP地址在同一个网络中是唯一的，用来标识每一个网络上的设备，相当于一个人的身份证号</li><li>域名在同一个网络中也是唯一的，就像一个人的绰号</li></ul><p>一个域名可以对应多个IP（比如github.com），但这种情况DNS做负载均衡的，用户访问过程中，一个域名只能对应一个IP</p><p>一个IP可以对应多个域名（多个绰号都能找过来），是一对多的</p><h3 id="7-4-IPv4地址不够怎么解决"><a href="#7-4-IPv4地址不够怎么解决" class="headerlink" title="7.4 IPv4地址不够怎么解决"></a>7.4 IPv4地址不够怎么解决</h3><p>IPv4：2^32个（但是可复用）</p><p>DHCP：动态分配，空闲的IP地址充分得到利用</p><p>IPv6：2^128个</p>]]></content>
     
     
+    <categories>
+      
+      <category>develop</category>
+      
+      <category>计算机基础</category>
+      
+      <category>network</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>network</tag>
+      
+    </tags>
     
   </entry>
   
@@ -444,6 +476,8 @@
       
       <category>develop</category>
       
+      <category>mysql</category>
+      
     </categories>
     
     
@@ -468,6 +502,8 @@
     <categories>
       
       <category>develop</category>
+      
+      <category>mysql</category>
       
     </categories>
     
@@ -997,9 +1033,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>贪心</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -1034,11 +1070,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>动态规划</tag>
+      <tag>矩阵</tag>
       
       <tag>位运算</tag>
       
-      <tag>矩阵</tag>
+      <tag>动态规划</tag>
       
       <tag>回溯</tag>
       
@@ -1108,9 +1144,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>贪心</tag>
-      
       <tag>数学</tag>
+      
+      <tag>贪心</tag>
       
       <tag>几何</tag>
       
@@ -1153,9 +1189,9 @@
       
       <tag>HARD</tag>
       
-      <tag>位运算</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>位运算</tag>
       
       <tag>计数</tag>
       
@@ -1192,19 +1228,19 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>树</tag>
-      
-      <tag>深度优先搜索</tag>
-      
-      <tag>动态规划</tag>
-      
       <tag>HARD</tag>
+      
+      <tag>数学</tag>
       
       <tag>哈希表</tag>
       
       <tag>矩阵</tag>
       
-      <tag>数学</tag>
+      <tag>动态规划</tag>
+      
+      <tag>树</tag>
+      
+      <tag>深度优先搜索</tag>
       
       <tag>二叉搜索树</tag>
       
@@ -1299,19 +1335,19 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>贪心</tag>
-      
-      <tag>动态规划</tag>
-      
       <tag>HARD</tag>
-      
-      <tag>字典树</tag>
       
       <tag>哈希表</tag>
       
+      <tag>贪心</tag>
+      
       <tag>滑动窗口</tag>
       
+      <tag>动态规划</tag>
+      
       <tag>枚举</tag>
+      
+      <tag>字典树</tag>
       
       <tag>哈希函数</tag>
       
@@ -1402,15 +1438,15 @@
     
     <tags>
       
+      <tag>HARD</tag>
+      
+      <tag>动态规划</tag>
+      
       <tag>树</tag>
       
       <tag>深度优先搜索</tag>
       
       <tag>二叉树</tag>
-      
-      <tag>动态规划</tag>
-      
-      <tag>HARD</tag>
       
     </tags>
     
@@ -1513,13 +1549,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>贪心</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>前缀和</tag>
       
       <tag>矩阵</tag>
       
-      <tag>前缀和</tag>
+      <tag>贪心</tag>
       
       <tag>计数</tag>
       
@@ -1595,13 +1631,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>贪心</tag>
-      
-      <tag>动态规划</tag>
+      <tag>数学</tag>
       
       <tag>哈希表</tag>
       
-      <tag>数学</tag>
+      <tag>贪心</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -1682,9 +1718,9 @@
       
       <tag>位运算</tag>
       
-      <tag>栈</tag>
-      
       <tag>枚举</tag>
+      
+      <tag>栈</tag>
       
       <tag>递归</tag>
       
@@ -1886,9 +1922,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>贪心</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>贪心</tag>
       
     </tags>
     
@@ -2024,6 +2060,12 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>数学</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>贪心</tag>
+      
       <tag>树</tag>
       
       <tag>深度优先搜索</tag>
@@ -2031,12 +2073,6 @@
       <tag>广度优先搜索</tag>
       
       <tag>二叉树</tag>
-      
-      <tag>贪心</tag>
-      
-      <tag>哈希表</tag>
-      
-      <tag>数学</tag>
       
     </tags>
     
@@ -2098,9 +2134,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>二分查找</tag>
-      
       <tag>计数</tag>
+      
+      <tag>二分查找</tag>
       
     </tags>
     
@@ -2139,13 +2175,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>贪心</tag>
+      <tag>数学</tag>
       
-      <tag>链表</tag>
+      <tag>贪心</tag>
       
       <tag>计数</tag>
       
-      <tag>数学</tag>
+      <tag>链表</tag>
       
     </tags>
     
@@ -2316,15 +2352,15 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>贪心</tag>
+      <tag>数学</tag>
       
       <tag>哈希表</tag>
       
       <tag>前缀和</tag>
       
-      <tag>计数</tag>
+      <tag>贪心</tag>
       
-      <tag>数学</tag>
+      <tag>计数</tag>
       
     </tags>
     
@@ -2359,11 +2395,11 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>数学</tag>
+      
       <tag>哈希表</tag>
       
       <tag>设计</tag>
-      
-      <tag>数学</tag>
       
     </tags>
     
@@ -2400,17 +2436,17 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>双指针</tag>
-      
       <tag>HARD</tag>
-      
-      <tag>位运算</tag>
       
       <tag>哈希表</tag>
       
-      <tag>回溯</tag>
+      <tag>位运算</tag>
       
       <tag>计数</tag>
+      
+      <tag>双指针</tag>
+      
+      <tag>回溯</tag>
       
       <tag>枚举</tag>
       
@@ -2602,13 +2638,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>位运算</tag>
-      
       <tag>哈希表</tag>
       
       <tag>矩阵</tag>
       
       <tag>滑动窗口</tag>
+      
+      <tag>位运算</tag>
       
     </tags>
     
@@ -2645,11 +2681,11 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>数学</tag>
+      
       <tag>贪心</tag>
       
       <tag>动态规划</tag>
-      
-      <tag>数学</tag>
       
     </tags>
     
@@ -2767,9 +2803,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>矩阵</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -2798,9 +2834,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>数学</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>组合数学</tag>
       
@@ -2831,9 +2867,9 @@
       
       <tag>EASY</tag>
       
-      <tag>双指针</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
       
       <tag>链表</tag>
       
@@ -2899,9 +2935,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>矩阵</tag>
-      
       <tag>数学</tag>
+      
+      <tag>矩阵</tag>
       
     </tags>
     
@@ -2994,11 +3030,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>贪心</tag>
+      <tag>数学</tag>
       
       <tag>矩阵</tag>
       
-      <tag>数学</tag>
+      <tag>贪心</tag>
       
     </tags>
     
@@ -3035,11 +3071,11 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>数学</tag>
+      
       <tag>哈希表</tag>
       
       <tag>前缀和</tag>
-      
-      <tag>数学</tag>
       
     </tags>
     
@@ -3097,13 +3133,13 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>矩阵</tag>
+      
       <tag>深度优先搜索</tag>
       
       <tag>广度优先搜索</tag>
       
       <tag>并查集</tag>
-      
-      <tag>矩阵</tag>
       
     </tags>
     
@@ -3132,9 +3168,9 @@
       
       <tag>数组</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>HARD</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3163,9 +3199,9 @@
       
       <tag>字符串</tag>
       
-      <tag>动态规划</tag>
-      
       <tag>HARD</tag>
+      
+      <tag>动态规划</tag>
       
     </tags>
     
@@ -3262,9 +3298,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>链表</tag>
-      
       <tag>设计</tag>
+      
+      <tag>链表</tag>
       
       <tag>双向链表</tag>
       
@@ -3328,13 +3364,13 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>哈希表</tag>
+      
       <tag>动态规划</tag>
       
       <tag>字典树</tag>
       
       <tag>记忆化搜索</tag>
-      
-      <tag>哈希表</tag>
       
     </tags>
     
@@ -3423,11 +3459,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>字典树</tag>
-      
       <tag>哈希表</tag>
       
       <tag>设计</tag>
+      
+      <tag>字典树</tag>
       
     </tags>
     
@@ -3657,11 +3693,11 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>数学</tag>
+      
       <tag>哈希表</tag>
       
       <tag>TODO优化</tag>
-      
-      <tag>数学</tag>
       
       <tag>水塘抽样</tag>
       
@@ -3793,9 +3829,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>数学</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
