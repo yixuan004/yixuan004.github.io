@@ -16,16 +16,20 @@
   <meta name="author" content="Curious;">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
+    <meta name="description" content="操作系统常见问题整合1. 进程相关1.1 进程和线程的区别是什么，协程是什么？reference：https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;25532384&#x2F;answer&#x2F;411179772 进程是资源分配最小的单位，线程是CPU调度的最小单位 比喻一下：进程&#x3D;火车，线程&#x3D;车厢  线程在进程下行进（单纯的车厢无法运行）  一个进程可以包含多个线程（一辆火车有">
+<meta property="og:type" content="article">
 <meta property="og:title" content="操作系统常见问题整合">
 <meta property="og:url" content="http://example.com/2022/12/05/develop/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%95%B4%E5%90%88/index.html">
 <meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="操作系统常见问题整合1. 进程相关1.1 进程和线程的区别是什么，协程是什么？reference：https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;25532384&#x2F;answer&#x2F;411179772 进程是资源分配最小的单位，线程是CPU调度的最小单位 比喻一下：进程&#x3D;火车，线程&#x3D;车厢  线程在进程下行进（单纯的车厢无法运行）  一个进程可以包含多个线程（一辆火车有">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207204404371.png">
 <meta property="article:published_time" content="2022-12-05T13:19:47.000Z">
-<meta property="article:modified_time" content="2022-12-06T17:07:02.690Z">
+<meta property="article:modified_time" content="2022-12-07T13:27:12.028Z">
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="os">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207204404371.png">
   
   
   
@@ -217,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          1.7k 字
         
       </span>
     
@@ -228,7 +232,7 @@
         
         
         
-          1 分钟
+          15 分钟
         
       </span>
     
@@ -271,7 +275,48 @@
             
               <div class="markdown-body">
                 
-                
+                <h1 id="操作系统常见问题整合"><a href="#操作系统常见问题整合" class="headerlink" title="操作系统常见问题整合"></a>操作系统常见问题整合</h1><h2 id="1-进程相关"><a href="#1-进程相关" class="headerlink" title="1. 进程相关"></a>1. 进程相关</h2><h3 id="1-1-进程和线程的区别是什么，协程是什么？"><a href="#1-1-进程和线程的区别是什么，协程是什么？" class="headerlink" title="1.1 进程和线程的区别是什么，协程是什么？"></a>1.1 进程和线程的区别是什么，协程是什么？</h3><p>reference：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/25532384/answer/411179772">https://www.zhihu.com/question/25532384/answer/411179772</a></p>
+<p>进程是资源分配最小的单位，线程是CPU调度的最小单位</p>
+<p>比喻一下：进程&#x3D;火车，线程&#x3D;车厢</p>
+<ul>
+<li><p>线程在进程下行进（单纯的车厢无法运行）</p>
+</li>
+<li><p>一个进程可以包含多个线程（一辆火车有多个车厢）</p>
+</li>
+<li><p>不同进程之间数据很难共享（一辆火车的乘客，很难换到另外一辆火车）</p>
+</li>
+<li><p>同一进程下不同线程间数据很容易共享（一辆火车的乘客，A车厢换到B车厢很容易）</p>
+</li>
+<li><p>进程要比线程消耗更多的计算机资源（采用多列火车相比多个车厢更消耗资源）</p>
+</li>
+<li><p>进程间不会相互影响（多列火车之间互相不会相互影响）</p>
+</li>
+<li><p>进程可以拓展到多机，进程适合多核</p>
+</li>
+</ul>
+<p>协程Coroutines是一种比线程更加轻量级的微线程。类比一个进程可以拥有多个线程，一个线程也可以拥有多个协程。</p>
+<h3 id="1-2-进程之间的通信方式"><a href="#1-2-进程之间的通信方式" class="headerlink" title="1.2 进程之间的通信方式"></a>1.2 进程之间的通信方式</h3><p>进程间通信是两个进程之间进行信息交流的一种机制，不仅仅会发生于同一主机的两个进程之间，也可以发生在不同主机的两个进程之间。进程之间的通信方式有很多，例如：管道（pipe）、信号量（semaphore）、共享内存（shared memory）、消息队列（message queue）、以及套接字（socket）等等</p>
+<h4 id="1-2-1-UNIX管道（pipe）"><a href="#1-2-1-UNIX管道（pipe）" class="headerlink" title="1.2.1 UNIX管道（pipe）"></a>1.2.1 UNIX管道（pipe）</h4><p>在 shell 中, 我们经常使用 | 将两个命令连接起来, 将前一个命令的输出作为后一个命令的输入, 这是管道使用最典型的例子</p>
+<h4 id="1-2-2-UNIX信号量（semaphore）"><a href="#1-2-2-UNIX信号量（semaphore）" class="headerlink" title="1.2.2 UNIX信号量（semaphore）"></a>1.2.2 UNIX信号量（semaphore）</h4><p>dijkstra提出，能非常好的实现并发控制——生产者消费者模型，PV操作</p>
+<h4 id="1-2-3-UNIX共享内存"><a href="#1-2-3-UNIX共享内存" class="headerlink" title="1.2.3 UNIX共享内存"></a>1.2.3 UNIX共享内存</h4><p>在同一操作系统上运行的多个进程之间，他们是相互独立的，每个进程都有自己的地址空间，其它进程无法访问当前进程的内存区域。</p>
+<p>UNIX的另一种进程间通信机制是使用共享内存，共享内存是进程创建的特殊地址空间，不同进程可以将同一块内存地址连接到他们自己的内存空间中，此时任何一个进程向共享内存区写入数据，其它进程都可以读到</p>
+<h4 id="1-2-4-UNIX消息队列"><a href="#1-2-4-UNIX消息队列" class="headerlink" title="1.2.4 UNIX消息队列"></a>1.2.4 UNIX消息队列</h4><p>FIFO消息队列</p>
+<h3 id="1-3-进程调度算法"><a href="#1-3-进程调度算法" class="headerlink" title="1.3 进程调度算法"></a>1.3 进程调度算法</h3><p>先来先服务（FCFS）、优先级调度、时间片轮转、短进程优先等调度苏娜发</p>
+<h3 id="1-4-进程的状态转换"><a href="#1-4-进程的状态转换" class="headerlink" title="1.4 进程的状态转换"></a>1.4 进程的状态转换</h3><p>reference：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42229896/article/details/80625587">https://blog.csdn.net/weixin_42229896/article/details/80625587</a></p>
+<p>新建态、就绪态、运行态、退出态、阻塞态</p>
+<p>新建态：刚刚创建的进程，操作系统还没有把它加入到可执行进程组中，通常是进程控制块已经创建，但还没有加载到内存中的进程</p>
+<p>就绪：进程已经做好了准备，只要有机会就开始执行</p>
+<p>阻塞（等待）：进程在某些事件发生前不能执行，等待阻塞进程的事件完成</p>
+<p>退出：操作系统从可执行进程组中释放出的进程，或由于自身或某种原因停止运行</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207204404371.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+
+<h2 id="2-内存相关"><a href="#2-内存相关" class="headerlink" title="2. 内存相关"></a>2. 内存相关</h2><h3 id="2-1-分页和分段的区别"><a href="#2-1-分页和分段的区别" class="headerlink" title="2.1 分页和分段的区别"></a>2.1 分页和分段的区别</h3><p>连续分区中的固定分区造成了内碎片的问题，连续分区中的动态分区造成了外碎片，压缩开销大的问题。所以需要引出离散分配方式，而分页和分段正是两种离散式的分配方式。</p>
+<p>分页基本思想：划分内存大小为共同的区域，插照片+页表，内存分配以页框为单位，进程装入时，按页分塞得放置在内存中的空闲框中，这些内存框可以不连续。</p>
+<p>分段基本思想：逻辑地址空间由一组段组成，由用户程序员划分，段是一个基本的逻辑单位。各段有自己的段名&#x2F;段号长度。段表为进程中的每个段分配了一个连续空间，为每个进程建立一张段表。</p>
+<h3 id="2-2-虚拟内存"><a href="#2-2-虚拟内存" class="headerlink" title="2.2 虚拟内存"></a>2.2 虚拟内存</h3><p>虚拟内存是计算机系统内存管理的一种技术。它使得应用程序认为它拥有连续的可用的内存（一个连续完整的地址空间），而实际上，它通常是被分隔成多个物理内存碎片，还有部分暂时存储在外部磁盘存储器上，在需要时进行数据交换。目前，大多数操作系统都使用了虚拟内存，如Windows家族的“虚拟内存”；Linux的“交换空间”等。 Windows 8&#x2F;8.1 操作系统如出现开机时卡在Windows徽标页面，无法进入系统，必须强制关机再重启才能打开时，可适当调整虚拟内存设置解决。</p>
+<p>硬盘空间虚拟成内存，内存装不下就和硬盘某种方式调度</p>
+<h3 id="2-3-页面置换算法"><a href="#2-3-页面置换算法" class="headerlink" title="2.3 页面置换算法"></a>2.3 页面置换算法</h3><p>最佳置换、FIFO（先进先出）、LRU（最近最久未使用）</p>
+
                 
               </div>
             
@@ -374,6 +419,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/12/07/research/papers/relation-extraction/emnlp2022-PU-for-DocRE/" title="emnlp2022-PU-for-DocRE">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">emnlp2022-PU-for-DocRE</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

@@ -4,11 +4,24 @@
   
   
   <entry>
+    <title>emnlp2022-PU-for-DocRE</title>
+    <link href="/2022/12/07/research/papers/relation-extraction/emnlp2022-PU-for-DocRE/"/>
+    <url>/2022/12/07/research/papers/relation-extraction/emnlp2022-PU-for-DocRE/</url>
+    
+    <content type="html"><![CDATA[<h1 id="emnlp2022-PU-for-DocRE"><a href="#emnlp2022-PU-for-DocRE" class="headerlink" title="emnlp2022-PU-for-DocRE"></a>emnlp2022-PU-for-DocRE</h1><h2 id="0-Abstract"><a href="#0-Abstract" class="headerlink" title="0. Abstract"></a>0. Abstract</h2><ul><li>para1</li></ul><p>文档级别的关系抽取目标是识别多个句子中实体之间的关系。以前的大多数方法都集中在完全监督下的文档级RE。然而，在现实世界场景中，完全标记文档中的所有关系是代价昂贵并且困难的，因为文档级RE中的实体对的数量与实体的数量呈二次方增长。</p><p>为了解决常见的不完全标记问题，我们提出了一个统一的正无标记学习框架——shift and squared ranking loss positive-unlabeled(SSR-PU) learning。我们首次在文档级RE上使用正无标记（PU）学习。</p><p>考虑到数据集的标记数据可能导致未标记数据的先验转移，我们引入了训练数据先验转一下的PU学习。此外，使用无类别分数作为自适应阈值，我们提出了平方排序损失，并使用多标签排序度量证明了其贝叶斯一致性。</p><p>大量实验表明，我们的方法在不完全标记的情况下，相对于先前的baseline，实现了约14个F1点的改进。此外，他在完全监督和极未标记的情况下，也超过了以前最先进的结果</p><p><a href="https://github.com/www-Ye/SSR-PU">https://github.com/www-Ye/SSR-PU</a></p><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><ul><li>para1</li></ul><p>关系提取（RE）旨在识别给定文本中两个实体之间的关系。它在知识图构建、问题回答和生物医学文本理解方面有着丰富的应用。以前的大部分工作是在一句话中提取实体之间的关系。最近，旨在识别多个句子中表达的各种实体对之间的关系的文档级RE受到了越来越多的关注。</p><ul><li>para2</li></ul><p>以前的文档级RE方法主要处理完全监督场景。然而，在现实世界场景中，不完全标记是文档级RE中的一个常见问题，因为实体对的数量随着实体的数量呈二次方增长。DocRED是文档级RE的一个流行数据集。最近的研究发现，DocRED（使用推荐修订方案注释数据）包含大量假阴性样本，即许多阳性样本未被标记。如图1所示，文件Alecu Russo包含大量未标记的positive关系。因此，在这个数据集上训练的模型在真是场景中往往会过拟合，并且召回率较低。因此，标签不完整的文档级RE已成为紧急需求。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207021742888.png" alt="image-20221207021742888"></p><p>图1:DocRED的案例。实体根据其类型以不同的颜色高亮显示。黑色箭头表示用原始数据集注释的关系，橙色箭头表示重新注释的关系。</p><ul><li>para3</li></ul><p>为了解决这个问题，我们提出了一个统一的正面无标记学习框架——shift and squared ranking loss positive-unlabeled (SSR-PU) learning，其可适于在不同水平下进行标记。</p><p>我们首次在文档级RE任务中使用正无标记学习（PU）。由于文档级RE是一个多标签分类任务，我们对每个类（one vs all）应用二进制PU学习方法，将其转化为多标签PU学习。此外，根据我们的观察，DocRED（由推荐修订方案注释的数据集）中相当一部分关系已经被注释。这导致未标记数据的先验分布与总体先验分布之间的偏差。为了解决这个问题，我们在训练数据的先验转移下引入了自适应PU学习，该学习基于估计的总体先验分布和标记正样本的分布来调整模型，使其与普通PN学习或普通PU学习相似。这里，正-负（PN）学习意味着将所有未标记的样本视为负样本。</p><ul><li>para4</li></ul><p>此外，为了区分无类别和预定义类别，我们提出了无类别排名的平方排名损失，使得正预定义标签的排名高于无类别标签，而负预定义标签的排序更低。这是一个理想的多标签替代损失度量，我们从理论上证明了它与（Zhou和Lee，2022）提出的多标签排名度量的贝叶斯一致性。这种损失函数可以很好地适应PU学习。</p><ul><li>para5</li></ul><p>我们在两个具有不完全标记的多标记文档级RE数据集DocRED和ChemDis Gene上进行了广泛的实验，这是一个新提出的多标记生物医学文档级RE数据库。实验结果表明，我们的方法SSR-PU比之前的基线（未考虑标记不完整现象）好了大约14个F1点。此外，我们进行了完全监督的实验，以及对新构建的极未标记数据的实验，其中每个文档中标记的每个关系类型的数量限制为1。在两个互补设置下的实验证明了我们方法在不同标记级别下的有效性。本文的贡献总结如下</p><ul><li>我们提出了一个统一的正面无标记学习框架SSR-PU，以适应具有不同不完全标记级别的文档级RE</li><li>我们首次将PU学习应用于文档级RE任务，并在训练数据的先验转移下引入PU学习，该学习可以基于估计的先验和标记分布在普通PN学习和普通PU学习之间达到平衡</li><li>我们提出了平方排序损失，它相对于其他损失函数有效地提高了性能，并证明了其与多标签排序度量的贝叶斯一致性。</li><li>我们的方法在各种设置中实现了最先进的结果，并为具有不完整标签的文档级RE提供了稳健的基线。</li></ul><h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h2><h3 id="2-1-Document-level-relation-extraction"><a href="#2-1-Document-level-relation-extraction" class="headerlink" title="2.1 Document-level relation extraction"></a>2.1 Document-level relation extraction</h3><p>…</p><p><font color='red'>然而，以前的方法没有单独考虑未标记的数据。他们只是简单地将它们都当作阴性样本，这导致了在现实场景中的召回率降低和性能显著下降</font> </p><h3 id="2-2-PU-learning"><a href="#2-2-PU-learning" class="headerlink" title="2.2 PU learning"></a>2.2 PU learning</h3><ul><li>Para1</li></ul><p>正无标记（PU）学习旨在从正和无标记数据中学习分类器。PU学习是一种半监督学习，但他们之间有一个根本区别：虽然半监督学习需要标记的负数据，但PU学习只需要标记的正数据。许多当前的PU学习方法依赖于总体先验估计，而一些最近的研究注意到训练集和测试集之间存在先验转移（prior shift）。</p><p>另一方面，PU学习在许多NLP应用中都得到了应用，例如，文本分类、句子嵌入、命名实体识别、知识图补全和<strong>句子级RE（He等2020）</strong>。然而，这种方法很少应用于文档级RE任务。</p><h3 id="2-3-Multi-label-classification"><a href="#2-3-Multi-label-classification" class="headerlink" title="2.3 Multi-label classification"></a>2.3 Multi-label classification</h3><ul><li>para1</li></ul><p>多标签分类是一个广泛研究的问题，这里我们关注损失函数。二进制交叉熵（BCE）是最流行的多标签损失函数，将多标签问题减少为多个独立的二进制（one vs all）分类任务。最近，研究者发现<strong>平方损失</strong>也可以在分类任务中获得更好的结果。另一个常见的多标签损失函数是<strong>成对排名损失</strong>，它通过成对（一对一）比较将多标签学习转化为排名问题。</p><p>对于多标签PU学习，有研究者将其视为一个多标记的PU排名问题，Aota等人，2021）使用一对一策略将PU学习应用于多标签常见漏洞和暴露分类。对于文档级RE任务，（Zhou和Lee，2022）提出了一种无类别排序的多标签度量。该多标签度量尚未应用于PU学习。</p><h2 id="3-Methodology"><a href="#3-Methodology" class="headerlink" title="3. Methodology"></a>3. Methodology</h2><p>在本节中，我们介绍了针对具有不完全标记的文档级RE的方法 移位shift和平方排名损失squared ranking loss正未标记（SSR-PU）学习的细节。<strong>首先，我们介绍了文档级RE的正向无标记学习的定义</strong>。<strong>接下来，我们介绍了在训练数据的先验转移下的PU学习</strong>。<strong>最后，提出了使用无类别分数作为自适应阈值的平方排名损失</strong>。</p><h3 id="3-1-Postiive-unlabeled-learning-for-document-level-RE"><a href="#3-1-Postiive-unlabeled-learning-for-document-level-RE" class="headerlink" title="3.1 Postiive-unlabeled learning for document-level RE"></a>3.1 Postiive-unlabeled learning for document-level RE</h3><ul><li>para1</li></ul><p>文档级RE可以被视为<strong>多标签</strong>分类任务，其中每个实体对是一个实例，关联关系是标签样本。以前的监督学习方法只将未标记的关系作为负样本来处理，这可能导致存在大量False Negative的情况下召回率低。为了解决这个问题，我们为每个类别采用PU学习。</p><ul><li>para2</li></ul><p>使得<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207115750018.png" alt="image-20221207115750018" style="zoom:33%;" />代表实例的space，并且<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207115827419.png" alt="image-20221207115827419" style="zoom:33%;" />代表label的space，其中<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207115859695.png" alt="image-20221207115859695" style="zoom:33%;" />代表预定义的类别数目。一个实例<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207115930339.png" alt="image-20221207115930339" style="zoom:33%;" />与由二进制向量标识的标签子集相关联<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207120503565.png" style="zoom:33%;" />。其中<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207120541788.png" alt="image-20221207120541788" style="zoom:33%;" />代表i-th label对于<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207120625939.png" style="zoom:33%;" />是positive的，然后<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207120701004.png" alt="image-20221207120701004" style="zoom:33%;" />otherwise。得分函数定义为<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207120820049.png" alt="image-20221207120820049" style="zoom:33%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207120845742.png" alt="image-20221207120845742" style="zoom:33%;" />。在后续的表示中，我们使用<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207120918519.png" alt="image-20221207120918519" style="zoom:33%;" />来替代，省略对x的依赖。</p><ul><li>para3</li></ul><p>对于第i个类别，假设数据遵从一个密度的未知的概率分布<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207121146940.png" alt="image-20221207121146940" style="zoom:33%;" /><font color='red'>（注意这里，yi是针对每个类别的）</font> ，<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207121224282.png" alt="image-20221207121224282" style="zoom:33%;" />作为正边缘，<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207121351989.png" alt="image-20221207121351989" style="zoom:33%;" />作为负边缘，<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207121440004.png" alt="image-20221207121440004" style="zoom:33%;" />代表边缘。在positive-negative(PN) 学习中，目标是将预期的分类风险降至最低。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207121624248.png" alt="image-20221207121624248" style="zoom:50%;" /><p>这里，等式1可以通过等价地使用正样本和负样本的误差之和来计算：</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207121706399.png" alt="image-20221207121706399" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207121843700.png" alt="image-20221207121843700" style="zoom:50%;" /><p><font color='red'>这个写法和交叉熵损失函数很像，但是确实有点看不懂</font> 重写一下变成下面式子3的形式</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207122339002.png" alt="image-20221207122339002" style="zoom:50%;" /><p><font color='red'>对于第i种关系，判断这种关系正例与负例的数目，看起来是不是只把这个类别的当做正例，然后把所有其他类别的都当做负例，然后nPi是正例的数量应该会少一些，nNi的数量会多一些，loss求和后再加权，用这个πi，看起来是一种先验？</font> </p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207123045083.png" alt="image-20221207123045083" style="zoom:50%;" /><p>其中<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207123220035.png" alt="image-20221207123220035" style="zoom:33%;" />代表表示类i的第j个样本为正或负的情况。<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207123849745.png" alt="image-20221207123849745" style="zoom:33%;" />分别为i类阳性和阴性样本的数量。</p><ul><li>para4</li></ul><p>在正未标记（PU）学习中，由于缺乏负样本，我们无法从数据中估计<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207124046481.png" alt="image-20221207124046481" style="zoom:33%;" /></p><p><font color='red'>由于一些地方缺乏标记（甚至极端缺乏标记的场景），没标记的我们也不知道市政样本，还是负样本，那么就不能来判断，也就是说只标记了正样本</font> </p><p>接下来，有研究者PU学习假设未标记的数据可以反映真实的总体分布，即pUi（x）&#x3D;pi（x）。预期分类风险<br>公式可以定义为<font color='red'>（这里可以省掉，直接看下面的式子5）</font> ：</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207125020732.png" alt="image-20221207125020732" style="zoom:50%;" /><p>通过以可使用数据近似的形式重写方程4，我们得到以下结果：</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207125322266.png" alt="image-20221207125322266" style="zoom:50%;" /><p>这里Ui是代表unlabel的医生，n就是个数</p><p><font color='red'>还是要看怎么理解下这个式子，最小化、最小化、最大化？对于一个样本，如果是positive的，最小化将其分类为正例的loss；对于一个样本，如果是无标记的，最小化将其分类为负例的loss；对于一个样本，如果是positive的，最大化其分类为负例的loss？</font> </p><p>然而，方程5中的第二项可能是负的，并且在使用高度灵活的模型时容易过度拟合。因此，提出了一种非负风险估计器（Kiryo等人，2017）来缓解过度拟合问题：</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207130358750.png" alt="image-20221207130358750" style="zoom:50%;" /><p>对于<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207130604128.png" style="zoom:50%;" />，我们使用凸函数平方损失：</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207130624073.png" alt="image-20221207130624073" style="zoom:50%;" /><p>我们比较了第4.4节中使用平方损失和log-sigmoid损失函数的性能，后者是一种常用于分类的凸损失函数。</p><p><font color='red'>yi是1，分数也是1，loss是0；yi是1，分数是不知道怎么得到的，比如分数能-1？那么loss就是1</font> </p><p>此外，为了解决严重的类不平衡问题，我们将正风险估计之前的γi乘以类权重<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207131025277.png" style="zoom:50%;" /></p><h3 id="3-2-Class-prior-shift-of-training-data"><a href="#3-2-Class-prior-shift-of-training-data" class="headerlink" title="3.2 Class prior shift of training data"></a>3.2 Class prior shift of training data</h3><p>普通PU学习需要假设总体分布需要与未标记数据的分布相同。相反，对于由推荐修订方案构建的文档级RE数据集，可能已经注释了许多关系，特别是常见的关系。这导致训练集的未标记数据的先验转移。当这个假设被打破的时候，普通的PU学习将产生一个有偏见的结果。为了解决这个问题，受处理测试集和训练集之间的先验转移的方法的启发，我们引入了先验下的PU学习。</p><p>对于每个类别，我们假设已知的先验<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207170048205.png" alt="image-20221207170048205" style="zoom:33%;" />。我们设置<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207170119986.png" alt="image-20221207170119986" style="zoom:33%;" />以及<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207170136128.png" alt="image-20221207170136128" style="zoom:33%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207170150038.png" alt="image-20221207170150038" style="zoom:33%;" />，其中<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207170203816.png" alt="image-20221207170203816" style="zoom:33%;" />代表第i个类别是标记了还是没标记。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207170307990.png" alt="image-20221207170307990" style="zoom:50%;" /><p>如图2所示，未标记数据下阳性样本的条件概率不同于总体阳性样本的概率。未标记数据下阳性样本的条件概率为：</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207170419178.png" alt="image-20221207170419178" style="zoom:50%;" /><p><font color='red'>详细看一下这个公式，式子8就是上面的p(A|C—)</font> </p><p>其中<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207171152607.png" alt="image-20221207171152607" style="zoom:33%;" />  <font color='red'>A-C，未标记的那部分但是positive</font> </p><p>我们可以得到标记后的新的未标记数据中阳性样本的先验数为</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207171600072.png" alt="image-20221207171600072" style="zoom:33%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207171608899.png" alt="image-20221207171608899" style="zoom:33%;" /></p><p>对于文档级的RE，目标是使训练数据的原始分布的以下错误分类风险最小化。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207171702472.png" style="zoom:50%;" /><p>我们可以用正数和无标签数据的期望值来表示Rori(f) 的期望值来表示。</p><p><strong>Theorem 1.</strong> 误分类风险Rori(f)可以等效地表示为<font color='red'>这是把前面这个先验给拿出来</font> </p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207171851712.png" alt="image-20221207171851712" style="zoom:50%;" /><p>因此，我们可以得到训练数据的类先验转移下的非负风险估计器（Kiryo等人，2017），具体如下。</p><p><font color='red'>同样感觉是上面那个式子，带上权值后的一个变形</font> </p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207171934648.png" alt="image-20221207171934648" style="zoom:50%;" /><p>我们可以看到，PN学习和PU学习 是这个函数的特殊情况。当πu,i&#x3D;0时，该方程还原为普通PN学习的形式，而当πu,i&#x3D;πi时，该方程还原为普通PU学习的形式。</p><h3 id="3-3-Squared-ranking-loss"><a href="#3-3-Squared-ranking-loss" class="headerlink" title="3.3 Squared ranking loss"></a>3.3 Squared ranking loss</h3><p>为了更好地衡量文档级RE的性能，（Zhou和Lee，2022）提出了一个新的多标签性能指标</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207172131356.png" alt="image-20221207172131356" style="zoom:50%;" /><p>其中，正面的预设标签的排名应高于非类标签，负面的预设标签的排名应低于非类标签。是一个指标函数，当括号内的条件得到满足时取值为1，否则为0。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207173058615.png" alt="image-20221207173058615" style="zoom:50%;" /><p><font color='red'>控制一种相对的差距？相对的就好了</font> </p><h2 id="4-个人总结"><a href="#4-个人总结" class="headerlink" title="4. 个人总结"></a>4. 个人总结</h2><ul><li>Positive-Unlabeled Learning，瞄准的基准上是说，只需要标注positive的数据，未标注的数据，我也不知道是positive还是negative的，有可能是数据集漏标了，然后也是多分类问题</li></ul><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207173539472.png" alt="image-20221207173539472" style="zoom:50%;" /><ul><li>传统的PU学习，有一个loss，形如式子6这样，其中的l可以用平方损失（式子7）</li></ul><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207173844081.png" alt="image-20221207173844081" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207173858736.png" alt="image-20221207173858736" style="zoom:50%;" /><p>对于式子6，个人的理解是最小化第一个，最小化第二个，最大化第三个</p><ul><li>基于一系列的分析，作者把这两个损失函数给改写了</li></ul><p>基于先验知识shifting加权</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207174056187.png" alt="image-20221207174056187" style="zoom:50%;" /><p>改成相对的差距，而不是绝对的fi数值</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207174135243.png" alt="image-20221207174135243" style="zoom:50%;" /><ul><li>如果已知negative的话，好像还有一种PN的形式</li></ul><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207174659126.png" alt="image-20221207174659126" style="zoom:50%;" /><h2 id="5-不明白的问题记录"><a href="#5-不明白的问题记录" class="headerlink" title="5. 不明白的问题记录"></a>5. 不明白的问题记录</h2><ul><li>对PU学习的理解对不对，我的理解就是上面那个韦恩图中的感觉</li><li>看起来PU学习就是一个和损失函数相关的，这个是不是能做到相对即插即用？而且也是用在事件抽取领域上</li><li>这个从Method章节来看，好像和文档级也没什么关系，在句子级别上怎么感觉也可以用</li><li>即使不做他这个优化，直接PU学习的原始公式，感觉也会有提升吧</li></ul><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207174816832.png" alt="image-20221207174816832"></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>操作系统常见问题整合</title>
     <link href="/2022/12/05/develop/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%95%B4%E5%90%88/"/>
     <url>/2022/12/05/develop/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/os/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%95%B4%E5%90%88/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<h1 id="操作系统常见问题整合"><a href="#操作系统常见问题整合" class="headerlink" title="操作系统常见问题整合"></a>操作系统常见问题整合</h1><h2 id="1-进程相关"><a href="#1-进程相关" class="headerlink" title="1. 进程相关"></a>1. 进程相关</h2><h3 id="1-1-进程和线程的区别是什么，协程是什么？"><a href="#1-1-进程和线程的区别是什么，协程是什么？" class="headerlink" title="1.1 进程和线程的区别是什么，协程是什么？"></a>1.1 进程和线程的区别是什么，协程是什么？</h3><p>reference：<a href="https://www.zhihu.com/question/25532384/answer/411179772">https://www.zhihu.com/question/25532384/answer/411179772</a></p><p>进程是资源分配最小的单位，线程是CPU调度的最小单位</p><p>比喻一下：进程&#x3D;火车，线程&#x3D;车厢</p><ul><li><p>线程在进程下行进（单纯的车厢无法运行）</p></li><li><p>一个进程可以包含多个线程（一辆火车有多个车厢）</p></li><li><p>不同进程之间数据很难共享（一辆火车的乘客，很难换到另外一辆火车）</p></li><li><p>同一进程下不同线程间数据很容易共享（一辆火车的乘客，A车厢换到B车厢很容易）</p></li><li><p>进程要比线程消耗更多的计算机资源（采用多列火车相比多个车厢更消耗资源）</p></li><li><p>进程间不会相互影响（多列火车之间互相不会相互影响）</p></li><li><p>进程可以拓展到多机，进程适合多核</p></li></ul><p>协程Coroutines是一种比线程更加轻量级的微线程。类比一个进程可以拥有多个线程，一个线程也可以拥有多个协程。</p><h3 id="1-2-进程之间的通信方式"><a href="#1-2-进程之间的通信方式" class="headerlink" title="1.2 进程之间的通信方式"></a>1.2 进程之间的通信方式</h3><p>进程间通信是两个进程之间进行信息交流的一种机制，不仅仅会发生于同一主机的两个进程之间，也可以发生在不同主机的两个进程之间。进程之间的通信方式有很多，例如：管道（pipe）、信号量（semaphore）、共享内存（shared memory）、消息队列（message queue）、以及套接字（socket）等等</p><h4 id="1-2-1-UNIX管道（pipe）"><a href="#1-2-1-UNIX管道（pipe）" class="headerlink" title="1.2.1 UNIX管道（pipe）"></a>1.2.1 UNIX管道（pipe）</h4><p>在 shell 中, 我们经常使用 | 将两个命令连接起来, 将前一个命令的输出作为后一个命令的输入, 这是管道使用最典型的例子</p><h4 id="1-2-2-UNIX信号量（semaphore）"><a href="#1-2-2-UNIX信号量（semaphore）" class="headerlink" title="1.2.2 UNIX信号量（semaphore）"></a>1.2.2 UNIX信号量（semaphore）</h4><p>dijkstra提出，能非常好的实现并发控制——生产者消费者模型，PV操作</p><h4 id="1-2-3-UNIX共享内存"><a href="#1-2-3-UNIX共享内存" class="headerlink" title="1.2.3 UNIX共享内存"></a>1.2.3 UNIX共享内存</h4><p>在同一操作系统上运行的多个进程之间，他们是相互独立的，每个进程都有自己的地址空间，其它进程无法访问当前进程的内存区域。</p><p>UNIX的另一种进程间通信机制是使用共享内存，共享内存是进程创建的特殊地址空间，不同进程可以将同一块内存地址连接到他们自己的内存空间中，此时任何一个进程向共享内存区写入数据，其它进程都可以读到</p><h4 id="1-2-4-UNIX消息队列"><a href="#1-2-4-UNIX消息队列" class="headerlink" title="1.2.4 UNIX消息队列"></a>1.2.4 UNIX消息队列</h4><p>FIFO消息队列</p><h3 id="1-3-进程调度算法"><a href="#1-3-进程调度算法" class="headerlink" title="1.3 进程调度算法"></a>1.3 进程调度算法</h3><p>先来先服务（FCFS）、优先级调度、时间片轮转、短进程优先等调度苏娜发</p><h3 id="1-4-进程的状态转换"><a href="#1-4-进程的状态转换" class="headerlink" title="1.4 进程的状态转换"></a>1.4 进程的状态转换</h3><p>reference：<a href="https://blog.csdn.net/weixin_42229896/article/details/80625587">https://blog.csdn.net/weixin_42229896/article/details/80625587</a></p><p>新建态、就绪态、运行态、退出态、阻塞态</p><p>新建态：刚刚创建的进程，操作系统还没有把它加入到可执行进程组中，通常是进程控制块已经创建，但还没有加载到内存中的进程</p><p>就绪：进程已经做好了准备，只要有机会就开始执行</p><p>阻塞（等待）：进程在某些事件发生前不能执行，等待阻塞进程的事件完成</p><p>退出：操作系统从可执行进程组中释放出的进程，或由于自身或某种原因停止运行</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221207204404371.png" style="zoom:50%;" /><h2 id="2-内存相关"><a href="#2-内存相关" class="headerlink" title="2. 内存相关"></a>2. 内存相关</h2><h3 id="2-1-分页和分段的区别"><a href="#2-1-分页和分段的区别" class="headerlink" title="2.1 分页和分段的区别"></a>2.1 分页和分段的区别</h3><p>连续分区中的固定分区造成了内碎片的问题，连续分区中的动态分区造成了外碎片，压缩开销大的问题。所以需要引出离散分配方式，而分页和分段正是两种离散式的分配方式。</p><p>分页基本思想：划分内存大小为共同的区域，插照片+页表，内存分配以页框为单位，进程装入时，按页分塞得放置在内存中的空闲框中，这些内存框可以不连续。</p><p>分段基本思想：逻辑地址空间由一组段组成，由用户程序员划分，段是一个基本的逻辑单位。各段有自己的段名&#x2F;段号长度。段表为进程中的每个段分配了一个连续空间，为每个进程建立一张段表。</p><h3 id="2-2-虚拟内存"><a href="#2-2-虚拟内存" class="headerlink" title="2.2 虚拟内存"></a>2.2 虚拟内存</h3><p>虚拟内存是计算机系统内存管理的一种技术。它使得应用程序认为它拥有连续的可用的内存（一个连续完整的地址空间），而实际上，它通常是被分隔成多个物理内存碎片，还有部分暂时存储在外部磁盘存储器上，在需要时进行数据交换。目前，大多数操作系统都使用了虚拟内存，如Windows家族的“虚拟内存”；Linux的“交换空间”等。 Windows 8&#x2F;8.1 操作系统如出现开机时卡在Windows徽标页面，无法进入系统，必须强制关机再重启才能打开时，可适当调整虚拟内存设置解决。</p><p>硬盘空间虚拟成内存，内存装不下就和硬盘某种方式调度</p><h3 id="2-3-页面置换算法"><a href="#2-3-页面置换算法" class="headerlink" title="2.3 页面置换算法"></a>2.3 页面置换算法</h3><p>最佳置换、FIFO（先进先出）、LRU（最近最久未使用）</p>]]></content>
     
     
     <categories>
@@ -808,11 +821,11 @@
   
   
   <entry>
-    <title>naacl2022_Entity-aware CL for sentence emb论文阅读</title>
-    <link href="/2022/08/02/research/papers/contrastive-learning/naacl2022_Entity-aware%20CL%20for%20sentence%20emb/"/>
-    <url>/2022/08/02/research/papers/contrastive-learning/naacl2022_Entity-aware%20CL%20for%20sentence%20emb/</url>
+    <title>naacl2022_Token-aware Contrastive Learning论文阅读</title>
+    <link href="/2022/08/02/research/papers/contrastive-learning/naacl2022_Token-aware%20CL/"/>
+    <url>/2022/08/02/research/papers/contrastive-learning/naacl2022_Token-aware%20CL/</url>
     
-    <content type="html"><![CDATA[<h1 id="naacl2022-Entity-aware-CL-for-sentence-emb论文阅读"><a href="#naacl2022-Entity-aware-CL-for-sentence-emb论文阅读" class="headerlink" title="naacl2022_Entity-aware CL for sentence emb论文阅读"></a>naacl2022_Entity-aware CL for sentence emb论文阅读</h1><p>EASE：Entity-Aware Contrasitve Learning of Sentence Embedding</p><p>实体感知的对比学习用于句子的embedding表征</p><p>Entity-aware CL for sentence embedding，个人总结文章的亮点如下：</p><p>1）hyperlink entity这个运用的很巧妙，因为维基百科这个超链接在多语言都是一样的，<strong>相当于一种能够额外获取得到的标注了</strong>，在这种超链接的引导下构建了自监督获取的positive pair；</p><p>2）同样因为hyperlink entity和维基百科的数据特点，使得具有多语言可以对齐的语料进行数据训练；</p><p>3）做实验的数据集非常全面，分为单语&#x2F;多语，内部有STS、STC、还有许多跨语言的数据集；</p><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p>- </p><h2 id="TODO-list"><a href="#TODO-list" class="headerlink" title="TODO-list"></a>TODO-list</h2><ul><li>多语言环境一般数据集指的是什么样的，是不同语言混到一块吗还是怎么样？</li><li>多语言目前了解的还有点少，有些不清楚多语言相关的是在做什么，是多语言共用一个模型吗？</li><li>待讨论：这些测试集的结果，是不是都是先完成基准的预训练后，然后再拿给下游模型做fine-tune的这样一个训练过程，或者STS那种是预训练完了后就直接评估，但是一些下游带着标签的，就是还要fine-tune一下的？</li><li>似乎一些引用的是自己复现的指标，这种在可信性上感觉会有一定问题？</li></ul><h2 id="0-Abstract"><a href="#0-Abstract" class="headerlink" title="0. Abstract"></a>0. Abstract</h2><p>我们提出了EASE，一种通过<strong>句子和其相关实体之间的对比学习</strong>来学习句子嵌入的新方法。使用实体监督的好处有以下两点：（1）实体已经被证明是文本语义的一个强有力的指标，因此应该为语义嵌入提供丰富的训练信号；（2）实体的定义是独立于语言的，因此提供了有用的跨语言对齐监督；</p><p><font color='red'>这里背后的motivation会不会有，一句话的实体对整个语义是更加重要的？</font> </p><p>我们对EASE与其他无监督模式在单语言和多语言环境中进行了评估。我们表明EASE在英语语义文本相似性（STS）和短文聚类</p><p>（STC）任务中表现出有竞争力或更好的性能，并在多语言环境中，它在各种任务中的表现明显优于基线方法。</p><p><font color='red'>多语言环境一般数据集指的是什么样的，是不同语言混到一块吗还是怎么样？（这个问题加到todo-list里面去了）</font> </p><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>目前学习句子嵌入的主流方法使用特定的的训练监督来微调通用的与训练语言模型，如BERT。监督的类型可以是自然语言推理数据，相邻的句子，或多语言模型的平行数据库。</p><p><font color='red'>这里说的是一个pretraining - fine tuning的过程</font> </p><p>在本文中，我们探讨了一种监督的类型，在文献中还没有被充分探讨过的监督类型：来自维基百科的实体超链接注释（<strong>entity hyperlink annotations</strong>）。该种方式的优势有两个方面：（1）实体已经被证明是文本语义的一个有力的指标，因此应该为句子嵌入提供丰富的训练信号；（2）实体的定义是独立于语言的，因此提供了一个有用的跨语言对齐监督。维基百科广泛的多语言支持减轻了对平行资源的需求，以训练对齐的多语言句子嵌入，特别是对于低资源语言。为了证明基于实体监督的有效性，我们提出了EASE（实体感知的对比学习用于句子的embedding表征），他在单语和多语的环境下都能产生高质量的句子嵌入。</p><p><font color='red'>到这里还是一个详细版的abstract，多语言这块强调的很多</font> </p><p><strong>EASE学习句子嵌入，有两类目标：（1）我们新颖的实体对比学习损失函数，在句子和他们相关的实体之间，图1；（2）自监督的对比学习损失，加入dropout的noise；</strong></p><ol><li><strong>实体CL的目标是将句子与其相关实体的嵌入拉近，同时将不相关的实体分开，该目标预计将根据实体所捕获的语义来安排句子的嵌入。为了进一步利用维基百科中的知识并改进学习到的嵌入，我们还引入了一种基于实体类型的硬性否定词挖掘方法；</strong></li><li><strong>第二个目标，即带有dropout噪声的自监督CL目标，与第一个目标相结合，使得句子嵌入能够捕获细粒度的文本语义；<font color='red'>这里引用了SimCSE</font></strong></li></ol><p>我们将我们的模型与其他最先进的无监督的句子嵌入模型进行了评估，并表明EASE在语义文本相似性（STS）和短文聚类（STC）任务上表现出有竞争力或更好的性能。</p><p><font color='blue'>和知识图谱结合？</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731215200544.png" alt="image-20220731215200544" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731215211165.png" alt="image-20220731215211165" style="zoom:50%;" /></p><p>图1：EASE背后的主要概念说明。使用一个对比学习框架，句子的嵌入其超链接实体的临近区域，而与不相关的实体分开。在此，我们为多语言模型分享不同语言的实体嵌入，以促进表示的跨语言对齐。</p><p><strong><font color='purple'>读到这里才明白，这里这个超链接实体运用的很巧妙，就是维基百科什么的一般会有那个超链接，然后把这个超链接实体的信息运用上了；相当于一种能够额外获取得到的标注了，还能在多语言之间对齐</font></strong> </p><p>我们还将EASE应用于多语言环境。为了便于评估多语言句子嵌入的高级语义，<strong>我们构建了一个多语言文本聚类数据集，MewsC-16（16种语言的多语言新闻短文聚类数据集）</strong>。多语言EASE是使用各语言共享的实体嵌入进行训练的。我们表明，鉴于来自共享实体的跨语言对齐监督，多语言EASE在多语言STS、STC、平行句子匹配和跨语言文档分类任务中明显优于基准。</p><p>我们进一步证明了多语言实体CL在低资源语言的一个更现实的场景中的有效性。利用多语言实体法，我们对一个有竞争力的多语言句子嵌入模型LaBSE（Feng等人，2020）进行了微调，并表明该调整提高了该模型所支持的低资源语言的平行句子匹配性能。</p><p>最后，我们通过研究EASE模型和句子嵌入的多语言特性来分析该模型。消减的模型和句子嵌入的多语言特性，以阐明模型改进的来源。</p><p><font color='red'>多语言任务目前了解还比较少，有点不清楚是怎么做的各个操作，加入到todo那里了</font> </p><h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h2><p>主要从2.1 Sentence Embedding、2.2 Contrastive Learning、2.3 Multilingual Sentence embeddings三个方面来说</p><h3 id="2-1-Sentence-Embedding"><a href="#2-1-Sentence-Embedding" class="headerlink" title="2.1 Sentence Embedding"></a>2.1 Sentence Embedding</h3><p>句子嵌入，即使用稠密向量的形式表示句子的含义已经得到了积极的研究。最早的方法之一是段落向量，其中句子嵌入被训练来预测文本中的单词。随后人们探索了各种训练任务，包括重建或预测相邻的句子和解决自然语言推理（NLI）任务。</p><p>最近，随着BERT等通用预训练语言模型的出现，对预训练模型进行微调以产生高质量的句子嵌入变得越来越普遍，<strong>重新审视上述的监督信号，并使用基于对比学习（CL）的自我监督目标。在本文中，我们提出了一个基于实体监督的CL目标。我们用实体CL和带有dropout噪声的自我监督CL来训练我们的EASE模型，并表明实体CL提高了句子嵌入的质量。</strong></p><ul><li><p>Contrastive Learning：对比表示学习的基本思想是将语义相似的样本拉近，将不相似的样本分开。句子嵌入的对比学习可以根据所使用的positive pair的类型进行分类。作为代表性的例子，有几种方法在NLI数据集中使用“蕴含”对作为positive pair。</p><p>为了减轻对注释数据集的需求，自监督方法也在被积极研究。典型的自我监督方法涉及<strong>使用数据增强技术生成positive pair</strong>，包括离散操作，如单词删除、shuffle，回译，中间的BERT隐藏表示，以及transformer层内的dropout噪音（SimCSE）。</p><p>Contrastive tension (CT)-BERT将两个单独编码器对同一句子的输出视为正对。DeCLUTR使用同一文件的不同span。与这些在句子之间进行CL的方法相比，<strong>我们的方法在句子和其相关实体之间进行CL。</strong> <font color='red'>换句话说，也是一种构建positive pair的方法</font> </p></li><li><p>Multilingual sentence embeddings（多语言的话语embedding）：另一个与之密切相关的研究方向是学习多语言的句子嵌入，这些句子嵌入可以捕捉到多种语言的语义。早期有竞争力的方法通常利用序列对序列的目标与平行语料库来学习多语言句子嵌入；最近微调的多语言预训练模型已经取得了最先进的性能。然而，这类方法的一个缺点是，<strong>为了对某一特定的语言对取得强有力的结果，它们需要丰富的平行或语义相关的句子对，而这不一定容易获得</strong>。在这项工作中，我们<strong>探索了维基百科实体注释的效用，这些注释是跨语言对齐的，并且已经有300多种语言。我们还表明，在多语言情况下，实体注释有效地改善了英语和低资源语言之间的句子嵌入的一致性，而现有的多语言模型并不支持这种一致性。</strong></p><p><font color='red'>再次强调了一下这里在多语言上的贡献，主要是这种多语言“标注”易于获得</font></p></li></ul><h3 id="2-2-Learning-Representations-Using-Entity-based-Supervision"><a href="#2-2-Learning-Representations-Using-Entity-based-Supervision" class="headerlink" title="2.2 Learning Representations Using Entity-based Supervision"></a>2.2 Learning Representations Using Entity-based Supervision</h3><p>实体已经被习惯性地用于建立文本语义模型。最近提出的一些方法通过从实体的相关文本或实体掩码的句子中预测实体来学习基于实体的监督的文本表示。在提出的EASE模型中，现有的基于BERT的自监督CL方法被扩展，<strong>使用基于实体的监督和精心设计的硬否定句，hard-negative</strong>。此外，通过利用实体的语言无关性，它被应用于多语言环境。</p><p><font color='red'>感觉总结下来是这三大贡献：超链接的引导下自监督获取这种positive pair、多语言的数据易于获取、精心设计hard-negative</font> </p><h2 id="3-Model-and-Training-Data"><a href="#3-Model-and-Training-Data" class="headerlink" title="3. Model and Training Data"></a>3. Model and Training Data</h2><p>在本节中，我们描述了我们的句子嵌入学习方法EASE的组成部分，该方法使用维基百科中的实体超链接注释进行训练；</p><h3 id="3-1-Contrastive-Learning-with-Entites"><a href="#3-1-Contrastive-Learning-with-Entites" class="headerlink" title="3.1 Contrastive Learning with Entites"></a>3.1 Contrastive Learning with Entites</h3><p>给出一个句子和一个语义相关的positive实体对<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801110741231.png" alt="image-20220801110741231" style="zoom:50%;" />，我们训练我们的模型来预测句子实体表征$e_{i} \in R^{d_e}$，从句向量表征$s_{i} \in R^{d_s}$中。按照Chen等人SimCLR的对比学习框架，我们对N个配对的mini-batch $(s_i, e_i)$,通过下式计算训练损失：</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801111124007.png" alt="image-20220801111124007" style="zoom:67%;" /><p>其中$W \in R^{d_e×d_s}$是一个可学习的矩阵参数<font color='red'>一句话的表征和其中一个实体的表征两者互为接近这个在感官上感觉不是很有道理啊，所以在这里加入了一个W来平衡这个事情？也就是说一个词经过一个学习来变成一个句子的？如果从扩展来说这里会不会可以搞成多个词的，或者做一个词义选择后来怎么搞一下</font> 。$\tau$是温度超参数，sim(·)使用的是cosine相似度<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801111602009.png" alt="image-20220801111602009" style="zoom:50%;" />。</p><ul><li>Data：我们从2019年1月版本的维基百科转储中构建句子-实体配对数据集。我们使用<a href="https://polyglot.readthedocs.io/en/latest/Tokenization.html">ployglot</a>将文章中的文本拆分为句子。对于每个句子，我们提取超链接实体作为语义相关的实体[脚注：在初步实验中，我们还尝试从实体和其页面上的第一句话中构建实体-句子配对数据，结果发现目前的方法表现更好]。每个实体都构成了该句子的一个训练实例 $(s_i, e_i)$。我们把实体限制在那些在训练语料库中作为超链接出现十次以上的实体。它们被转换为维基数据实体，利用从2020年3月版本的维基数据转储中获得的语言间链接，在不同语言间共享[脚注：<a href="https://en.wikipedia.org/wiki/Help:Interlanguage_links]%E3%80%82">https://en.wikipedia.org/wiki/Help:Interlanguage_links]。</a></li></ul><h3 id="3-2-Hard-Negative-Entites"><a href="#3-2-Hard-Negative-Entites" class="headerlink" title="3.2 Hard Negative Entites"></a>3.2 Hard Negative Entites</h3><p><font color='red'>自己对Hard Negative的理解是更难学一点的样本，比如在NLI那边的针对那句话的矛盾可以是一个特殊的Hard Negative，在权重的时候多分配一些</font> </p><p>根据前人的研究，引入Hard Negative（与anchor难以区分的数据<font color='red'>这里是不是不太对</font> ）对改善CL模型是有效的。我们引入了一种hard negative挖掘方法，可以找到与正面实体相似但与句子无关的负面实体。**<font color='red'>这里作者理解的hard negative是难区分的样本，而不是那种应当更加原理的样本</font>** </p><p>具体来说，对于每个正面实体，我们收集满足以下两个条件的硬性负面实体候选：</p><ol><li>具有相同类型的实体被作为positive的实体（entities with the same type as the positive entity）；按照Xiong等人的工作，实体类型被定义为Wiki数据上“实例instance of ”关系中的实体。如果有不止一种合适的类型，我们会随机选择一种；<font color='red'>有一种父层级选择的感觉</font> </li><li>不出现在同一维基百科页面上的实体；<font color='red'>不在一个界面出现，那么可能就不是很相关的感觉</font> 这里我们的假设是，同一页面上的实体与正面实体在主题上相关，因此不适合作为负面数据。最后我们随机选择其中一个候选来构建硬性的负面训练数据。</li></ol><p>例如，”吉卜力工作室 “实体的类型是 “动画工作室”，而硬性否定的实体候选者之一是 “华特迪士尼动画工作室”（For example, the “Studio Ghibli” entity has the type “animation studio” and one of the hard negative entity candidates is “Walt Disney Animation Studios”）</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801115635161.png" alt="image-20220801115635161" style="zoom:67%;" /><p><font color='red'>对于一个句子的表征hi，他和ei应该接近，而在分母这里要同时和所有ej-和ej远离，这里会不会也有问题，就是负负得正了，比如ej-和ei在同个wiki页面中出现了？</font> </p><h3 id="3-3-Pretrained-Entity-Embeddings"><a href="#3-3-Pretrained-Entity-Embeddings" class="headerlink" title="3.3 Pretrained Entity Embeddings"></a>3.3 Pretrained Entity Embeddings</h3><p><strong>我们使用在维基百科上预训练的英语实体嵌入来初始化实体嵌入。</strong>这些嵌入是使用开源的Wikipedia2Vec工具和2019年1月的英文维基百科转储来训练的。向量维度被设置为768，这与基础预训练模型的隐藏表征相同，其他超参数为其默认值。实体嵌入矩阵的参数<font color='red'>nn.Embeddings()</font> 在训练过程中被更新。</p><p><font color='red'><strong>这里怎么还是感觉很怪，这个Wikipedia2Vec工具是EMNLP2020年demo的论文，去翻了一下感觉他表示出来的内容不一定借助了BERT，那么这篇论文里实体表征空间会不会和句子的表征空间是不一样的？只是维度一样？所以在这里作者加入了一个W来做一个线性变换，期望能学习变换到相同的空间？</strong></font> </p><p><font color='red'>这里应该本质上就是一个Embedding层，用one-hot那种+词表来实现的；</font> </p><h3 id="3-4-Self-supervised-Contrastive-Learning-with-Dropout-Noise"><a href="#3-4-Self-supervised-Contrastive-Learning-with-Dropout-Noise" class="headerlink" title="3.4 Self-supervised Contrastive Learning with Dropout Noise"></a>3.4 Self-supervised Contrastive Learning with Dropout Noise</h3><p><font color='red'>这里是SimCSE上提出的dropout noise，在SimCSE中，一句话输入两次在不同dropout的作用下生成两个表征，两个表征之间互为正例</font> </p><p>有dropout噪声的self-supervised CL，它把一个句子放进去，用dropout作为噪声来预测自己，是一种以无监督方式学习句子嵌入的有效方法。我们将这个方法加入到我们的实体CL方法中。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801151350152.png" alt="image-20220801151350152" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801151406340.png" alt="image-20220801151406340" style="zoom:50%;" /><p>自己组合一个，最终的损失函数被如下表示：</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801151455596.png" alt="image-20220801151455596" style="zoom:50%;" />&#x3D;<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801151545570.png" alt="image-20220801151545570" style="zoom:50%;" />+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801151609615.png" alt="image-20220801151609615" style="zoom:50%;" /></p><p>句子-实体之间的对比损失，加上句子-句子之间的对比损失（SimCSE）</p><h2 id="4-Experiment-Monolingual（单语-英语）"><a href="#4-Experiment-Monolingual（单语-英语）" class="headerlink" title="4. Experiment: Monolingual（单语-英语）"></a>4. Experiment: Monolingual（单语-英语）</h2><p>我们首先在单语环境中评估EASE，我们仅使用英语维基百科数据对单语预训练的语言模型进行微调。</p><p><font color='red'>exp章节选一些比较关键内容选写在这里</font> </p><h3 id="4-1-Setup"><a href="#4-1-Setup" class="headerlink" title="4.1 Setup"></a>4.1 Setup</h3><p>选用100w的pairs的英语entity-sentence作为训练数据。在这个设置下，我们从BERT或者RoBERTa的checkpoint上训练sentence embedding，并选用[CLS]作为一句话的sentence embedding。我们只在训练的时候在output  sentence embedding后面加入一个线性层，这与SimCSE的设置相同。</p><p>我们将我们的方法与无监督的句子嵌入方法进行比较，包括GloVe的平均嵌入（Pennington等人，2014）、原始BERT或RoBERTa的平均嵌入，以及之前最先进的方法，如Sim- CSE（Gao等人，2021）、BERT-CT（Carlsson等人，2021）和DeCLUTR。</p><p>我们使用两个任务来评估句子嵌入 任务。STS（Semantic Textual Similarity）和STC（Short Text Clustering）。这些任务被认为是衡量句子嵌入的程度，以涵盖细粒度和广泛的语义结构。</p><ul><li>STS：STS是对捕捉句子分级相似性的能力的一种衡量标准</li><li>STC：句子嵌入的另一个方面是捕捉分类语义结构的能力，即把同一类别的句子紧紧地贴在一起，而把不同类别的句子远远地分开。</li></ul><h3 id="4-2-Results"><a href="#4-2-Results" class="headerlink" title="4.2 Results"></a>4.2 Results</h3><p>实验结果如下，这里作者应该只说了是部分sota，然后展现了有竞争力的性能</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801153357691.png" alt="image-20220801153357691" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801153414345.png" alt="image-20220801153414345" style="zoom:50%;" /></p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801153529181.png" alt="image-20220801153529181" style="zoom:80%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801153539680.png" alt="image-20220801153539680" style="zoom:80%;" /><h2 id="5-Experiment-Multilingual"><a href="#5-Experiment-Multilingual" class="headerlink" title="5. Experiment: Multilingual"></a>5. Experiment: Multilingual</h2><p>为了进一步探索实体注释作为跨语言对齐监督的优势，我们在多语言环境中测试了易用性：<strong>我们使用多种语言的维基百科数据微调多语言预训练语言模型</strong>。<font color='red'>维基百科自动提供了这个，并且是相对对齐的数据</font> </p><h3 id="5-1-Setup"><a href="#5-1-Setup" class="headerlink" title="5.1 Setup"></a>5.1 Setup</h3><p>我们为每种语言抽取50000对样本，并将它们一起用作18种语言实体-句子配对数据的训练数据</p><p><font color='purple'>这样综合在一起的话大概是100w这个数据级别</font> </p><p>【脚注：We chose 18 languages (ar, ca, cs, de, en, eo, es, fa, fr,it, ja, ko, nl, pl, pt, ru, sv, tr) present in both the MewsC-16 dataset (see Section 5.2) and the extended version of STS 2017】</p><p>作为我们的主要基线模型，我们使用使用与EASE相同的多语言数据（即实体-句子配对数据中的句子）训练的SimCSE模型</p><p>【脚注：<strong>我们使用在英语维基百科上训练的实体嵌入，与单语环境下的实体嵌入相同（第3节）</strong>。维基百科上训练出来的实体嵌入与单语设置中的实体嵌入相同（第3.3节）。请注意，所有语言的实体都被转换为维基数据的实体，这些实体可通过第3.1节所述的语言间链接在不同语言间共享。「They are converted into Wikidata entities, which are shared across lan- guages, using inter-language links obtained from the March 2020 version of the Wikidata dump」】</p><p>we start fine-tuning from pre-trained checkpoints of mBERT or XLM-R and take mean pooling to obtain sentence em- beddings for both training and evaluation on both EASE and SimCSE，We also tested other pooling methods, but mean pooling was the best in this experiment for both models</p><p><font color='red'>这里的话，mean pooling又是best的了</font> </p><p><font color='red'>mBERT - multilingual bert <a href="https://aclanthology.org/2020.acl-main.747/">https://aclanthology.org/2020.acl-main.747/</a></font> </p><h3 id="5-2-Multilingual-STS-and-STC"><a href="#5-2-Multilingual-STS-and-STC" class="headerlink" title="5.2 Multilingual STS and STC"></a>5.2 Multilingual STS and STC</h3><p>STS 2017 dataset：which contains annotated sentences for ten language pairs: EN-EN, AR-AR, ES-ES, EN-AR, EN-DE, EN-TR, EN-ES, EN-FR, EN-IT, and EN- NL</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801154641049.png" alt="image-20220801154641049"></p><p>STC上，作者新建了一个数据集MewsC-16：Multilingual Short Text Clustering Dataset for News in 16 languages</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801154838147.png" alt="image-20220801154838147"></p><h3 id="5-3-Cross-lingual-Parallel-Matching"><a href="#5-3-Cross-lingual-Parallel-Matching" class="headerlink" title="5.3 Cross-lingual Parallel Matching"></a>5.3 Cross-lingual Parallel Matching</h3><p>on the <strong>Tatoeba dataset</strong>以更直接地评估其捕捉跨语言语义的能力，这项任务是在给定一组平行句子的情况下，为每个查询句子检索出正确的目标句。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801155914145.png" alt="image-20220801155914145"></p><p>英语作为目标句子&#x2F;初始句子</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801160048664.png" alt="image-20220801160048664"></p><p>在Tatoeba全94个数据集上的验结果</p><h3 id="5-4-Cross-lingual-Zero-shot-Transfer"><a href="#5-4-Cross-lingual-Zero-shot-Transfer" class="headerlink" title="5.4 Cross-lingual Zero-shot Transfer"></a>5.4 Cross-lingual Zero-shot Transfer</h3><p>MLDoc，a cross-lingual document classification dataset that classifies news articles in eight languages into four categories</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801160537535.png" alt="image-20220801160537535"></p><h2 id="6-Case-Study-Fine-tuning-Supervised-Model-with-EASE"><a href="#6-Case-Study-Fine-tuning-Supervised-Model-with-EASE" class="headerlink" title="6. Case Study: Fine-tuning Supervised Model with EASE"></a>6. Case Study: Fine-tuning Supervised Model with EASE</h2><p>In contrast, EASE requires only the Wikipedia text corpus, which is available in more than 300 languages</p><p><font color='red'>Wiki上感觉是提供了多语言的对齐数据</font> </p><h2 id="7-Analysis"><a href="#7-Analysis" class="headerlink" title="7. Analysis"></a>7. Analysis</h2><h2 id="7-1-Ablation-Study"><a href="#7-1-Ablation-Study" class="headerlink" title="7.1 Ablation Study"></a>7.1 Ablation Study</h2><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801161429457.png" alt="image-20220801161429457"></p><p>只使用entity-CL（w&#x2F;o self-supervised CL）仍然显著提升了baseline的性能。</p><h3 id="7-2-Alignment-and-Uniformity"><a href="#7-2-Alignment-and-Uniformity" class="headerlink" title="7.2 Alignment and Uniformity"></a>7.2 Alignment and Uniformity</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801162200429.png" alt="image-20220801162200429" style="zoom:80%;" /><h3 id="7-3-Qualitative-Analysis※"><a href="#7-3-Qualitative-Analysis※" class="headerlink" title="7.3 Qualitative Analysis※"></a>7.3 Qualitative Analysis※</h3><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801162501883.png" alt="image-20220801162501883"></p><p><font color='red'>自己理解了一下效果增加的这几个case：</font> </p><ol><li>mikey和movie在训练的时候是一个instance of 的关系，正例了</li><li>两边实体很像</li><li>两边实体很像</li></ol><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801162648744.png" alt="image-20220801162648744"></p><p>理解了一下效果降低的这几个case：</p><ol><li>idea 和 question，可能就就很像，但是忽略了句子其他非实体单词的意思</li><li>数量词</li><li>完全说的是不同的事情？</li></ol><p>作者对这两个表格的解释是：</p><p><strong>表8a显示了EASE如何改善句子嵌入的典型案例。我们发现，EASE的嵌入对同义词和语法差异更加稳健，因为它们更了解句子之间的主题相似性，从而导致更准确的分数推断。</strong></p><p>如表8b中的恶化案例所示，EASE嵌入有时<strong>对主题相似性过于敏感</strong>，使其难以捕捉整个句子的正确含义</p><h2 id="8-Discussion-and-Conclusion"><a href="#8-Discussion-and-Conclusion" class="headerlink" title="8. Discussion  and Conclusion"></a>8. Discussion  and Conclusion</h2><p>我们的实验表明，EASE中的实体监督提高了单语环境下的句子嵌入质量，特别是在多语环境下的句子嵌入质量。正如最近的研究表明，实体注释可以作为anchor来学习高质量的跨语言表征，我们的工作是对其效用的另一种证明，特别是在句子嵌入中。一个有希望的未来方向是探索如何更好地利用实体的跨语言性质。</p><p>我们的实验也证明了维基百科作为一个多语言数据库的效用。如第6节所述，维基百科的实体注释可以弥补学习跨语言表征的平行资源的不足。维基百科目前支持300多种语言，其中约有一半的语言有超过10,000篇文章。此外，维基百科还在不断增长；预计它将包括越来越多的语言。</p><p>然而，对维基百科训练数据的依赖可能会限制模型在特定领域的应用（例如，一般或百科全书领域）。为了将EASE应用于其他领域，人们可能需要对该领域的文本进行手动或自动注释。未来的工作可以研究实体CL在其他领域的有效性，并可能将其与实体链接系统相结合。</p><p><strong>最后，我们注意到EASE中的监督信号本身是有噪声的。不同的实体作为话题指标有不同的特点，而包含相同实体的句子不一定有共同的意义。未来的工作可以通过考虑一个实体在句子中的使用方式来解决这个问题，以获得更可靠的监督。</strong></p><p><font color='red'>这个weakness感觉还是挺好发现的吧，在这里能不能搞出一种实体自选择的手段，比如词性？</font> </p>]]></content>
+    <content type="html"><![CDATA[<h1 id="naacl2022-Token-aware-Contrastive-Learning论文阅读"><a href="#naacl2022-Token-aware-Contrastive-Learning论文阅读" class="headerlink" title="naacl2022_Token-aware Contrastive Learning论文阅读"></a>naacl2022_Token-aware Contrastive Learning论文阅读</h1><p><strong>TaCL: Improving BERT Pre-training with Token-aware Contrastive Learning</strong></p><p>TaCL：利用标记感知对比学习改进BERT预训练；</p><p>Token-aware CL，个人总结文章的亮点如下：</p><p>1）首次将对比性学习用于改进Transformer模型的token level表示（之前看到的一些好像都是句子级别的）</p><p>2）在token级别改善了各向异性这样一个问题，方法比较简单，并在GLUE这种比较广泛使用的数据集上取得了很好的效果；</p><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul><li>NLP名词解释：各向异性（Anisotropic）：<a href="https://zhuanlan.zhihu.com/p/468922604">https://zhuanlan.zhihu.com/p/468922604</a></li><li>GLUE基准数据集介绍及下载：<a href="https://zhuanlan.zhihu.com/p/135283598">https://zhuanlan.zhihu.com/p/135283598</a></li></ul><h2 id="TODO-list"><a href="#TODO-list" class="headerlink" title="TODO-list"></a>TODO-list</h2><ul><li>「MLM通常会输出token表示的各向异性分布，它占据表示空间的一个狭窄子集」这句话还不是很理解，可能需要看看作者在后面是怎么补充的。并且作者为什么说这些表征不理想，对于那些需要对不同token辨别语义的任务来说？原始方法的weakness在哪？</li></ul><p><font color='red'>参照博客中的解释，「Anisotropic means word embeddings occupy a narrow cone in the vector space」，也就是说“各向异性”表示词嵌入在向量空间中占据了一个狭窄的圆锥形体（还不是很懂）</font> </p><p><font color='red'>各向异性：在向量空间上的含义就是分布与方向有关系，而各项同性就是各个方向都一样，一些学者的研究发现Transformer学到的词向量在空间的分布是这个样子的：</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731002405367.png" alt="image-20220731002405367"></p><p><font color='red'>各向异性的缺点在于，最后学到的向量都挤在一起，彼此之间的余弦相似度很高，并不是一个很好的表示。一个好的表示应该同时满足Alignment和Uniformity，前者表示相似的向量距离应该相近，后者表示向量在空间上应该尽量均匀，最好是各向同性的</font> </p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731002739558.png" alt="image-20220731002739558" style="zoom:67%;" /><p><font color='red'>左图是理想的表示，右图则有各向异性的缺点。</font> </p><p><strong><font color='red'>此外补充，SimCSE的方法，作者认为通过那个简单dropout的监督，满足了更好的alignment和uniformity（下图来自SimCSE，在训练过程中keep了alignment，减小了各向异性使得更加uniform）</font></strong> </p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731003303038.png" alt="image-20220731003303038" style="zoom:50%;" /><ul><li><p>这种token级别的任务，在下游的句子级别任务上是怎么微调的，因为很多只用CLStoken的话， 这种各向同性，各向异性的分布就在MHSA的过程中被解释过去了？<font color='red'>作者没有解释好像，具体这个是怎么用的，在对比实验中也没有做比如CLStoken，还有一句话取平均这样不同方法的效果，是否需要发邮件问问？</font> </p><p><font color='blue'>改善了整个bert的表征，Improving BERT … 对比学习为什么是有效的，表征空间 词转化成one-hot，映射成表征空间后，希望所有的词，几万个词在字典的分布应该是比较分散的（各向同性）-&gt; 对比学习的基本思想；；预训练模型给了一个很好的初始化，</font> </p></li><li><p>这种从token级别简单的对比学习，似乎有明显的缺点？比如一句话中存在的指代关系，还有一些同义词，貌似没有处理？<font color='red'>待讨论</font></p></li></ul><h2 id="0-Abstract"><a href="#0-Abstract" class="headerlink" title="0.Abstract"></a>0.Abstract</h2><p>在过去的几年里，像BERT这样的Masked Language Modeling语言模型已经彻底改变了自然语言理解领域。然而，现有的预训练MLM通常会输出token表示的各向异性分布，它占据表示空间的一个狭窄子集。<font color='red'>（这个话还不太明白，在TODO-list中解决吧）</font> 这样的标记表征并不理想，特别是对于那些需要对不同标记进行辨别语义的任务来说。<font color='red'>（同样不明白，哪些任务需要对不同标记进行辨别语义，比如NER类的？但那种是序列建模的任务，和CL感觉本质上不是很像）</font> </p><p>在本文中我们提出TaCL（Token-aware Contrastive Learning，利用标记感知对比学习改进BERT预训练），一种新的持续的预训练方法，鼓励BERT学习各向同性的和有鉴别力的符号表征分布。TaCL是完全无监督的（fully unsupervised），不需要额外的数据。</p><p>我们在大量的英文和中文benchmarks上测试了我们的方法，结果表明，TaCL比原来的BERT模型带来了一致和明显的改进。此外，我们还进行了详细的分析，以揭示我们方法的优点和内部工作原理。</p><p><font color='blue'>连续学习，提升bert的表征能力，学到更均匀的表达，</font> </p><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>自从BERT的兴起，掩码语言模型（Masked Language Modeling，MLM）已经成为几乎所有自然语言理解任务的事实上的主干。尽管它们取得了明显的成功，但许多现有的以MLM目标预训练的语言模型都存在着各向异性的问题《How contextual are contextu- alized word representations? comparing the geome- try of bert, elmo, and GPT-2 embeddings.》。也就是说，他们的标记表示位于表示空间的一个狭窄的子集，因此在捕捉不同标记的语义差异方面，辨别力较差，功能较弱。</p><p><font color='red'>通过博客还有一些其他资源的学习，如果不满足各向异性的话，可能所有token之间的意思都非常相近，那么不同token 的语义差异辨别力确实会差一些</font> </p><p>最近，通过无监督的句子级对比学习来不断训练MLM，取得了很大的进展，目的是为了创造出更有辨识度的句子级句子表征。<font color='red'>（使得具有语义相似的句子靠的更近，语义不同的句子距离较远，也就是对比学习本质上的motivation，这是一个在句子级别上的motivation和实践）</font> 然而，这些表征值被评估为句子嵌入，没有证据表明他们会对其他成熟的NLU任务有益。我们表明，这些方法的对像SQuAD这样具有挑战性的任务几乎没有任何好处。<font color='red'>SQuAD是机器阅读理解任务的数据集，之前类似SimCSE的评测都是在STS那种数据集上的，那种数据集有一种衡量embedding好坏的感觉，还不是太过于涉及下层任务？</font> </p><p>在本文中，我们认为，获得更具辨别力（discriminative）和可转移性（transferrable）的表征的关键在于对比学习性和同向性的token-level的特征。为此，我们提出了TaCL（利用标记感知对比学习改进BERT预训练），这是一种新的持续的预训练方法， 鼓励BERT学习更具辨别力的token表征。</p><p><strong><font color='purple'>下面这块开始比较重点说方法的，大概能初步了解下方法</font></strong> </p><p>具体来说，我们的方法设计两个模型（一个学生和一个教师），它们都是由同一个预先训练好的BERT初始化的。在学习阶段，我们冻结教师的参数，并不断优化学生的模型：（1）原来BERT所具有的MLM和NSP训练目标；（2）新提出的TaCL训练目标。TaCL损失是通过对比学生对被掩码的标记的表述和教师在没有掩码输入标记的情况下产生的“参考”表述而得到的。在图1中，我们对方法进行了阐述。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731010744051.png" alt="image-20220731010744051" style="zoom:67%;" /><p><font color='red'>这张图一眼看过去的话是一个token level的，一个被掩码的token的表征应当更接近teacher给出的那个未被掩码词的表征，而原理其他词的表征</font></p><p><strong><font color='purple'>换句话说，这里是token级别的各向异性优化？而SimCSE像是sentence级别各向异性的优化！！！</font></strong> </p><p>我们在广泛的英文和中文基准数据集上广泛地测试了我们的方法，并说明TaCL在大多数评估的数据集上带来了明显的性能改进（3.1.1节）。这些结果验证了更具辨别力和各向同性的标记能带来更好的模型性能。此外，我们还强调了与目前最先进的句子级别技术对比，在NLU任务中使用我们标记级方法的好处（3.2.1节）。我们进一步分析了TaCL的内部运作和它对标记表示空间的印象（3.2.2节）。</p><p><font color='purple'>这里的3.2.1节看起来是和SimCSE作为baseline motivation十分接近的方法，使用token级别，优化句子级别，超越SimCSE？</font> </p><p>据我们所知，我们的工作是首次<strong>将对比性学习用于改进Transformer模型的token level表示</strong>。我们希望这项工作的发现能够促进对比学习和表征学习在更细粒度上的交叉方法的进一步发展。</p><h2 id="2-Token-aware-Contrastive-Learning"><a href="#2-Token-aware-Contrastive-Learning" class="headerlink" title="2. Token-aware Contrastive Learning"></a>2. Token-aware Contrastive Learning</h2><p>我们的方法包含一个学生模型S和一个教师模型T，两者都是从相同的预训练BERT模型中初始化的。在训练过程中我们固定T的参数，只优化S的参数。给定序列x&#x3D;[x1, x2, …, xn]，我们使用与BERT作者（devlin等）相同的程序随机掩码x，并将掩码后的序列x~送入到学生模型中，以产生上下文表征<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731143904381.png" alt="image-20220731143904381" style="zoom:50%;" />。同时，将未掩码的序列x输入到模型T中获取<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731144323169.png" alt="image-20220731144323169" style="zoom:50%;" />，这一过程如figure1所示。所提出的标记感知对比性学习目标$L_{TaCL}$被定义为式1：</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731144823341.png" alt="image-20220731144823341" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731144843641.png" alt="image-20220731144843641" style="zoom:50%;" /><p><font color='red'>这里说的是只把mask掉的作为一个token级别的anchor</font> </p><p>在直觉上，学生学会了使被掩码的标记的表示更加接近于教师产生的“参考”表示，而远离同一序列中的其他标记。<font color='red'>（这是对比学习这样一个任务的特性）</font> 因此，学生学到的标记表征对不同的标记更具辨别力，因此更能遵循各项同性的分布。同BERT作者一样，我们将MLM和NSP同样加入损失函数中，在持续的预训练阶段，学生模型的总体学习目标$L$被定义为：</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731145338681.png" alt="image-20220731145338681" style="zoom:50%;" /><p>请注意，学生的学习是完全无监督的，可以使用原始的预训练语料库来实现。学习完成后，我们在下游任务中对学生模型进行微调。</p><h2 id="3-Experiment"><a href="#3-Experiment" class="headerlink" title="3. Experiment"></a>3. Experiment</h2><p>对于英文的基准数据集，我们使用BERT_base还有BERT-large模型。对于中文的基准数据集，我们使用BERT_base模型。超参数的设置作者描述如下：</p><p>After initializing the student and teacher, we continually pre-train the student on the same Wikipedia corpus as in Devlin et al. (2019) for 150k steps. The training samples are truncated with a maximum length of 256 and the batch size is set as 256. The temperature τ in Eq. (1) is set as 0.01. Same as Devlin et al. (2019), we optimize the model with Adam optimizer (Kingma and Ba, 2015) with weighted decay, and an initial learning rate of 1e-4 (with warm-up ratio of 10%).</p><h3 id="3-1-Evaluation-Benchmarks"><a href="#3-1-Evaluation-Benchmarks" class="headerlink" title="3.1 Evaluation Benchmarks"></a>3.1 Evaluation Benchmarks</h3><p>对于英文，作者使用了GLUE数据集，以及SQuAD1.1 2.0数据集——评估该模型在token级答案提取任务中的表现的数据集。报告了精确匹配（EM）和F1得分的dev集结果。</p><p>对于中文，作者使用了NER（named entity recognition）和CWS（chinese word segment）这两个相关的任务。</p><h3 id="个人笔记——GLUE数据集中的各个任务介绍"><a href="#个人笔记——GLUE数据集中的各个任务介绍" class="headerlink" title="个人笔记——GLUE数据集中的各个任务介绍"></a>个人笔记——GLUE数据集中的各个任务介绍</h3><p>对于英文的基线数据集，我们使用GLUE数据集，其中包含各种句子级分类任务。<font color='red'>参考博客中的学习来说：为了让NLU任务发挥最大的作用，一些机构创建了一个多任务的自然语言理解基准和分析平台，就是GLUE（General Language Understanding Evaluation）。其中包括9项NLU任务，涉及到自然语言推断、文本蕴含、情感分析、语义相似等多个任务。</font> </p><p><font color='purple'>作者的方法是token级别的，在这些句子级别的任务上，他是怎么应用转化过来的？下文如果看到的话会补充在TODO-list中</font> </p><img src="https://pic2.zhimg.com/80/v2-2948db2c0d3a56b2282a01c954277d15_1440w.jpg" alt="img" style="zoom:67%;" /><p>CoLA：The Corpus of Linguistic Acceptability，语言可接受性语料库，单句子分类任务，每个句子被标注为是否合乎语法的单词序列。任务是一个二分类任务，标签共两个，0表示不合乎语法，1表示合乎语法；</p><p>SST-2：The Stanford Sentiment Treebank，斯坦福情感树库，单句子分类任务，包含电影评论中的句子和他们情感的人类注释。类别包括正面情感和负面情感。即针对句子级别，分为正面情感和负面情感；</p><p>MRPC：The Microsoft Research Paraphrase Corpus，微软研究院释义语料库。相似性和释义任务，是从在线新闻源中自动抽取句子对语料库，并人工注释句子对中的句子是否在语义上等效。类别不平衡，68%的正样本。标签为1代表两句话互为释义，标签为0代表两句话不互为释义；</p><p>STS-B：The Semantic Textual Similarity Benchmark，语义文本相似性基准测试，相似性和释义任务，是从新闻标题、视频标题、图像标题以及自然语言推断数据集中提取的句子对集合，每对都是由人类注释的，其相似性评分为0-5（大于等于0且小于等于5的浮点数）。任务就是预测这些相似性得分，本质上是一个回归问题，但是可以归类为句子对的5分类任务；</p><p>QQP：The Quora Question Pairs，Quora问题对数据集，任务是确定一堆问题在语义上是否等效；</p><p>MNLI：The multi-genre natural language inference corpus，是通过众包方式队进行文本蕴含标注的集合，给定前提（premise）语句和假设（hypothesis）语句，任务是预测前提语句是否包含假设（蕴含，entailment），与假设矛盾（contradiction），或者两者都不（中立，neutral）。前提语句是从数十种不同来源手机的；</p><p>QNLI：Question-Answering NLI，判断问题（question）和句子（sentence，维基百科段落中的一句）是否蕴含，蕴含和不蕴含的二分类任务；</p><p>RTE：The Recognizing Textual Entailment datasets，自然语言推断任务，将一系列挑战赛数据集整合而来，判断句子1和句子2是否互为蕴含，二分类任务；</p><p>WNLI：Winograd NLI，Winograd自然语言推断，判断句子对是否相关，蕴含和不蕴含，二分类任务；</p><p>感觉这些方法都是句子级别上的一些下游任务，也都是NLU领域上一些下游任务，任务特点和NER那类的不是很相关；</p><h3 id="个人笔记——SQuAD数据集"><a href="#个人笔记——SQuAD数据集" class="headerlink" title="个人笔记——SQuAD数据集"></a><strong>个人笔记——SQuAD数据集</strong></h3><p>机器阅读理解相关</p><h3 id="※这里记录一些Experiment章节中的重点内容"><a href="#※这里记录一些Experiment章节中的重点内容" class="headerlink" title="※这里记录一些Experiment章节中的重点内容"></a>※这里记录一些Experiment章节中的重点内容</h3><ul><li>主实验结果</li></ul><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731153458674.png" alt="image-20220731153458674"></p><p>表1：BERT+MT代表BERT with more training（by continually pre-training the original BERT on Wikipedia for 150k steps3 using the original BERT pre-training objectives）；双竖线代表作者原文报告的指标，++代表复现的指标；</p><p>这些结果表明，学习各向同性的标记表示空间有利于模型的性能，特别是在以token为中心的任务上<font color='red'>这里指的是作者自己补充的一些数据集？</font> 。</p><p><font color='purple'>这里还是很关心，这种token级别的方法，作者是咋用到句子级的任务上的啊？</font> </p><ul><li>和其他一些sentence级别方法的对比：</li></ul><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731154803399.png" alt="image-20220731154803399" style="zoom:67%;" /><p>This could be attributed to the fact that such methods only focus on learning sentence-level representations while ignoring the learning of individual tokens</p><p>这可能是由于这类方法只注重学习句子层面的表征，而忽略了对单个标记的学习。这种行为对于像SQuAD这样需要信息性标记表示的任务来说是不可取的。</p><p>尽管如此，消减的模型-1表明，原始的BERT预训练目标（LMLM和LNSP）在一定程度上弥补了句子级对比方法造成的性能下降。</p><p>另一方面，消减的模型-2表明，我们的标记意识对比目标通过学习更好的标记表征，帮助模型取得更好的结果</p><ul><li>Token Representation Self-similarity，token表征的自相似性</li></ul><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731155359386.png" alt="image-20220731155359386" style="zoom:67%;" /><p>其中hi和hj是由模型产生的xi和xj的标记表示。<strong>直观地说，较低的s(x)表明序列x中的标记的表征彼此之间的相似度较低，因此具有较强的辨别力。</strong>也就是说一个只该和自己的表征比较相近</p><p><strong><font color='purple'>这里感觉有个很大的问题，就是说指代关系，或者it那些词的话，他们应当是互为正例的？在一句话中的指代，以及一些同义词，这个作者是否忽略掉了？</font></strong> </p><p>我们从中文和英文维基百科中抽取了5万个句子，并计算了不同层次上的表征的自相似性。图2显示了TaCLbase和BERTbase在所有句子中的平均结果。我们看到，在中间层，TaCL的自相似度比BERT的高。相反，在顶层（第12层），TaCL的自相似性明显低于BERT的自相似性，这表明TaCL的最终输出标记表示更具有辨别力</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731160842407.png" alt="image-20220731160842407"></p><p><font color='purple'>最后的chinese 11-12层降幅很大啊</font> </p><ul><li>Qualitative analysis：</li></ul><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731161059262.png" alt="image-20220731161059262" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731161119303.png" alt="image-20220731161119303" style="zoom:50%;" /></p><p>Figure 3: Self-similarity Matrix Visualization: (a) BERT and (b) TaCL. (best viewed in color)</p><p>我们看到，与BERT（图3(a)）相比，TaCL（图3(b)）的自相似性在对角线外的部分要低得多。这进一步突出了TaCL的单个标记表示更具有辨别力，这反过来导致了模型性能的提高，正如所证明的那样</p><p><font color='purple'>还是觉得有个很大的问题，是不是某些词就应该表征更加接近的，比如a中很明显的逗号和句号</font> </p><h2 id="4-Conclusion"><a href="#4-Conclusion" class="headerlink" title="4. Conclusion"></a>4. Conclusion</h2><p>在这项工作中，我们提出了TaCL，一种新的方法，应用标记感知的对比学习来持续地对BERT进行预训练。我们在广泛的英文和中文基准上进行了广泛的实验。结果表明，我们的方法在所有被评估的基准上都带来了明显的性能改进。然后，我们深入研究了TaCL的内部工作，并证明我们的性能提升来自于更有鉴别力的标记代表的分布。</p><p><font color='red'>证明手段似乎有些单薄</font> </p>]]></content>
     
     
     <categories>
@@ -835,11 +848,11 @@
   
   
   <entry>
-    <title>naacl2022_Token-aware Contrastive Learning论文阅读</title>
-    <link href="/2022/08/02/research/papers/contrastive-learning/naacl2022_Token-aware%20CL/"/>
-    <url>/2022/08/02/research/papers/contrastive-learning/naacl2022_Token-aware%20CL/</url>
+    <title>naacl2022_Entity-aware CL for sentence emb论文阅读</title>
+    <link href="/2022/08/02/research/papers/contrastive-learning/naacl2022_Entity-aware%20CL%20for%20sentence%20emb/"/>
+    <url>/2022/08/02/research/papers/contrastive-learning/naacl2022_Entity-aware%20CL%20for%20sentence%20emb/</url>
     
-    <content type="html"><![CDATA[<h1 id="naacl2022-Token-aware-Contrastive-Learning论文阅读"><a href="#naacl2022-Token-aware-Contrastive-Learning论文阅读" class="headerlink" title="naacl2022_Token-aware Contrastive Learning论文阅读"></a>naacl2022_Token-aware Contrastive Learning论文阅读</h1><p><strong>TaCL: Improving BERT Pre-training with Token-aware Contrastive Learning</strong></p><p>TaCL：利用标记感知对比学习改进BERT预训练；</p><p>Token-aware CL，个人总结文章的亮点如下：</p><p>1）首次将对比性学习用于改进Transformer模型的token level表示（之前看到的一些好像都是句子级别的）</p><p>2）在token级别改善了各向异性这样一个问题，方法比较简单，并在GLUE这种比较广泛使用的数据集上取得了很好的效果；</p><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul><li>NLP名词解释：各向异性（Anisotropic）：<a href="https://zhuanlan.zhihu.com/p/468922604">https://zhuanlan.zhihu.com/p/468922604</a></li><li>GLUE基准数据集介绍及下载：<a href="https://zhuanlan.zhihu.com/p/135283598">https://zhuanlan.zhihu.com/p/135283598</a></li></ul><h2 id="TODO-list"><a href="#TODO-list" class="headerlink" title="TODO-list"></a>TODO-list</h2><ul><li>「MLM通常会输出token表示的各向异性分布，它占据表示空间的一个狭窄子集」这句话还不是很理解，可能需要看看作者在后面是怎么补充的。并且作者为什么说这些表征不理想，对于那些需要对不同token辨别语义的任务来说？原始方法的weakness在哪？</li></ul><p><font color='red'>参照博客中的解释，「Anisotropic means word embeddings occupy a narrow cone in the vector space」，也就是说“各向异性”表示词嵌入在向量空间中占据了一个狭窄的圆锥形体（还不是很懂）</font> </p><p><font color='red'>各向异性：在向量空间上的含义就是分布与方向有关系，而各项同性就是各个方向都一样，一些学者的研究发现Transformer学到的词向量在空间的分布是这个样子的：</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731002405367.png" alt="image-20220731002405367"></p><p><font color='red'>各向异性的缺点在于，最后学到的向量都挤在一起，彼此之间的余弦相似度很高，并不是一个很好的表示。一个好的表示应该同时满足Alignment和Uniformity，前者表示相似的向量距离应该相近，后者表示向量在空间上应该尽量均匀，最好是各向同性的</font> </p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731002739558.png" alt="image-20220731002739558" style="zoom:67%;" /><p><font color='red'>左图是理想的表示，右图则有各向异性的缺点。</font> </p><p><strong><font color='red'>此外补充，SimCSE的方法，作者认为通过那个简单dropout的监督，满足了更好的alignment和uniformity（下图来自SimCSE，在训练过程中keep了alignment，减小了各向异性使得更加uniform）</font></strong> </p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731003303038.png" alt="image-20220731003303038" style="zoom:50%;" /><ul><li><p>这种token级别的任务，在下游的句子级别任务上是怎么微调的，因为很多只用CLStoken的话， 这种各向同性，各向异性的分布就在MHSA的过程中被解释过去了？<font color='red'>作者没有解释好像，具体这个是怎么用的，在对比实验中也没有做比如CLStoken，还有一句话取平均这样不同方法的效果，是否需要发邮件问问？</font> </p><p><font color='blue'>改善了整个bert的表征，Improving BERT … 对比学习为什么是有效的，表征空间 词转化成one-hot，映射成表征空间后，希望所有的词，几万个词在字典的分布应该是比较分散的（各向同性）-&gt; 对比学习的基本思想；；预训练模型给了一个很好的初始化，</font> </p></li><li><p>这种从token级别简单的对比学习，似乎有明显的缺点？比如一句话中存在的指代关系，还有一些同义词，貌似没有处理？<font color='red'>待讨论</font></p></li></ul><h2 id="0-Abstract"><a href="#0-Abstract" class="headerlink" title="0.Abstract"></a>0.Abstract</h2><p>在过去的几年里，像BERT这样的Masked Language Modeling语言模型已经彻底改变了自然语言理解领域。然而，现有的预训练MLM通常会输出token表示的各向异性分布，它占据表示空间的一个狭窄子集。<font color='red'>（这个话还不太明白，在TODO-list中解决吧）</font> 这样的标记表征并不理想，特别是对于那些需要对不同标记进行辨别语义的任务来说。<font color='red'>（同样不明白，哪些任务需要对不同标记进行辨别语义，比如NER类的？但那种是序列建模的任务，和CL感觉本质上不是很像）</font> </p><p>在本文中我们提出TaCL（Token-aware Contrastive Learning，利用标记感知对比学习改进BERT预训练），一种新的持续的预训练方法，鼓励BERT学习各向同性的和有鉴别力的符号表征分布。TaCL是完全无监督的（fully unsupervised），不需要额外的数据。</p><p>我们在大量的英文和中文benchmarks上测试了我们的方法，结果表明，TaCL比原来的BERT模型带来了一致和明显的改进。此外，我们还进行了详细的分析，以揭示我们方法的优点和内部工作原理。</p><p><font color='blue'>连续学习，提升bert的表征能力，学到更均匀的表达，</font> </p><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>自从BERT的兴起，掩码语言模型（Masked Language Modeling，MLM）已经成为几乎所有自然语言理解任务的事实上的主干。尽管它们取得了明显的成功，但许多现有的以MLM目标预训练的语言模型都存在着各向异性的问题《How contextual are contextu- alized word representations? comparing the geome- try of bert, elmo, and GPT-2 embeddings.》。也就是说，他们的标记表示位于表示空间的一个狭窄的子集，因此在捕捉不同标记的语义差异方面，辨别力较差，功能较弱。</p><p><font color='red'>通过博客还有一些其他资源的学习，如果不满足各向异性的话，可能所有token之间的意思都非常相近，那么不同token 的语义差异辨别力确实会差一些</font> </p><p>最近，通过无监督的句子级对比学习来不断训练MLM，取得了很大的进展，目的是为了创造出更有辨识度的句子级句子表征。<font color='red'>（使得具有语义相似的句子靠的更近，语义不同的句子距离较远，也就是对比学习本质上的motivation，这是一个在句子级别上的motivation和实践）</font> 然而，这些表征值被评估为句子嵌入，没有证据表明他们会对其他成熟的NLU任务有益。我们表明，这些方法的对像SQuAD这样具有挑战性的任务几乎没有任何好处。<font color='red'>SQuAD是机器阅读理解任务的数据集，之前类似SimCSE的评测都是在STS那种数据集上的，那种数据集有一种衡量embedding好坏的感觉，还不是太过于涉及下层任务？</font> </p><p>在本文中，我们认为，获得更具辨别力（discriminative）和可转移性（transferrable）的表征的关键在于对比学习性和同向性的token-level的特征。为此，我们提出了TaCL（利用标记感知对比学习改进BERT预训练），这是一种新的持续的预训练方法， 鼓励BERT学习更具辨别力的token表征。</p><p><strong><font color='purple'>下面这块开始比较重点说方法的，大概能初步了解下方法</font></strong> </p><p>具体来说，我们的方法设计两个模型（一个学生和一个教师），它们都是由同一个预先训练好的BERT初始化的。在学习阶段，我们冻结教师的参数，并不断优化学生的模型：（1）原来BERT所具有的MLM和NSP训练目标；（2）新提出的TaCL训练目标。TaCL损失是通过对比学生对被掩码的标记的表述和教师在没有掩码输入标记的情况下产生的“参考”表述而得到的。在图1中，我们对方法进行了阐述。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731010744051.png" alt="image-20220731010744051" style="zoom:67%;" /><p><font color='red'>这张图一眼看过去的话是一个token level的，一个被掩码的token的表征应当更接近teacher给出的那个未被掩码词的表征，而原理其他词的表征</font></p><p><strong><font color='purple'>换句话说，这里是token级别的各向异性优化？而SimCSE像是sentence级别各向异性的优化！！！</font></strong> </p><p>我们在广泛的英文和中文基准数据集上广泛地测试了我们的方法，并说明TaCL在大多数评估的数据集上带来了明显的性能改进（3.1.1节）。这些结果验证了更具辨别力和各向同性的标记能带来更好的模型性能。此外，我们还强调了与目前最先进的句子级别技术对比，在NLU任务中使用我们标记级方法的好处（3.2.1节）。我们进一步分析了TaCL的内部运作和它对标记表示空间的印象（3.2.2节）。</p><p><font color='purple'>这里的3.2.1节看起来是和SimCSE作为baseline motivation十分接近的方法，使用token级别，优化句子级别，超越SimCSE？</font> </p><p>据我们所知，我们的工作是首次<strong>将对比性学习用于改进Transformer模型的token level表示</strong>。我们希望这项工作的发现能够促进对比学习和表征学习在更细粒度上的交叉方法的进一步发展。</p><h2 id="2-Token-aware-Contrastive-Learning"><a href="#2-Token-aware-Contrastive-Learning" class="headerlink" title="2. Token-aware Contrastive Learning"></a>2. Token-aware Contrastive Learning</h2><p>我们的方法包含一个学生模型S和一个教师模型T，两者都是从相同的预训练BERT模型中初始化的。在训练过程中我们固定T的参数，只优化S的参数。给定序列x&#x3D;[x1, x2, …, xn]，我们使用与BERT作者（devlin等）相同的程序随机掩码x，并将掩码后的序列x~送入到学生模型中，以产生上下文表征<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731143904381.png" alt="image-20220731143904381" style="zoom:50%;" />。同时，将未掩码的序列x输入到模型T中获取<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731144323169.png" alt="image-20220731144323169" style="zoom:50%;" />，这一过程如figure1所示。所提出的标记感知对比性学习目标$L_{TaCL}$被定义为式1：</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731144823341.png" alt="image-20220731144823341" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731144843641.png" alt="image-20220731144843641" style="zoom:50%;" /><p><font color='red'>这里说的是只把mask掉的作为一个token级别的anchor</font> </p><p>在直觉上，学生学会了使被掩码的标记的表示更加接近于教师产生的“参考”表示，而远离同一序列中的其他标记。<font color='red'>（这是对比学习这样一个任务的特性）</font> 因此，学生学到的标记表征对不同的标记更具辨别力，因此更能遵循各项同性的分布。同BERT作者一样，我们将MLM和NSP同样加入损失函数中，在持续的预训练阶段，学生模型的总体学习目标$L$被定义为：</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731145338681.png" alt="image-20220731145338681" style="zoom:50%;" /><p>请注意，学生的学习是完全无监督的，可以使用原始的预训练语料库来实现。学习完成后，我们在下游任务中对学生模型进行微调。</p><h2 id="3-Experiment"><a href="#3-Experiment" class="headerlink" title="3. Experiment"></a>3. Experiment</h2><p>对于英文的基准数据集，我们使用BERT_base还有BERT-large模型。对于中文的基准数据集，我们使用BERT_base模型。超参数的设置作者描述如下：</p><p>After initializing the student and teacher, we continually pre-train the student on the same Wikipedia corpus as in Devlin et al. (2019) for 150k steps. The training samples are truncated with a maximum length of 256 and the batch size is set as 256. The temperature τ in Eq. (1) is set as 0.01. Same as Devlin et al. (2019), we optimize the model with Adam optimizer (Kingma and Ba, 2015) with weighted decay, and an initial learning rate of 1e-4 (with warm-up ratio of 10%).</p><h3 id="3-1-Evaluation-Benchmarks"><a href="#3-1-Evaluation-Benchmarks" class="headerlink" title="3.1 Evaluation Benchmarks"></a>3.1 Evaluation Benchmarks</h3><p>对于英文，作者使用了GLUE数据集，以及SQuAD1.1 2.0数据集——评估该模型在token级答案提取任务中的表现的数据集。报告了精确匹配（EM）和F1得分的dev集结果。</p><p>对于中文，作者使用了NER（named entity recognition）和CWS（chinese word segment）这两个相关的任务。</p><h3 id="个人笔记——GLUE数据集中的各个任务介绍"><a href="#个人笔记——GLUE数据集中的各个任务介绍" class="headerlink" title="个人笔记——GLUE数据集中的各个任务介绍"></a>个人笔记——GLUE数据集中的各个任务介绍</h3><p>对于英文的基线数据集，我们使用GLUE数据集，其中包含各种句子级分类任务。<font color='red'>参考博客中的学习来说：为了让NLU任务发挥最大的作用，一些机构创建了一个多任务的自然语言理解基准和分析平台，就是GLUE（General Language Understanding Evaluation）。其中包括9项NLU任务，涉及到自然语言推断、文本蕴含、情感分析、语义相似等多个任务。</font> </p><p><font color='purple'>作者的方法是token级别的，在这些句子级别的任务上，他是怎么应用转化过来的？下文如果看到的话会补充在TODO-list中</font> </p><img src="https://pic2.zhimg.com/80/v2-2948db2c0d3a56b2282a01c954277d15_1440w.jpg" alt="img" style="zoom:67%;" /><p>CoLA：The Corpus of Linguistic Acceptability，语言可接受性语料库，单句子分类任务，每个句子被标注为是否合乎语法的单词序列。任务是一个二分类任务，标签共两个，0表示不合乎语法，1表示合乎语法；</p><p>SST-2：The Stanford Sentiment Treebank，斯坦福情感树库，单句子分类任务，包含电影评论中的句子和他们情感的人类注释。类别包括正面情感和负面情感。即针对句子级别，分为正面情感和负面情感；</p><p>MRPC：The Microsoft Research Paraphrase Corpus，微软研究院释义语料库。相似性和释义任务，是从在线新闻源中自动抽取句子对语料库，并人工注释句子对中的句子是否在语义上等效。类别不平衡，68%的正样本。标签为1代表两句话互为释义，标签为0代表两句话不互为释义；</p><p>STS-B：The Semantic Textual Similarity Benchmark，语义文本相似性基准测试，相似性和释义任务，是从新闻标题、视频标题、图像标题以及自然语言推断数据集中提取的句子对集合，每对都是由人类注释的，其相似性评分为0-5（大于等于0且小于等于5的浮点数）。任务就是预测这些相似性得分，本质上是一个回归问题，但是可以归类为句子对的5分类任务；</p><p>QQP：The Quora Question Pairs，Quora问题对数据集，任务是确定一堆问题在语义上是否等效；</p><p>MNLI：The multi-genre natural language inference corpus，是通过众包方式队进行文本蕴含标注的集合，给定前提（premise）语句和假设（hypothesis）语句，任务是预测前提语句是否包含假设（蕴含，entailment），与假设矛盾（contradiction），或者两者都不（中立，neutral）。前提语句是从数十种不同来源手机的；</p><p>QNLI：Question-Answering NLI，判断问题（question）和句子（sentence，维基百科段落中的一句）是否蕴含，蕴含和不蕴含的二分类任务；</p><p>RTE：The Recognizing Textual Entailment datasets，自然语言推断任务，将一系列挑战赛数据集整合而来，判断句子1和句子2是否互为蕴含，二分类任务；</p><p>WNLI：Winograd NLI，Winograd自然语言推断，判断句子对是否相关，蕴含和不蕴含，二分类任务；</p><p>感觉这些方法都是句子级别上的一些下游任务，也都是NLU领域上一些下游任务，任务特点和NER那类的不是很相关；</p><h3 id="个人笔记——SQuAD数据集"><a href="#个人笔记——SQuAD数据集" class="headerlink" title="个人笔记——SQuAD数据集"></a><strong>个人笔记——SQuAD数据集</strong></h3><p>机器阅读理解相关</p><h3 id="※这里记录一些Experiment章节中的重点内容"><a href="#※这里记录一些Experiment章节中的重点内容" class="headerlink" title="※这里记录一些Experiment章节中的重点内容"></a>※这里记录一些Experiment章节中的重点内容</h3><ul><li>主实验结果</li></ul><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731153458674.png" alt="image-20220731153458674"></p><p>表1：BERT+MT代表BERT with more training（by continually pre-training the original BERT on Wikipedia for 150k steps3 using the original BERT pre-training objectives）；双竖线代表作者原文报告的指标，++代表复现的指标；</p><p>这些结果表明，学习各向同性的标记表示空间有利于模型的性能，特别是在以token为中心的任务上<font color='red'>这里指的是作者自己补充的一些数据集？</font> 。</p><p><font color='purple'>这里还是很关心，这种token级别的方法，作者是咋用到句子级的任务上的啊？</font> </p><ul><li>和其他一些sentence级别方法的对比：</li></ul><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731154803399.png" alt="image-20220731154803399" style="zoom:67%;" /><p>This could be attributed to the fact that such methods only focus on learning sentence-level representations while ignoring the learning of individual tokens</p><p>这可能是由于这类方法只注重学习句子层面的表征，而忽略了对单个标记的学习。这种行为对于像SQuAD这样需要信息性标记表示的任务来说是不可取的。</p><p>尽管如此，消减的模型-1表明，原始的BERT预训练目标（LMLM和LNSP）在一定程度上弥补了句子级对比方法造成的性能下降。</p><p>另一方面，消减的模型-2表明，我们的标记意识对比目标通过学习更好的标记表征，帮助模型取得更好的结果</p><ul><li>Token Representation Self-similarity，token表征的自相似性</li></ul><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731155359386.png" alt="image-20220731155359386" style="zoom:67%;" /><p>其中hi和hj是由模型产生的xi和xj的标记表示。<strong>直观地说，较低的s(x)表明序列x中的标记的表征彼此之间的相似度较低，因此具有较强的辨别力。</strong>也就是说一个只该和自己的表征比较相近</p><p><strong><font color='purple'>这里感觉有个很大的问题，就是说指代关系，或者it那些词的话，他们应当是互为正例的？在一句话中的指代，以及一些同义词，这个作者是否忽略掉了？</font></strong> </p><p>我们从中文和英文维基百科中抽取了5万个句子，并计算了不同层次上的表征的自相似性。图2显示了TaCLbase和BERTbase在所有句子中的平均结果。我们看到，在中间层，TaCL的自相似度比BERT的高。相反，在顶层（第12层），TaCL的自相似性明显低于BERT的自相似性，这表明TaCL的最终输出标记表示更具有辨别力</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731160842407.png" alt="image-20220731160842407"></p><p><font color='purple'>最后的chinese 11-12层降幅很大啊</font> </p><ul><li>Qualitative analysis：</li></ul><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731161059262.png" alt="image-20220731161059262" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731161119303.png" alt="image-20220731161119303" style="zoom:50%;" /></p><p>Figure 3: Self-similarity Matrix Visualization: (a) BERT and (b) TaCL. (best viewed in color)</p><p>我们看到，与BERT（图3(a)）相比，TaCL（图3(b)）的自相似性在对角线外的部分要低得多。这进一步突出了TaCL的单个标记表示更具有辨别力，这反过来导致了模型性能的提高，正如所证明的那样</p><p><font color='purple'>还是觉得有个很大的问题，是不是某些词就应该表征更加接近的，比如a中很明显的逗号和句号</font> </p><h2 id="4-Conclusion"><a href="#4-Conclusion" class="headerlink" title="4. Conclusion"></a>4. Conclusion</h2><p>在这项工作中，我们提出了TaCL，一种新的方法，应用标记感知的对比学习来持续地对BERT进行预训练。我们在广泛的英文和中文基准上进行了广泛的实验。结果表明，我们的方法在所有被评估的基准上都带来了明显的性能改进。然后，我们深入研究了TaCL的内部工作，并证明我们的性能提升来自于更有鉴别力的标记代表的分布。</p><p><font color='red'>证明手段似乎有些单薄</font> </p>]]></content>
+    <content type="html"><![CDATA[<h1 id="naacl2022-Entity-aware-CL-for-sentence-emb论文阅读"><a href="#naacl2022-Entity-aware-CL-for-sentence-emb论文阅读" class="headerlink" title="naacl2022_Entity-aware CL for sentence emb论文阅读"></a>naacl2022_Entity-aware CL for sentence emb论文阅读</h1><p>EASE：Entity-Aware Contrasitve Learning of Sentence Embedding</p><p>实体感知的对比学习用于句子的embedding表征</p><p>Entity-aware CL for sentence embedding，个人总结文章的亮点如下：</p><p>1）hyperlink entity这个运用的很巧妙，因为维基百科这个超链接在多语言都是一样的，<strong>相当于一种能够额外获取得到的标注了</strong>，在这种超链接的引导下构建了自监督获取的positive pair；</p><p>2）同样因为hyperlink entity和维基百科的数据特点，使得具有多语言可以对齐的语料进行数据训练；</p><p>3）做实验的数据集非常全面，分为单语&#x2F;多语，内部有STS、STC、还有许多跨语言的数据集；</p><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p>- </p><h2 id="TODO-list"><a href="#TODO-list" class="headerlink" title="TODO-list"></a>TODO-list</h2><ul><li>多语言环境一般数据集指的是什么样的，是不同语言混到一块吗还是怎么样？</li><li>多语言目前了解的还有点少，有些不清楚多语言相关的是在做什么，是多语言共用一个模型吗？</li><li>待讨论：这些测试集的结果，是不是都是先完成基准的预训练后，然后再拿给下游模型做fine-tune的这样一个训练过程，或者STS那种是预训练完了后就直接评估，但是一些下游带着标签的，就是还要fine-tune一下的？</li><li>似乎一些引用的是自己复现的指标，这种在可信性上感觉会有一定问题？</li></ul><h2 id="0-Abstract"><a href="#0-Abstract" class="headerlink" title="0. Abstract"></a>0. Abstract</h2><p>我们提出了EASE，一种通过<strong>句子和其相关实体之间的对比学习</strong>来学习句子嵌入的新方法。使用实体监督的好处有以下两点：（1）实体已经被证明是文本语义的一个强有力的指标，因此应该为语义嵌入提供丰富的训练信号；（2）实体的定义是独立于语言的，因此提供了有用的跨语言对齐监督；</p><p><font color='red'>这里背后的motivation会不会有，一句话的实体对整个语义是更加重要的？</font> </p><p>我们对EASE与其他无监督模式在单语言和多语言环境中进行了评估。我们表明EASE在英语语义文本相似性（STS）和短文聚类</p><p>（STC）任务中表现出有竞争力或更好的性能，并在多语言环境中，它在各种任务中的表现明显优于基线方法。</p><p><font color='red'>多语言环境一般数据集指的是什么样的，是不同语言混到一块吗还是怎么样？（这个问题加到todo-list里面去了）</font> </p><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>目前学习句子嵌入的主流方法使用特定的的训练监督来微调通用的与训练语言模型，如BERT。监督的类型可以是自然语言推理数据，相邻的句子，或多语言模型的平行数据库。</p><p><font color='red'>这里说的是一个pretraining - fine tuning的过程</font> </p><p>在本文中，我们探讨了一种监督的类型，在文献中还没有被充分探讨过的监督类型：来自维基百科的实体超链接注释（<strong>entity hyperlink annotations</strong>）。该种方式的优势有两个方面：（1）实体已经被证明是文本语义的一个有力的指标，因此应该为句子嵌入提供丰富的训练信号；（2）实体的定义是独立于语言的，因此提供了一个有用的跨语言对齐监督。维基百科广泛的多语言支持减轻了对平行资源的需求，以训练对齐的多语言句子嵌入，特别是对于低资源语言。为了证明基于实体监督的有效性，我们提出了EASE（实体感知的对比学习用于句子的embedding表征），他在单语和多语的环境下都能产生高质量的句子嵌入。</p><p><font color='red'>到这里还是一个详细版的abstract，多语言这块强调的很多</font> </p><p><strong>EASE学习句子嵌入，有两类目标：（1）我们新颖的实体对比学习损失函数，在句子和他们相关的实体之间，图1；（2）自监督的对比学习损失，加入dropout的noise；</strong></p><ol><li><strong>实体CL的目标是将句子与其相关实体的嵌入拉近，同时将不相关的实体分开，该目标预计将根据实体所捕获的语义来安排句子的嵌入。为了进一步利用维基百科中的知识并改进学习到的嵌入，我们还引入了一种基于实体类型的硬性否定词挖掘方法；</strong></li><li><strong>第二个目标，即带有dropout噪声的自监督CL目标，与第一个目标相结合，使得句子嵌入能够捕获细粒度的文本语义；<font color='red'>这里引用了SimCSE</font></strong></li></ol><p>我们将我们的模型与其他最先进的无监督的句子嵌入模型进行了评估，并表明EASE在语义文本相似性（STS）和短文聚类（STC）任务上表现出有竞争力或更好的性能。</p><p><font color='blue'>和知识图谱结合？</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731215200544.png" alt="image-20220731215200544" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220731215211165.png" alt="image-20220731215211165" style="zoom:50%;" /></p><p>图1：EASE背后的主要概念说明。使用一个对比学习框架，句子的嵌入其超链接实体的临近区域，而与不相关的实体分开。在此，我们为多语言模型分享不同语言的实体嵌入，以促进表示的跨语言对齐。</p><p><strong><font color='purple'>读到这里才明白，这里这个超链接实体运用的很巧妙，就是维基百科什么的一般会有那个超链接，然后把这个超链接实体的信息运用上了；相当于一种能够额外获取得到的标注了，还能在多语言之间对齐</font></strong> </p><p>我们还将EASE应用于多语言环境。为了便于评估多语言句子嵌入的高级语义，<strong>我们构建了一个多语言文本聚类数据集，MewsC-16（16种语言的多语言新闻短文聚类数据集）</strong>。多语言EASE是使用各语言共享的实体嵌入进行训练的。我们表明，鉴于来自共享实体的跨语言对齐监督，多语言EASE在多语言STS、STC、平行句子匹配和跨语言文档分类任务中明显优于基准。</p><p>我们进一步证明了多语言实体CL在低资源语言的一个更现实的场景中的有效性。利用多语言实体法，我们对一个有竞争力的多语言句子嵌入模型LaBSE（Feng等人，2020）进行了微调，并表明该调整提高了该模型所支持的低资源语言的平行句子匹配性能。</p><p>最后，我们通过研究EASE模型和句子嵌入的多语言特性来分析该模型。消减的模型和句子嵌入的多语言特性，以阐明模型改进的来源。</p><p><font color='red'>多语言任务目前了解还比较少，有点不清楚是怎么做的各个操作，加入到todo那里了</font> </p><h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h2><p>主要从2.1 Sentence Embedding、2.2 Contrastive Learning、2.3 Multilingual Sentence embeddings三个方面来说</p><h3 id="2-1-Sentence-Embedding"><a href="#2-1-Sentence-Embedding" class="headerlink" title="2.1 Sentence Embedding"></a>2.1 Sentence Embedding</h3><p>句子嵌入，即使用稠密向量的形式表示句子的含义已经得到了积极的研究。最早的方法之一是段落向量，其中句子嵌入被训练来预测文本中的单词。随后人们探索了各种训练任务，包括重建或预测相邻的句子和解决自然语言推理（NLI）任务。</p><p>最近，随着BERT等通用预训练语言模型的出现，对预训练模型进行微调以产生高质量的句子嵌入变得越来越普遍，<strong>重新审视上述的监督信号，并使用基于对比学习（CL）的自我监督目标。在本文中，我们提出了一个基于实体监督的CL目标。我们用实体CL和带有dropout噪声的自我监督CL来训练我们的EASE模型，并表明实体CL提高了句子嵌入的质量。</strong></p><ul><li><p>Contrastive Learning：对比表示学习的基本思想是将语义相似的样本拉近，将不相似的样本分开。句子嵌入的对比学习可以根据所使用的positive pair的类型进行分类。作为代表性的例子，有几种方法在NLI数据集中使用“蕴含”对作为positive pair。</p><p>为了减轻对注释数据集的需求，自监督方法也在被积极研究。典型的自我监督方法涉及<strong>使用数据增强技术生成positive pair</strong>，包括离散操作，如单词删除、shuffle，回译，中间的BERT隐藏表示，以及transformer层内的dropout噪音（SimCSE）。</p><p>Contrastive tension (CT)-BERT将两个单独编码器对同一句子的输出视为正对。DeCLUTR使用同一文件的不同span。与这些在句子之间进行CL的方法相比，<strong>我们的方法在句子和其相关实体之间进行CL。</strong> <font color='red'>换句话说，也是一种构建positive pair的方法</font> </p></li><li><p>Multilingual sentence embeddings（多语言的话语embedding）：另一个与之密切相关的研究方向是学习多语言的句子嵌入，这些句子嵌入可以捕捉到多种语言的语义。早期有竞争力的方法通常利用序列对序列的目标与平行语料库来学习多语言句子嵌入；最近微调的多语言预训练模型已经取得了最先进的性能。然而，这类方法的一个缺点是，<strong>为了对某一特定的语言对取得强有力的结果，它们需要丰富的平行或语义相关的句子对，而这不一定容易获得</strong>。在这项工作中，我们<strong>探索了维基百科实体注释的效用，这些注释是跨语言对齐的，并且已经有300多种语言。我们还表明，在多语言情况下，实体注释有效地改善了英语和低资源语言之间的句子嵌入的一致性，而现有的多语言模型并不支持这种一致性。</strong></p><p><font color='red'>再次强调了一下这里在多语言上的贡献，主要是这种多语言“标注”易于获得</font></p></li></ul><h3 id="2-2-Learning-Representations-Using-Entity-based-Supervision"><a href="#2-2-Learning-Representations-Using-Entity-based-Supervision" class="headerlink" title="2.2 Learning Representations Using Entity-based Supervision"></a>2.2 Learning Representations Using Entity-based Supervision</h3><p>实体已经被习惯性地用于建立文本语义模型。最近提出的一些方法通过从实体的相关文本或实体掩码的句子中预测实体来学习基于实体的监督的文本表示。在提出的EASE模型中，现有的基于BERT的自监督CL方法被扩展，<strong>使用基于实体的监督和精心设计的硬否定句，hard-negative</strong>。此外，通过利用实体的语言无关性，它被应用于多语言环境。</p><p><font color='red'>感觉总结下来是这三大贡献：超链接的引导下自监督获取这种positive pair、多语言的数据易于获取、精心设计hard-negative</font> </p><h2 id="3-Model-and-Training-Data"><a href="#3-Model-and-Training-Data" class="headerlink" title="3. Model and Training Data"></a>3. Model and Training Data</h2><p>在本节中，我们描述了我们的句子嵌入学习方法EASE的组成部分，该方法使用维基百科中的实体超链接注释进行训练；</p><h3 id="3-1-Contrastive-Learning-with-Entites"><a href="#3-1-Contrastive-Learning-with-Entites" class="headerlink" title="3.1 Contrastive Learning with Entites"></a>3.1 Contrastive Learning with Entites</h3><p>给出一个句子和一个语义相关的positive实体对<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801110741231.png" alt="image-20220801110741231" style="zoom:50%;" />，我们训练我们的模型来预测句子实体表征$e_{i} \in R^{d_e}$，从句向量表征$s_{i} \in R^{d_s}$中。按照Chen等人SimCLR的对比学习框架，我们对N个配对的mini-batch $(s_i, e_i)$,通过下式计算训练损失：</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801111124007.png" alt="image-20220801111124007" style="zoom:67%;" /><p>其中$W \in R^{d_e×d_s}$是一个可学习的矩阵参数<font color='red'>一句话的表征和其中一个实体的表征两者互为接近这个在感官上感觉不是很有道理啊，所以在这里加入了一个W来平衡这个事情？也就是说一个词经过一个学习来变成一个句子的？如果从扩展来说这里会不会可以搞成多个词的，或者做一个词义选择后来怎么搞一下</font> 。$\tau$是温度超参数，sim(·)使用的是cosine相似度<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801111602009.png" alt="image-20220801111602009" style="zoom:50%;" />。</p><ul><li>Data：我们从2019年1月版本的维基百科转储中构建句子-实体配对数据集。我们使用<a href="https://polyglot.readthedocs.io/en/latest/Tokenization.html">ployglot</a>将文章中的文本拆分为句子。对于每个句子，我们提取超链接实体作为语义相关的实体[脚注：在初步实验中，我们还尝试从实体和其页面上的第一句话中构建实体-句子配对数据，结果发现目前的方法表现更好]。每个实体都构成了该句子的一个训练实例 $(s_i, e_i)$。我们把实体限制在那些在训练语料库中作为超链接出现十次以上的实体。它们被转换为维基数据实体，利用从2020年3月版本的维基数据转储中获得的语言间链接，在不同语言间共享[脚注：<a href="https://en.wikipedia.org/wiki/Help:Interlanguage_links]%E3%80%82">https://en.wikipedia.org/wiki/Help:Interlanguage_links]。</a></li></ul><h3 id="3-2-Hard-Negative-Entites"><a href="#3-2-Hard-Negative-Entites" class="headerlink" title="3.2 Hard Negative Entites"></a>3.2 Hard Negative Entites</h3><p><font color='red'>自己对Hard Negative的理解是更难学一点的样本，比如在NLI那边的针对那句话的矛盾可以是一个特殊的Hard Negative，在权重的时候多分配一些</font> </p><p>根据前人的研究，引入Hard Negative（与anchor难以区分的数据<font color='red'>这里是不是不太对</font> ）对改善CL模型是有效的。我们引入了一种hard negative挖掘方法，可以找到与正面实体相似但与句子无关的负面实体。**<font color='red'>这里作者理解的hard negative是难区分的样本，而不是那种应当更加原理的样本</font>** </p><p>具体来说，对于每个正面实体，我们收集满足以下两个条件的硬性负面实体候选：</p><ol><li>具有相同类型的实体被作为positive的实体（entities with the same type as the positive entity）；按照Xiong等人的工作，实体类型被定义为Wiki数据上“实例instance of ”关系中的实体。如果有不止一种合适的类型，我们会随机选择一种；<font color='red'>有一种父层级选择的感觉</font> </li><li>不出现在同一维基百科页面上的实体；<font color='red'>不在一个界面出现，那么可能就不是很相关的感觉</font> 这里我们的假设是，同一页面上的实体与正面实体在主题上相关，因此不适合作为负面数据。最后我们随机选择其中一个候选来构建硬性的负面训练数据。</li></ol><p>例如，”吉卜力工作室 “实体的类型是 “动画工作室”，而硬性否定的实体候选者之一是 “华特迪士尼动画工作室”（For example, the “Studio Ghibli” entity has the type “animation studio” and one of the hard negative entity candidates is “Walt Disney Animation Studios”）</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801115635161.png" alt="image-20220801115635161" style="zoom:67%;" /><p><font color='red'>对于一个句子的表征hi，他和ei应该接近，而在分母这里要同时和所有ej-和ej远离，这里会不会也有问题，就是负负得正了，比如ej-和ei在同个wiki页面中出现了？</font> </p><h3 id="3-3-Pretrained-Entity-Embeddings"><a href="#3-3-Pretrained-Entity-Embeddings" class="headerlink" title="3.3 Pretrained Entity Embeddings"></a>3.3 Pretrained Entity Embeddings</h3><p><strong>我们使用在维基百科上预训练的英语实体嵌入来初始化实体嵌入。</strong>这些嵌入是使用开源的Wikipedia2Vec工具和2019年1月的英文维基百科转储来训练的。向量维度被设置为768，这与基础预训练模型的隐藏表征相同，其他超参数为其默认值。实体嵌入矩阵的参数<font color='red'>nn.Embeddings()</font> 在训练过程中被更新。</p><p><font color='red'><strong>这里怎么还是感觉很怪，这个Wikipedia2Vec工具是EMNLP2020年demo的论文，去翻了一下感觉他表示出来的内容不一定借助了BERT，那么这篇论文里实体表征空间会不会和句子的表征空间是不一样的？只是维度一样？所以在这里作者加入了一个W来做一个线性变换，期望能学习变换到相同的空间？</strong></font> </p><p><font color='red'>这里应该本质上就是一个Embedding层，用one-hot那种+词表来实现的；</font> </p><h3 id="3-4-Self-supervised-Contrastive-Learning-with-Dropout-Noise"><a href="#3-4-Self-supervised-Contrastive-Learning-with-Dropout-Noise" class="headerlink" title="3.4 Self-supervised Contrastive Learning with Dropout Noise"></a>3.4 Self-supervised Contrastive Learning with Dropout Noise</h3><p><font color='red'>这里是SimCSE上提出的dropout noise，在SimCSE中，一句话输入两次在不同dropout的作用下生成两个表征，两个表征之间互为正例</font> </p><p>有dropout噪声的self-supervised CL，它把一个句子放进去，用dropout作为噪声来预测自己，是一种以无监督方式学习句子嵌入的有效方法。我们将这个方法加入到我们的实体CL方法中。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801151350152.png" alt="image-20220801151350152" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801151406340.png" alt="image-20220801151406340" style="zoom:50%;" /><p>自己组合一个，最终的损失函数被如下表示：</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801151455596.png" alt="image-20220801151455596" style="zoom:50%;" />&#x3D;<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801151545570.png" alt="image-20220801151545570" style="zoom:50%;" />+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801151609615.png" alt="image-20220801151609615" style="zoom:50%;" /></p><p>句子-实体之间的对比损失，加上句子-句子之间的对比损失（SimCSE）</p><h2 id="4-Experiment-Monolingual（单语-英语）"><a href="#4-Experiment-Monolingual（单语-英语）" class="headerlink" title="4. Experiment: Monolingual（单语-英语）"></a>4. Experiment: Monolingual（单语-英语）</h2><p>我们首先在单语环境中评估EASE，我们仅使用英语维基百科数据对单语预训练的语言模型进行微调。</p><p><font color='red'>exp章节选一些比较关键内容选写在这里</font> </p><h3 id="4-1-Setup"><a href="#4-1-Setup" class="headerlink" title="4.1 Setup"></a>4.1 Setup</h3><p>选用100w的pairs的英语entity-sentence作为训练数据。在这个设置下，我们从BERT或者RoBERTa的checkpoint上训练sentence embedding，并选用[CLS]作为一句话的sentence embedding。我们只在训练的时候在output  sentence embedding后面加入一个线性层，这与SimCSE的设置相同。</p><p>我们将我们的方法与无监督的句子嵌入方法进行比较，包括GloVe的平均嵌入（Pennington等人，2014）、原始BERT或RoBERTa的平均嵌入，以及之前最先进的方法，如Sim- CSE（Gao等人，2021）、BERT-CT（Carlsson等人，2021）和DeCLUTR。</p><p>我们使用两个任务来评估句子嵌入 任务。STS（Semantic Textual Similarity）和STC（Short Text Clustering）。这些任务被认为是衡量句子嵌入的程度，以涵盖细粒度和广泛的语义结构。</p><ul><li>STS：STS是对捕捉句子分级相似性的能力的一种衡量标准</li><li>STC：句子嵌入的另一个方面是捕捉分类语义结构的能力，即把同一类别的句子紧紧地贴在一起，而把不同类别的句子远远地分开。</li></ul><h3 id="4-2-Results"><a href="#4-2-Results" class="headerlink" title="4.2 Results"></a>4.2 Results</h3><p>实验结果如下，这里作者应该只说了是部分sota，然后展现了有竞争力的性能</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801153357691.png" alt="image-20220801153357691" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801153414345.png" alt="image-20220801153414345" style="zoom:50%;" /></p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801153529181.png" alt="image-20220801153529181" style="zoom:80%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801153539680.png" alt="image-20220801153539680" style="zoom:80%;" /><h2 id="5-Experiment-Multilingual"><a href="#5-Experiment-Multilingual" class="headerlink" title="5. Experiment: Multilingual"></a>5. Experiment: Multilingual</h2><p>为了进一步探索实体注释作为跨语言对齐监督的优势，我们在多语言环境中测试了易用性：<strong>我们使用多种语言的维基百科数据微调多语言预训练语言模型</strong>。<font color='red'>维基百科自动提供了这个，并且是相对对齐的数据</font> </p><h3 id="5-1-Setup"><a href="#5-1-Setup" class="headerlink" title="5.1 Setup"></a>5.1 Setup</h3><p>我们为每种语言抽取50000对样本，并将它们一起用作18种语言实体-句子配对数据的训练数据</p><p><font color='purple'>这样综合在一起的话大概是100w这个数据级别</font> </p><p>【脚注：We chose 18 languages (ar, ca, cs, de, en, eo, es, fa, fr,it, ja, ko, nl, pl, pt, ru, sv, tr) present in both the MewsC-16 dataset (see Section 5.2) and the extended version of STS 2017】</p><p>作为我们的主要基线模型，我们使用使用与EASE相同的多语言数据（即实体-句子配对数据中的句子）训练的SimCSE模型</p><p>【脚注：<strong>我们使用在英语维基百科上训练的实体嵌入，与单语环境下的实体嵌入相同（第3节）</strong>。维基百科上训练出来的实体嵌入与单语设置中的实体嵌入相同（第3.3节）。请注意，所有语言的实体都被转换为维基数据的实体，这些实体可通过第3.1节所述的语言间链接在不同语言间共享。「They are converted into Wikidata entities, which are shared across lan- guages, using inter-language links obtained from the March 2020 version of the Wikidata dump」】</p><p>we start fine-tuning from pre-trained checkpoints of mBERT or XLM-R and take mean pooling to obtain sentence em- beddings for both training and evaluation on both EASE and SimCSE，We also tested other pooling methods, but mean pooling was the best in this experiment for both models</p><p><font color='red'>这里的话，mean pooling又是best的了</font> </p><p><font color='red'>mBERT - multilingual bert <a href="https://aclanthology.org/2020.acl-main.747/">https://aclanthology.org/2020.acl-main.747/</a></font> </p><h3 id="5-2-Multilingual-STS-and-STC"><a href="#5-2-Multilingual-STS-and-STC" class="headerlink" title="5.2 Multilingual STS and STC"></a>5.2 Multilingual STS and STC</h3><p>STS 2017 dataset：which contains annotated sentences for ten language pairs: EN-EN, AR-AR, ES-ES, EN-AR, EN-DE, EN-TR, EN-ES, EN-FR, EN-IT, and EN- NL</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801154641049.png" alt="image-20220801154641049"></p><p>STC上，作者新建了一个数据集MewsC-16：Multilingual Short Text Clustering Dataset for News in 16 languages</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801154838147.png" alt="image-20220801154838147"></p><h3 id="5-3-Cross-lingual-Parallel-Matching"><a href="#5-3-Cross-lingual-Parallel-Matching" class="headerlink" title="5.3 Cross-lingual Parallel Matching"></a>5.3 Cross-lingual Parallel Matching</h3><p>on the <strong>Tatoeba dataset</strong>以更直接地评估其捕捉跨语言语义的能力，这项任务是在给定一组平行句子的情况下，为每个查询句子检索出正确的目标句。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801155914145.png" alt="image-20220801155914145"></p><p>英语作为目标句子&#x2F;初始句子</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801160048664.png" alt="image-20220801160048664"></p><p>在Tatoeba全94个数据集上的验结果</p><h3 id="5-4-Cross-lingual-Zero-shot-Transfer"><a href="#5-4-Cross-lingual-Zero-shot-Transfer" class="headerlink" title="5.4 Cross-lingual Zero-shot Transfer"></a>5.4 Cross-lingual Zero-shot Transfer</h3><p>MLDoc，a cross-lingual document classification dataset that classifies news articles in eight languages into four categories</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801160537535.png" alt="image-20220801160537535"></p><h2 id="6-Case-Study-Fine-tuning-Supervised-Model-with-EASE"><a href="#6-Case-Study-Fine-tuning-Supervised-Model-with-EASE" class="headerlink" title="6. Case Study: Fine-tuning Supervised Model with EASE"></a>6. Case Study: Fine-tuning Supervised Model with EASE</h2><p>In contrast, EASE requires only the Wikipedia text corpus, which is available in more than 300 languages</p><p><font color='red'>Wiki上感觉是提供了多语言的对齐数据</font> </p><h2 id="7-Analysis"><a href="#7-Analysis" class="headerlink" title="7. Analysis"></a>7. Analysis</h2><h2 id="7-1-Ablation-Study"><a href="#7-1-Ablation-Study" class="headerlink" title="7.1 Ablation Study"></a>7.1 Ablation Study</h2><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801161429457.png" alt="image-20220801161429457"></p><p>只使用entity-CL（w&#x2F;o self-supervised CL）仍然显著提升了baseline的性能。</p><h3 id="7-2-Alignment-and-Uniformity"><a href="#7-2-Alignment-and-Uniformity" class="headerlink" title="7.2 Alignment and Uniformity"></a>7.2 Alignment and Uniformity</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801162200429.png" alt="image-20220801162200429" style="zoom:80%;" /><h3 id="7-3-Qualitative-Analysis※"><a href="#7-3-Qualitative-Analysis※" class="headerlink" title="7.3 Qualitative Analysis※"></a>7.3 Qualitative Analysis※</h3><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801162501883.png" alt="image-20220801162501883"></p><p><font color='red'>自己理解了一下效果增加的这几个case：</font> </p><ol><li>mikey和movie在训练的时候是一个instance of 的关系，正例了</li><li>两边实体很像</li><li>两边实体很像</li></ol><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801162648744.png" alt="image-20220801162648744"></p><p>理解了一下效果降低的这几个case：</p><ol><li>idea 和 question，可能就就很像，但是忽略了句子其他非实体单词的意思</li><li>数量词</li><li>完全说的是不同的事情？</li></ol><p>作者对这两个表格的解释是：</p><p><strong>表8a显示了EASE如何改善句子嵌入的典型案例。我们发现，EASE的嵌入对同义词和语法差异更加稳健，因为它们更了解句子之间的主题相似性，从而导致更准确的分数推断。</strong></p><p>如表8b中的恶化案例所示，EASE嵌入有时<strong>对主题相似性过于敏感</strong>，使其难以捕捉整个句子的正确含义</p><h2 id="8-Discussion-and-Conclusion"><a href="#8-Discussion-and-Conclusion" class="headerlink" title="8. Discussion  and Conclusion"></a>8. Discussion  and Conclusion</h2><p>我们的实验表明，EASE中的实体监督提高了单语环境下的句子嵌入质量，特别是在多语环境下的句子嵌入质量。正如最近的研究表明，实体注释可以作为anchor来学习高质量的跨语言表征，我们的工作是对其效用的另一种证明，特别是在句子嵌入中。一个有希望的未来方向是探索如何更好地利用实体的跨语言性质。</p><p>我们的实验也证明了维基百科作为一个多语言数据库的效用。如第6节所述，维基百科的实体注释可以弥补学习跨语言表征的平行资源的不足。维基百科目前支持300多种语言，其中约有一半的语言有超过10,000篇文章。此外，维基百科还在不断增长；预计它将包括越来越多的语言。</p><p>然而，对维基百科训练数据的依赖可能会限制模型在特定领域的应用（例如，一般或百科全书领域）。为了将EASE应用于其他领域，人们可能需要对该领域的文本进行手动或自动注释。未来的工作可以研究实体CL在其他领域的有效性，并可能将其与实体链接系统相结合。</p><p><strong>最后，我们注意到EASE中的监督信号本身是有噪声的。不同的实体作为话题指标有不同的特点，而包含相同实体的句子不一定有共同的意义。未来的工作可以通过考虑一个实体在句子中的使用方式来解决这个问题，以获得更可靠的监督。</strong></p><p><font color='red'>这个weakness感觉还是挺好发现的吧，在这里能不能搞出一种实体自选择的手段，比如词性？</font> </p>]]></content>
     
     
     <categories>
@@ -988,11 +1001,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>EASY</tag>
       
       <tag>MEDIUM</tag>
+      
+      <tag>字符串</tag>
       
       <tag>哈希表</tag>
       
@@ -1033,9 +1046,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -1070,11 +1083,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>矩阵</tag>
+      <tag>动态规划</tag>
       
       <tag>位运算</tag>
       
-      <tag>动态规划</tag>
+      <tag>矩阵</tag>
       
       <tag>回溯</tag>
       
@@ -1134,8 +1147,6 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>数组</tag>
       
       <tag>排序</tag>
@@ -1144,9 +1155,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
+      <tag>字符串</tag>
       
       <tag>贪心</tag>
+      
+      <tag>数学</tag>
       
       <tag>几何</tag>
       
@@ -1177,8 +1190,6 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>数组</tag>
       
       <tag>排序</tag>
@@ -1187,11 +1198,13 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>字符串</tag>
+      
+      <tag>位运算</tag>
+      
       <tag>HARD</tag>
       
       <tag>哈希表</tag>
-      
-      <tag>位运算</tag>
       
       <tag>计数</tag>
       
@@ -1220,27 +1233,27 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>数组</tag>
       
       <tag>EASY</tag>
       
       <tag>MEDIUM</tag>
       
-      <tag>HARD</tag>
+      <tag>字符串</tag>
       
-      <tag>数学</tag>
+      <tag>树</tag>
+      
+      <tag>深度优先搜索</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>HARD</tag>
       
       <tag>哈希表</tag>
       
       <tag>矩阵</tag>
       
-      <tag>动态规划</tag>
-      
-      <tag>树</tag>
-      
-      <tag>深度优先搜索</tag>
+      <tag>数学</tag>
       
       <tag>二叉搜索树</tag>
       
@@ -1327,27 +1340,27 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>数组</tag>
       
       <tag>EASY</tag>
       
       <tag>MEDIUM</tag>
       
-      <tag>HARD</tag>
-      
-      <tag>哈希表</tag>
-      
-      <tag>贪心</tag>
-      
-      <tag>滑动窗口</tag>
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
-      <tag>枚举</tag>
+      <tag>贪心</tag>
+      
+      <tag>HARD</tag>
       
       <tag>字典树</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>滑动窗口</tag>
+      
+      <tag>枚举</tag>
       
       <tag>哈希函数</tag>
       
@@ -1438,15 +1451,15 @@
     
     <tags>
       
-      <tag>HARD</tag>
-      
-      <tag>动态规划</tag>
-      
       <tag>树</tag>
       
       <tag>深度优先搜索</tag>
       
       <tag>二叉树</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>HARD</tag>
       
     </tags>
     
@@ -1539,8 +1552,6 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>模拟</tag>
       
       <tag>数组</tag>
@@ -1549,13 +1560,15 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>哈希表</tag>
+      <tag>字符串</tag>
       
-      <tag>前缀和</tag>
+      <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>矩阵</tag>
       
-      <tag>贪心</tag>
+      <tag>前缀和</tag>
       
       <tag>计数</tag>
       
@@ -1584,8 +1597,6 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>数组</tag>
       
       <tag>排序</tag>
@@ -1597,6 +1608,8 @@
       <tag>EASY</tag>
       
       <tag>MEDIUM</tag>
+      
+      <tag>字符串</tag>
       
       <tag>贪心</tag>
       
@@ -1631,13 +1644,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
-      <tag>哈希表</tag>
+      <tag>动态规划</tag>
       
       <tag>贪心</tag>
       
-      <tag>动态规划</tag>
+      <tag>哈希表</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -1708,19 +1721,19 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>数组</tag>
       
       <tag>EASY</tag>
       
       <tag>MEDIUM</tag>
       
+      <tag>字符串</tag>
+      
       <tag>位运算</tag>
       
-      <tag>枚举</tag>
-      
       <tag>栈</tag>
+      
+      <tag>枚举</tag>
       
       <tag>递归</tag>
       
@@ -1922,9 +1935,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -1951,11 +1964,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>数组</tag>
       
       <tag>MEDIUM</tag>
+      
+      <tag>字符串</tag>
       
       <tag>前缀和</tag>
       
@@ -2050,8 +2063,6 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>数组</tag>
       
       <tag>排序</tag>
@@ -2060,11 +2071,7 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
-      <tag>哈希表</tag>
-      
-      <tag>贪心</tag>
+      <tag>字符串</tag>
       
       <tag>树</tag>
       
@@ -2073,6 +2080,12 @@
       <tag>广度优先搜索</tag>
       
       <tag>二叉树</tag>
+      
+      <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -2124,19 +2137,19 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>数组</tag>
       
       <tag>EASY</tag>
       
       <tag>MEDIUM</tag>
       
+      <tag>字符串</tag>
+      
       <tag>哈希表</tag>
       
-      <tag>计数</tag>
-      
       <tag>二分查找</tag>
+      
+      <tag>计数</tag>
       
     </tags>
     
@@ -2163,8 +2176,6 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>模拟</tag>
       
       <tag>堆</tag>
@@ -2175,13 +2186,15 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
+      <tag>字符串</tag>
       
       <tag>贪心</tag>
       
+      <tag>链表</tag>
+      
       <tag>计数</tag>
       
-      <tag>链表</tag>
+      <tag>数学</tag>
       
     </tags>
     
@@ -2352,15 +2365,15 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
+      <tag>贪心</tag>
       
       <tag>哈希表</tag>
       
       <tag>前缀和</tag>
       
-      <tag>贪心</tag>
-      
       <tag>计数</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -2395,11 +2408,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>哈希表</tag>
       
       <tag>设计</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -2436,17 +2449,17 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>双指针</tag>
+      
+      <tag>位运算</tag>
+      
       <tag>HARD</tag>
       
       <tag>哈希表</tag>
       
-      <tag>位运算</tag>
+      <tag>回溯</tag>
       
       <tag>计数</tag>
-      
-      <tag>双指针</tag>
-      
-      <tag>回溯</tag>
       
       <tag>枚举</tag>
       
@@ -2628,8 +2641,6 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>数组</tag>
       
       <tag>排序</tag>
@@ -2638,13 +2649,15 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>字符串</tag>
+      
+      <tag>位运算</tag>
+      
       <tag>哈希表</tag>
       
       <tag>矩阵</tag>
       
       <tag>滑动窗口</tag>
-      
-      <tag>位运算</tag>
       
     </tags>
     
@@ -2671,8 +2684,6 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>模拟</tag>
       
       <tag>数组</tag>
@@ -2681,11 +2692,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
+      <tag>字符串</tag>
+      
+      <tag>动态规划</tag>
       
       <tag>贪心</tag>
       
-      <tag>动态规划</tag>
+      <tag>数学</tag>
       
     </tags>
     
@@ -2768,9 +2781,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>EASY</tag>
+      
+      <tag>字符串</tag>
       
       <tag>栈</tag>
       
@@ -2803,9 +2816,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>矩阵</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>矩阵</tag>
       
     </tags>
     
@@ -2834,9 +2847,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>数学</tag>
       
       <tag>组合数学</tag>
       
@@ -2867,9 +2880,9 @@
       
       <tag>EASY</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>链表</tag>
       
@@ -2898,11 +2911,11 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>排序</tag>
       
       <tag>MEDIUM</tag>
+      
+      <tag>字符串</tag>
       
       <tag>哈希表</tag>
       
@@ -2935,9 +2948,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>矩阵</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -2962,9 +2975,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>EASY</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3020,8 +3033,6 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>数组</tag>
       
       <tag>排序</tag>
@@ -3030,11 +3041,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
+      <tag>字符串</tag>
+      
+      <tag>贪心</tag>
       
       <tag>矩阵</tag>
       
-      <tag>贪心</tag>
+      <tag>数学</tag>
       
     </tags>
     
@@ -3061,8 +3074,6 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>模拟</tag>
       
       <tag>数组</tag>
@@ -3071,11 +3082,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
+      <tag>字符串</tag>
       
       <tag>哈希表</tag>
       
       <tag>前缀和</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -3100,9 +3113,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>EASY</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3133,13 +3146,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>矩阵</tag>
-      
       <tag>深度优先搜索</tag>
       
       <tag>广度优先搜索</tag>
       
       <tag>并查集</tag>
+      
+      <tag>矩阵</tag>
       
     </tags>
     
@@ -3168,9 +3181,9 @@
       
       <tag>数组</tag>
       
-      <tag>HARD</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>HARD</tag>
       
     </tags>
     
@@ -3199,9 +3212,9 @@
       
       <tag>字符串</tag>
       
-      <tag>HARD</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>HARD</tag>
       
     </tags>
     
@@ -3298,9 +3311,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>设计</tag>
-      
       <tag>链表</tag>
+      
+      <tag>设计</tag>
       
       <tag>双向链表</tag>
       
@@ -3327,9 +3340,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>EASY</tag>
+      
+      <tag>字符串</tag>
       
       <tag>哈希表</tag>
       
@@ -3360,17 +3373,17 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>MEDIUM</tag>
       
-      <tag>哈希表</tag>
+      <tag>字符串</tag>
       
       <tag>动态规划</tag>
       
       <tag>字典树</tag>
       
       <tag>记忆化搜索</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -3426,9 +3439,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>EASY</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -3455,15 +3468,15 @@
     
     <tags>
       
+      <tag>MEDIUM</tag>
+      
       <tag>字符串</tag>
       
-      <tag>MEDIUM</tag>
+      <tag>字典树</tag>
       
       <tag>哈希表</tag>
       
       <tag>设计</tag>
-      
-      <tag>字典树</tag>
       
     </tags>
     
@@ -3490,9 +3503,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>MEDIUM</tag>
+      
+      <tag>字符串</tag>
       
       <tag>哈希表</tag>
       
@@ -3660,9 +3673,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>MEDIUM</tag>
+      
+      <tag>字符串</tag>
       
       <tag>双指针</tag>
       
@@ -3693,11 +3706,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>哈希表</tag>
       
       <tag>TODO优化</tag>
+      
+      <tag>数学</tag>
       
       <tag>水塘抽样</tag>
       
@@ -3794,9 +3807,9 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>MEDIUM</tag>
+      
+      <tag>字符串</tag>
       
       <tag>哈希表</tag>
       
@@ -3825,13 +3838,13 @@
     
     <tags>
       
-      <tag>字符串</tag>
-      
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
+      <tag>字符串</tag>
       
       <tag>哈希表</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
