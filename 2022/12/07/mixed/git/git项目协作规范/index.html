@@ -16,22 +16,22 @@
   <meta name="author" content="Curious;">
   <meta name="keywords" content="">
   
-    <meta name="description" content="redis线程模型TODO">
+    <meta name="description" content="在多人使用git的时候，需要大家来协作产生一个规范，这里整理了下自己在项目中曾经使用到的规范">
 <meta property="og:type" content="article">
-<meta property="og:title" content="redis线程模型">
-<meta property="og:url" content="http://example.com/2022/11/23/develop/redis/Redis%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:title" content="git项目协作规范">
+<meta property="og:url" content="http://example.com/2022/12/07/mixed/git/git%E9%A1%B9%E7%9B%AE%E5%8D%8F%E4%BD%9C%E8%A7%84%E8%8C%83/index.html">
 <meta property="og:site_name" content="Curious;的个人划水博客">
-<meta property="og:description" content="redis线程模型TODO">
+<meta property="og:description" content="在多人使用git的时候，需要大家来协作产生一个规范，这里整理了下自己在项目中曾经使用到的规范">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-23T13:04:06.000Z">
-<meta property="article:modified_time" content="2022-12-06T16:52:40.928Z">
+<meta property="article:published_time" content="2022-12-07T14:41:35.000Z">
+<meta property="article:modified_time" content="2022-12-07T15:16:08.490Z">
 <meta property="article:author" content="Curious;">
-<meta property="article:tag" content="redis">
+<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>redis线程模型 - Curious;的个人划水博客</title>
+  <title>git项目协作规范 - Curious;的个人划水博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="redis线程模型"></span>
+            <span id="subtitle" data-typed-text="git项目协作规范"></span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-23 21:04" pubdate>
-          2022年11月23日 晚上
+        <time datetime="2022-12-07 22:41" pubdate>
+          2022年12月7日 晚上
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          13 字
+          367 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          1 分钟
+          4 分钟
         
       </span>
     
@@ -268,12 +268,24 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">redis线程模型</h1>
+            <h1 style="display: none">git项目协作规范</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="redis线程模型"><a href="#redis线程模型" class="headerlink" title="redis线程模型"></a>redis线程模型</h1><p>TODO</p>
+                <p>在多人使用git的时候，需要大家来协作产生一个规范，这里整理了下自己在项目中曾经使用到的规范</p>
+<span id="more"></span>
+
+<h1 id="git项目的协作规范"><a href="#git项目的协作规范" class="headerlink" title="git项目的协作规范"></a>git项目的协作规范</h1><h2 id="1-自定的协作规范（在114和环保通项目有用到）"><a href="#1-自定的协作规范（在114和环保通项目有用到）" class="headerlink" title="1. 自定的协作规范（在114和环保通项目有用到）"></a>1. 自定的协作规范（在114和环保通项目有用到）</h2><ol>
+<li>git pull master 拉取主分支</li>
+<li>git checkout -b 自己的branch</li>
+<li>改</li>
+<li>git push 自己的branch</li>
+<li>远程merge（github上）</li>
+<li>git 切换到主分支并拉取最新的主分支</li>
+<li>删除自己的分支 git branch -d（小d）</li>
+</ol>
+<p>对这个过程进行一个解释，首先拉取主分支，这样就能和现在最新的代码版本同步，然后建立自己的分支，在自己的分支上做修改，然后push到自己的branch后，再merge到master上（其中还可能涉及到codereview），然后切换到主分支，拉取最新的主分支同步别人的代码，这时候自己的分支就可以删除掉了，继续基于现在的最新master分支来做开发；</p>
 
                 
               </div>
@@ -297,8 +309,15 @@
   
     <span>></span>
     
-  <a href="/categories/develop/redis/" class="category-chain-item">redis</a>
+  <a href="/categories/develop/mixed/" class="category-chain-item">mixed</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/develop/mixed/git/" class="category-chain-item">git</a>
+  
+  
+
   
 
   
@@ -314,7 +333,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/redis/">#redis</a>
+        <a href="/tags/git/">#git</a>
       
     </div>
   
@@ -326,8 +345,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>redis线程模型</div>
-      <div>http://example.com/2022/11/23/develop/redis/Redis线程模型/</div>
+      <div>git项目协作规范</div>
+      <div>http://example.com/2022/12/07/mixed/git/git项目协作规范/</div>
     </div>
     <div class="license-meta">
       
@@ -339,7 +358,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月23日</div>
+          <div>2022年12月7日</div>
         </div>
       
       
@@ -371,9 +390,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/25/develop/linux/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3%E5%8F%8A%E5%91%BD%E4%BB%A4%E5%88%86%E7%B1%BB%E6%80%BB%E7%BB%93/" title="Linux操作系统相关及命令分类总结">
+                      <a href="/2022/12/07/develop/redis/%E4%B8%89%E3%80%81Redis%E6%8C%81%E4%B9%85%E5%8C%96/" title="三、Redis持久化">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Linux操作系统相关及命令分类总结</span>
+                        <span class="hidden-mobile">三、Redis持久化</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -381,8 +400,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/23/research/papers/relation-extraction/Positive-Unlabeled-Learning%E6%96%B9%E5%90%91%E8%B0%83%E7%A0%94/" title="Positive-Unlabeled-Learning方向调研">
-                        <span class="hidden-mobile">Positive-Unlabeled-Learning方向调研</span>
+                      <a href="/2022/12/07/develop/redis/5%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84Redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0/" title="5种常见的Redis数据类型是怎么实现">
+                        <span class="hidden-mobile">5种常见的Redis数据类型是怎么实现</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

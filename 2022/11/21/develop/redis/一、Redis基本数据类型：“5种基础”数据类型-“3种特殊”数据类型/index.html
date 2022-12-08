@@ -18,8 +18,8 @@
   
     <meta name="description" content="该篇博客介绍redis的基本数据类型，以及基础类型的背后实现原理（底层） “5种基础”数据类型：String、List、Set、Zset、Hash； “3种特殊”数据类型：HyperLogLogs（基数统计），Bitmaps（位图）和geospatial（地理位置）；  Redis基本数据类型；  Redis底层数据结构；">
 <meta property="og:type" content="article">
-<meta property="og:title" content="redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型">
-<meta property="og:url" content="http://example.com/2022/11/21/develop/redis/Redis%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9A%E2%80%9C5%E7%A7%8D%E5%9F%BA%E7%A1%80%E2%80%9D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E2%80%9C3%E7%A7%8D%E7%89%B9%E6%AE%8A%E2%80%9D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:title" content="一、redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型">
+<meta property="og:url" content="http://example.com/2022/11/21/develop/redis/%E4%B8%80%E3%80%81Redis%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9A%E2%80%9C5%E7%A7%8D%E5%9F%BA%E7%A1%80%E2%80%9D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E2%80%9C3%E7%A7%8D%E7%89%B9%E6%AE%8A%E2%80%9D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
 <meta property="og:site_name" content="Curious;的个人划水博客">
 <meta property="og:description" content="该篇博客介绍redis的基本数据类型，以及基础类型的背后实现原理（底层） “5种基础”数据类型：String、List、Set、Zset、Hash； “3种特殊”数据类型：HyperLogLogs（基数统计），Bitmaps（位图）和geospatial（地理位置）；  Redis基本数据类型；  Redis底层数据结构；">
 <meta property="og:locale" content="zh_CN">
@@ -45,7 +45,7 @@
 <meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221124212310177.png">
 <meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221124213108222.png">
 <meta property="article:published_time" content="2022-11-21T15:43:50.000Z">
-<meta property="article:modified_time" content="2022-12-06T16:52:36.662Z">
+<meta property="article:modified_time" content="2022-12-07T16:02:07.679Z">
 <meta property="article:author" content="Curious;">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary_large_image">
@@ -53,7 +53,7 @@
   
   
   
-  <title>redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型 - Curious;的个人划水博客</title>
+  <title>一、redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型 - Curious;的个人划水博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -218,7 +218,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型"></span>
+            <span id="subtitle" data-typed-text="一、redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型"></span>
           
         </div>
 
@@ -290,7 +290,7 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型</h1>
+            <h1 style="display: none">一、redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型</h1>
             
             
               <div class="markdown-body">
@@ -306,7 +306,7 @@
 </ul>
 <span id="more"></span>
 
-<h1 id="redis基本数据类型：“5种基础”数据类型-“3种特殊”数据类型"><a href="#redis基本数据类型：“5种基础”数据类型-“3种特殊”数据类型" class="headerlink" title="redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型"></a>redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型</h1><p>reference: </p>
+<h1 id="一、redis基本数据类型：“5种基础”数据类型-“3种特殊”数据类型"><a href="#一、redis基本数据类型：“5种基础”数据类型-“3种特殊”数据类型" class="headerlink" title="一、redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型"></a>一、redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型</h1><p>reference: </p>
 <p><a target="_blank" rel="noopener" href="https://gogocoder.com/home">https://gogocoder.com/home</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/371375530">https://zhuanlan.zhihu.com/p/371375530</a></p>
 <h2 id="1-“5种基础”数据类型"><a href="#1-“5种基础”数据类型" class="headerlink" title="1. “5种基础”数据类型"></a>1. “5种基础”数据类型</h2><p>redis所有的key（键）都是字符串。我们在谈基础数据结构时，讨论的是存储value（值）</p>
@@ -901,8 +901,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型</div>
-      <div>http://example.com/2022/11/21/develop/redis/Redis基本数据类型：“5种基础”数据类型-“3种特殊”数据类型/</div>
+      <div>一、redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型</div>
+      <div>http://example.com/2022/11/21/develop/redis/一、Redis基本数据类型：“5种基础”数据类型-“3种特殊”数据类型/</div>
     </div>
     <div class="license-meta">
       
