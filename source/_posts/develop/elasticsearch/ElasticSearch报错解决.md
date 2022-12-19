@@ -2,7 +2,7 @@
 title: ElasticSearch报错解决
 date: 2022-12-02 11:04:18
 tags:
-    - elasticsearch
+	- elasticsearch
 categories:
 	- develop
 	- elasticsearch

@@ -2,7 +2,7 @@
 title: emnlp2022_ACA论文阅读
 date: 2022-11-21 09:42:00
 tags:
-    - relation extraction
+	- relation extraction
 categories:
 	- research
 	- relation extraction

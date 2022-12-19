@@ -309,7 +309,7 @@ redis数据结构并不是指String、List、Set、ZSet、Hash这些对象，因
 
 **Set：底层为哈希表和整数集合**
 
-**Zset：底层为压缩列表和跳表**
+**Zset：底层为压缩列表和跳表；**
 
 **hash：底层为压缩列表和哈希表；新版底层为listpack**
 

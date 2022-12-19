@@ -2,6 +2,10 @@
 title: emnlp2022-PU-for-DocRE
 date: 2022-12-07 01:32:31
 tags:
+	- relation extraction
+categories:
+	- research
+	- relation extraction
 ---
 
 # emnlp2022-PU-for-DocRE
@@ -197,6 +201,10 @@ https://github.com/www-Ye/SSR-PU
 <font color='red'>控制一种相对的差距？相对的就好了</font> 
 
 ## 4. 个人总结
+
+- 多标签
+
+
 
 - Positive-Unlabeled Learning，瞄准的基准上是说，只需要标注positive的数据，未标注的数据，我也不知道是positive还是negative的，有可能是数据集漏标了，然后也是多分类问题
 

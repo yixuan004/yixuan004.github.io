@@ -56,6 +56,8 @@ https://www.zhihu.com/search?type=content&q=Python%20GIL
 
 <font color='red'>不管分成多少事情，永远只有一个线程能在执行，但是多线程提供了多件事情之间竞争切换的可能。</font> 
 
+**python不能用多线程实现并行，但是可以用多进程实现并行**
+
 #### 1.1.4 是不是python的多线程就完全没用了
 
 分类讨论
