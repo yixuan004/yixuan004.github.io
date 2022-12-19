@@ -16,15 +16,30 @@
   <meta name="author" content="Curious;">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
+    <meta name="description" content="ElasticSearch上层问题1. ElasticSearch原理及简介reference： https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;62892586，该篇博客对上层说的比较全面，是一种漫画的形式，这里对他进行一个整理 1.1 倒排索引1.1.1 引入在诗词的飞花令环节中，要求说出带”前“字的诗句，这么说来说是比较难想出诗句的 然而“窗前明月光，疑是地上霜…” “日照香炉生紫">
+<meta property="og:type" content="article">
 <meta property="og:title" content="ElasticSearch上层问题">
 <meta property="og:url" content="http://example.com/2022/12/07/develop/elasticsearch/ElasticSearch%E4%B8%8A%E5%B1%82%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="ElasticSearch上层问题1. ElasticSearch原理及简介reference： https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;62892586，该篇博客对上层说的比较全面，是一种漫画的形式，这里对他进行一个整理 1.1 倒排索引1.1.1 引入在诗词的飞花令环节中，要求说出带”前“字的诗句，这么说来说是比较难想出诗句的 然而“窗前明月光，疑是地上霜…” “日照香炉生紫">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214225151425.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214225438310.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214225854340.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214225903596.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214230957667.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214231005493.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214231914459.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214231934554.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214233052763.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214234425912.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221215001824604.png">
 <meta property="article:published_time" content="2022-12-07T15:54:08.000Z">
-<meta property="article:modified_time" content="2022-12-07T15:54:15.039Z">
+<meta property="article:modified_time" content="2022-12-14T16:26:14.372Z">
 <meta property="article:author" content="Curious;">
+<meta property="article:tag" content="elasticsearch">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214225151425.png">
   
   
   
@@ -216,7 +231,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          4.3k 字
         
       </span>
     
@@ -227,7 +242,7 @@
         
         
         
-          1 分钟
+          37 分钟
         
       </span>
     
@@ -270,7 +285,87 @@
             
               <div class="markdown-body">
                 
-                
+                <h1 id="ElasticSearch上层问题"><a href="#ElasticSearch上层问题" class="headerlink" title="ElasticSearch上层问题"></a>ElasticSearch上层问题</h1><h2 id="1-ElasticSearch原理及简介"><a href="#1-ElasticSearch原理及简介" class="headerlink" title="1. ElasticSearch原理及简介"></a>1. ElasticSearch原理及简介</h2><p>reference：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/62892586%EF%BC%8C%E8%AF%A5%E7%AF%87%E5%8D%9A%E5%AE%A2%E5%AF%B9%E4%B8%8A%E5%B1%82%E8%AF%B4%E7%9A%84%E6%AF%94%E8%BE%83%E5%85%A8%E9%9D%A2%EF%BC%8C%E6%98%AF%E4%B8%80%E7%A7%8D%E6%BC%AB%E7%94%BB%E7%9A%84%E5%BD%A2%E5%BC%8F%EF%BC%8C%E8%BF%99%E9%87%8C%E5%AF%B9%E4%BB%96%E8%BF%9B%E8%A1%8C%E4%B8%80%E4%B8%AA%E6%95%B4%E7%90%86">https://zhuanlan.zhihu.com/p/62892586，该篇博客对上层说的比较全面，是一种漫画的形式，这里对他进行一个整理</a></p>
+<h3 id="1-1-倒排索引"><a href="#1-1-倒排索引" class="headerlink" title="1.1 倒排索引"></a>1.1 倒排索引</h3><h4 id="1-1-1-引入"><a href="#1-1-1-引入" class="headerlink" title="1.1.1 引入"></a>1.1.1 引入</h4><p>在诗词的飞花令环节中，要求说出带”前“字的诗句，这么说来说是比较难想出诗句的</p>
+<p>然而“窗前明月光，疑是地上霜…” “日照香炉生紫烟，遥看瀑布挂前川”这些家喻户晓的诗词中就带有“前”字</p>
+<p>脑子里想不起来的原因，就是因为没有建立<strong>倒排索引</strong></p>
+<p>一般来说，背诗的时候会是一个从前往后的记忆顺序，先记诗名、作者，然后背诗的内容，脑子里的索引可能就会是像下图这样的，以诗名作为key，诗的内容作为value，让背静夜思很快就能反应过来，因为从索引找到了诗</p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214225151425.png" srcset="/img/loading.gif" lazyload alt="image-20221214225151425"></p>
+<p>但是如果是说出带“前”字的诗句，由于没有索引，只能遍历脑海中的所有诗词，当诗词量大的时候就找的很慢了</p>
+<p><strong>倒排索引， 又叫反向索引</strong>，下面来举一个例子，如果以这种方式简历索引。以“前”字作为key，诗句内容作为value。</p>
+<p>这就是倒排索引，以诗句内容中的一些关键字作为索引，来找到诗句</p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214225438310.png" srcset="/img/loading.gif" lazyload alt="image-20221214225438310"></p>
+<h4 id="1-1-2-索引量爆炸问题"><a href="#1-1-2-索引量爆炸问题" class="headerlink" title="1.1.2 索引量爆炸问题"></a>1.1.2 索引量爆炸问题</h4><p>上面这个方式来说，很容易想到索引量爆炸这个问题，因为每个字都可以建立索引，那么将会多个key对应同一份value</p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214225854340.png" srcset="/img/loading.gif" lazyload alt="image-20221214225854340" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214225903596.png" srcset="/img/loading.gif" lazyload alt="image-20221214225903596" style="zoom:50%;" /></p>
+<p>一句诗就可以建立10个倒排索引，诗词字数越多，索引量还要更多，记忆量会爆炸性增长，于是会进行<strong>压缩</strong></p>
+<p>既然可以通过诗名就想起一首诗，那反向索引就没有必要索引到诗句了！而是只索引到诗名就可以</p>
+<p><font color='red'>这个代入数据场景的话，是不是索引到id就可以了，数据遗漏问题，就是id重复了给漏了？</font> </p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214230957667.png" srcset="/img/loading.gif" lazyload alt="image-20221214230957667" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214231005493.png" srcset="/img/loading.gif" lazyload alt="image-20221214231005493" style="zoom:50%;" /></p>
+<p>倒排索引的value不存诗句，改存诗名，这样数据量就可以减少很多，诗名可以理解正正向索引，静夜思-&gt;“窗前明月光，疑是地上霜…”</p>
+<p>这是一首诗的情况，多首诗可以形成索引矩阵的形式</p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214231914459.png" srcset="/img/loading.gif" lazyload alt="image-20221214231914459" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214231934554.png" srcset="/img/loading.gif" lazyload alt="image-20221214231934554" style="zoom:50%;" /></p>
+<p><font color='red'>初中的赛诗会，要是了解这种结构就好了hh</font> </p>
+<h3 id="1-2-搜索引擎原理"><a href="#1-2-搜索引擎原理" class="headerlink" title="1.2 搜索引擎原理"></a>1.2 搜索引擎原理</h3><p>上面这个索引过程和百度或者谷歌的搜索是类似的，根据一个内容，去找要找的文章</p>
+<p>像百度，谷歌这些搜索引擎的原理和背诗是一样的，最核心的都是建立倒排索引，快速命中想要搜索的内容</p>
+<p>搜索引擎的流程要更加复杂一些，包括网页爬取和<strong>停顿词过滤</strong>等</p>
+<h4 id="1-2-1-爬取-停顿词过滤-建立反向索引"><a href="#1-2-1-爬取-停顿词过滤-建立反向索引" class="headerlink" title="1.2.1 爬取+停顿词过滤+建立反向索引"></a>1.2.1 爬取+停顿词过滤+建立反向索引</h4><p>的、而这种词可以认为是停用词，可以给过滤掉，没必要建立索引，这就是所谓的<strong>分词</strong></p>
+<p>搜索引擎都是对文章分词之后，再根据关键字建立倒排索引的策略</p>
+<p>搜索引擎三大内容：爬取、分词、建立反向索引</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214233052763.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+
+<p><font color='red'>在使用的es中，通过ik-analyzer和pinyin-analyzer来进行分词等，这样来建立反向索引，中文场景这种基本差不多</font> </p>
+<p><font color='red'>之后要补充一些特殊设置和参数</font> </p>
+<h3 id="1-3-ElasticSearch简介"><a href="#1-3-ElasticSearch简介" class="headerlink" title="1.3 ElasticSearch简介"></a>1.3 ElasticSearch简介</h3><p>一个搜索引擎的实现工足量是巨大的，业界已经有成熟的开源解决方案了，最早是lucene，可以方便的建立倒排索引</p>
+<p>但是lucene还是一个库，必须要懂一点搜索引擎的原理才能用的比较好，后来又有人基于lucene进行封装，写出了ES</p>
+<p>ES的好处：</p>
+<ul>
+<li>将搜索引擎内部的操作封装成了restful的API，通过http请求就能对其进行操作</li>
+<li>考虑了海量的数据，实现了分布式，是一个可以存储海量数据的分布式搜索引擎<font color='red'>（怎么理解分布式？）</font></li>
+</ul>
+<h4 id="1-3-1-ElasticSearch基本概念——索引、类型、文档"><a href="#1-3-1-ElasticSearch基本概念——索引、类型、文档" class="headerlink" title="1.3.1 ElasticSearch基本概念——索引、类型、文档"></a>1.3.1 ElasticSearch基本概念——索引、类型、文档</h4><ul>
+<li>索引index</li>
+</ul>
+<p>这里的索引和刚刚说的key不是一个概念，es中的索引是存放数据的地方，可以理解为mysql中的一个数据库</p>
+<ul>
+<li>类型</li>
+</ul>
+<p>类型是用来定义数据结构的，可以认为是mysql中的一张表</p>
+<ul>
+<li>文档</li>
+</ul>
+<p>文档就是最终的数据了，可以认为一个文档就是一条记录</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221214234425912.png" srcset="/img/loading.gif" lazyload alt="image-20221214234425912" style="zoom:50%;" />
+
+<h4 id="1-3-2-ES的索引，这里以自己项目中的索引为例"><a href="#1-3-2-ES的索引，这里以自己项目中的索引为例" class="headerlink" title="1.3.2 ES的索引，这里以自己项目中的索引为例"></a>1.3.2 ES的索引，这里以自己项目中的索引为例</h4><p>索引的名称是online-index-v9-1_c</p>
+<p>索引的类型是online-index-v9-1_c</p>
+<p>然后内部有date类型、keyword类型、integer类型、text类型等<br>类型相当于表结构的描述，每个字段的类型以json形式描述一行</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;template&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;online-index-v9-1_c&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;mappings&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;doc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;properties&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                <span class="hljs-attr">&quot;@timestamp&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                    <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;date&quot;</span><br>                <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>                <span class="hljs-attr">&quot;@version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                    <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;text&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;fields&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                        <span class="hljs-attr">&quot;keyword&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                            <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;keyword&quot;</span><span class="hljs-punctuation">,</span><br>                            <span class="hljs-attr">&quot;ignore_above&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">256</span><br>                        <span class="hljs-punctuation">&#125;</span><br>                    <span class="hljs-punctuation">&#125;</span><br>                <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>                <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                    <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;keyword&quot;</span><br>                <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>                <span class="hljs-attr">&quot;per&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                    <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;keyword&quot;</span><br>                <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>                <span class="hljs-attr">&quot;perr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                    <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;text&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;term_vector&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;with_positions_offsets&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;analyzer&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;ik_pinyin_analyzer&quot;</span><br>                <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>                <span class="hljs-attr">&quot;address&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>                    <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;text&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;term_vector&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;with_positions_offsets&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;analyzer&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;ik_pinyin_analyzer&quot;</span><br>                <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>                <span class="hljs-attr">&quot;perrsegment&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                    <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;keyword&quot;</span><br>                <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>                <span class="hljs-attr">&quot;customer_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                    <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;text&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;fields&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                        <span class="hljs-attr">&quot;keyword&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                            <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;keyword&quot;</span><span class="hljs-punctuation">,</span><br>                            <span class="hljs-attr">&quot;ignore_above&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">256</span><br>                        <span class="hljs-punctuation">&#125;</span><br>                    <span class="hljs-punctuation">&#125;</span><br>                <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>                <span class="hljs-attr">&quot;broadcast_from_local&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                    <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;text&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;fields&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                        <span class="hljs-attr">&quot;keyword&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                            <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;keyword&quot;</span><span class="hljs-punctuation">,</span><br>                            <span class="hljs-attr">&quot;ignore_above&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">256</span><br>                        <span class="hljs-punctuation">&#125;</span><br>                    <span class="hljs-punctuation">&#125;</span><br>                <span class="hljs-punctuation">&#125;</span><br>            <span class="hljs-punctuation">&#125;</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;settings&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;analysis&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;analyzer&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>                <span class="hljs-attr">&quot;ik_pinyin_analyzer&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>                    <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;custom&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;tokenizer&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;ik_max_word&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;filter&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;pinyin_filter&quot;</span><br>                <span class="hljs-punctuation">&#125;</span><br>            <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;filter&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>                <span class="hljs-attr">&quot;pinyin_filter&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>                    <span class="hljs-attr">&quot;type&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;pinyin&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;keep_separate_first_letter&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;false&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;keep_full_pinyin&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;true&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;keep_original&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;true&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;limit_first_letter_length&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;16&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;lowercase&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;true&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;remove_duplicated_term&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;true&quot;</span><br>                <span class="hljs-punctuation">&#125;</span><br>            <span class="hljs-punctuation">&#125;</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>上述索引中，keyword和text表示的都是字符串，区别是什么？</p>
+<p><strong>keyword类型是不会分词的，直接根据字符串建立反向索引</strong></p>
+<p><strong>text类型在存入es的时候，会先分词，然后根据分词后的内容建立反向索引</strong></p>
+<h4 id="1-3-3-常用到的ik-analyzer和pinyin-analyzer"><a href="#1-3-3-常用到的ik-analyzer和pinyin-analyzer" class="headerlink" title="1.3.3 常用到的ik-analyzer和pinyin-analyzer"></a>1.3.3 常用到的ik-analyzer和pinyin-analyzer</h4><p>ik-analyzer：</p>
+<ul>
+<li>提供了最大分词功能，然后可以在分词后的基础上使用pinyin-analyzer</li>
+</ul>
+<p>pinyin-analyzer：</p>
+<ul>
+<li>保持首字母、首字母长度限制</li>
+<li>全拼音保留</li>
+<li>小写</li>
+<li>去除重复项</li>
+<li>…</li>
+</ul>
+<h2 id="1-4-ElasticSearch分布式原理"><a href="#1-4-ElasticSearch分布式原理" class="headerlink" title="1.4 ElasticSearch分布式原理"></a>1.4 ElasticSearch分布式原理</h2><p>elasticsearch也会对数据进行切分，同时每一个分片会保存多个副本，为了保证分布式环境下的高可用</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221215001824604.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+
+<p>绿色表示数据块，其实es中的数据也是备份存储至多个节点</p>
+<p>master-slave结构，节点是对等的，节点间户通过自己的一些规则选取集群的Master，Master会负责集群状态信息的改变</p>
+<p>建立一个索引，就是先通知master建立索引，然后将信息同步给其他节点</p>
+<h3 id="1-5-ElasticSearch、Logstash、Kibana（ELK系统）"><a href="#1-5-ElasticSearch、Logstash、Kibana（ELK系统）" class="headerlink" title="1.5 ElasticSearch、Logstash、Kibana（ELK系统）"></a>1.5 ElasticSearch、Logstash、Kibana（ELK系统）</h3><p>Logstash导入数据</p>
+<p>Kibana查看，貌似还可以接入一些实时计算模块，做实时报警功能</p>
+
                 
               </div>
             
@@ -278,6 +373,41 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/elasticsearch/" class="category-chain-item">elasticsearch</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/elasticsearch/">#elasticsearch</a>
+      
+    </div>
   
 </div>
 
@@ -331,6 +461,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/12/08/develop/mysql/%E4%B8%80%E3%80%81MySQL%E5%9F%BA%E7%A1%80/" title="一、MySQL基础">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">一、MySQL基础</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

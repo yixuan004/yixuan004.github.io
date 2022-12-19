@@ -223,6 +223,461 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/11/26/develop/docker/docker%E4%BD%BF%E7%94%A8/%E5%9F%BA%E4%BA%8EDocker%E8%BF%9B%E8%A1%8C%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2-%E4%BB%A5%E6%99%BA%E8%83%BD114%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B/" target="_self">
+          基于Docker进行项目部署-以智能114项目为例
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/26/develop/docker/docker%E4%BD%BF%E7%94%A8/%E5%9F%BA%E4%BA%8EDocker%E8%BF%9B%E8%A1%8C%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2-%E4%BB%A5%E6%99%BA%E8%83%BD114%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B/" target="_self">
+        <div>
+          背景：该篇博客记录使用docker进行项目部署的例子，介绍了Dockerfile以及一些常用的docker命令、一些遇到问题的QA等 主要涉及uWSGI+Django、NGINX、Redis这几个服务的Dockerfile以及build、run运行方式 未来将在这个博客中补充MySQL与ElasticSearch的镜像制作
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-26 16:22" pubdate>
+              2022-11-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/docker/" class="category-chain-item">docker</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/docker/docker%E4%BD%BF%E7%94%A8/" class="category-chain-item">docker使用</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/docker/">#docker</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/11/25/develop/docker/docker%E4%BD%BF%E7%94%A8/Docker%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/" target="_self">
+          Docker离线安装
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/25/develop/docker/docker%E4%BD%BF%E7%94%A8/Docker%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/" target="_self">
+        <div>
+          背景：很多场景下我们需要对服务进行离线部署 一方面像是电信那边服务器的话，本身是内网环境不能连外网 另外一方面是有最近有一句让我触动很深的话，在我们部署服务的时候，要明白自己需要的依赖是哪些，这样不会因为以后软件版本没人维护就用不了了，或者不会因为版本对不上就报错查不出来结果的。这个确实是实际场景会经常面临到的问题
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-25 16:49" pubdate>
+              2022-11-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/docker/" class="category-chain-item">docker</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/docker/docker%E4%BD%BF%E7%94%A8/" class="category-chain-item">docker使用</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/docker/">#docker</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/11/25/develop/nginx/nginx%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/" target="_self">
+          nginx离线安装
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/25/develop/nginx/nginx%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/" target="_self">
+        <div>
+          离线安装nginx，用到的nginx-1.22.0的百度网盘地址（这个安装包不知道是不是已经把依赖给涵盖了，在完全全新的服务器上安装感觉可能还是有问题）： 链接: https://pan.baidu.com/s/1HbMrAcLd5FT6bz0ji_vZWg 提取码: 6guw
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-25 09:28" pubdate>
+              2022-11-25
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/11/25/develop/linux/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3%E5%8F%8A%E5%91%BD%E4%BB%A4%E5%88%86%E7%B1%BB%E6%80%BB%E7%BB%93/" target="_self">
+          Linux操作系统相关及命令分类总结
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/25/develop/linux/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3%E5%8F%8A%E5%91%BD%E4%BB%A4%E5%88%86%E7%B1%BB%E6%80%BB%E7%BB%93/" target="_self">
+        <div>
+          该篇博客整理Linux操作系统相关的操作和命令，方便使用时查阅以及复习
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-25 00:38" pubdate>
+              2022-11-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/linux/" class="category-chain-item">linux</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/linux/">#linux</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/11/23/develop/redis/%E4%BA%8C%E3%80%81Redis%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/" target="_self">
+          二、redis线程模型
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/23/develop/redis/%E4%BA%8C%E3%80%81Redis%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/" target="_self">
+        <div>
+          二、redis线程模型1. Redis是单线程吗？Redis的单线程指的是「接收客户端请求-&gt;解析请求-&gt;进行数据读写-&gt;发送数据给客户端」，这个过程是由一个线程（主线程）来完成的，也就是我们常说redis是单线程的原因 但是redis程序并不是单线程的，redis在启动的时候，是会自动启动后台线程的：  redis在老版本，会启动两个后台线程，分别处理关闭文件、AOF刷盘的操作
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-23 21:04" pubdate>
+              2022-11-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/redis/" class="category-chain-item">redis</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/redis/">#redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/11/23/research/code/emnlp2022-ACA%E8%AE%BA%E6%96%87%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB/" target="_self">
+          emnlp2022-ACA论文代码阅读
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/23/research/code/emnlp2022-ACA%E8%AE%BA%E6%96%87%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB/" target="_self">
+        <div>
+          emnlp2022-ACA论文代码阅读
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-23 09:31" pubdate>
+              2022-11-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/research/" class="category-chain-item">research</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/research/code-reading/" class="category-chain-item">code-reading</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/code-reading/">#code-reading</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/11/21/develop/redis/%E4%B8%80%E3%80%81Redis%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9A%E2%80%9C5%E7%A7%8D%E5%9F%BA%E7%A1%80%E2%80%9D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E2%80%9C3%E7%A7%8D%E7%89%B9%E6%AE%8A%E2%80%9D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" target="_self">
+          一、redis基本数据类型：“5种基础”数据类型+“3种特殊”数据类型
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/21/develop/redis/%E4%B8%80%E3%80%81Redis%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9A%E2%80%9C5%E7%A7%8D%E5%9F%BA%E7%A1%80%E2%80%9D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E2%80%9C3%E7%A7%8D%E7%89%B9%E6%AE%8A%E2%80%9D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" target="_self">
+        <div>
+          该篇博客介绍redis的基本数据类型，以及基础类型的背后实现原理（底层） “5种基础”数据类型：String、List、Set、Zset、Hash； “3种特殊”数据类型：HyperLogLogs（基数统计），Bitmaps（位图）和geospatial（地理位置）；  Redis基本数据类型；  Redis底层数据结构；
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-21 23:43" pubdate>
+              2022-11-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/redis/" class="category-chain-item">redis</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/redis/">#redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/11/21/develop/redis/Redis%E6%80%BB%E7%BB%93/" target="_self">
           Redis总结
         </a>
@@ -421,473 +876,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/11/20/develop/mysql/Ubuntu%E6%9C%8D%E5%8A%A1%E5%99%A8MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" target="_self">
-          Ubuntu服务器MySQL的安装及基础命令
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/20/develop/mysql/Ubuntu%E6%9C%8D%E5%8A%A1%E5%99%A8MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" target="_self">
-        <div>
-          背景：之前只基本在服务器上使用mysql，也曾经尝试过安装但是没有整理笔记，这次顺着项目部署，整理一下笔记
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-11-20 20:24" pubdate>
-              2022-11-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/develop/" class="category-chain-item">develop</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/develop/mysql/" class="category-chain-item">mysql</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/mysql/">#mysql</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/11/19/mixed/git/%E4%BF%AE%E6%94%B9hosts%E6%96%87%E4%BB%B6%E4%BD%BF%E5%BE%97%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%AF%E4%BB%A5%E8%AE%BF%E9%97%AEgithub/" target="_self">
-          修改hosts文件使得服务器可以访问github
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/19/mixed/git/%E4%BF%AE%E6%94%B9hosts%E6%96%87%E4%BB%B6%E4%BD%BF%E5%BE%97%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%AF%E4%BB%A5%E8%AE%BF%E9%97%AEgithub/" target="_self">
-        <div>
-          之前有过在本机上如何访问github的操作，原理上来说是让git相关的时候走本机代理配置的端口，但是在该服务器上操作的时候这个不是很好用 在服务器上，可以通过首先网站查询可以ping到的github ip，然后再修改/etc/hosts文件的方式
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-11-19 16:48" pubdate>
-              2022-11-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/develop/" class="category-chain-item">develop</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/develop/mixed/" class="category-chain-item">mixed</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/develop/mixed/git/" class="category-chain-item">git</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/git/">#git</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/11/19/mixed/hexo/hexo%E5%9B%BE%E7%89%87%E5%8F%8A%E5%9B%BE%E5%BA%8A%E9%85%8D%E7%BD%AE%E7%9B%B8%E5%85%B3/" target="_self">
-          hexo图片及图床配置相关
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/19/mixed/hexo/hexo%E5%9B%BE%E7%89%87%E5%8F%8A%E5%9B%BE%E5%BA%8A%E9%85%8D%E7%BD%AE%E7%9B%B8%E5%85%B3/" target="_self">
-        <div>
-          本来是打算使用各种插件，使得图片文件上传到github的时候，图片就也保存在github上 但是后来发现这么配置实在太麻烦了，第一次配置成功后，发现迁移了一个博客主题，就又不行了 在有了PicGo、阿里云等图床比较方便的环境后，开始考虑图床的方式 自己的阿里云图床：http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-11-19 16:19" pubdate>
-              2022-11-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/develop/" class="category-chain-item">develop</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/develop/mixed/" class="category-chain-item">mixed</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/develop/mixed/hexo/" class="category-chain-item">hexo</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/hexo/">#hexo</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/11/19/research/others/BERT%E6%BA%90%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E5%AD%A6%E4%B9%A0/" target="_self">
-          BERT源代码阅读学习
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/19/research/others/BERT%E6%BA%90%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E5%AD%A6%E4%B9%A0/" target="_self">
-        <div>
-          BERT源代码阅读学习，主要是Transformer架构中的Encoder部分，各层的源代码理解与阅读学习
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-11-19 11:30" pubdate>
-              2022-11-19
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/11/18/mixed/git/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9E%E6%8E%A5github%E4%B8%8Etoken%E7%9A%84%E9%85%8D%E7%BD%AE/" target="_self">
-          服务器连接github与token的配置
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/18/mixed/git/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9E%E6%8E%A5github%E4%B8%8Etoken%E7%9A%84%E9%85%8D%E7%BD%AE/" target="_self">
-        <div>
-          有时候换了常用的git开发环境，在一个新环境上git clone，git push项目的时候，需要重新输入用户名和密码（token） 在2021年9月的时候，好像github放弃了密码改为token的方式，需要自己生成token并保存
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-11-18 16:23" pubdate>
-              2022-11-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/develop/" class="category-chain-item">develop</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/develop/mixed/" class="category-chain-item">mixed</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/develop/mixed/git/" class="category-chain-item">git</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/git/">#git</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/08/17/research/papers/contrastive-learning/acl-short2021_SCD/" target="_self">
-          acl-short2021_SCD论文阅读整理
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/08/17/research/papers/contrastive-learning/acl-short2021_SCD/" target="_self">
-        <div>
-          acl-short2021_SCD论文阅读整理SCD: Self-Contrastive Decorrelation for Sentence Embeddings 句子嵌入的自对比去相关 个人总结文章亮点如下： 1）考虑到negative pair不好构造，或者说受到一些batch大小的限制，提出来自己过encoder两种不同dropout rate的方法，这两个之间的h（首次embedding
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-17 08:00" pubdate>
-              2022-08-17
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/research/" class="category-chain-item">research</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/research/contrastive-learning/" class="category-chain-item">contrastive learning</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/contrastive-learning/">#contrastive learning</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/08/17/research/papers/contrastive-learning/naacl2022_diffCSE/" target="_self">
-          naacl2022_diffCSE论文阅读整理
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/08/17/research/papers/contrastive-learning/naacl2022_diffCSE/" target="_self">
-        <div>
-          naacl2022_diffCSE论文阅读整理DiffCSE: Difference-based Contrastive Learning for Sentence Embeddings DiffCSE：基于差异的句子嵌入对比性学习，NAACL2022 MIT的文章，相对比较新 个人总结文章亮点如下： 1）motivation：SimCSE等研究发现，基于dropout的那种方法相较于同义词替换等
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-17 08:00" pubdate>
-              2022-08-17
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/research/" class="category-chain-item">research</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/research/contrastive-learning/" class="category-chain-item">contrastive learning</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/contrastive-learning/">#contrastive learning</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/#board">14</a><a class="extend next" rel="next" href="/page/4/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/2/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/#board">15</a><a class="extend next" rel="next" href="/page/4/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

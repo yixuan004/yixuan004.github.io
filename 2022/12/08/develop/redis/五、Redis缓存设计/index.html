@@ -1,0 +1,787 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="五、Redis缓存设计https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;346651831 https:&#x2F;&#x2F;xiaolincoding.com&#x2F;redis&#x2F;base&#x2F;redis_interview.html#redis-%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1 1. 什么是缓存雪崩、缓存击穿、缓存穿透？Redis作为目前最广泛的缓存，在使用的时候还存在着一些">
+<meta property="og:type" content="article">
+<meta property="og:title" content="五、Redis缓存设计">
+<meta property="og:url" content="http://example.com/2022/12/08/develop/redis/%E4%BA%94%E3%80%81Redis%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="五、Redis缓存设计https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;346651831 https:&#x2F;&#x2F;xiaolincoding.com&#x2F;redis&#x2F;base&#x2F;redis_interview.html#redis-%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1 1. 什么是缓存雪崩、缓存击穿、缓存穿透？Redis作为目前最广泛的缓存，在使用的时候还存在着一些">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-1bbdadd362da2a83b77041fe1e567236_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-ba08c0076931750ec07a0a3411ec3cb9_1440w.webp">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/b7031182f770a7a5b3c82eaf749f53b0.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/6e3db3ba2f829ddc14237f5c7c00e7ce.png">
+<meta property="article:published_time" content="2022-12-08T12:17:45.000Z">
+<meta property="article:modified_time" content="2022-12-16T14:02:31.812Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-1bbdadd362da2a83b77041fe1e567236_1440w.webp">
+  
+  
+  
+  <title>五、Redis缓存设计 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Curious;的个人划水博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="五、Redis缓存设计"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-08 20:17" pubdate>
+          2022年12月8日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">五、Redis缓存设计</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="五、Redis缓存设计"><a href="#五、Redis缓存设计" class="headerlink" title="五、Redis缓存设计"></a>五、Redis缓存设计</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/346651831">https://zhuanlan.zhihu.com/p/346651831</a></p>
+<p><a target="_blank" rel="noopener" href="https://xiaolincoding.com/redis/base/redis_interview.html#redis-%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1">https://xiaolincoding.com/redis/base/redis_interview.html#redis-%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1</a></p>
+<h2 id="1-什么是缓存雪崩、缓存击穿、缓存穿透？"><a href="#1-什么是缓存雪崩、缓存击穿、缓存穿透？" class="headerlink" title="1. 什么是缓存雪崩、缓存击穿、缓存穿透？"></a>1. 什么是缓存雪崩、缓存击穿、缓存穿透？</h2><p>Redis作为目前最广泛的缓存，在使用的时候还存在着一些问题，这里主要说一下所面临的缓存雪崩、缓存击穿、缓存穿透问题</p>
+<h3 id="1-1-缓存雪崩"><a href="#1-1-缓存雪崩" class="headerlink" title="1.1 缓存雪崩"></a>1.1 缓存雪崩</h3><h4 id="1-1-1-什么是缓存雪崩？"><a href="#1-1-1-什么是缓存雪崩？" class="headerlink" title="1.1.1 什么是缓存雪崩？"></a>1.1.1 什么是缓存雪崩？</h4><p> 当某一个时刻出现大规模缓存失效的情况，那么就会导致大量的请求直接打在数据库上面，导致数据库压力巨大，如果在高并发的情况下，可能瞬间就会导致数据库宕机。这时候如果运维马上又重启数据库，马上又会有新的流量把数据库打死。这就是缓存雪崩</p>
+<p><font color='red'>理解一下缓存的作用，缓存在用户请求到mysql层之前的那块，一般针对接口来做缓存</font> </p>
+<p><img src="https://pic3.zhimg.com/80/v2-1bbdadd362da2a83b77041fe1e567236_1440w.webp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h4 id="1-1-2-分析"><a href="#1-1-2-分析" class="headerlink" title="1.1.2 分析"></a>1.1.2 分析</h4><p>造成缓存雪崩的关键在于同一时间大规模的key失效。为什么会出现这个问题呢？有几种可能：</p>
+<ol>
+<li>Redis宕机</li>
+<li>采用了相同的过期时间</li>
+</ol>
+<h4 id="1-1-3-解决方案"><a href="#1-1-3-解决方案" class="headerlink" title="1.1.3 解决方案"></a>1.1.3 解决方案</h4><ol>
+<li>在原有的失效时间上加一个随机值，比如1-5分钟随机，这样就避免了因为采用相同的过期时间导致的缓存雪崩</li>
+<li>使用熔断机制。当流浪到达一定的阈值时，就直接返回“系统拥挤”之类的提示，防止过多的请求打在数据库上。至少能保证一部分用户是可以正常使用，其他用户多刷新几次也能得到结果</li>
+<li>提高数据库的容灾能力，可以使用分库分表，读写分离的策略</li>
+<li>防止redis宕机，搭建redis集群，提高redis容灾性</li>
+</ol>
+<h3 id="1-2-缓存击穿"><a href="#1-2-缓存击穿" class="headerlink" title="1.2 缓存击穿"></a>1.2 缓存击穿</h3><h4 id="1-2-1-什么是缓存击穿？"><a href="#1-2-1-什么是缓存击穿？" class="headerlink" title="1.2.1 什么是缓存击穿？"></a>1.2.1 什么是缓存击穿？</h4><p>其实跟缓存雪崩有点类似，缓存雪崩时大规模的key失效。<strong>而缓存击穿是一个热点的key，有大并发集中对其进行访问</strong>，突然间这个key失效了，导致大并发全部打在数据库上，导致数据库压力剧增，这种现象就叫做缓存击穿</p>
+<h4 id="1-2-2-分析"><a href="#1-2-2-分析" class="headerlink" title="1.2.2 分析"></a>1.2.2 分析</h4><p>关键在于<strong>某个热点的key失效了</strong>，导致大并发集中打在数据库上。</p>
+<ol>
+<li>是否可以考虑热点key不设置过期时间</li>
+<li>是否可以考虑降低打在数据库上的请求量</li>
+</ol>
+<h4 id="1-2-3-解决方案"><a href="#1-2-3-解决方案" class="headerlink" title="1.2.3 解决方案"></a>1.2.3 解决方案</h4><ol>
+<li>业务允许的话，对于热点的key可以设置永不过期的key</li>
+<li>使用互斥锁，缓存失效的情况，只有拿到锁可以查询数据库，降低了同一时刻打在数据库上的请求，防止数据库打死。当然系统性能会变差</li>
+</ol>
+<h3 id="1-3-缓存穿透"><a href="#1-3-缓存穿透" class="headerlink" title="1.3 缓存穿透"></a>1.3 缓存穿透</h3><h4 id="1-3-1-什么是缓存穿透？"><a href="#1-3-1-什么是缓存穿透？" class="headerlink" title="1.3.1 什么是缓存穿透？"></a>1.3.1 什么是缓存穿透？</h4><p>我们使用redis大部分情况都是通过key查询对应的值，假如发送的请求传进来的key是不存在redis中的，那么就查不到缓存，查不到缓存就会去数据库查询。</p>
+<p>假如有大量这样的请求，这些请求就像“穿透”了缓存一样直接打在数据库上，这种现象就叫做缓存穿透。</p>
+<h4 id="1-3-2-分析"><a href="#1-3-2-分析" class="headerlink" title="1.3.2 分析"></a>1.3.2 分析</h4><p>关键在于redis查不到key值，这和缓存击穿有根本的区别，<strong>区别在于缓存穿透的请求是key在redis中是不存在的</strong>（而不是失效了）</p>
+<p>假如有黑客传进大量的不存在的key，那么大量的请求打在数据库上是很致命的问题</p>
+<p>所以日常开发中要对参数做好校验，一些非法的参数，不可能存在的key就直接返回错误的提示，要对调用方保持这种“不信任”的心态</p>
+<p><img src="https://pic2.zhimg.com/80/v2-ba08c0076931750ec07a0a3411ec3cb9_1440w.webp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h4 id="1-3-3-解决方案"><a href="#1-3-3-解决方案" class="headerlink" title="1.3.3 解决方案"></a>1.3.3 解决方案</h4><ol>
+<li>把无效的key存进redis中，如果redis查不到数据，数据库也查不到，我们把这个key值保存进redis，设置value&#x3D;“null”，当下次再通过这个key查询的时候就不需要再查询数据库。但是这个方式肯定是有问题的，可能会一直随机key</li>
+<li><strong>使用布隆过滤器</strong>。布隆过滤器的作用是<strong>某个key不存在就一定不存在，说某个key存在那么很大可能是存在（有一定的误判率）</strong>。于是可以在缓存前面加一层布隆过滤器，在我们查询的时候先去布隆过滤器查询key是否存在，如果不存在就直接返回</li>
+</ol>
+<h4 id="1-3-4-知识补充——布隆过滤器"><a href="#1-3-4-知识补充——布隆过滤器" class="headerlink" title="1.3.4 知识补充——布隆过滤器"></a>1.3.4 知识补充——布隆过滤器</h4><p>布隆过滤器可以用于检索一个元素是否在一个集合中</p>
+<p>hash冲突，所以说某个key在的时候，可能是hash冲突了，有一定误判率</p>
+<h3 id="1-4-xiaolincoding中的缓存穿透解释"><a href="#1-4-xiaolincoding中的缓存穿透解释" class="headerlink" title="1.4 xiaolincoding中的缓存穿透解释"></a>1.4 xiaolincoding中的缓存穿透解释</h3><p>当发生缓存雪崩或者击穿的时候，数据库中还是保存了应用要访问的数据，一旦缓存回复相应的数据，就可以减轻数据库的压力</p>
+<p>而缓存穿透则是，用户访问的数据既不在缓存中、也不在数据库中，导致请求在访问缓存的时候，发现缓存缺失，再去访问数据库数据库也没有要访问的数据，没办法构建缓存数据，来服务后续的请求。那么当有大量请求到来的时候，数据库压力骤增</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/b7031182f770a7a5b3c82eaf749f53b0.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>缓存穿透的发生一般有这两种情况：</p>
+<ul>
+<li>业务误操作，缓存中的数据和数据库中的数据都被误删除了，所以导致缓存和数据库中都没有数据</li>
+<li>黑客恶意攻击，故意访问大量不存在数据的业务</li>
+</ul>
+<p>应对缓存穿透的方案，常见的方案有三种：</p>
+<ul>
+<li>非法请求的限制：在API入口处判断请求参数是否合理、请求字段是否都存在了等等</li>
+<li>设置空值或者默认值：当线上业务发现缓存穿透的时候，可以针对查询的数据，在缓存中设置一个空值或者默认值，就不会继续去查数据库了</li>
+<li><strong>使用布隆过滤器快速判断数据是否存在，避免通过查询数据库来判断是否存在</strong>：在写入数据库的时候，使用bloom filter做标记，请求到来确认缓存失效的时候，通过查询bloom filter来判断数据是否存在，不存在就不用通过查询数据库判断了（redis本身是可以支持布隆过滤器的）</li>
+</ul>
+<h2 id="2-如何设计一个缓存策略，可以动态缓存热点数据呢？"><a href="#2-如何设计一个缓存策略，可以动态缓存热点数据呢？" class="headerlink" title="2. 如何设计一个缓存策略，可以动态缓存热点数据呢？"></a>2. 如何设计一个缓存策略，可以动态缓存热点数据呢？</h2><p>由于数据存储受限，系统并不是要将所有数据都需要存放到缓存中的，而只是将其中一部分热点的数据缓存起来，所以要设计一个<strong>热点动态数据的缓存策略</strong></p>
+<p>热点数据动态缓存的策略总体思路：通过数据最新访问时间来做排名，并过滤掉不常访问的数据，只留下经常访问的数据</p>
+<p>以电商平台场景中做例子，现在要求只缓存用户经常访问的top1000的商品，具体细节如下：</p>
+<ul>
+<li>先通过缓存系统做一个排序队列（比如存放1000个商品），系统会根据商品的访问时间，更新队列信息，越是最近访问的商品排名越靠前</li>
+<li>同时系统会定期过滤掉排名最后的200个商品，然后再从数据库中<strong>随机</strong>读取出200个商品加入队列中</li>
+<li>这样当请求每次到达的时候，会先从队列中获取商品ID，如果命中，就根据ID再从另一个缓存数据结构中读取实际场景的商品信息，并返回</li>
+</ul>
+<p>zadd和zrange，zset的操作，比较适合做排名</p>
+<h2 id="3-说说常见的缓存更新策略？"><a href="#3-说说常见的缓存更新策略？" class="headerlink" title="3. 说说常见的缓存更新策略？"></a>3. 说说常见的缓存更新策略？</h2><p>常见的缓存更新策略共有3种：</p>
+<ul>
+<li>Cache Aside（旁路缓存）策略；</li>
+<li>Read&#x2F;Write Through（读穿&#x2F;写穿）策略；</li>
+<li>Write Back（写回）策略；</li>
+</ul>
+<h3 id="3-1-Cache-Aside（旁路缓存）策略"><a href="#3-1-Cache-Aside（旁路缓存）策略" class="headerlink" title="3.1 Cache Aside（旁路缓存）策略"></a>3.1 Cache Aside（旁路缓存）策略</h3><p>这是最常用的缓存策略，应用程序直接和「数据库、缓存」交互，并负责对缓存的维护，详细可分为<strong>写策略</strong>和<strong>读策略</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/6e3db3ba2f829ddc14237f5c7c00e7ce.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><strong>写策略的步骤：</strong></p>
+<ul>
+<li>先更新数据库中的数据，再删除缓存中的数据</li>
+</ul>
+<p><strong>读策略的步骤：</strong></p>
+<ul>
+<li>如果读取命中了缓存，则直接返回数据</li>
+<li>如果读取没有命中缓存，则从数据库中读取数据，然后将数据写入到缓存，并且返回给用户</li>
+</ul>
+<p>Cache Aside策略适合读多写少的场景，不适合写多的场景，因为当写入比较频繁的时候，缓存中的数据会被频繁的清理，这样会对缓存的命中率有一些影响。</p>
+<h3 id="3-2-Read-x2F-Write-Through（读穿-x2F-写穿）策略"><a href="#3-2-Read-x2F-Write-Through（读穿-x2F-写穿）策略" class="headerlink" title="3.2 Read&#x2F;Write Through（读穿&#x2F;写穿）策略"></a>3.2 Read&#x2F;Write Through（读穿&#x2F;写穿）策略</h3><p>Read Through&#x2F;Write Through 策略的特点是由缓存节点而非应用程序来和数据库打交道</p>
+<p>Redis没有直接提供这种功能</p>
+<h3 id="3-3-Write-Back（写回）策略"><a href="#3-3-Write-Back（写回）策略" class="headerlink" title="3.3 Write Back（写回）策略"></a>3.3 Write Back（写回）策略</h3><p>Write Back（写回）策略在更新数据的时候，只更新缓存，同时将缓存数据设置为脏的，然后立马返回，并不会更新数据库。对于数据库的更新，会通过批量异步更新的方式进行。</p>
+<p>异步更新数据库？</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/redis/" class="category-chain-item">redis</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/redis/">#redis</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>五、Redis缓存设计</div>
+      <div>http://example.com/2022/12/08/develop/redis/五、Redis缓存设计/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/12/08/develop/mysql/%E4%B8%89%E3%80%81MySQL%E4%BA%8B%E5%8A%A1/" title="三、MySQL事务">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">三、MySQL事务</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/08/develop/mysql/MySQL-LeetCode/" title="MySQL-LeetCode">
+                        <span class="hidden-mobile">MySQL-LeetCode</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
