@@ -1,0 +1,722 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Redis查漏补缺-11. 牛客网面经1Reference：https:&#x2F;&#x2F;www.nowcoder.com&#x2F;discuss&#x2F;424298860043907072 1.1 Redis切片集群，数据和实例之间如何进行映射？1.1.1 redis基础篇8，数据分片——场景http:&#x2F;&#x2F;t.zoukankan.com&#x2F;liang24-p-14189712.html 现在有一个场景：要用Redis保存50">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis查漏补缺-1">
+<meta property="og:url" content="http://example.com/2022/12/20/develop/redis/Redis%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA-1/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="Redis查漏补缺-11. 牛客网面经1Reference：https:&#x2F;&#x2F;www.nowcoder.com&#x2F;discuss&#x2F;424298860043907072 1.1 Redis切片集群，数据和实例之间如何进行映射？1.1.1 redis基础篇8，数据分片——场景http:&#x2F;&#x2F;t.zoukankan.com&#x2F;liang24-p-14189712.html 现在有一个场景：要用Redis保存50">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-20T01:36:12.000Z">
+<meta property="article:modified_time" content="2022-12-20T11:35:58.554Z">
+<meta property="article:author" content="Curious;">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Redis查漏补缺-1 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Curious;的个人划水博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Redis查漏补缺-1"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-20 09:36" pubdate>
+          2022年12月20日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Redis查漏补缺-1</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Redis查漏补缺-1"><a href="#Redis查漏补缺-1" class="headerlink" title="Redis查漏补缺-1"></a>Redis查漏补缺-1</h1><h2 id="1-牛客网面经1"><a href="#1-牛客网面经1" class="headerlink" title="1. 牛客网面经1"></a>1. 牛客网面经1</h2><p>Reference：<a target="_blank" rel="noopener" href="https://www.nowcoder.com/discuss/424298860043907072">https://www.nowcoder.com/discuss/424298860043907072</a></p>
+<h3 id="1-1-Redis切片集群，数据和实例之间如何进行映射？"><a href="#1-1-Redis切片集群，数据和实例之间如何进行映射？" class="headerlink" title="1.1 Redis切片集群，数据和实例之间如何进行映射？"></a>1.1 Redis切片集群，数据和实例之间如何进行映射？</h3><h4 id="1-1-1-redis基础篇8，数据分片——场景"><a href="#1-1-1-redis基础篇8，数据分片——场景" class="headerlink" title="1.1.1 redis基础篇8，数据分片——场景"></a>1.1.1 redis基础篇8，数据分片——场景</h4><p><a target="_blank" rel="noopener" href="http://t.zoukankan.com/liang24-p-14189712.html">http://t.zoukankan.com/liang24-p-14189712.html</a></p>
+<p>现在有一个场景：要用Redis保存5000万个键值对，每个键值对大约是512B，要怎么部署Redis服务呢？</p>
+<p>第一个方案，也是最容易想到的，需要保存5000万个键值对，每个键值对约为512B，一共需要25GB空间，选择一台32GB内存的服务器来部署Redis，还剩余7GB空间，可以采用RDB对数据做持久</p>
+<p>但是redis服务使用不久后redis的响应有时候会非常慢，原因是采用了RDB持久化，在前面介绍RDB原理的时候，我们知道fork子进程会瞬间阻塞主进程，而且内存越大，阻塞时间越长（save和bgsave，save会阻塞主线程）</p>
+<p>上述的方案不太好，<strong>一个比较好的方案是，&lt;redis提供切片集群机制&gt;，多个redis实例组成一个集群，按照一定的规则，把收到数据划分成多份，每一份用一个实例来保存，这样一来，在生成RDB时，数据量就小了，fork就不会阻塞主线程太长时间</strong></p>
+<h4 id="1-1-2-如何保存更多数据"><a href="#1-1-2-如何保存更多数据" class="headerlink" title="1.1.2 如何保存更多数据"></a>1.1.2 如何保存更多数据</h4><p>通常有两种方案，分别是纵向扩展和横向扩展</p>
+<p><strong>纵向扩展</strong>，指通过增加硬件配置来扩展，采用更大的内存，更多的CPU。好处是实现简单，缺点是受到硬件和成本限制，不可能无限扩展</p>
+<p><strong>横向扩展</strong>，指通过增加机器来组成更大的集群，这也是分布式方案常用的方式。好处是扩展性好，缺点是管理复杂</p>
+<p><strong>在面向百万、千万级别用户的时候，横向扩展的Redis切片集群会是一个非常好的选择</strong></p>
+<p>在使用单个实例时，数据保存在哪里，客户端访问哪里，都是非常明确的。但是切片集群不可避免的要解决多个实例分布式管理的问题，需要解决两大问题：</p>
+<ul>
+<li>数据切片后，在多个实例之间如何分布？</li>
+<li>客户端怎么确定想要访问的数据在哪个实例上？</li>
+</ul>
+<h4 id="1-1-3-数据切片和实例的对应分布关系（数据-哈希槽，哈希槽-实例，基于哈希槽来处理）"><a href="#1-1-3-数据切片和实例的对应分布关系（数据-哈希槽，哈希槽-实例，基于哈希槽来处理）" class="headerlink" title="1.1.3 数据切片和实例的对应分布关系（数据-哈希槽，哈希槽-实例，基于哈希槽来处理）"></a>1.1.3 数据切片和实例的对应分布关系（数据-哈希槽，哈希槽-实例，基于哈希槽来处理）</h4><p>在redis3.0之前，官方没有提供切片集群的方案，从3.0开始，官方提供了一个名为Redis Cluster的方案，用于实现切片集群</p>
+<p>Redis Cluster方案采用<strong>哈希槽来处理数据和实例之间的映射关系</strong>。这里有两个映射关系：<strong>键值对与哈希槽的映射关系</strong>和<strong>哈希槽与实例的映射关系</strong>，下面来介绍一下这两个映射关系的映射过程</p>
+<ul>
+<li><strong>键值对与哈希槽的映射过程</strong></li>
+</ul>
+<p>根据键值对的key，按照CRC16算法计算一个16bit的值，再用这个16bit的值对16384取模，得到0-16383范围内的模数，每个模数打表一个相应编号的哈希槽</p>
+<p>说明：Redis切片集群最多提供16384个哈希槽</p>
+<ul>
+<li><strong>哈希槽与实例的映射过程</strong></li>
+</ul>
+<p>分为自动和手动</p>
+<p><strong>自动映射</strong>：使用<code>redis create</code>命令创建集群，Redis会自动把这些槽平均分布在集群实例上</p>
+<p><strong>手动映射</strong>：使用<code>cluster meet</code>命令搬运建立实例间的连接，形成集群，再用<code>redis addslots</code>命令，指定每个集群上的哈希槽个数</p>
+<p>说明：在手动分配哈希槽的时候，需要把16384个槽都分配完，否则Redis集群无法正常工作</p>
+<h4 id="1-1-4-客户端如何定位数据"><a href="#1-1-4-客户端如何定位数据" class="headerlink" title="1.1.4 客户端如何定位数据"></a>1.1.4 客户端如何定位数据</h4><p><strong>客户端和集群的实例建立链接后，实例就会把哈希槽的分配信息发送给客户端</strong></p>
+<p>集群刚创建的时候，实例如何互相知道哈希槽信息？Redis实例会扩展哈希槽信息，每个Redis实例都拥有完整的哈希槽信息</p>
+<p>另外，客户端在收到哈希槽信息后，会缓存在本地，以便客户端后续请求直接访问实例</p>
+<p><strong>但在集群中，实例和哈希槽对应的关系不是一成不变的，最常见的变化</strong></p>
+<ul>
+<li><p>在集群中，实例有新增或者删除，Redis需要重新分配哈希槽；</p>
+</li>
+<li><p>为了复杂均衡，Redis需要把哈希槽在所有实例上重新分布以便</p>
+</li>
+</ul>
+<p>Redis Cluster提供一种重定向机制，类似于HTTP协议的重定向</p>
+<p>客户端把一个键值对操作请求发给一个实例，如果这个实例没有这个键值对对应的哈希槽，这个实例就会返回给客户端MOVED命令相应的结果，包含新实例的访问地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">GET hello:key (error) <br>MOVED 13320 172.16.19.5:6379<br></code></pre></td></tr></table></figure>
+
+<p>其中，MOVED命令表示客户端请求的键值对所在的哈希槽13320，实际是在172.16.19.5这个实例上</p>
+<p>如果哈希槽没有完成迁移，客户端的请求的键值对所在的哈希槽是13320，实际是在172.16.19.5这个实例上</p>
+<p>如果哈希槽没有完成迁移，客户端请求的数据并不在哈希槽时，客户端就会收到一条ASK报错信息，如下所示：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">GET</span> hello:key (<span class="hljs-literal">error</span>) <br>ASK <span class="hljs-number">13320</span> <span class="hljs-number">172.16.19.5:6379</span><br></code></pre></td></tr></table></figure>
+
+<p>这个结果中的ASK命令就表示，客户端请求的键值对所在的哈希槽13320，在172.16.19.5这个实例上，但是这个哈希槽正在迁移。</p>
+<p>和MOVED命令不同，<strong>ASK命令并不会更新客户端缓存的哈希槽分配信息</strong>。</p>
+<h4 id="1-1-5-Redis-Cluster为什么不采用把key直接映射到实例的方式"><a href="#1-1-5-Redis-Cluster为什么不采用把key直接映射到实例的方式" class="headerlink" title="1.1.5 Redis Cluster为什么不采用把key直接映射到实例的方式"></a>1.1.5 Redis Cluster为什么不采用把key直接映射到实例的方式</h4><p>整个集群存储的key的数量是无法预估的，key的数量非常多的时候，直接记录每个key对应的实例映射空间这个会非常庞大</p>
+<p>在中间添加一层哈希槽，可以把数据和结点解耦，key通过hash计算只需要关心映射到哪个哈希槽，然后再通过哈希槽和节点的映射表找到节点，相当于消耗了很少的CPU资源，不但让数据分布更均匀，还可以让这个映射表变得很小，利于客户端和服务端保存，节点之间交换信息时也变得轻量。</p>
+<h3 id="1-2-Redis如何实现分布式锁？"><a href="#1-2-Redis如何实现分布式锁？" class="headerlink" title="1.2 Redis如何实现分布式锁？"></a>1.2 Redis如何实现分布式锁？</h3><p>先记录在这里，未来TODO：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/300767410/answer/1931519430">https://www.zhihu.com/question/300767410/answer/1931519430</a></p>
+<h3 id="1-3-什么是缓存预热？如何解决？"><a href="#1-3-什么是缓存预热？如何解决？" class="headerlink" title="1.3 什么是缓存预热？如何解决？"></a>1.3 什么是缓存预热？如何解决？</h3><p>系统上线后，提前将相关的缓存数据直接加载到缓存系统。避免在用户请求的时候，先查询数据库，然后再将数据缓存的问题。用户直接查询事先被预热的缓存数据</p>
+<p>解决方案：</p>
+<ol>
+<li>手动操作</li>
+<li>数据量不大，可以在项目启动的时候自动加载</li>
+<li>定时刷新缓存</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Redis查漏补缺-1</div>
+      <div>http://example.com/2022/12/20/develop/redis/Redis查漏补缺-1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/12/28/develop/java/javase/JavaSE-1%E5%9F%BA%E7%A1%80/" title="JavaSE-1基础">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JavaSE-1基础</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/20/develop/mysql/MySQL%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA-1/" title="MySQL查漏补缺-1">
+                        <span class="hidden-mobile">MySQL查漏补缺-1</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

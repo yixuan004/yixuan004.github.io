@@ -1,0 +1,1057 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="JavaSE-5进阶线程单元测试反射注解XML1. 单元测试  1.1 单元测试1.1.1 单元测试概述    1.1.2 Junit单元测试框架    1.1.3 单元测试快速入门——步骤   业务方法  12345678910111213141516171819package com.curious.javasepro.d21_junit;&#x2F;** * 业务方法 *&#x2F;public class U">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaSE-5进阶线程单元测试反射注解XML">
+<meta property="og:url" content="http://example.com/2023/01/05/develop/java/javase/JavaSE-5%E8%BF%9B%E9%98%B6%E7%BA%BF%E7%A8%8B%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%8F%8D%E5%B0%84%E6%B3%A8%E8%A7%A3XML/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="JavaSE-5进阶线程单元测试反射注解XML1. 单元测试  1.1 单元测试1.1.1 单元测试概述    1.1.2 Junit单元测试框架    1.1.3 单元测试快速入门——步骤   业务方法  12345678910111213141516171819package com.curious.javasepro.d21_junit;&#x2F;** * 业务方法 *&#x2F;public class U">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103173036550.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103173347953.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103174117722.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103174239199.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103174455276.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103174725636.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103180251120.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103180438937.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103180528110.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103180549947.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103180721391.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103181027920.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103195035268.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103195125963.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103201304436.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103201602654.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103201613793.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103210904327.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103211902092.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103211914597.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103212145097.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103212202754.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103212458663.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103212921920.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103212745370.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103213100420.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103213121101.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103213348646.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103213435737.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103213506408.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103213633066.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103213904741.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103214334635.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103214650415.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103214707248.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103214919264.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103214958932.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103215824320.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230104235518272.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230104235552691.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230104235734737.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230104235934729.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230104235951667.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105000129335.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105000147929.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105000319884.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105000642832.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105000721611.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105001132324.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105001219611.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105001332271.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105001453600.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105001828261.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105001939989.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105002102512.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105002408186.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105213421163.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105213451447.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105215330693.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105215353536.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105220020909.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105220350522.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105220633382.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105221135458.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105221039232.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105221101460.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105221115771.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105221201583.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105221214795.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105221832582.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105222100663.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105222157166.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105222339815.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105222505672.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105222530148.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105222927419.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105223034984.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105223548534.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105224019727.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105224507161.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105224815008.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105225120096.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105225137586.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105225215331.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105225445234.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105225933653.png">
+<meta property="article:published_time" content="2023-01-04T16:08:49.000Z">
+<meta property="article:modified_time" content="2023-01-05T15:00:19.979Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="javase">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103173036550.png">
+  
+  
+  
+  <title>JavaSE-5进阶线程单元测试反射注解XML - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Curious;的个人划水博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JavaSE-5进阶线程单元测试反射注解XML"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-05 00:08" pubdate>
+          2023年1月5日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          51 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JavaSE-5进阶线程单元测试反射注解XML</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="JavaSE-5进阶线程单元测试反射注解XML"><a href="#JavaSE-5进阶线程单元测试反射注解XML" class="headerlink" title="JavaSE-5进阶线程单元测试反射注解XML"></a>JavaSE-5进阶线程单元测试反射注解XML</h1><h2 id="1-单元测试"><a href="#1-单元测试" class="headerlink" title="1. 单元测试"></a>1. 单元测试</h2><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103173036550.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+
+<h3 id="1-1-单元测试"><a href="#1-1-单元测试" class="headerlink" title="1.1 单元测试"></a>1.1 单元测试</h3><h4 id="1-1-1-单元测试概述"><a href="#1-1-1-单元测试概述" class="headerlink" title="1.1.1 单元测试概述"></a>1.1.1 单元测试概述</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103173347953.png" srcset="/img/loading.gif" lazyload alt="image-20230103173347953" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103174117722.png" srcset="/img/loading.gif" lazyload alt="image-20230103174117722" style="zoom:50%;" />
+
+<h4 id="1-1-2-Junit单元测试框架"><a href="#1-1-2-Junit单元测试框架" class="headerlink" title="1.1.2 Junit单元测试框架"></a>1.1.2 Junit单元测试框架</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103174239199.png" srcset="/img/loading.gif" lazyload alt="image-20230103174239199" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103174455276.png" srcset="/img/loading.gif" lazyload alt="image-20230103174455276" style="zoom:50%;" />
+
+<h4 id="1-1-3-单元测试快速入门——步骤"><a href="#1-1-3-单元测试快速入门——步骤" class="headerlink" title="1.1.3 单元测试快速入门——步骤"></a>1.1.3 单元测试快速入门——步骤</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103174725636.png" srcset="/img/loading.gif" lazyload alt="image-20230103174725636" style="zoom:50%;" />
+
+<ul>
+<li>业务方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.curious.javasepro.d21_junit;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 业务方法</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserService</span> &#123;<br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">loginName</span><span class="hljs-params">(String loginName, String passWord)</span> &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;admin&quot;</span>.equals(loginName) &amp;&amp; <span class="hljs-string">&quot;123456&quot;</span>.equals(passWord)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;登陆成功&quot;</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;用户名或密码有问题&quot;</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">selectName</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-number">10</span>/<span class="hljs-number">0</span>);<br>        System.out.println(<span class="hljs-string">&quot;查询全部用户名称成功~~&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>测试类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.curious.javasepro.d21_junit;<br><br><span class="hljs-keyword">import</span> org.junit.Assert;<br><span class="hljs-keyword">import</span> org.junit.Test;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 测试类</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestUserService</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 测试方法</span><br><span class="hljs-comment">     * 注意点：</span><br><span class="hljs-comment">     *  1. 公开、无参数、无返回值</span><br><span class="hljs-comment">     *  2. 测试方法必须用<span class="hljs-doctag">@Test</span>注解标记</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testLoginName</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">UserService</span> <span class="hljs-variable">userService</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserService</span>();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> userService.loginName(<span class="hljs-string">&quot;admin&quot;</span>, <span class="hljs-string">&quot;123456&quot;</span>);<br><br>        <span class="hljs-comment">// 进行预期结果的正确性测试：断言！</span><br>        Assert.assertEquals(<span class="hljs-string">&quot;您的功能业务数据可能出现bug&quot;</span>, <span class="hljs-string">&quot;登陆成功&quot;</span>, res);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>在测试类右键直接执行，会有输出显示</li>
+</ul>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103180251120.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>单独测试这个，失败了</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testSelectNames</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">UserService</span> <span class="hljs-variable">userService</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserService</span>();<br>    userService.selectName();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103180438937.png" srcset="/img/loading.gif" lazyload alt="image-20230103180438937"></p>
+<ul>
+<li>在类上，可以执行整体测试</li>
+</ul>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103180528110.png" srcset="/img/loading.gif" lazyload alt="image-20230103180528110"></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103180549947.png" srcset="/img/loading.gif" lazyload alt="image-20230103180549947"></p>
+<h4 id="1-1-4-单元测试常用注解"><a href="#1-1-4-单元测试常用注解" class="headerlink" title="1.1.4 单元测试常用注解"></a>1.1.4 单元测试常用注解</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103180721391.png" srcset="/img/loading.gif" lazyload alt="image-20230103180721391" style="zoom:50%;" />
+
+<ul>
+<li>开始执行的方法：初始化资源</li>
+<li>执行完之后的方法：释放资源</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103181027920.png" srcset="/img/loading.gif" lazyload alt="image-20230103181027920" style="zoom:50%;" />
+
+<h2 id="2-反射（重点）"><a href="#2-反射（重点）" class="headerlink" title="2. 反射（重点）"></a>2. 反射（重点）</h2><h3 id="2-1-反射概述"><a href="#2-1-反射概述" class="headerlink" title="2.1 反射概述"></a>2.1 反射概述</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103195035268.png" srcset="/img/loading.gif" lazyload alt="image-20230103195035268" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103195125963.png" srcset="/img/loading.gif" lazyload alt="image-20230103195125963" style="zoom:50%;" />
+
+<h3 id="2-2-反射的第一步：获取Class类的对象"><a href="#2-2-反射的第一步：获取Class类的对象" class="headerlink" title="2.2 反射的第一步：获取Class类的对象"></a>2.2 反射的第一步：获取Class类的对象</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103201304436.png" srcset="/img/loading.gif" lazyload alt="image-20230103201304436" style="zoom:50%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.curious.javasepro.d22_reflect;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 目标：反射的第一步：获取Class对象</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">// 1. Class类中的一个静态方法：forName（权限名：包名 + 类名）</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.curious.javasepro.d22_reflect.Student&quot;</span>);<br>        System.out.println(c);  <span class="hljs-comment">// class com.curious.javasepro.d22_reflect.Student</span><br><br>        <span class="hljs-comment">// 2. 类名.class</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">c1</span> <span class="hljs-operator">=</span> Student.class;<br>        System.out.println(c1);  <span class="hljs-comment">// class com.curious.javasepro.d22_reflect.Student</span><br><br>        <span class="hljs-comment">// 3. 对象.getClass() 获取对象对应类的Class对象</span><br>        <span class="hljs-type">Student</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>();<br>        <span class="hljs-type">Class</span> <span class="hljs-variable">c2</span> <span class="hljs-operator">=</span> s.getClass();<br>        System.out.println(c2);  <span class="hljs-comment">// class com.curious.javasepro.d22_reflect.Student</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-3-反射获取构造器对象"><a href="#2-3-反射获取构造器对象" class="headerlink" title="2.3 反射获取构造器对象"></a>2.3 反射获取构造器对象</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103201602654.png" srcset="/img/loading.gif" lazyload alt="image-20230103201602654" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103201613793.png" srcset="/img/loading.gif" lazyload alt="image-20230103201613793" style="zoom:50%;" />
+
+<ul>
+<li>Student类，这里的无参构造器是私有的</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.curious.javasepro.d22_reflect_constructor;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> &#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> age;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-title function_">Student</span><span class="hljs-params">()</span> &#123;<br><br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Student</span><span class="hljs-params">(String name, <span class="hljs-type">int</span> age)</span> &#123;<br>        <span class="hljs-built_in">this</span>.name = name;<br>        <span class="hljs-built_in">this</span>.age = age;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> name;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setName</span><span class="hljs-params">(String name)</span> &#123;<br>        <span class="hljs-built_in">this</span>.name = name;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getAge</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> age;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setAge</span><span class="hljs-params">(<span class="hljs-type">int</span> age)</span> &#123;<br>        <span class="hljs-built_in">this</span>.age = age;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Student&#123;&quot;</span> +<br>                <span class="hljs-string">&quot;name=&#x27;&quot;</span> + name + <span class="hljs-string">&#x27;\&#x27;&#x27;</span> +<br>                <span class="hljs-string">&quot;, age=&quot;</span> + age +<br>                <span class="hljs-string">&#x27;&#125;&#x27;</span>;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>测试类，用@Test注解</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.curious.javasepro.d22_reflect_constructor;<br><br><span class="hljs-keyword">import</span> org.junit.Test;<br><br><span class="hljs-keyword">import</span> java.lang.reflect.Constructor;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestStudent01</span> &#123;<br>    <span class="hljs-comment">// 1. getConstructors:</span><br>    <span class="hljs-comment">// 获取全部的构造器：只能获取public修饰的构造器</span><br>    <span class="hljs-comment">// Constructor[] getConstructors()</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">getConstructors</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// a. 第一步：获取类对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> Student.class;<br>        <span class="hljs-comment">// b. 提取类中的全部构造器对象，private的拿不到</span><br>        Constructor[] constructors = c.getConstructors();<br>        <span class="hljs-comment">// c. 遍历构造器，private的拿不到</span><br>        <span class="hljs-keyword">for</span> (Constructor constructor: constructors) &#123;<br>            System.out.println(constructor.getName() + <span class="hljs-string">&quot; ====&gt; &quot;</span> + constructor.getParameterCount());<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 2. getDeclaredConstructors():</span><br>    <span class="hljs-comment">// 获取全部的构造器：只要你感谢，这里就能拿到，无论是否有权限</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">getDeclaredConstructors</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// a. 第一步：获取类对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> Student.class;<br>        <span class="hljs-comment">// b. 提取类中的全部构造器对象，private的也能拿到</span><br>        Constructor[] constructors = c.getDeclaredConstructors();<br>        <span class="hljs-comment">// c. 遍历构造器，private的也能拿到</span><br>        <span class="hljs-keyword">for</span> (Constructor constructor: constructors) &#123;<br>            System.out.println(constructor.getName() + <span class="hljs-string">&quot; ====&gt; &quot;</span> + constructor.getParameterCount());<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 3. getConstructor(Class... parameterTypes)</span><br>    <span class="hljs-comment">// 获取某个构造器：只能拿public修饰的某个构造器</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">getConstructor</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">// a. 第一步：获取类对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> Student.class;<br>        <span class="hljs-comment">// b. 定位单个构造器对象，按照这里的参数进行定位</span><br>        <span class="hljs-comment">// Constructor cons = c.getConstructor();  // 无参的拿不到，因为private</span><br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">cons</span> <span class="hljs-operator">=</span> c.getConstructor(String.class, <span class="hljs-type">int</span>.class);<br>        <span class="hljs-comment">// c. 遍历构造器，private的也能拿到</span><br>        System.out.println(cons.getName() + <span class="hljs-string">&quot; ====&gt; &quot;</span> + cons.getParameterCount());<br><br>    &#125;<br><br>    <span class="hljs-comment">// 4. getDeclaredConstructor</span><br>    <span class="hljs-comment">// 获取某个构造器：只要你敢写，这里就能拿到，无论权限是否可及</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">getDeclaredConstructor</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">// a. 第一步：获取类对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> Student.class;<br>        <span class="hljs-comment">// b. 定位单个构造器对象，按照这里的参数进行定位</span><br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">cons</span> <span class="hljs-operator">=</span> c.getDeclaredConstructor();  <span class="hljs-comment">// 无参的也能拿到</span><br>        <span class="hljs-comment">// c. 遍历构造器，private的也能拿到</span><br>        System.out.println(cons.getName() + <span class="hljs-string">&quot; ====&gt; &quot;</span> + cons.getParameterCount());<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-4-使用反射获取的构造器对象"><a href="#2-4-使用反射获取的构造器对象" class="headerlink" title="2.4 使用反射获取的构造器对象"></a>2.4 使用反射获取的构造器对象</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103210904327.png" srcset="/img/loading.gif" lazyload alt="image-20230103210904327" style="zoom:50%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.curious.javasepro.d22_reflect_constructor;<br><br><span class="hljs-keyword">import</span> org.junit.Test;<br><br><span class="hljs-keyword">import</span> java.lang.reflect.Constructor;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestStudent02</span> &#123;<br>    <span class="hljs-comment">// 4. getDeclaredConstructor</span><br>    <span class="hljs-comment">// 获取某个构造器：只要你敢写，这里就能拿到，无论权限是否可及</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">getDeclaredConstructor</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">// a. 第一步：获取类对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> Student.class;<br><br>        <span class="hljs-comment">// b. 定位单个构造器对象，按照这里的参数进行定位</span><br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">cons</span> <span class="hljs-operator">=</span> c.getDeclaredConstructor();  <span class="hljs-comment">// 无参的也能拿到</span><br><br>        <span class="hljs-comment">// c. private的也能拿到</span><br>        System.out.println(cons.getName() + <span class="hljs-string">&quot; ====&gt; &quot;</span> + cons.getParameterCount());<br><br>        <span class="hljs-comment">// 遇到私有的构造器，普通的方法拿不到，所以需要暴力</span><br>        cons.setAccessible(<span class="hljs-literal">true</span>);<br>        <span class="hljs-type">Student</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> (Student) cons.newInstance();<br>        System.out.println(s);<br><br><br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">cons1</span> <span class="hljs-operator">=</span> c.getDeclaredConstructor(String.class, <span class="hljs-type">int</span>.class);<br>        <span class="hljs-type">Student</span> <span class="hljs-variable">s1</span> <span class="hljs-operator">=</span> (Student) cons1.newInstance(<span class="hljs-string">&quot;ABC&quot;</span>, <span class="hljs-number">12</span>);<br>        System.out.println(s1);<br><br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Student{name&#x3D;’null’, age&#x3D;0}<br>Student{name&#x3D;’ABC’, age&#x3D;12}</p>
+</blockquote>
+<h3 id="2-5-反射获取成员变量对象"><a href="#2-5-反射获取成员变量对象" class="headerlink" title="2.5 反射获取成员变量对象"></a>2.5 反射获取成员变量对象</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103211902092.png" srcset="/img/loading.gif" lazyload alt="image-20230103211902092" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103211914597.png" srcset="/img/loading.gif" lazyload alt="image-20230103211914597" style="zoom:50%;" />
+
+<p>第一步拿到类对象<code>xxx.class，例如Student.class</code>相当于拿到所有的代码</p>
+<ul>
+<li>拿一个</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103212145097.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103212202754.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+
+<ul>
+<li>拿多个（根据<strong>名称</strong>定位某一个成员变量）</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103212458663.png" srcset="/img/loading.gif" lazyload alt="image-20230103212458663" style="zoom:50%;" />
+
+<h3 id="2-6-使用反射获取的成员变量对象"><a href="#2-6-使用反射获取的成员变量对象" class="headerlink" title="2.6 使用反射获取的成员变量对象"></a>2.6 使用反射获取的成员变量对象</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103212921920.png" srcset="/img/loading.gif" lazyload alt="image-20230103212921920" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103212745370.png" srcset="/img/loading.gif" lazyload alt="image-20230103212745370" style="zoom:50%;" />
+
+<h3 id="2-7-使用反射获取方法对象"><a href="#2-7-使用反射获取方法对象" class="headerlink" title="2.7 使用反射获取方法对象"></a>2.7 使用反射获取方法对象</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103213100420.png" srcset="/img/loading.gif" lazyload alt="image-20230103213100420" style="zoom:50%;" />
+
+<ul>
+<li>Dog类</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103213121101.png" srcset="/img/loading.gif" lazyload alt="image-20230103213121101" style="zoom:50%;" />
+
+<ul>
+<li>获取+使用（DeclaredMethods，把私有的也暴力搞出来）</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103213348646.png" srcset="/img/loading.gif" lazyload alt="image-20230103213348646" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103213435737.png" srcset="/img/loading.gif" lazyload alt="image-20230103213435737" style="zoom:50%;" />
+
+<h3 id="2-8-使用反射获取的方法对象"><a href="#2-8-使用反射获取的方法对象" class="headerlink" title="2.8 使用反射获取的方法对象"></a>2.8 使用反射获取的方法对象</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103213506408.png" srcset="/img/loading.gif" lazyload alt="image-20230103213506408" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103213633066.png" srcset="/img/loading.gif" lazyload alt="image-20230103213633066" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103213904741.png" srcset="/img/loading.gif" lazyload alt="image-20230103213904741" style="zoom:50%;" />
+
+<h3 id="2-9-反射的作用——绕过编译阶段为集合添加数据、做企业级通用框架"><a href="#2-9-反射的作用——绕过编译阶段为集合添加数据、做企业级通用框架" class="headerlink" title="2.9 反射的作用——绕过编译阶段为集合添加数据、做企业级通用框架"></a>2.9 反射的作用——绕过编译阶段为集合添加数据、做企业级通用框架</h3><h4 id="2-9-1-绕过编译阶段为集合添加数据"><a href="#2-9-1-绕过编译阶段为集合添加数据" class="headerlink" title="2.9.1 绕过编译阶段为集合添加数据"></a>2.9.1 绕过编译阶段为集合添加数据</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103214334635.png" srcset="/img/loading.gif" lazyload alt="image-20230103214334635" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103214650415.png" srcset="/img/loading.gif" lazyload alt="image-20230103214650415" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103214707248.png" srcset="/img/loading.gif" lazyload alt="image-20230103214707248" style="zoom:50%;" />
+
+<h4 id="2-9-2-通用框架的底层原理"><a href="#2-9-2-通用框架的底层原理" class="headerlink" title="2.9.2 通用框架的底层原理"></a>2.9.2 通用框架的底层原理</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103214919264.png" srcset="/img/loading.gif" lazyload alt="image-20230103214919264" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103214958932.png" srcset="/img/loading.gif" lazyload alt="image-20230103214958932" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103215824320.png" srcset="/img/loading.gif" lazyload alt="image-20230103215824320" style="zoom:50%;" />
+
+<p>只有反射才能解决这个场景的问题↑</p>
+<h2 id="3-注解"><a href="#3-注解" class="headerlink" title="3. 注解"></a>3. 注解</h2><h3 id="3-1-注解概述、作用"><a href="#3-1-注解概述、作用" class="headerlink" title="3.1 注解概述、作用"></a>3.1 注解概述、作用</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230104235518272.png" srcset="/img/loading.gif" lazyload alt="image-20230104235518272" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230104235552691.png" srcset="/img/loading.gif" lazyload alt="image-20230104235552691" style="zoom:50%;" />
+
+<h3 id="3-2-自定义注解"><a href="#3-2-自定义注解" class="headerlink" title="3.2 自定义注解"></a>3.2 自定义注解</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230104235734737.png" srcset="/img/loading.gif" lazyload alt="image-20230104235734737" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230104235934729.png" srcset="/img/loading.gif" lazyload alt="image-20230104235934729" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230104235951667.png" srcset="/img/loading.gif" lazyload alt="image-20230104235951667" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105000129335.png" srcset="/img/loading.gif" lazyload alt="image-20230105000129335" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105000147929.png" srcset="/img/loading.gif" lazyload alt="image-20230105000147929" style="zoom:50%;" />
+
+<h3 id="3-3-元注解"><a href="#3-3-元注解" class="headerlink" title="3.3 元注解"></a>3.3 元注解</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105000319884.png" srcset="/img/loading.gif" lazyload alt="image-20230105000319884" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105000642832.png" srcset="/img/loading.gif" lazyload alt="image-20230105000642832" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105000721611.png" srcset="/img/loading.gif" lazyload alt="image-20230105000721611" style="zoom:50%;" /> 
+
+<h3 id="3-4-注解解析"><a href="#3-4-注解解析" class="headerlink" title="3.4 注解解析"></a>3.4 注解解析</h3><h4 id="3-4-1-注解的解析与技巧"><a href="#3-4-1-注解的解析与技巧" class="headerlink" title="3.4.1 注解的解析与技巧"></a>3.4.1 注解的解析与技巧</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105001132324.png" srcset="/img/loading.gif" lazyload alt="image-20230105001132324" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105001219611.png" srcset="/img/loading.gif" lazyload alt="image-20230105001219611" style="zoom:50%;" />
+
+<ul>
+<li>技巧</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105001332271.png" srcset="/img/loading.gif" lazyload alt="image-20230105001332271" style="zoom:50%;" />
+
+<h4 id="3-4-2-注解解析的案例"><a href="#3-4-2-注解解析的案例" class="headerlink" title="3.4.2 注解解析的案例"></a>3.4.2 注解解析的案例</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105001453600.png" srcset="/img/loading.gif" lazyload alt="image-20230105001453600" style="zoom:50%;" />
+
+<ul>
+<li>解析类的注解</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105001828261.png" srcset="/img/loading.gif" lazyload alt="image-20230105001828261" style="zoom:50%;" />
+
+<ul>
+<li>解析方法的注解</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105001939989.png" srcset="/img/loading.gif" lazyload alt="image-20230105001939989" style="zoom:50%;" />
+
+<h3 id="3-5-注解的应用：模拟junit框架"><a href="#3-5-注解的应用：模拟junit框架" class="headerlink" title="3.5 注解的应用：模拟junit框架"></a>3.5 注解的应用：模拟junit框架</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105002102512.png" srcset="/img/loading.gif" lazyload alt="image-20230105002102512" style="zoom:50%;" />
+
+<p>有注解，使用反射机制触发执行</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105002408186.png" srcset="/img/loading.gif" lazyload alt="image-20230105002408186" style="zoom:50%;" />
+
+<p><strong>测试必须无参数无返回值</strong></p>
+<h2 id="4-动态代理（重难点）"><a href="#4-动态代理（重难点）" class="headerlink" title="4. 动态代理（重难点）"></a>4. 动态代理（重难点）</h2><h3 id="4-1-代理概述，无代理的场景"><a href="#4-1-代理概述，无代理的场景" class="headerlink" title="4.1 代理概述，无代理的场景"></a>4.1 代理概述，无代理的场景</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105213421163.png" srcset="/img/loading.gif" lazyload alt="image-20230105213421163" style="zoom:50%;" />
+
+<p>这里还有一种解释是nginx的反向代理，还有VPN的正向代理</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105213451447.png" srcset="/img/loading.gif" lazyload alt="image-20230105213451447" style="zoom:50%;" />
+
+<p>对对象的行为做一些额外的操作</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105215330693.png" srcset="/img/loading.gif" lazyload alt="image-20230105215330693" style="zoom:50%;" />
+
+<h3 id="4-2-如何创建代理对象"><a href="#4-2-如何创建代理对象" class="headerlink" title="4.2 如何创建代理对象"></a>4.2 如何创建代理对象</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105215353536.png" srcset="/img/loading.gif" lazyload alt="image-20230105215353536" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105220020909.png" srcset="/img/loading.gif" lazyload alt="image-20230105220020909" style="zoom:50%;" />
+
+<p>调用<code>s2.jump()</code>，走的流程</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105220350522.png" srcset="/img/loading.gif" lazyload alt="image-20230105220350522" style="zoom:50%;" />
+
+<p>未来：对象给Spring，然后返回一个更强大的对象</p>
+<h3 id="4-3-动态代理的应用案例（理解使用动态代理的优势）"><a href="#4-3-动态代理的应用案例（理解使用动态代理的优势）" class="headerlink" title="4.3 动态代理的应用案例（理解使用动态代理的优势）"></a>4.3 动态代理的应用案例（理解使用动态代理的优势）</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105220633382.png" srcset="/img/loading.gif" lazyload alt="image-20230105220633382" style="zoom:50%;" />
+
+<p>动态代理必须基于接口进行设计</p>
+<ul>
+<li>接口</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105221135458.png" srcset="/img/loading.gif" lazyload alt="image-20230105221135458" style="zoom:50%;" />
+
+<ul>
+<li><code>public class UserServiceImpl implements UserService</code></li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105221039232.png" srcset="/img/loading.gif" lazyload alt="image-20230105221039232" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105221101460.png" srcset="/img/loading.gif" lazyload alt="image-20230105221101460" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105221115771.png" srcset="/img/loading.gif" lazyload alt="image-20230105221115771" style="zoom:50%;" />
+
+<ul>
+<li>创建对象解决问题</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105221201583.png" srcset="/img/loading.gif" lazyload alt="image-20230105221201583" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105221214795.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+
+<ul>
+<li>上面的问题</li>
+</ul>
+<p>上面重复代码太多了，前面要干一件事，后面要干一件事，这样用代理提高代码复用性，就不用每次都写一下这个时间统计了</p>
+<ul>
+<li>代理的解决方案</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105221832582.png" srcset="/img/loading.gif" lazyload alt="image-20230105221832582" style="zoom:50%;" />
+
+<h3 id="4-4-动态代理的优点"><a href="#4-4-动态代理的优点" class="headerlink" title="4.4 动态代理的优点"></a>4.4 动态代理的优点</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105222100663.png" srcset="/img/loading.gif" lazyload alt="image-20230105222100663" style="zoom:50%;" />
+
+<p>泛型的进一步优化</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105222157166.png" srcset="/img/loading.gif" lazyload alt="image-20230105222157166" style="zoom:50%;" />
+
+<h2 id="5-XML文件（简单了解，未来有接触到再进一步学习）"><a href="#5-XML文件（简单了解，未来有接触到再进一步学习）" class="headerlink" title="5. XML文件（简单了解，未来有接触到再进一步学习）"></a>5. XML文件（简单了解，未来有接触到再进一步学习）</h2><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105222339815.png" srcset="/img/loading.gif" lazyload alt="image-20230105222339815" style="zoom:50%;" />
+
+<h3 id="5-1-XML概述"><a href="#5-1-XML概述" class="headerlink" title="5.1 XML概述"></a>5.1 XML概述</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105222505672.png" srcset="/img/loading.gif" lazyload alt="image-20230105222505672" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105222530148.png" srcset="/img/loading.gif" lazyload alt="image-20230105222530148" style="zoom:50%;" />
+
+<h3 id="5-2-语法规则"><a href="#5-2-语法规则" class="headerlink" title="5.2 语法规则"></a>5.2 语法规则</h3><ul>
+<li>第一行</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105222927419.png" srcset="/img/loading.gif" lazyload alt="image-20230105222927419" style="zoom:50%;" />
+
+<ul>
+<li>标签规则</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105223034984.png" srcset="/img/loading.gif" lazyload alt="image-20230105223034984" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105223548534.png" srcset="/img/loading.gif" lazyload alt="image-20230105223548534" style="zoom:50%;" />
+
+<h3 id="5-3-文档约束（文档需要定统一的规则）"><a href="#5-3-文档约束（文档需要定统一的规则）" class="headerlink" title="5.3 文档约束（文档需要定统一的规则）"></a>5.3 文档约束（文档需要定统一的规则）</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105224019727.png" srcset="/img/loading.gif" lazyload alt="image-20230105224019727" style="zoom:50%;" />
+
+<h3 id="5-4-XML解析"><a href="#5-4-XML解析" class="headerlink" title="5.4 XML解析"></a>5.4 XML解析</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105224507161.png" srcset="/img/loading.gif" lazyload alt="image-20230105224507161" style="zoom:50%;" />
+
+<h3 id="5-5-其他规则，未来使用时候进一步学习了"><a href="#5-5-其他规则，未来使用时候进一步学习了" class="headerlink" title="5.5 其他规则，未来使用时候进一步学习了"></a>5.5 其他规则，未来使用时候进一步学习了</h3><h2 id="6-设计模式补充"><a href="#6-设计模式补充" class="headerlink" title="6. 设计模式补充"></a>6. 设计模式补充</h2><h3 id="6-1-工厂模式"><a href="#6-1-工厂模式" class="headerlink" title="6.1 工厂模式"></a>6.1 工厂模式</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105224815008.png" srcset="/img/loading.gif" lazyload alt="image-20230105224815008" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105225120096.png" srcset="/img/loading.gif" lazyload alt="image-20230105225120096" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105225137586.png" srcset="/img/loading.gif" lazyload alt="image-20230105225137586" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105225215331.png" srcset="/img/loading.gif" lazyload alt="image-20230105225215331" style="zoom:50%;" />
+
+<p>只从工厂这一个地方来改就行了，类似个配置文件？</p>
+<h3 id="6-2-装饰模式"><a href="#6-2-装饰模式" class="headerlink" title="6.2 装饰模式"></a>6.2 装饰模式</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105225445234.png" srcset="/img/loading.gif" lazyload alt="image-20230105225445234" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230105225933653.png" srcset="/img/loading.gif" lazyload alt="image-20230105225933653" style="zoom:50%;" />
+
+<p><strong>一个方法的功能，知识为了增强另一个类的功能</strong></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/java/" class="category-chain-item">java</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/java/javase/" class="category-chain-item">javase</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/javase/">#javase</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>JavaSE-5进阶线程单元测试反射注解XML</div>
+      <div>http://example.com/2023/01/05/develop/java/javase/JavaSE-5进阶线程单元测试反射注解XML/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/08/algorithms/leetcode-weekly-contest/327%E5%9C%BALeetCode%E5%91%A8%E8%B5%9B/" title="327场LeetCode周赛">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">327场LeetCode周赛</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/02/develop/java/javase/JavaSE-4%E8%BF%9B%E9%98%B6%E6%B5%81%E5%BC%82%E5%B8%B8%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%E7%AD%89/" title="JavaSE-4进阶流异常日志文件等">
+                        <span class="hidden-mobile">JavaSE-4进阶流异常日志文件等</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

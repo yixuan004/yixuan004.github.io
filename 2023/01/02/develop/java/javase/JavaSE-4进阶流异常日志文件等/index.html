@@ -1,0 +1,1046 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="JavaSE-4进阶流异常日志文件等概述1   1. 不可变集合（对应python的元组？）    1.1 创建不可变集合——X.of方法  12&#x2F;&#x2F; 1. 不可变的List集合List&lt;Double&gt; lists &#x3D; List.of(569.5, 700.5, 523, 570.4);  &#x2F;&#x2F; 不可变集合  2. Stream流（重点）  2.1 体会Stream流的方便（一根传送带">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaSE-4进阶流异常日志文件等">
+<meta property="og:url" content="http://example.com/2023/01/02/develop/java/javase/JavaSE-4%E8%BF%9B%E9%98%B6%E6%B5%81%E5%BC%82%E5%B8%B8%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%E7%AD%89/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="JavaSE-4进阶流异常日志文件等概述1   1. 不可变集合（对应python的元组？）    1.1 创建不可变集合——X.of方法  12&#x2F;&#x2F; 1. 不可变的List集合List&lt;Double&gt; lists &#x3D; List.of(569.5, 700.5, 523, 570.4);  &#x2F;&#x2F; 不可变集合  2. Stream流（重点）  2.1 体会Stream流的方便（一根传送带">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230102011359707.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230102011529055.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230102011552449.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230102011619275.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103001848036.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103001936465.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103002707578.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103003128028.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103003210404.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103004217941.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103004517683.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103004528895.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103004625044.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103004911994.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103105359416.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103105511995.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103105735811.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103110535643.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103110955328.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103111054208.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103111544529.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103111207449.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103111504695.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103112016097.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103112336597.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103112648855.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103114345827.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103115322036.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103115713961.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103115839958.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103120422630.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103120805380.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103120930014.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103121120910.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103121353612.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103121516179.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103121747138.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103122454304.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103122658686.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103123623317.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103124106522.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103123825348.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103124859571.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103125811888.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103150413407.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103150222025.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103150231293.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103154447451.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103151215365.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103151234901.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103151442252.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103152229185.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103151703416.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103151956009.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103152443507.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103152640897.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103152844041.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103152905530.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103153024848.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103154606197.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103155055142.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103155019314.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103155225611.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103155502854.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103155740981.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103155752310.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103155945645.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103160735652.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103160958026.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103161221302.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103161232040.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103161347375.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103161651838.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103161721142.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103161932018.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103162429202.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103162703711.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103162734738.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103162907002.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103165218106.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103165412323.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103165458317.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103165634810.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103170953362.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103171514267.png">
+<meta property="article:published_time" content="2023-01-01T16:41:42.000Z">
+<meta property="article:modified_time" content="2023-01-04T16:13:49.126Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="javase">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230102011359707.png">
+  
+  
+  
+  <title>JavaSE-4进阶流异常日志文件等 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Curious;的个人划水博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JavaSE-4进阶流异常日志文件等"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-02 00:41" pubdate>
+          2023年1月2日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          53 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JavaSE-4进阶流异常日志文件等</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="JavaSE-4进阶流异常日志文件等"><a href="#JavaSE-4进阶流异常日志文件等" class="headerlink" title="JavaSE-4进阶流异常日志文件等"></a>JavaSE-4进阶流异常日志文件等</h1><p>概述1</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230102011359707.png" srcset="/img/loading.gif" lazyload alt="image-20230102011359707" style="zoom:50%;" />
+
+<h2 id="1-不可变集合（对应python的元组？）"><a href="#1-不可变集合（对应python的元组？）" class="headerlink" title="1. 不可变集合（对应python的元组？）"></a>1. 不可变集合（对应python的元组？）</h2><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230102011529055.png" srcset="/img/loading.gif" lazyload alt="image-20230102011529055" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230102011552449.png" srcset="/img/loading.gif" lazyload alt="image-20230102011552449" style="zoom:50%;" />
+
+<h3 id="1-1-创建不可变集合——X-of方法"><a href="#1-1-创建不可变集合——X-of方法" class="headerlink" title="1.1 创建不可变集合——X.of方法"></a>1.1 创建不可变集合——X.of方法</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230102011619275.png" srcset="/img/loading.gif" lazyload alt="image-20230102011619275" style="zoom:50%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 1. 不可变的List集合</span><br>List&lt;Double&gt; lists = List.of(<span class="hljs-number">569.5</span>, <span class="hljs-number">700.5</span>, <span class="hljs-number">523</span>, <span class="hljs-number">570.4</span>);  <span class="hljs-comment">// 不可变集合</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="2-Stream流（重点）"><a href="#2-Stream流（重点）" class="headerlink" title="2. Stream流（重点）"></a>2. Stream流（重点）</h2><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103001848036.png" srcset="/img/loading.gif" lazyload alt="image-20230103001848036" style="zoom:50%;" />
+
+<h3 id="2-1-体会Stream流的方便（一根传送带）"><a href="#2-1-体会Stream流的方便（一根传送带）" class="headerlink" title="2.1 体会Stream流的方便（一根传送带）"></a>2.1 体会Stream流的方便（一根传送带）</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103001936465.png" srcset="/img/loading.gif" lazyload alt="image-20230103001936465" style="zoom:50%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 之前的变量用高级for循环实现比较方便</span><br><br><span class="hljs-comment">// 现在有了stream流之后，就很好操作了</span><br><span class="hljs-comment">// 在项目阶段会大量的使用了，names是一个ArrayList</span><br>names.stream().filter(s -&gt; s.startsWith(<span class="hljs-string">&quot;张&quot;</span>)).filter(s -&gt; s.length() == <span class="hljs-number">3</span>).forEach(s -&gt; sout(s))<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-Stream流的获取（集合、数组获取方式不一样）"><a href="#2-2-Stream流的获取（集合、数组获取方式不一样）" class="headerlink" title="2.2 Stream流的获取（集合、数组获取方式不一样）"></a>2.2 Stream流的获取（集合、数组获取方式不一样）</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103002707578.png" srcset="/img/loading.gif" lazyload alt="image-20230103002707578" style="zoom:50%;" />
+
+<p>maps需要先获取到keySet()这种的，再通过Stream流</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103003128028.png" srcset="/img/loading.gif" lazyload alt="image-20230103003128028" style="zoom:50%;" />
+
+<h3 id="2-3-Stream流常用API"><a href="#2-3-Stream流常用API" class="headerlink" title="2.3 Stream流常用API"></a>2.3 Stream流常用API</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103003210404.png" srcset="/img/loading.gif" lazyload alt="image-20230103003210404" style="zoom:50%;" />
+
+<p>还有<code>.count()</code>等，count和forEach是终结方法</p>
+<ul>
+<li><code>.map()</code></li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103004217941.png" srcset="/img/loading.gif" lazyload alt="image-20230103004217941" style="zoom:50%;" />
+
+<h3 id="2-4-Stream流的收集操作"><a href="#2-4-Stream流的收集操作" class="headerlink" title="2.4 Stream流的收集操作"></a>2.4 Stream流的收集操作</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103004517683.png" srcset="/img/loading.gif" lazyload alt="image-20230103004517683" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103004528895.png" srcset="/img/loading.gif" lazyload alt="image-20230103004528895" style="zoom:50%;" />
+
+<p>使用示例，得到可变集合</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103004625044.png" srcset="/img/loading.gif" lazyload alt="image-20230103004625044" style="zoom:50%;" />
+
+<p>简化，但是得到不可变集合</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103004911994.png" srcset="/img/loading.gif" lazyload alt="image-20230103004911994" style="zoom:50%;" />
+
+<h2 id="3-异常处理"><a href="#3-异常处理" class="headerlink" title="3. 异常处理"></a>3. 异常处理</h2><p>python中好像比较简单，就是</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">try</span>:<br>    xxx<br><span class="hljs-keyword">except</span>:<br>    <span class="hljs-keyword">raise</span> NotImplementError(<span class="hljs-string">&quot;xxxxx&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-1-概述"><a href="#3-1-概述" class="headerlink" title="3.1 概述"></a>3.1 概述</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103105359416.png" srcset="/img/loading.gif" lazyload alt="image-20230103105359416" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103105511995.png" srcset="/img/loading.gif" lazyload alt="image-20230103105511995" style="zoom:50%;" />
+
+<h3 id="3-2-常见运行时异常（编译阶段不会报错，运行时可能出现错误）"><a href="#3-2-常见运行时异常（编译阶段不会报错，运行时可能出现错误）" class="headerlink" title="3.2 常见运行时异常（编译阶段不会报错，运行时可能出现错误）"></a>3.2 常见运行时异常（编译阶段不会报错，运行时可能出现错误）</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103105735811.png" srcset="/img/loading.gif" lazyload alt="image-20230103105735811" style="zoom:50%;" />
+
+<h3 id="3-3-常见编译时异常（编译阶段就报错，必须处理否则代码不通过）"><a href="#3-3-常见编译时异常（编译阶段就报错，必须处理否则代码不通过）" class="headerlink" title="3.3 常见编译时异常（编译阶段就报错，必须处理否则代码不通过）"></a>3.3 常见编译时异常（编译阶段就报错，必须处理否则代码不通过）</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103110535643.png" srcset="/img/loading.gif" lazyload alt="image-20230103110535643" style="zoom:50%;" />
+
+<h3 id="3-4-异常的默认处理流程"><a href="#3-4-异常的默认处理流程" class="headerlink" title="3.4 异常的默认处理流程"></a>3.4 异常的默认处理流程</h3><p>创建异常对象，层层往上抛给虚拟机</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103110955328.png" srcset="/img/loading.gif" lazyload alt="image-20230103110955328" style="zoom:50%;" />
+
+<h3 id="3-5-编译时异常的处理机制"><a href="#3-5-编译时异常的处理机制" class="headerlink" title="3.5 编译时异常的处理机制"></a>3.5 编译时异常的处理机制</h3><p>编译阶段就出错的，所以必须处理，否则代码根本无法通过</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103111054208.png" srcset="/img/loading.gif" lazyload alt="image-20230103111054208" style="zoom:50%;" />
+
+<h4 id="3-5-1-异常处理方式1-——-throws"><a href="#3-5-1-异常处理方式1-——-throws" class="headerlink" title="3.5.1 异常处理方式1 —— throws"></a>3.5.1 异常处理方式1 —— throws</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103111544529.png" srcset="/img/loading.gif" lazyload alt="image-20230103111544529" style="zoom:50%;" />
+
+<ul>
+<li>抛出一个</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103111207449.png" srcset="/img/loading.gif" lazyload alt="image-20230103111207449" style="zoom:50%;" />
+
+<ul>
+<li>多个的（但不是全有机会抛出去，只有一个会出去的感觉）</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103111504695.png" srcset="/img/loading.gif" lazyload alt="image-20230103111504695" style="zoom:50%;" />
+
+<h4 id="3-5-2-异常处理方式2-——-try…-catch…（重点）"><a href="#3-5-2-异常处理方式2-——-try…-catch…（重点）" class="headerlink" title="3.5.2 异常处理方式2 —— try… catch…（重点）"></a>3.5.2 异常处理方式2 —— try… catch…（重点）</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103112016097.png" srcset="/img/loading.gif" lazyload alt="image-20230103112016097" style="zoom:50%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">try</span> &#123;<br>    <br>&#125; <span class="hljs-keyword">catch</span>(Exception e) &#123;<br>    e.printStackTrace();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="3-5-3-前两种方式结合"><a href="#3-5-3-前两种方式结合" class="headerlink" title="3.5.3 前两种方式结合"></a>3.5.3 前两种方式结合</h4><p>抛给上层调用者，然后上层调用者再try，否则不知道哪出问题了</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103112336597.png" srcset="/img/loading.gif" lazyload alt="image-20230103112336597" style="zoom:50%;" />
+
+<h3 id="3-6-运行时异常的处理机制"><a href="#3-6-运行时异常的处理机制" class="headerlink" title="3.6 运行时异常的处理机制"></a>3.6 运行时异常的处理机制</h3><p>直接用try-catch抛就行，不用写throws</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103112648855.png" srcset="/img/loading.gif" lazyload alt="image-20230103112648855" style="zoom:50%;" />
+
+<h3 id="3-7-自定义异常"><a href="#3-7-自定义异常" class="headerlink" title="3.7 自定义异常"></a>3.7 自定义异常</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103114345827.png" srcset="/img/loading.gif" lazyload alt="image-20230103114345827" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103115322036.png" srcset="/img/loading.gif" lazyload alt="image-20230103115322036" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103115713961.png" srcset="/img/loading.gif" lazyload alt="image-20230103115713961" style="zoom:50%;" />
+
+<h4 id="3-7-1-自定义异常的分类"><a href="#3-7-1-自定义异常的分类" class="headerlink" title="3.7.1 自定义异常的分类"></a>3.7.1 自定义异常的分类</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103115839958.png" srcset="/img/loading.gif" lazyload alt="image-20230103115839958" style="zoom:50%;" />
+
+<h2 id="4-日志（对jar包的再次接触）"><a href="#4-日志（对jar包的再次接触）" class="headerlink" title="4. 日志（对jar包的再次接触）"></a>4. 日志（对jar包的再次接触）</h2><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103120422630.png" srcset="/img/loading.gif" lazyload alt="image-20230103120422630" style="zoom:50%;" />
+
+<h3 id="4-1-日志技术的概述"><a href="#4-1-日志技术的概述" class="headerlink" title="4.1 日志技术的概述"></a>4.1 日志技术的概述</h3><h4 id="4-1-1-概述"><a href="#4-1-1-概述" class="headerlink" title="4.1.1 概述"></a>4.1.1 概述</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103120805380.png" srcset="/img/loading.gif" lazyload alt="image-20230103120805380" style="zoom:50%;" />
+
+<p>输出语句打印到控制台，太捞了（python中有那个logger.info，写一套模板一直用就行了）</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103120930014.png" srcset="/img/loading.gif" lazyload alt="image-20230103120930014" style="zoom:50%;" />
+
+<h4 id="4-1-2-优势"><a href="#4-1-2-优势" class="headerlink" title="4.1.2 优势"></a>4.1.2 优势</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103121120910.png" srcset="/img/loading.gif" lazyload alt="image-20230103121120910" style="zoom:50%;" />
+
+<h3 id="4-2-日志技术体系结构（学习Logback）"><a href="#4-2-日志技术体系结构（学习Logback）" class="headerlink" title="4.2 日志技术体系结构（学习Logback）"></a>4.2 日志技术体系结构（学习Logback）</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103121353612.png" srcset="/img/loading.gif" lazyload alt="image-20230103121353612" style="zoom:50%;" />
+
+ 
+
+<h3 id="4-3-Logback概述"><a href="#4-3-Logback概述" class="headerlink" title="4.3 Logback概述"></a>4.3 Logback概述</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103121516179.png" srcset="/img/loading.gif" lazyload alt="image-20230103121516179" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103121747138.png" srcset="/img/loading.gif" lazyload alt="image-20230103121747138" style="zoom:50%;" />
+
+<p>需要下载三个jar包（未来使用maven？）</p>
+<h3 id="4-4-Logback快速入门（未来使用maven？项目直接maven导入jar包）"><a href="#4-4-Logback快速入门（未来使用maven？项目直接maven导入jar包）" class="headerlink" title="4.4 Logback快速入门（未来使用maven？项目直接maven导入jar包）"></a>4.4 Logback快速入门（未来使用maven？项目直接maven导入jar包）</h3><p>jar包的内部就是一些class文件，编译好的，能直接用</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103122454304.png" srcset="/img/loading.gif" lazyload alt="image-20230103122454304" style="zoom:50%;" />
+
+<p><font color='red'>这玩意能在线更新吗，还是说配置文件的修改也需要冷启动系统什么的</font> </p>
+<p><font color='red'>xml文件很关键</font> </p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103122658686.png" srcset="/img/loading.gif" lazyload alt="image-20230103122658686" style="zoom:50%;" />
+
+<h3 id="4-5-Logback配置详解，logback-xml"><a href="#4-5-Logback配置详解，logback-xml" class="headerlink" title="4.5 Logback配置详解，logback.xml"></a>4.5 Logback配置详解，<code>logback.xml</code></h3><p>比如有一些日志文件输出路径这些的，会配置就可以了</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103123623317.png" srcset="/img/loading.gif" lazyload alt="image-20230103123623317" style="zoom:50%;" />
+
+<h4 id="4-5-1-热更新xml文件"><a href="#4-5-1-热更新xml文件" class="headerlink" title="4.5.1 热更新xml文件"></a>4.5.1 热更新xml文件</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103124106522.png" srcset="/img/loading.gif" lazyload alt="image-20230103124106522" style="zoom:50%;" />
+
+<h3 id="4-6-日志级别设置"><a href="#4-6-日志级别设置" class="headerlink" title="4.6 日志级别设置"></a>4.6 日志级别设置</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103123825348.png" srcset="/img/loading.gif" lazyload alt="image-20230103123825348" style="zoom:50%;" />
+
+<h2 id="5-File（这个地方可能跳过的内容多一些，未来使用到了再学习）"><a href="#5-File（这个地方可能跳过的内容多一些，未来使用到了再学习）" class="headerlink" title="5. File（这个地方可能跳过的内容多一些，未来使用到了再学习）"></a>5. File（这个地方可能跳过的内容多一些，未来使用到了再学习）</h2><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103124859571.png" srcset="/img/loading.gif" lazyload alt="image-20230103124859571" style="zoom:50%;" />
+
+<h3 id="5-1-自己补充：使用java读取json文件并转化为Map-lt-String-List-lt-String-gt-gt-对象"><a href="#5-1-自己补充：使用java读取json文件并转化为Map-lt-String-List-lt-String-gt-gt-对象" class="headerlink" title="5.1 自己补充：使用java读取json文件并转化为Map&lt;String, List&lt;String&gt;&gt;对象"></a>5.1 自己补充：使用java读取json文件并转化为<code>Map&lt;String, List&lt;String&gt;&gt;</code>对象</h3><p>你可以使用 Gson 库来读取 JSON 文件并将其转换为 <code>Map&lt;String, List&lt;String&gt;&gt;</code> 对象。</p>
+<p>首先，你需要在项目中添加 Gson 依赖。如果你使用的是 Maven，可以在 pom.xml 中添加如下依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.google.code.gson<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>gson<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.8.6<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>然后，你可以使用如下代码来读取 JSON 文件并将其转换为 Map&lt;String, List<String>&gt; 对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.google.gson.Gson;<br><span class="hljs-keyword">import</span> com.google.gson.reflect.TypeToken;<br><span class="hljs-keyword">import</span> java.io.FileReader;<br><span class="hljs-keyword">import</span> java.lang.reflect.Type;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    <span class="hljs-type">Gson</span> <span class="hljs-variable">gson</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Gson</span>();<br>    <span class="hljs-type">Type</span> <span class="hljs-variable">mapType</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TypeToken</span>&lt;Map&lt;String, List&lt;String&gt;&gt;&gt;()&#123;&#125;.getType();<br><br>    <span class="hljs-comment">// 读取 JSON 文件</span><br>    <span class="hljs-type">FileReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(<span class="hljs-string">&quot;file.json&quot;</span>);<br>    Map&lt;String, List&lt;String&gt;&gt; map = gson.fromJson(reader, mapType);<br><br>    <span class="hljs-comment">// 使用 Map 对象</span><br>    <span class="hljs-keyword">for</span> (Map.Entry&lt;String, List&lt;String&gt;&gt; entry : map.entrySet()) &#123;<br>      <span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> entry.getKey();<br>      List&lt;String&gt; value = entry.getValue();<br>      System.out.println(key + <span class="hljs-string">&quot;: &quot;</span> + value);<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上述代码中file.json的示例是什么样的</p>
+<p>例如，你可以定义一个名为 file.json 的文件，其内容如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;key1&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;value1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;value2&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;key2&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;value3&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;value4&quot;</span><span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中，Map 对象的内容为 { “key1” -&gt; [“value1”, “value2”], “key2” -&gt; [“value3”, “value4”] }。</p>
+<h2 id="6-IO流（这里也跳过一些内容，未来有用到再学习）"><a href="#6-IO流（这里也跳过一些内容，未来有用到再学习）" class="headerlink" title="6. IO流（这里也跳过一些内容，未来有用到再学习）"></a>6. IO流（这里也跳过一些内容，未来有用到再学习）</h2> <img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103125811888.png" srcset="/img/loading.gif" lazyload alt="image-20230103125811888" style="zoom:50%;" />
+
+<h2 id="7-线程概述、线程创建方式一"><a href="#7-线程概述、线程创建方式一" class="headerlink" title="7. 线程概述、线程创建方式一"></a>7. 线程概述、线程创建方式一</h2><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103150413407.png" srcset="/img/loading.gif" lazyload alt="image-20230103150413407" style="zoom:50%;" />
+
+<h3 id="7-1-概述"><a href="#7-1-概述" class="headerlink" title="7.1 概述"></a>7.1 概述</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103150222025.png" srcset="/img/loading.gif" lazyload alt="image-20230103150222025" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103150231293.png" srcset="/img/loading.gif" lazyload alt="image-20230103150231293" style="zoom:50%;" />
+
+<h3 id="7-2-多线程的创建"><a href="#7-2-多线程的创建" class="headerlink" title="7.2 多线程的创建"></a>7.2 多线程的创建</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103154447451.png" srcset="/img/loading.gif" lazyload alt="image-20230103154447451" style="zoom:50%;" />
+
+<h4 id="7-2-1-方式一：继承Thread类（优缺点-注意点）"><a href="#7-2-1-方式一：继承Thread类（优缺点-注意点）" class="headerlink" title="7.2.1 方式一：继承Thread类（优缺点+注意点）"></a>7.2.1 方式一：继承Thread类（优缺点+注意点）</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103151215365.png" srcset="/img/loading.gif" lazyload alt="image-20230103151215365" style="zoom:50%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.curious.leetcode;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 目标：多线程的创建方式一：继承Thead类实现</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ThreadCreateDemo1</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">// 3. new一个新线程对线</span><br>        <span class="hljs-type">Thread</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyThread</span>();  <span class="hljs-comment">// 多态写法</span><br>        <span class="hljs-comment">// 4. 调用start方法启动线程（执行的还是run方法）</span><br>        t.start();<br><br>        <span class="hljs-comment">// 5. 主线程，谁先谁后就不一定了</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) &#123;<br>            System.out.println(<span class="hljs-string">&quot;主线程执行输出: &quot;</span> + i);<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 1. 定义一个线程类继承Thread类</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyThread</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Thread</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 2. 重写run方法，里面定义线程以后要干啥</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) &#123;<br>            System.out.println(<span class="hljs-string">&quot;子线程执行输出: &quot;</span> + i);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>子线程执行输出: 0<br>主线程执行输出: 0<br>主线程执行输出: 1<br>主线程执行输出: 2<br>主线程执行输出: 3<br>主线程执行输出: 4<br>子线程执行输出: 1<br>子线程执行输出: 2<br>子线程执行输出: 3<br>子线程执行输出: 4</p>
+</blockquote>
+<ul>
+<li>优缺点</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103151234901.png" srcset="/img/loading.gif" lazyload alt="image-20230103151234901" style="zoom:50%;" />
+
+<ul>
+<li>注意点</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103151442252.png" srcset="/img/loading.gif" lazyload alt="image-20230103151442252" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103152229185.png" srcset="/img/loading.gif" lazyload alt="image-20230103152229185" style="zoom:50%;" />
+
+<h4 id="7-2-2-方式二：实现Runnable接口"><a href="#7-2-2-方式二：实现Runnable接口" class="headerlink" title="7.2.2 方式二：实现Runnable接口"></a>7.2.2 方式二：实现Runnable接口</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103151703416.png" srcset="/img/loading.gif" lazyload alt="image-20230103151703416" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103151956009.png" srcset="/img/loading.gif" lazyload alt="image-20230103151956009" style="zoom:50%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.curious.javasepro.d20_thread;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 目标：学会线程的创建方式而，理解它的优缺点</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ThreadCreateDemo2</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">// 3. 创建一个任务对象</span><br>        <span class="hljs-type">Runnable</span> <span class="hljs-variable">target</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyRunnable</span>();<br>        <span class="hljs-comment">// 4. 把任务对象交给Thread处理</span><br>        <span class="hljs-type">Thread</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(target);<br>        <span class="hljs-comment">// 5. 启动线程</span><br>        t.start();<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;<br>            System.out.println(<span class="hljs-string">&quot;主线程执行输出: &quot;</span> + i);<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 1. 定义一个线程任务类，实现Runnable接口</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyRunnable</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 2. 重写run方法，定义线程的执行任务</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;<br>            System.out.println(<span class="hljs-string">&quot;子线程执行输出: &quot;</span> + i);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>扩展性更强，还可以继承</p>
+<ul>
+<li>优缺点</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103152443507.png" srcset="/img/loading.gif" lazyload alt="image-20230103152443507" style="zoom:50%;" />
+
+<h4 id="7-2-3-方式二：另外一种写法补充"><a href="#7-2-3-方式二：另外一种写法补充" class="headerlink" title="7.2.3 方式二：另外一种写法补充"></a>7.2.3 方式二：另外一种写法补充</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103152640897.png" srcset="/img/loading.gif" lazyload alt="image-20230103152640897" style="zoom:50%;" />
+
+
+
+<h4 id="7-2-4-方式三：JDK5-0新增：实现Callable接口"><a href="#7-2-4-方式三：JDK5-0新增：实现Callable接口" class="headerlink" title="7.2.4 方式三：JDK5.0新增：实现Callable接口"></a>7.2.4 方式三：JDK5.0新增：实现Callable接口</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103152844041.png" srcset="/img/loading.gif" lazyload alt="image-20230103152844041" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103152905530.png" srcset="/img/loading.gif" lazyload alt="image-20230103152905530" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103153024848.png" srcset="/img/loading.gif" lazyload alt="image-20230103153024848" style="zoom:50%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.curious.javasepro.d20_thread;<br><br><span class="hljs-keyword">import</span> java.util.concurrent.Callable;<br><span class="hljs-keyword">import</span> java.util.concurrent.ExecutionException;<br><span class="hljs-keyword">import</span> java.util.concurrent.FutureTask;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 目标：学会线程的创建方式三：实现Callable借楼，结合FutureTask完成</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ThreadCreateDemo3</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">// 3. 创建Callable任务对象</span><br>        Callable&lt;String&gt; call = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyCallalbe</span>(<span class="hljs-number">100</span>);<br>        <span class="hljs-comment">// 4. 把Callable对象 交给 FutureTask对象</span><br>        <span class="hljs-comment">// FutureTask对象的作用：是Runnable的对象（实现了Runnable接口），可以交给Thread了</span><br>        <span class="hljs-comment">// 作用：可以在线程执行完毕之后，调用其get方法得到线程执行完成的结果</span><br>        FutureTask&lt;String&gt; ft = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FutureTask</span>&lt;&gt;(call);<br>        <span class="hljs-comment">// 5. 交给线程处理</span><br>        <span class="hljs-type">Thread</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(ft);<br>        <span class="hljs-comment">// 6. 启动线程</span><br>        t.start();<br><br>        <span class="hljs-comment">// 再创建一个作为示例</span><br>        Callable&lt;String&gt; call2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyCallalbe</span>(<span class="hljs-number">200</span>);<br>        FutureTask&lt;String&gt; ft2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FutureTask</span>&lt;&gt;(call2);<br>        <span class="hljs-type">Thread</span> <span class="hljs-variable">t2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(ft2);<br>        t2.sleep(<span class="hljs-number">500</span>);<br>        t2.start();<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">res1</span> <span class="hljs-operator">=</span> ft.get();<br>            System.out.println(<span class="hljs-string">&quot;第一个线程的执行结果: &quot;</span> + res1);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>        &#125;<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">res2</span> <span class="hljs-operator">=</span> ft2.get();<br>            System.out.println(<span class="hljs-string">&quot;第二个线程的执行结果: &quot;</span> + res2);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>        &#125;<br><br>    &#125;<br><br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 1. 定义一个人物类，实现Callable接口（因为里面要返回结果所以有泛型），应该声明线程任务执行完毕后的结果的数据类型</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyCallalbe</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Callable</span>&lt;String&gt; &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> n;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">MyCallalbe</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;  <span class="hljs-comment">// 构造方法</span><br>        <span class="hljs-built_in">this</span>.n = n;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 2. 重写call方法</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">call</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">this</span>.n; i++) &#123;<br>            sum += i;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;子线程的执行结果是: &quot;</span> + sum;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="7-3-Thread的常用方法"><a href="#7-3-Thread的常用方法" class="headerlink" title="7.3 Thread的常用方法"></a>7.3 Thread的常用方法</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103154606197.png" srcset="/img/loading.gif" lazyload alt="image-20230103154606197" style="zoom:50%;" />
+
+<h4 id="7-3-1-获取和设置线程名称"><a href="#7-3-1-获取和设置线程名称" class="headerlink" title="7.3.1 获取和设置线程名称"></a>7.3.1 获取和设置线程名称</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103155055142.png" srcset="/img/loading.gif" lazyload alt="image-20230103155055142" style="zoom:50%;" />
+
+<h4 id="7-3-2-构造器"><a href="#7-3-2-构造器" class="headerlink" title="7.3.2 构造器"></a>7.3.2 构造器</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103155019314.png" srcset="/img/loading.gif" lazyload alt="image-20230103155019314" style="zoom:50%;" />
+
+<h4 id="7-3-3-线程休眠方法"><a href="#7-3-3-线程休眠方法" class="headerlink" title="7.3.3 线程休眠方法"></a>7.3.3 线程休眠方法</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103155225611.png" srcset="/img/loading.gif" lazyload alt="image-20230103155225611" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103155502854.png" srcset="/img/loading.gif" lazyload alt="image-20230103155502854" style="zoom:50%;" />
+
+<h3 id="7-4-线程安全问题"><a href="#7-4-线程安全问题" class="headerlink" title="7.4 线程安全问题"></a>7.4 线程安全问题</h3><h4 id="7-4-1-线程安全问题是什么"><a href="#7-4-1-线程安全问题是什么" class="headerlink" title="7.4.1 线程安全问题是什么"></a>7.4.1 线程安全问题是什么</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103155740981.png" srcset="/img/loading.gif" lazyload alt="image-20230103155740981" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103155752310.png" srcset="/img/loading.gif" lazyload alt="image-20230103155752310" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103155945645.png" srcset="/img/loading.gif" lazyload alt="image-20230103155945645" style="zoom:50%;" />
+
+<h4 id="7-4-2-线程安全问题模拟案例——取钱"><a href="#7-4-2-线程安全问题模拟案例——取钱" class="headerlink" title="7.4.2 线程安全问题模拟案例——取钱"></a>7.4.2 线程安全问题模拟案例——取钱</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103160735652.png" srcset="/img/loading.gif" lazyload alt="image-20230103160735652" style="zoom:50%;" />
+
+<p>可以if小红，sleep5秒；</p>
+<h3 id="7-5-线程同步——解决线程安全问题"><a href="#7-5-线程同步——解决线程安全问题" class="headerlink" title="7.5 线程同步——解决线程安全问题"></a>7.5 线程同步——解决线程安全问题</h3><p><strong>共享资源加锁</strong></p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103160958026.png" srcset="/img/loading.gif" lazyload alt="image-20230103160958026" style="zoom:50%;" />
+
+<h4 id="7-5-1-方式一：同步代码块"><a href="#7-5-1-方式一：同步代码块" class="headerlink" title="7.5.1 方式一：同步代码块"></a>7.5.1 方式一：同步代码块</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103161221302.png" srcset="/img/loading.gif" lazyload alt="image-20230103161221302" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103161232040.png" srcset="/img/loading.gif" lazyload alt="image-20230103161232040" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103161347375.png" srcset="/img/loading.gif" lazyload alt="image-20230103161347375" style="zoom:50%;" />
+
+<p><strong>小明小红、小黑小白，要使用上不同的锁，这个地方不能是一把锁锁住了千家万户</strong></p>
+<p><strong>所以，建议使用共享资源作为锁对象！</strong></p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103161651838.png" srcset="/img/loading.gif" lazyload alt="image-20230103161651838" style="zoom:50%;" />
+
+<p>小明和小红的Account对象是一个acc，所以这个</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103161721142.png" srcset="/img/loading.gif" lazyload alt="image-20230103161721142" style="zoom:50%;" />
+
+<h4 id="7-5-2-方式二：同步方法"><a href="#7-5-2-方式二：同步方法" class="headerlink" title="7.5.2 方式二：同步方法"></a>7.5.2 方式二：同步方法</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103161932018.png" srcset="/img/loading.gif" lazyload alt="image-20230103161932018" style="zoom:50%;" />
+
+<p>只需要在取钱功能上加一个这个就行了</p>
+<p>同步方法锁的范围更大，好用的感觉</p>
+<h4 id="7-5-3-Lock锁"><a href="#7-5-3-Lock锁" class="headerlink" title="7.5.3 Lock锁"></a>7.5.3 Lock锁</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103162429202.png" srcset="/img/loading.gif" lazyload alt="image-20230103162429202" style="zoom:50%;" />
+
+<p>接口不能构建对象，使用实现类来构建对象Collection那边也是这个说法</p>
+<p>在Account对象那块加锁，这样同一个对象就是同一把锁了</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103162703711.png" srcset="/img/loading.gif" lazyload alt="image-20230103162703711" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103162734738.png" srcset="/img/loading.gif" lazyload alt="image-20230103162734738" style="zoom:50%;" />
+
+<p><strong>为了保证解锁，加finally逻辑</strong></p>
+<p>try…finally…</p>
+<h3 id="7-6-线程通信（了解）"><a href="#7-6-线程通信（了解）" class="headerlink" title="7.6 线程通信（了解）"></a>7.6 线程通信（了解）</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103162907002.png" srcset="/img/loading.gif" lazyload alt="image-20230103162907002" style="zoom:50%;" />
+
+<h3 id="7-7-线程池（重点）"><a href="#7-7-线程池（重点）" class="headerlink" title="7.7 线程池（重点）"></a>7.7 线程池（重点）</h3><h4 id="7-7-1-线程池概述"><a href="#7-7-1-线程池概述" class="headerlink" title="7.7.1 线程池概述"></a>7.7.1 线程池概述</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103165218106.png" srcset="/img/loading.gif" lazyload alt="image-20230103165218106" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103165412323.png" srcset="/img/loading.gif" lazyload alt="image-20230103165412323" style="zoom:50%;" />
+
+<h4 id="7-7-2-线程池实现的API、参数说明"><a href="#7-7-2-线程池实现的API、参数说明" class="headerlink" title="7.7.2 线程池实现的API、参数说明"></a>7.7.2 线程池实现的API、参数说明</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103165458317.png" srcset="/img/loading.gif" lazyload alt="image-20230103165458317" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103165634810.png" srcset="/img/loading.gif" lazyload alt="image-20230103165634810" style="zoom:50%;" />
+
+<h4 id="7-7-3-线程池处理Runnable任务"><a href="#7-7-3-线程池处理Runnable任务" class="headerlink" title="7.7.3 线程池处理Runnable任务"></a>7.7.3 线程池处理Runnable任务</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103170953362.png" srcset="/img/loading.gif" lazyload alt="image-20230103170953362" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230103171514267.png" srcset="/img/loading.gif" lazyload alt="image-20230103171514267" style="zoom:50%;" />
+
+<p>线程池可以重复利用，但是如果再加一个变成这样，3个线程处理5个任务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 3个线程处理5个任务</span><br>pool.execute(target);  <br>pool.execute(target);<br>pool.execute(target);<br>pool.execute(target);<br>pool.execute(target);<br></code></pre></td></tr></table></figure>
+
+<h4 id="7-7-4-线程池处理Callable任务"><a href="#7-7-4-线程池处理Callable任务" class="headerlink" title="7.7.4 线程池处理Callable任务"></a>7.7.4 线程池处理Callable任务</h4><p>暂时也跳过，未来开发有接触到进一步使用</p>
+<h3 id="7-8-线程的其他内容，未来随着面试进一步学习了"><a href="#7-8-线程的其他内容，未来随着面试进一步学习了" class="headerlink" title="7.8 线程的其他内容，未来随着面试进一步学习了"></a>7.8 线程的其他内容，未来随着面试进一步学习了</h3><p>TODO</p>
+<h2 id="8-网络通信TCP-x2F-UDP入门"><a href="#8-网络通信TCP-x2F-UDP入门" class="headerlink" title="8. 网络通信TCP&#x2F;UDP入门"></a>8. 网络通信TCP&#x2F;UDP入门</h2><p>TODO，这个地方也暂时跳过了，未来有接触到再进一步学习</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/java/" class="category-chain-item">java</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/java/javase/" class="category-chain-item">javase</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/javase/">#javase</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>JavaSE-4进阶流异常日志文件等</div>
+      <div>http://example.com/2023/01/02/develop/java/javase/JavaSE-4进阶流异常日志文件等/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/05/develop/java/javase/JavaSE-5%E8%BF%9B%E9%98%B6%E7%BA%BF%E7%A8%8B%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%8F%8D%E5%B0%84%E6%B3%A8%E8%A7%A3XML/" title="JavaSE-5进阶线程单元测试反射注解XML">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JavaSE-5进阶线程单元测试反射注解XML</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/01/algorithms/%E7%AE%97%E6%B3%95%E6%A8%A1%E6%9D%BF%E6%95%B4%E7%90%86-python/" title="算法模板整理-python">
+                        <span class="hidden-mobile">算法模板整理-python</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
