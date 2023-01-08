@@ -393,6 +393,33 @@
   
   
   <entry>
+    <title>二、MySQL索引</title>
+    <link href="/2022/12/08/develop/mysql/%E4%BA%8C%E3%80%81MySQL%E7%B4%A2%E5%BC%95/"/>
+    <url>/2022/12/08/develop/mysql/%E4%BA%8C%E3%80%81MySQL%E7%B4%A2%E5%BC%95/</url>
+    
+    <content type="html"><![CDATA[<h1 id="二、MySQL索引"><a href="#二、MySQL索引" class="headerlink" title="二、MySQL索引"></a>二、MySQL索引</h1><p>reference：</p><p><a href="https://blog.csdn.net/qq_57314342/article/details/123058002">https://blog.csdn.net/qq_57314342/article/details/123058002</a></p><p><a href="https://xiaolincoding.com/mysql/index/index_interview.html">https://xiaolincoding.com/mysql/index/index_interview.html</a></p><ul><li>什么是索引？</li></ul><p>在关系型数据库中，索引是一种单独的、物理的对数据库表中一列或多列的值进行排序的一种存储结构，它是某个表中一列或若干列值的集合和相应的指向表中物理标识这些值的数据页的逻辑指针清单。索引的作用相当于图书的目录，可以根据目录中的页码快速找到所需内容</p><p>索引：好比书的目录，用于加快查找的效率</p><p>索引的作用：加快查找效率，减慢插入和删除、修改效率</p><ul><li>索引的要解决的问题</li></ul><p>如果数据库中没有索引，此时查找的时候相当于要把整个表遍历一遍，如果想找id为8的学生信息，没有索引，此时的查找过程就相当于一个“顺序表查找”。</p><p>内存访问速度多快，并且数据也没那么多，其实速度还可以。</p><p>但是如果针对数据库顺序查找，数据库的数据实在磁盘上，磁盘访问速度更慢，并且数据量非常多，速度可能就会很慢，索引就是为了避免数据库进行顺序查找，提高查找效率</p><h2 id="0-自己的一些补充，和同学讨论后"><a href="#0-自己的一些补充，和同学讨论后" class="headerlink" title="0. 自己的一些补充，和同学讨论后"></a>0. 自己的一些补充，和同学讨论后</h2><ul><li>假设有3个字段，在实际项目的使用上，可以给3个字段每个字段单独加一个索引，在此基础上再把3个组合起来加一个索引，虽然加索引和增删改的速度会慢，但是提高了查询的效率</li><li>在比如「公司名称」这种字段上加索引，虽然不像id那样12345678的，但是也有字典序可能可以用</li><li>索引近似把O(n)的效率变成了O(logn)的</li><li>实际业务场景，可以用redis+mysql的方式，把redis作为缓存层，然后查询的时候，先去看看redis里面有没有，如果没有的话再去mysql里面找，找到后再加入redis，这样对于热点数据的保存可能会比较好<ul><li>这里引出了redis的缓存雪崩、缓存击穿、缓存穿透问题</li></ul></li><li>索引对like这种查询（但如果是 like ‘%xxx%’ 这种就没啥用了）就可能没有什么用处了，不是有序的那种感觉，而like这种场景是一个模糊匹配场景，可以引入es</li></ul><h2 id="1-为什么MySQL采用B-树作为索引？"><a href="#1-为什么MySQL采用B-树作为索引？" class="headerlink" title="1. 为什么MySQL采用B+树作为索引？"></a>1. 为什么MySQL采用B+树作为索引？</h2><p>这个是面试经常被问到的问题。要解释这个问题，不单单要从数据结构角度出发，还要考虑磁盘I&#x2F;O次数，因为mysql的数据时存储在磁盘中的</p><h3 id="1-1-怎样的索引的数据结构是好的？"><a href="#1-1-怎样的索引的数据结构是好的？" class="headerlink" title="1.1 怎样的索引的数据结构是好的？"></a>1.1 怎样的索引的数据结构是好的？</h3><p>mysql的数据是持久化的，意味着数据（索引+记录）是保存到磁盘上的，因为这样即使设备断电了，数据也不会丢失。磁盘是一个慢的离谱的存储设备，相较于内存 CPU而言非常非常慢。</p><p>由于数据库的索引是保存到磁盘上的，因此当我们通过索引查找某行数据的时候，就需要先从磁盘读取索引到内存，再通过索引从磁盘中找到某行数据，然后读入到内存，也就是会发生多次磁盘I&#x2F;O，磁盘I&#x2F;O次数越多，消耗时间就越大——希望尽可能少的磁盘I&#x2F;O操作完成查询工作</p><p>另外，mysql是支持范围查找的，所以索引的数据结构不仅能高效的查询一个数据，也要能高效的执行范围查找</p><p>设计mysql索引的数据结构，至少要满足</p><ul><li>能在尽可能少的磁盘I&#x2F;O操作中完成查询工作</li><li>要能高效的查询某一个记录，也能高效的执行范围查找</li></ul><h3 id="1-2-什么是二分查找"><a href="#1-2-什么是二分查找" class="headerlink" title="1.2 什么是二分查找"></a>1.2 什么是二分查找</h3><p>索引数据最好能按顺序排列，这样就能用「二分查找法」高效定位数据</p><p>二分查找每次都能把查询的范围减半，这样复杂度就降到了O(logn)，但是每次查找都要不断计算中间的位置</p><h3 id="1-3-什么是二分查找树"><a href="#1-3-什么是二分查找树" class="headerlink" title="1.3 什么是二分查找树"></a>1.3 什么是二分查找树</h3><p>用数组实现现行排序的数据结构虽然好用，但是插入新元素的时候性能太低——插入一个元素，需要将这个元素之后的元素都后移一位，如果这个操作发生在磁盘中将是灾难性的。因为磁盘速度比内存慢很多，不能将一种共线性结构用在磁盘</p><p>其次，有序的数组在使用二分查找的时候，每次查找都要不断计算中间的位置</p><p><strong>需要设计一个非线性，天然适合二分查找的数据结构</strong></p><p><font color='red'><strong>二叉查找树</strong></font> </p><p><img src="https://img-blog.csdnimg.cn/49cb4df3fb7d4accbc75f6970ff1d0ea.gif" alt="请添加图片描述"></p><p>二叉查找树的特点是，一个节点的左子树所有节点都小于这个节点，右子树都大于这个节点</p><ul><li>不需要计算中间节点位置了</li><li>插入的时候，不用开销很大了</li></ul><p><strong>然而，二叉查找树还存在着问题</strong></p><ul><li>当每次插入的元素都是二叉查找树的最大元素，二叉查找树就会退化成链表，这样的查找数据时间复杂度又变成O(n)的了</li></ul><p>由于树是存储在磁盘中的，访问每个节点，都对应一次磁盘I&#x2F;O操作，树的高度就等于每次查询数据的时候磁盘IO操作次数</p><h3 id="1-4-什么是自平衡二叉树"><a href="#1-4-什么是自平衡二叉树" class="headerlink" title="1.4 什么是自平衡二叉树"></a>1.4 什么是自平衡二叉树</h3><p>针对二叉查找树会在极端情况下退化成链表的问题，提出平衡二叉查找树（AVL树）</p><p>在二叉查找树的基础上，约束：每个节点的左子树的右子树的高度差不能超过1</p><p><strong>红黑树也是自平衡二叉树</strong>，加入了左旋右旋操作，也是为了自平衡</p><p><strong>不管平衡二叉树还是红黑树，都会随着元素增多，导致树的高度变高，意味着IO次数增多，影响整体查询效率</strong></p><p>一个结论：当树的节点越多的时候，并且树的分叉数M越大的时候，M叉树的高度会远小于二叉树的高度</p><p><font color='red'>红黑树是一种自平衡二叉查找树</font> </p><h3 id="1-5-什么是B树"><a href="#1-5-什么是B树" class="headerlink" title="1.5 什么是B树"></a>1.5 什么是B树</h3><p>自平衡二叉树虽然能保持查询操作的时间复杂度在O(logn)，但是因为本质上是一个二叉树，每个节点只能有两个子节点，节点个数越多的时候，树的高度就会变高，就会增加磁盘的IO次数，影响查询效率</p><p>解决树的高度问题，提出来了B树，不再限制一个节点只能有2个子节点，而是可以有M个子节点，降低树的高度</p><p>假设M&#x3D;3，3阶的B树，每个节点最多有M-1&#x3D;2个数据，和最多有M&#x3D;3个子节点，超过要求就会分裂</p><p><img src="https://img-blog.csdnimg.cn/img_convert/341cedca6863fcd0624febd835165ae2.gif" alt="图片"></p><p>同样的场景下，平衡二叉树的高度就会高很多，但是B树的高度要低一些</p><p><strong>B树的不足之处：</strong></p><p><strong>每个节点是存放数据的</strong></p><p>查询位于底层的某个节点的过程中，非这个节点的记录数据会从磁盘加载到内存，这些记录是没用的，我们只想读取这些节点的索引数据来做比较查询，而其他的路径数据是对我们没用的</p><p>另外用B树来做范围查询的时候，中序遍历，涉及多个节点的磁盘IO问题</p><h3 id="1-6-什么是B-树"><a href="#1-6-什么是B-树" class="headerlink" title="1.6 什么是B+树"></a>1.6 什么是B+树</h3><p>B+树就是对B树做了一个升级，mysql中索引的数据结构就用的是B+树，结构如下图</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20221208205859904.png" alt="image-20221208205859904"></p><p>B+树和B树差异的点，主要是：</p><ul><li>叶子节点才存放数据（索引+记录），非叶子结点只存放索引</li><li>所有索引都会在叶子节点出现，叶子结点之间构成一个有序链表</li><li>非叶子结点的索引也会在叶子中，并且在子节点中是所有索引的最大（或最小）</li></ul><h4 id="1-6-1-B树-vs-B-树，单点查询性能比较"><a href="#1-6-1-B树-vs-B-树，单点查询性能比较" class="headerlink" title="1.6.1 B树 vs B+树，单点查询性能比较"></a>1.6.1 B树 vs B+树，单点查询性能比较</h4><p>B+ 树的非叶子节点不存放实际的记录数据，仅存放索引，因此数据量相同的情况下，相比存储即存索引又存记录的 B 树，B+树的非叶子节点可以存放更多的索引，因此 B+ 树可以比 B 树更「矮胖」，查询底层节点的磁盘 I&#x2F;O次数会更少</p><h4 id="1-6-2-B树-vs-B-树，插入和删除效率"><a href="#1-6-2-B树-vs-B-树，插入和删除效率" class="headerlink" title="1.6.2 B树 vs B+树，插入和删除效率"></a>1.6.2 B树 vs B+树，插入和删除效率</h4><p>B+树的插入删除效率更高</p><h4 id="1-6-3-B树-vs-B-树，范围查询"><a href="#1-6-3-B树-vs-B-树，范围查询" class="headerlink" title="1.6.3 B树 vs B+树，范围查询"></a>1.6.3 B树 vs B+树，范围查询</h4><p>B+树所有叶子节点之间还有一个链表进行连接，这种设计对范围查询非常有帮助</p><p>比如说我们想知道 12 月 1 日和 12 月 12 日之间的订单，这个时候可以先查找到 12 月 1 日所在的叶子节点，然后利用链表向右遍历，直到找到 12 月12 日的节点，这样就不需要从根节点查询了，进一步节省查询需要的时间。</p><h3 id="1-7-MySQL中的B-树"><a href="#1-7-MySQL中的B-树" class="headerlink" title="1.7 MySQL中的B+树"></a>1.7 MySQL中的B+树</h3><p>MySQL 的存储方式根据存储引擎的不同而不同，我们最常用的就是 Innodb 存储引擎，它就是采用了 B+ 树作为了索引的数据结构。</p><h3 id="1-8-为什么不用hash"><a href="#1-8-为什么不用hash" class="headerlink" title="1.8 为什么不用hash"></a>1.8 为什么不用hash</h3><p>解决不了范围查找的问题，而且这样应该空间开销很大？</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>develop</category>
+      
+      <category>mysql</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>mysql</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>MySQL-LeetCode</title>
     <link href="/2022/12/08/develop/mysql/MySQL-LeetCode/"/>
     <url>/2022/12/08/develop/mysql/MySQL-LeetCode/</url>
@@ -1361,6 +1388,33 @@
   
   
   <entry>
+    <title>acl-findings2022_Virtual Augumentation CL论文阅读</title>
+    <link href="/2022/08/02/research/papers/contrastive-learning/aclfindings2022_Virtual%20Augmentation%20CL/"/>
+    <url>/2022/08/02/research/papers/contrastive-learning/aclfindings2022_Virtual%20Augmentation%20CL/</url>
+    
+    <content type="html"><![CDATA[<h1 id="acl-findings2022-Virtual-Augumentation-CL论文阅读"><a href="#acl-findings2022-Virtual-Augumentation-CL论文阅读" class="headerlink" title="acl-findings2022_Virtual Augumentation CL论文阅读"></a>acl-findings2022_Virtual Augumentation CL论文阅读</h1><p>Virtual Augmentation Supported Contrastive Learning of Sentence Representations</p><p>虚拟增强支持的句子表征的对比性学习</p><p>个人总结文章的亮点如下：</p><p>1）hard-negative角度，有一种反向的思路的感觉，邻域内的样本制造hard-negative：离自己相对较远而离邻居相对更近的一个微小扰动，但感觉不是negative这样的，只能说创造了一个hard的positive-pair？</p><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul><li>亚马逊提出无监督虚拟增强句子表征学习框架，效果超越SimCSE：<a href="http://www.360doc.com/content/21/1217/20/7673502_1009176247.shtml">http://www.360doc.com/content/21/1217/20/7673502_1009176247.shtml</a></li></ul><h2 id="TODO-list"><a href="#TODO-list" class="headerlink" title="TODO-list"></a>TODO-list</h2><ul><li><strong><font color='purple'>感觉还是之前讨论的那个问题，在这里相当于pretrain了后，那么我在下游任务的时候是怎么个微调的过程？或者说下游这些任务不需要微调？</font></strong></li></ul><h2 id="0-Abstract"><a href="#0-Abstract" class="headerlink" title="0. Abstract"></a>0. Abstract</h2><p>尽管取得了巨大的成功，但对比性表征学习仍依赖于使用特定领域知识精心设计的数据增强。这一挑战在自然语言处理领域中被放大了，由于自然语言的离散性，在数据增强方面不存在一般规则。</p><p><font color='red'>像图像的话因为本质上都是一样的，那么可以直接旋转、裁剪、加噪声等，但是由于自然语言不同语言特性不同，而且增强的方法可能会对语义有着本质上的改变，感觉在增强方面几乎就没有什么很通用的</font> </p><p>我们提出通过虚拟增强支持的句子表征对比学习（VaSCL，Virtual augmentation Supported Contrastive Learning）来应对这一挑战。我们从数据增强本质上构建每个训练实例的邻域的解释出发，反过来利用邻域来产生有效的数据增增强。</p><p><font color='red'>论文是从hard-negative这个角度来说的，我的一个原句的hard-negative的构建，可以通过在原句子基础上添加噪声，然后让这个噪声更加接近其K近邻样本而非原句，选一个噪声和原句有一种最远感觉的（在K个sample时候loss最大），这样带噪声的就是一个额外特殊的hard-negative了。</font> </p><p><strong><font color='purple'>注意hard-negative不一定指的是对立的那种contradiction样本，而是说难学习的，比如扰动后的话毕竟还是基于原句子一个很微小扰动得到的，那么他理应当和原句形成一个positive pair</font></strong> </p><p>利用对比学习的大批量训练，我们通过一个实例在表示空间中的K-nearest in-batch邻居来近似其邻域。然后，我们定义一个关于这个邻域的实例判别任务，并以对抗性训练的方式生成虚拟增强。</p><p>我们查看了VaSCL在广泛的下游任务上的表现，并为无监督的句子表示学习设定了一个最先进的方法。</p><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>通用句子表征学习一直是自然语言处理中的一个长期问题。利用分布式单词表征作为基础特征来产生句子表征是早期阶段的一个常见策略。然而这些方法都是针对不同的目标任务而设计的，因此产生的句子表征通用性较差。</p><p>这个问题促使人们在设计通用的句子级学习目标或任务方面做出更多的研究努力。其中自然语言推理（NLI）数据集上的监督学习已经在各种下游任务上建立了基准的迁移学习性能。尽管取得了可喜的进展，但收集注释的高成本阻碍了其广泛的适用性，特别是在目标领域注释很少，但与NLI数据集有很大差别的情况。<font color='red'>NLI数据集一般是给定一个假设，然后对这个假设有人工标注的蕴含、中立、矛盾类型的句子对。一些CL工作将矛盾类型特别当做hard-negative</font> </p><p>另外一方面，随着最近自监督对比学习的成功，句子表征的无监督学习又重新引起了人们的兴趣。这些方法依赖于两个主要部分：<strong>数据增强</strong>和<strong>实例级的对比性损失</strong>。流行的对比性学习目标（SimCLR那边的infoNCE）及其变体，已经在经验性上证明了它们在NLP中的有效性。然而，文本的离散性使得为有效的文本增强生成简历普遍的规则成为挑战。</p><p>人们提出了各种基于对比学习的方法来学习句子的表征，其主要区别在于如何生成增强的内容。有点令人惊讶的是，最近的一项工作（SimCSE）从经验上表明dropout（例：通过向编码器提供同一实例两次而获得的数据增强），超越了在文本上操作的普通数据增强策略， 包括删除单词或同义词替换等。在另一面，这一观察再次验证了在NLP中实现有效的数据增强的内在困难。</p><p><font color='red'>这段Introduction感觉写的不错</font> </p><p>在本文中，我们通过提出一个邻域引导的虚拟增强策略来应对这一挑战，以支持对比性学习。简而言之，数据增强本质上是构建每个实例的邻域，而语义内容被保留下来。<strong>我们通过利用实例的邻域来指导扩增的生成，将这种解释引向相反的方向。</strong>受益于对比学习的大批量训练，我们通过一个实例的K-nearest in-batch neighbor对其进行近似。然后我们在这个邻域内定义一个实例判别任务，并以对抗性训练的方式生成虚拟增强。</p><p><font color='red'>这里大概看到method能明白是什么意思，在abstract里面略微有写</font> </p><p>我们在广泛的下游任务上评估了我们的模型，并表明我们的模型始终以很大的优势超过了以前的最先进结果。我们进行了深入的分析，并表明我们的VaSCL模型导致了一个更分散的表征空间，不同粒度的数据语义得到了更好的捕捉。</p><p><font color='red'>各向异性、各项同性相关的分析？alignment and uniformlity</font> </p><h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h2><p>2.1节Universal Sentence Representation Learning；2.2节Contrastive Learning；2.3节Consistency Regularization；</p><h2 id="2-1-Universal-Sentence-Representation-Learning"><a href="#2-1-Universal-Sentence-Representation-Learning" class="headerlink" title="2.1 Universal Sentence Representation Learning"></a>2.1 Universal Sentence Representation Learning</h2><p>可以说（Arguably），获得句子表征的最简单和最常见的方法是word-bag及其变体。然而，word-bag存在着数据稀少和对词的语义缺乏敏感的问题<font color='red'>词袋的方法应该是一些统计特征上的利用？</font> 。在过去的20年里，分布式单词表征已经成为产生句子表征的更有效的基础特征。缺点是这些方法是针对目标任务的，因此产生的句子表征的迁移学习性能有限。</p><p>最近的努力集中在直接设计句子级别的学习目标或任务。在监督学习制度上，一些研究者证明了利用NLI任务促进通用句子表征的有效性。该任务涉及将每个句子对归入三个类别之一：蕴含（entailment）、中立（neutral）、矛盾（contradiction）。</p><p>Reimers和Gurevych（2019b）通过使用预训练的Transformer（BERT、RoBERTa）作为骨干，进一步增强了性能。另一方面，Hill等人（2016年）；Bowman等人（2015b）提议使用去噪或变分自动编码器（VAE，variational auto encoder）进行句子表示学习。Kiros等人（2015）；Hill等人（2016）将分布假设扩展到句子层面，并训练编码器-解码器为每个句子构建周围语境。或者，Logeswaran和Lee（2018）提出了一个模型，学习区分目标语境句子和所有对比句子。</p><h3 id="2-2-Contrastive-Learning"><a href="#2-2-Contrastive-Learning" class="headerlink" title="2.2 Contrastive Learning"></a>2.2 Contrastive Learning</h3><p>对比学习是近期句子表征学习成功的顶峰。Gao等人（2021）；Zhang等人（2021）通过利用NLI中的entailment句子作为positive pair来优化适当设计的对比性损失函数，大大推进了之前的最先进成果。然而，我们专注于无监督的对比学习，并通过数据增强形成positive pari，因为这种方法更具成本效益，并适用于不同领域和语言。沿着这条路线，最近提出了几种方法，其中增强是通过dropout、回译、周围环境采样或在不同语义层面进行的扰动获得。</p><p><font color='red'>dropout这个方法是很有特点的，解决了数据增强不很稳定的特点</font> </p><h3 id="2-3-Consistency-Regularization"><a href="#2-3-Consistency-Regularization" class="headerlink" title="2.3 Consistency Regularization"></a>2.3 Consistency Regularization</h3><p>我们的工作也与一致性的正则化密切相关，一致性的正则化通常用于促进更好的性能，通过正则化使得模型的输出在合理的输入变化下保持不变，<strong>这些变化通常是数据增强引起的。</strong>随机的数据增强，如dropout、cropping、rotation和flipping产生有效的正则化。Berthelot等人（2019，2020）；Verma等人（2019）通过应用Mixup（Zhang等人，2017）及其在随机数据增强之上的变体来增强性能。</p><p>然而，数据扩充长期以来一直是NLP的一个挑战，因为没有有效的文本转换的一般规则。<strong>当考虑到违反一致性正则化时，一个替代方案就会出现，反过来可以用来寻找模型最敏感的扰动。</strong>在本文中，我们利用一致性正则化来促进表征空间中某一实例的信息性虚拟增强，同时利用其近似的邻域来正则化共享与原始实例相似的语义内容的增强。</p><p><font color='red'>这里加粗那句话是说，如果数据增强不当就会使得模型被很敏感的扰动了，那么反过来就是说寻找使得模型最为敏感的扰动。</font> </p><h2 id="3-Method"><a href="#3-Method" class="headerlink" title="3. Method"></a>3. Method</h2><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801224053571.png" alt=" "></p><p><font color='red'>这里先把method的主图贴出来：</font> </p><p><font color='blue'>base：加上噪声不能影响基础的语义 </font> </p><p><font color='blue'>可能认为N-1一定不存在正例，要么K近邻就会出问题；；；shifting的效果太小了？</font> </p><h3 id="3-1-Preliminaries"><a href="#3-1-Preliminaries" class="headerlink" title="3.1 Preliminaries"></a>3.1 Preliminaries</h3><p><font color='red'>这里基本是复述了一下SimCLR这种比较经典的对比学习框架是怎么实现的，以及SimCSE这种比较“新奇”有代表性的方法</font> </p><p>自我监督的对比性学习通常旨在解决实例辨别任务。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801225128034.png" alt="image-20220801225128034" style="zoom:67%;" /><p><font color='red'>注意这里给出了“contrastive learning head”也就是zi的表述，指的是那种在hi后面再接一个线性层，用那个线性层输出作为对比学习输入的方式。</font> </p><p>直观地说，方程（1）定义了在同一批B中的所有2M-1个候选者中，将第i个实例分类为其正面的对数可能性。</p><ul><li><p><strong>Dropout based contrastive learning</strong>：正如方程1所暗示的，对比性学习的成功依赖于有效的positive pair的构建，然而，由于自然语言的离散型，在NLP中很难产生强大而有效的数据转换。这一挑战在最近的一项工作中得到了进一步的证明（SimCSE），这一工作表明，通过dropout获得的数据增强胜过常见的文本扩充策略，如裁剪、删词或同义词替换。</p><p>Dropout通过随机掩盖其输入或隐藏层节点，为数据增量提供了一种自然的方式。使用Dropout作为伪数据增强的有效性可以追溯到Bachman等人（2014）; Samuli和Timo（2017）; Tarvainen和Valpola（2017）。<strong>尽管如此，仅用Dropout的增强强度是很弱的，有改进的余地，我们在下一节进行研究。</strong></p></li></ul><h3 id="3-2-Neighborhood-Constrained-Contrastive-Learning-with-Virtual-Augmentation"><a href="#3-2-Neighborhood-Constrained-Contrastive-Learning-with-Virtual-Augmentation" class="headerlink" title="3.2 Neighborhood Constrained Contrastive Learning with Virtual Augmentation"></a>3.2 Neighborhood Constrained Contrastive Learning with Virtual Augmentation</h3><p><font color='red'>邻居约束下的对比性学习与虚拟增强</font> </p><p>从本质上讲，数据增强可以被解释为在保留语义内容的前提下，构建训练中的邻域。<font color='red'>这个解释还是非常直观的，就是说构建出来的应该是邻域的，那么反过来说邻域的信息可被用来进行一些构建？</font> 在本节中，我们从相反的方向进行解释，首先对一个实例的邻域进行近似，在此基础上生成数据增强。</p><p>更加具体的来说，首先使得$B&#x3D;{i}_{i&#x3D;1}^{M}$代表随机采样选取的大小为M的一批数据。我们首先对于第i个实例，选择其最K近邻的邻居$N(i)$（我们首先将第1个实例的邻域N(i)近似为它在表示空间中的K个最近的邻居）</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801231425045.png" alt="image-20220801231425045" style="zoom:67%;" /><p>然后我们定义一个实例级的对比性损失 关于第1个实例和它的邻域，定义如下。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801231457038.png" alt="image-20220801231457038" style="zoom:67%;" /><p>在上式中，<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801232429140.png" alt="image-20220801232429140" style="zoom:50%;" />代表perturbed representation<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801232514750.png" alt="image-20220801232514750" style="zoom:50%;" />在contrastive learning head的输出表征。这里，初始扰动δi被选为各向同性的高斯噪声。正如它所暗示的那样，方程（2）显示了将受扰动的第i个实例归类为自身而不是其邻居的负对数可能性。</p><p><font color='red'>当扰动和自身接近的时候loss小，而当扰动和其他邻居更加接近的时候，loss大；另外这里是在ei层面上做的操作，引导ei学习表征更好，更好的表示一个句子？</font> </p><p>然后，通过确定在这个邻域内最大程度地扰乱其实例级特征的最佳扰动，保留第i个实例的增强。这就是</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801233016798.png" alt="image-20220801233016798" style="zoom:67%;" /><p><font color='red'>取最大的扰动（这个扰动的二范式，也就是自身长度大小那种感觉不能超过△，然后这个扰动使得他离K近邻的这些neighbor相对更近，而离自己较远，那么来说的话，这是一个很好的hard样例，扰动了一下但是和原句一个意思，然后又比较难）</font> </p><p>将$N_A(i)$表示第i个实例的增强邻域，即<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801234509356.png" alt="image-20220801234509356" style="zoom:50%;" />。$e_k$代表原始的第k个实例的嵌入表征，$e_k*$代表相关的增强后的表征。注意这里$e_k*$是以方程（4）中定义的同样方式获得的，关于它自己的邻域$N{(k)}$。然后，我们将第i个实例及其数据增强与它的数据增强邻域$N_A(i)$内的其他实例区分开来，如下所示：</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801235339120.png" alt="image-20220801235339120" style="zoom:50%;" /><p><strong><font color='red'>分别以第i个实例的增强，和第i个实例作为anchor：原句和其虚拟的困难样本形成positivepair相互拉近，原句和原句的虚拟样本分别于K邻域内的负样本 虚拟困难样本拉远</font></strong> </p><p><font color='blue'>生成的hard-negative；；；一个batch中找到k，</font> </p><ul><li>Putting in all together：因此，对于每个有M个样本的随机抽样的mini-batch B，我们最小化如下的损失函数：</li></ul><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220802000523521.png" alt="image-20220802000523521" style="zoom:67%;" /><p><font color='red'>就是SimCSE的loss加上作者这个K邻居集中的loss</font> </p><p>结合起来，对每个训练实例提出了两个实例判别任务：将每个实例及其dropout引起的变化与其他批次中的实例分开；将每个实例及其虚拟增强与它的前K个最近的邻居及其虚拟增强分开。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801224053571.png" alt="image-20220801224053571"></p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">读到这里后来理解一下作者给的主图，<br></code></pre></td></tr></table></figure><h2 id="4-Experiment"><a href="#4-Experiment" class="headerlink" title="4. Experiment"></a>4. Experiment</h2><p><font color='red'>这里着重记录一下看到里面一些比较有亮点的ablation实验等，别的简单带过一下</font> </p><p>在这一节中，我们主要针对SimCSE（Gao等人，2021）对VaSCL进行评估，SimCSE利用dropout（Srivastava等人，2014）引起的噪声作为数据增强。我们表明，VaSCL在涉及不同粒度的语义理解的各种下游任务中，一致地优于SimCSE。我们仔细研究了VaSCL的规则化效应，并从经验上证明VaSCL导致了一个更分散的代表空间，语义结构被更好地编码。<font color='red'>这里就是更加各向同性？</font> </p><h3 id="4-1-Evaluation-Datasets-amp-4-2-Main-Results"><a href="#4-1-Evaluation-Datasets-amp-4-2-Main-Results" class="headerlink" title="4.1 Evaluation Datasets &amp; 4.2 Main Results"></a>4.1 Evaluation Datasets &amp; 4.2 Main Results</h3><ul><li>Table1：Semantic Textual Similarity</li></ul><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220802001315529.png" alt="image-20220802001315529"><font color='red'>主实验结果相比SimCSE还是超越了相当程度的</font> </p><ul><li>Table2：Short Text Clustering（The clustering accuracy is computed by using the Hungarian algorithm (Munkres, 1957）</li></ul><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220802002029846.png" alt="image-20220802002029846" style="zoom:50%;" /><ul><li>Table3：Intent Classification</li></ul><p>我们冻结Transformer，用基于softmax的交叉熵损失对线性分类层进行微调。我们合并训练集和验证集，从中为每个类别抽取K个训练和验证样本</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220802002133219.png" alt="image-20220802002133219" style="zoom:80%;" /><p><strong><font color='purple'>这里感觉还是之前讨论的那个问题，在这里相当于pretrain了后，那么我在下游任务的时候是怎么个微调的过程？或者说下游这些任务不需要微调？</font></strong> </p><h3 id="4-3-Analysis"><a href="#4-3-Analysis" class="headerlink" title="4.3 Analysis"></a>4.3 Analysis</h3><ul><li>Neighborhood Evaluation on Categorical Data</li></ul><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220802002704968.png" alt="image-20220802002704968"></p><p>左边图表明，相似的样本还是足够的近，K很大了相似占比还是<strong>相对的</strong>多</p><p>右边图表明，这个特征空间在VaSCL和SimCSE的作用下拉的比较开，也就是说和K近邻的平均距离非常远！</p><ul><li>Fine-grained Semantic Understanding 细粒度的语义理解</li></ul><p><img src="/Users/curious/Desktop/image-20220802003557952.png" alt="image-20220802003557952"></p><p><font color='red'>这个图有点没看懂，之后还要详细看一下</font> </p><p><font color='blue'>contradiction 和 entailment就分的更开了，</font> </p><h3 id="4-4-Explict-Data-Augmentation"><a href="#4-4-Explict-Data-Augmentation" class="headerlink" title="4.4 Explict Data Augmentation"></a>4.4 Explict Data Augmentation</h3><p><font color='red'>显式增强差很多？在STS和STC任务上，加上后性能都下降了，也就是说不能和传统的方法混用？但是在10-shot 的intent cls上上升了；</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220802004152333.png" alt="image-20220802004152333"></p><ul><li><p>VaSCL Outperforms SimCSE：图3a也从经验上表明，无论是否存在明确的文本增强，VaSCL都优于SimCSE。唯一的例外是当明确的增强强度过大时，即每个文本中20%的词被扰动。一个可能的解释是，对离散文本的大扰动会直接产生不希望有的噪音，这可能会违反邻域所保持的连贯性，从而使VaSCL难以产生有效的虚拟增强。</p></li><li><p>New Linguistic Patterns Are Required For A Win-Win Performance Gain：要想获得双赢的业绩，需要新的语言学模式</p><p>从图3a中得出的另一个观察结果是，SimCSE和VaSCL在与明确的文本增强相结合时，在大多数下游任务上的表现都比较差。尽管VaSCL在大多数情况下确实提高了显式扩增的性能，但这是不可取的，因为我们期望一个双赢的结果，即适度的显式扩增也能提高VaSCL的性能。我们假设，为了达到预期的性能增益，缺少新的但又有信息的语言模式。</p></li></ul><p>为了验证我们的假设，在图3b中，我们报告了每个原始训练例子与其在不同模型的表示空间上评估的增强的余弦相似度。我们的观察是双重的。首先，由RoBERTa诱导的表征和用同义词替换训练的表征（”SimCSE w&#x2F; CTxt”）在所有三种情况下都非常相似，这也解释了为什么 “SimCSE w&#x2F; WDel “在下游任务中获得了与RoBERTa类似的性能。我们将此归因于这样一个事实，即CTxt利用转化器本身来生成增量，从而携带有限的未见过的有效语言模式。其次，正如图3b中相对较小的相似度值所表明的那样，为了验证我们的假设，在图3b中，我们报告了每个原始训练例子与其在不同模型的表示空间上评估的增强的余弦相似度。我们的观察是双重的。首先，由RoBERTa诱导的表征和用同义词替换训练的表征（”SimCSE w&#x2F; CTxt”）在所有三种情况下都非常相似，这也解释了为什么 “SimCSE w&#x2F; WDel “在下游任务中获得了与RoBERTa类似的性能。我们将此归因于这样一个事实，即CTxt利用转化器本身来生成增量，从而携带有限的未见过的有效语言模式。其次，正如图3b中相对较小的相似度值所表明的那样<strong>，显式增量的加入【收紧了SimCSE和VaSCL的表达空间】，这也反过来导致下游任务的性能下降。一个可能的解释是，所有三个显式增强都是弱的和嘈杂的，这损害了实例的识别力和每个邻域的语义相关性。</strong></p><h2 id="5-Conclusion"><a href="#5-Conclusion" class="headerlink" title="5. Conclusion"></a>5. Conclusion</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>research</category>
+      
+      <category>contrastive learning</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>contrastive learning</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>naacl2022_Token-aware Contrastive Learning论文阅读</title>
     <link href="/2022/08/02/research/papers/contrastive-learning/naacl2022_Token-aware%20CL/"/>
     <url>/2022/08/02/research/papers/contrastive-learning/naacl2022_Token-aware%20CL/</url>
@@ -1415,11 +1469,11 @@
   
   
   <entry>
-    <title>acl-findings2022_Virtual Augumentation CL论文阅读</title>
-    <link href="/2022/08/02/research/papers/contrastive-learning/aclfindings2022_Virtual%20Augmentation%20CL/"/>
-    <url>/2022/08/02/research/papers/contrastive-learning/aclfindings2022_Virtual%20Augmentation%20CL/</url>
+    <title>emnlp2021_SimCSE论文阅读</title>
+    <link href="/2022/07/21/research/papers/contrastive-learning/emnlp2021_SimCSE%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
+    <url>/2022/07/21/research/papers/contrastive-learning/emnlp2021_SimCSE%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</url>
     
-    <content type="html"><![CDATA[<h1 id="acl-findings2022-Virtual-Augumentation-CL论文阅读"><a href="#acl-findings2022-Virtual-Augumentation-CL论文阅读" class="headerlink" title="acl-findings2022_Virtual Augumentation CL论文阅读"></a>acl-findings2022_Virtual Augumentation CL论文阅读</h1><p>Virtual Augmentation Supported Contrastive Learning of Sentence Representations</p><p>虚拟增强支持的句子表征的对比性学习</p><p>个人总结文章的亮点如下：</p><p>1）hard-negative角度，有一种反向的思路的感觉，邻域内的样本制造hard-negative：离自己相对较远而离邻居相对更近的一个微小扰动，但感觉不是negative这样的，只能说创造了一个hard的positive-pair？</p><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul><li>亚马逊提出无监督虚拟增强句子表征学习框架，效果超越SimCSE：<a href="http://www.360doc.com/content/21/1217/20/7673502_1009176247.shtml">http://www.360doc.com/content/21/1217/20/7673502_1009176247.shtml</a></li></ul><h2 id="TODO-list"><a href="#TODO-list" class="headerlink" title="TODO-list"></a>TODO-list</h2><ul><li><strong><font color='purple'>感觉还是之前讨论的那个问题，在这里相当于pretrain了后，那么我在下游任务的时候是怎么个微调的过程？或者说下游这些任务不需要微调？</font></strong></li></ul><h2 id="0-Abstract"><a href="#0-Abstract" class="headerlink" title="0. Abstract"></a>0. Abstract</h2><p>尽管取得了巨大的成功，但对比性表征学习仍依赖于使用特定领域知识精心设计的数据增强。这一挑战在自然语言处理领域中被放大了，由于自然语言的离散性，在数据增强方面不存在一般规则。</p><p><font color='red'>像图像的话因为本质上都是一样的，那么可以直接旋转、裁剪、加噪声等，但是由于自然语言不同语言特性不同，而且增强的方法可能会对语义有着本质上的改变，感觉在增强方面几乎就没有什么很通用的</font> </p><p>我们提出通过虚拟增强支持的句子表征对比学习（VaSCL，Virtual augmentation Supported Contrastive Learning）来应对这一挑战。我们从数据增强本质上构建每个训练实例的邻域的解释出发，反过来利用邻域来产生有效的数据增增强。</p><p><font color='red'>论文是从hard-negative这个角度来说的，我的一个原句的hard-negative的构建，可以通过在原句子基础上添加噪声，然后让这个噪声更加接近其K近邻样本而非原句，选一个噪声和原句有一种最远感觉的（在K个sample时候loss最大），这样带噪声的就是一个额外特殊的hard-negative了。</font> </p><p><strong><font color='purple'>注意hard-negative不一定指的是对立的那种contradiction样本，而是说难学习的，比如扰动后的话毕竟还是基于原句子一个很微小扰动得到的，那么他理应当和原句形成一个positive pair</font></strong> </p><p>利用对比学习的大批量训练，我们通过一个实例在表示空间中的K-nearest in-batch邻居来近似其邻域。然后，我们定义一个关于这个邻域的实例判别任务，并以对抗性训练的方式生成虚拟增强。</p><p>我们查看了VaSCL在广泛的下游任务上的表现，并为无监督的句子表示学习设定了一个最先进的方法。</p><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>通用句子表征学习一直是自然语言处理中的一个长期问题。利用分布式单词表征作为基础特征来产生句子表征是早期阶段的一个常见策略。然而这些方法都是针对不同的目标任务而设计的，因此产生的句子表征通用性较差。</p><p>这个问题促使人们在设计通用的句子级学习目标或任务方面做出更多的研究努力。其中自然语言推理（NLI）数据集上的监督学习已经在各种下游任务上建立了基准的迁移学习性能。尽管取得了可喜的进展，但收集注释的高成本阻碍了其广泛的适用性，特别是在目标领域注释很少，但与NLI数据集有很大差别的情况。<font color='red'>NLI数据集一般是给定一个假设，然后对这个假设有人工标注的蕴含、中立、矛盾类型的句子对。一些CL工作将矛盾类型特别当做hard-negative</font> </p><p>另外一方面，随着最近自监督对比学习的成功，句子表征的无监督学习又重新引起了人们的兴趣。这些方法依赖于两个主要部分：<strong>数据增强</strong>和<strong>实例级的对比性损失</strong>。流行的对比性学习目标（SimCLR那边的infoNCE）及其变体，已经在经验性上证明了它们在NLP中的有效性。然而，文本的离散性使得为有效的文本增强生成简历普遍的规则成为挑战。</p><p>人们提出了各种基于对比学习的方法来学习句子的表征，其主要区别在于如何生成增强的内容。有点令人惊讶的是，最近的一项工作（SimCSE）从经验上表明dropout（例：通过向编码器提供同一实例两次而获得的数据增强），超越了在文本上操作的普通数据增强策略， 包括删除单词或同义词替换等。在另一面，这一观察再次验证了在NLP中实现有效的数据增强的内在困难。</p><p><font color='red'>这段Introduction感觉写的不错</font> </p><p>在本文中，我们通过提出一个邻域引导的虚拟增强策略来应对这一挑战，以支持对比性学习。简而言之，数据增强本质上是构建每个实例的邻域，而语义内容被保留下来。<strong>我们通过利用实例的邻域来指导扩增的生成，将这种解释引向相反的方向。</strong>受益于对比学习的大批量训练，我们通过一个实例的K-nearest in-batch neighbor对其进行近似。然后我们在这个邻域内定义一个实例判别任务，并以对抗性训练的方式生成虚拟增强。</p><p><font color='red'>这里大概看到method能明白是什么意思，在abstract里面略微有写</font> </p><p>我们在广泛的下游任务上评估了我们的模型，并表明我们的模型始终以很大的优势超过了以前的最先进结果。我们进行了深入的分析，并表明我们的VaSCL模型导致了一个更分散的表征空间，不同粒度的数据语义得到了更好的捕捉。</p><p><font color='red'>各向异性、各项同性相关的分析？alignment and uniformlity</font> </p><h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h2><p>2.1节Universal Sentence Representation Learning；2.2节Contrastive Learning；2.3节Consistency Regularization；</p><h2 id="2-1-Universal-Sentence-Representation-Learning"><a href="#2-1-Universal-Sentence-Representation-Learning" class="headerlink" title="2.1 Universal Sentence Representation Learning"></a>2.1 Universal Sentence Representation Learning</h2><p>可以说（Arguably），获得句子表征的最简单和最常见的方法是word-bag及其变体。然而，word-bag存在着数据稀少和对词的语义缺乏敏感的问题<font color='red'>词袋的方法应该是一些统计特征上的利用？</font> 。在过去的20年里，分布式单词表征已经成为产生句子表征的更有效的基础特征。缺点是这些方法是针对目标任务的，因此产生的句子表征的迁移学习性能有限。</p><p>最近的努力集中在直接设计句子级别的学习目标或任务。在监督学习制度上，一些研究者证明了利用NLI任务促进通用句子表征的有效性。该任务涉及将每个句子对归入三个类别之一：蕴含（entailment）、中立（neutral）、矛盾（contradiction）。</p><p>Reimers和Gurevych（2019b）通过使用预训练的Transformer（BERT、RoBERTa）作为骨干，进一步增强了性能。另一方面，Hill等人（2016年）；Bowman等人（2015b）提议使用去噪或变分自动编码器（VAE，variational auto encoder）进行句子表示学习。Kiros等人（2015）；Hill等人（2016）将分布假设扩展到句子层面，并训练编码器-解码器为每个句子构建周围语境。或者，Logeswaran和Lee（2018）提出了一个模型，学习区分目标语境句子和所有对比句子。</p><h3 id="2-2-Contrastive-Learning"><a href="#2-2-Contrastive-Learning" class="headerlink" title="2.2 Contrastive Learning"></a>2.2 Contrastive Learning</h3><p>对比学习是近期句子表征学习成功的顶峰。Gao等人（2021）；Zhang等人（2021）通过利用NLI中的entailment句子作为positive pair来优化适当设计的对比性损失函数，大大推进了之前的最先进成果。然而，我们专注于无监督的对比学习，并通过数据增强形成positive pari，因为这种方法更具成本效益，并适用于不同领域和语言。沿着这条路线，最近提出了几种方法，其中增强是通过dropout、回译、周围环境采样或在不同语义层面进行的扰动获得。</p><p><font color='red'>dropout这个方法是很有特点的，解决了数据增强不很稳定的特点</font> </p><h3 id="2-3-Consistency-Regularization"><a href="#2-3-Consistency-Regularization" class="headerlink" title="2.3 Consistency Regularization"></a>2.3 Consistency Regularization</h3><p>我们的工作也与一致性的正则化密切相关，一致性的正则化通常用于促进更好的性能，通过正则化使得模型的输出在合理的输入变化下保持不变，<strong>这些变化通常是数据增强引起的。</strong>随机的数据增强，如dropout、cropping、rotation和flipping产生有效的正则化。Berthelot等人（2019，2020）；Verma等人（2019）通过应用Mixup（Zhang等人，2017）及其在随机数据增强之上的变体来增强性能。</p><p>然而，数据扩充长期以来一直是NLP的一个挑战，因为没有有效的文本转换的一般规则。<strong>当考虑到违反一致性正则化时，一个替代方案就会出现，反过来可以用来寻找模型最敏感的扰动。</strong>在本文中，我们利用一致性正则化来促进表征空间中某一实例的信息性虚拟增强，同时利用其近似的邻域来正则化共享与原始实例相似的语义内容的增强。</p><p><font color='red'>这里加粗那句话是说，如果数据增强不当就会使得模型被很敏感的扰动了，那么反过来就是说寻找使得模型最为敏感的扰动。</font> </p><h2 id="3-Method"><a href="#3-Method" class="headerlink" title="3. Method"></a>3. Method</h2><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801224053571.png" alt=" "></p><p><font color='red'>这里先把method的主图贴出来：</font> </p><p><font color='blue'>base：加上噪声不能影响基础的语义 </font> </p><p><font color='blue'>可能认为N-1一定不存在正例，要么K近邻就会出问题；；；shifting的效果太小了？</font> </p><h3 id="3-1-Preliminaries"><a href="#3-1-Preliminaries" class="headerlink" title="3.1 Preliminaries"></a>3.1 Preliminaries</h3><p><font color='red'>这里基本是复述了一下SimCLR这种比较经典的对比学习框架是怎么实现的，以及SimCSE这种比较“新奇”有代表性的方法</font> </p><p>自我监督的对比性学习通常旨在解决实例辨别任务。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801225128034.png" alt="image-20220801225128034" style="zoom:67%;" /><p><font color='red'>注意这里给出了“contrastive learning head”也就是zi的表述，指的是那种在hi后面再接一个线性层，用那个线性层输出作为对比学习输入的方式。</font> </p><p>直观地说，方程（1）定义了在同一批B中的所有2M-1个候选者中，将第i个实例分类为其正面的对数可能性。</p><ul><li><p><strong>Dropout based contrastive learning</strong>：正如方程1所暗示的，对比性学习的成功依赖于有效的positive pair的构建，然而，由于自然语言的离散型，在NLP中很难产生强大而有效的数据转换。这一挑战在最近的一项工作中得到了进一步的证明（SimCSE），这一工作表明，通过dropout获得的数据增强胜过常见的文本扩充策略，如裁剪、删词或同义词替换。</p><p>Dropout通过随机掩盖其输入或隐藏层节点，为数据增量提供了一种自然的方式。使用Dropout作为伪数据增强的有效性可以追溯到Bachman等人（2014）; Samuli和Timo（2017）; Tarvainen和Valpola（2017）。<strong>尽管如此，仅用Dropout的增强强度是很弱的，有改进的余地，我们在下一节进行研究。</strong></p></li></ul><h3 id="3-2-Neighborhood-Constrained-Contrastive-Learning-with-Virtual-Augmentation"><a href="#3-2-Neighborhood-Constrained-Contrastive-Learning-with-Virtual-Augmentation" class="headerlink" title="3.2 Neighborhood Constrained Contrastive Learning with Virtual Augmentation"></a>3.2 Neighborhood Constrained Contrastive Learning with Virtual Augmentation</h3><p><font color='red'>邻居约束下的对比性学习与虚拟增强</font> </p><p>从本质上讲，数据增强可以被解释为在保留语义内容的前提下，构建训练中的邻域。<font color='red'>这个解释还是非常直观的，就是说构建出来的应该是邻域的，那么反过来说邻域的信息可被用来进行一些构建？</font> 在本节中，我们从相反的方向进行解释，首先对一个实例的邻域进行近似，在此基础上生成数据增强。</p><p>更加具体的来说，首先使得$B&#x3D;{i}_{i&#x3D;1}^{M}$代表随机采样选取的大小为M的一批数据。我们首先对于第i个实例，选择其最K近邻的邻居$N(i)$（我们首先将第1个实例的邻域N(i)近似为它在表示空间中的K个最近的邻居）</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801231425045.png" alt="image-20220801231425045" style="zoom:67%;" /><p>然后我们定义一个实例级的对比性损失 关于第1个实例和它的邻域，定义如下。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801231457038.png" alt="image-20220801231457038" style="zoom:67%;" /><p>在上式中，<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801232429140.png" alt="image-20220801232429140" style="zoom:50%;" />代表perturbed representation<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801232514750.png" alt="image-20220801232514750" style="zoom:50%;" />在contrastive learning head的输出表征。这里，初始扰动δi被选为各向同性的高斯噪声。正如它所暗示的那样，方程（2）显示了将受扰动的第i个实例归类为自身而不是其邻居的负对数可能性。</p><p><font color='red'>当扰动和自身接近的时候loss小，而当扰动和其他邻居更加接近的时候，loss大；另外这里是在ei层面上做的操作，引导ei学习表征更好，更好的表示一个句子？</font> </p><p>然后，通过确定在这个邻域内最大程度地扰乱其实例级特征的最佳扰动，保留第i个实例的增强。这就是</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801233016798.png" alt="image-20220801233016798" style="zoom:67%;" /><p><font color='red'>取最大的扰动（这个扰动的二范式，也就是自身长度大小那种感觉不能超过△，然后这个扰动使得他离K近邻的这些neighbor相对更近，而离自己较远，那么来说的话，这是一个很好的hard样例，扰动了一下但是和原句一个意思，然后又比较难）</font> </p><p>将$N_A(i)$表示第i个实例的增强邻域，即<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801234509356.png" alt="image-20220801234509356" style="zoom:50%;" />。$e_k$代表原始的第k个实例的嵌入表征，$e_k*$代表相关的增强后的表征。注意这里$e_k*$是以方程（4）中定义的同样方式获得的，关于它自己的邻域$N{(k)}$。然后，我们将第i个实例及其数据增强与它的数据增强邻域$N_A(i)$内的其他实例区分开来，如下所示：</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801235339120.png" alt="image-20220801235339120" style="zoom:50%;" /><p><strong><font color='red'>分别以第i个实例的增强，和第i个实例作为anchor：原句和其虚拟的困难样本形成positivepair相互拉近，原句和原句的虚拟样本分别于K邻域内的负样本 虚拟困难样本拉远</font></strong> </p><p><font color='blue'>生成的hard-negative；；；一个batch中找到k，</font> </p><ul><li>Putting in all together：因此，对于每个有M个样本的随机抽样的mini-batch B，我们最小化如下的损失函数：</li></ul><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220802000523521.png" alt="image-20220802000523521" style="zoom:67%;" /><p><font color='red'>就是SimCSE的loss加上作者这个K邻居集中的loss</font> </p><p>结合起来，对每个训练实例提出了两个实例判别任务：将每个实例及其dropout引起的变化与其他批次中的实例分开；将每个实例及其虚拟增强与它的前K个最近的邻居及其虚拟增强分开。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220801224053571.png" alt="image-20220801224053571"></p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">读到这里后来理解一下作者给的主图，<br></code></pre></td></tr></table></figure><h2 id="4-Experiment"><a href="#4-Experiment" class="headerlink" title="4. Experiment"></a>4. Experiment</h2><p><font color='red'>这里着重记录一下看到里面一些比较有亮点的ablation实验等，别的简单带过一下</font> </p><p>在这一节中，我们主要针对SimCSE（Gao等人，2021）对VaSCL进行评估，SimCSE利用dropout（Srivastava等人，2014）引起的噪声作为数据增强。我们表明，VaSCL在涉及不同粒度的语义理解的各种下游任务中，一致地优于SimCSE。我们仔细研究了VaSCL的规则化效应，并从经验上证明VaSCL导致了一个更分散的代表空间，语义结构被更好地编码。<font color='red'>这里就是更加各向同性？</font> </p><h3 id="4-1-Evaluation-Datasets-amp-4-2-Main-Results"><a href="#4-1-Evaluation-Datasets-amp-4-2-Main-Results" class="headerlink" title="4.1 Evaluation Datasets &amp; 4.2 Main Results"></a>4.1 Evaluation Datasets &amp; 4.2 Main Results</h3><ul><li>Table1：Semantic Textual Similarity</li></ul><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220802001315529.png" alt="image-20220802001315529"><font color='red'>主实验结果相比SimCSE还是超越了相当程度的</font> </p><ul><li>Table2：Short Text Clustering（The clustering accuracy is computed by using the Hungarian algorithm (Munkres, 1957）</li></ul><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220802002029846.png" alt="image-20220802002029846" style="zoom:50%;" /><ul><li>Table3：Intent Classification</li></ul><p>我们冻结Transformer，用基于softmax的交叉熵损失对线性分类层进行微调。我们合并训练集和验证集，从中为每个类别抽取K个训练和验证样本</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220802002133219.png" alt="image-20220802002133219" style="zoom:80%;" /><p><strong><font color='purple'>这里感觉还是之前讨论的那个问题，在这里相当于pretrain了后，那么我在下游任务的时候是怎么个微调的过程？或者说下游这些任务不需要微调？</font></strong> </p><h3 id="4-3-Analysis"><a href="#4-3-Analysis" class="headerlink" title="4.3 Analysis"></a>4.3 Analysis</h3><ul><li>Neighborhood Evaluation on Categorical Data</li></ul><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220802002704968.png" alt="image-20220802002704968"></p><p>左边图表明，相似的样本还是足够的近，K很大了相似占比还是<strong>相对的</strong>多</p><p>右边图表明，这个特征空间在VaSCL和SimCSE的作用下拉的比较开，也就是说和K近邻的平均距离非常远！</p><ul><li>Fine-grained Semantic Understanding 细粒度的语义理解</li></ul><p><img src="/Users/curious/Desktop/image-20220802003557952.png" alt="image-20220802003557952"></p><p><font color='red'>这个图有点没看懂，之后还要详细看一下</font> </p><p><font color='blue'>contradiction 和 entailment就分的更开了，</font> </p><h3 id="4-4-Explict-Data-Augmentation"><a href="#4-4-Explict-Data-Augmentation" class="headerlink" title="4.4 Explict Data Augmentation"></a>4.4 Explict Data Augmentation</h3><p><font color='red'>显式增强差很多？在STS和STC任务上，加上后性能都下降了，也就是说不能和传统的方法混用？但是在10-shot 的intent cls上上升了；</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220802004152333.png" alt="image-20220802004152333"></p><ul><li><p>VaSCL Outperforms SimCSE：图3a也从经验上表明，无论是否存在明确的文本增强，VaSCL都优于SimCSE。唯一的例外是当明确的增强强度过大时，即每个文本中20%的词被扰动。一个可能的解释是，对离散文本的大扰动会直接产生不希望有的噪音，这可能会违反邻域所保持的连贯性，从而使VaSCL难以产生有效的虚拟增强。</p></li><li><p>New Linguistic Patterns Are Required For A Win-Win Performance Gain：要想获得双赢的业绩，需要新的语言学模式</p><p>从图3a中得出的另一个观察结果是，SimCSE和VaSCL在与明确的文本增强相结合时，在大多数下游任务上的表现都比较差。尽管VaSCL在大多数情况下确实提高了显式扩增的性能，但这是不可取的，因为我们期望一个双赢的结果，即适度的显式扩增也能提高VaSCL的性能。我们假设，为了达到预期的性能增益，缺少新的但又有信息的语言模式。</p></li></ul><p>为了验证我们的假设，在图3b中，我们报告了每个原始训练例子与其在不同模型的表示空间上评估的增强的余弦相似度。我们的观察是双重的。首先，由RoBERTa诱导的表征和用同义词替换训练的表征（”SimCSE w&#x2F; CTxt”）在所有三种情况下都非常相似，这也解释了为什么 “SimCSE w&#x2F; WDel “在下游任务中获得了与RoBERTa类似的性能。我们将此归因于这样一个事实，即CTxt利用转化器本身来生成增量，从而携带有限的未见过的有效语言模式。其次，正如图3b中相对较小的相似度值所表明的那样，为了验证我们的假设，在图3b中，我们报告了每个原始训练例子与其在不同模型的表示空间上评估的增强的余弦相似度。我们的观察是双重的。首先，由RoBERTa诱导的表征和用同义词替换训练的表征（”SimCSE w&#x2F; CTxt”）在所有三种情况下都非常相似，这也解释了为什么 “SimCSE w&#x2F; WDel “在下游任务中获得了与RoBERTa类似的性能。我们将此归因于这样一个事实，即CTxt利用转化器本身来生成增量，从而携带有限的未见过的有效语言模式。其次，正如图3b中相对较小的相似度值所表明的那样<strong>，显式增量的加入【收紧了SimCSE和VaSCL的表达空间】，这也反过来导致下游任务的性能下降。一个可能的解释是，所有三个显式增强都是弱的和嘈杂的，这损害了实例的识别力和每个邻域的语义相关性。</strong></p><h2 id="5-Conclusion"><a href="#5-Conclusion" class="headerlink" title="5. Conclusion"></a>5. Conclusion</h2>]]></content>
+    <content type="html"><![CDATA[<h1 id="emnlp2021-SimCSE论文阅读"><a href="#emnlp2021-SimCSE论文阅读" class="headerlink" title="emnlp2021_SimCSE论文阅读"></a>emnlp2021_SimCSE论文阅读</h1><p>**SimCSE: Simple Contrastive Learning of Sentence Embeddings **普林斯顿&amp;清华大学</p><p>SimCSE，个人总结文章的亮点如下：</p><p>1）一种无监督的方法，只简单使用BERT中的dropout，一句话过同一个bert两次，生成的两种representation之间构成positive pair；</p><p>2）一种有监督的方法，使用NLI数据集内部包含的一个前提，以及前提对应的蕴含文本、中立文本、矛盾文本，其中和蕴含文本构成positive pair，和矛盾文本构成negative pair，还可以通过权重额外增强negative pair；</p><p>3）提出了从理论分析的角度，alignment和uniformity证明这种简单dropout有效的；</p><p>4）进行了多项ablation实验，寻求细节处的最有设置</p><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul><li><p><a href="https://zhuanlan.zhihu.com/p/462763973">https://zhuanlan.zhihu.com/p/462763973</a></p></li><li><p><a href="https://zhuanlan.zhihu.com/p/476429545">https://zhuanlan.zhihu.com/p/476429545</a></p></li><li><p>文本语义相似度：<a href="https://www.zhihu.com/question/22004262/answer/2565474940">https://www.zhihu.com/question/22004262/answer/2565474940</a></p></li><li><p>文本语义相似度：<a href="https://zhuanlan.zhihu.com/p/539418586">https://zhuanlan.zhihu.com/p/539418586</a></p></li><li><p>github 代码：<a href="https://github.com/princeton-nlp/SimCSE">https://github.com/princeton-nlp/SimCSE</a></p></li></ul><h2 id="TODO-list"><a href="#TODO-list" class="headerlink" title="TODO-list"></a>TODO-list</h2><ul><li>公式（1）中positive pair是否包含在分母中？个人感觉应该是包含的吧，没有写j!&#x3D;i；<font color='blue'>包含</font> </li><li>对 Aligenment and uniformity的理解还不是很到位，可能需要去看下ICML2020那篇Understanding Contrastive Representation Learning through Alignment and Uniformity on the Hypersphere，不过有些过于数学了；</li><li>还是有些不理解使用一个而不是两个Encoder的motivation是什么，如果使用两个那么后面是要丢弃掉一个吗？除了从实验效果上来说，两个编码器的为什么相较于共用一个表现不好？；</li><li>因为是修改[CLS]token这种感觉，CL大多数的任务都是专注于句子级别的？比如句子分类还有句子情感分析相似度计算等，但是对于NER那类的任务会不会就不适用了？</li><li>[CLS]token这块的含义：</li></ul><h2 id="0-Abstract"><a href="#0-Abstract" class="headerlink" title="0. Abstract"></a>0. Abstract</h2><p>本文介绍了SimCSE（simple contrastive learning framework for sentence embedding ），一个简单的对比性学习框架，大大推进了最先进的句子嵌入技术。</p><p>我们首先描述了一种<strong>无监督的方法</strong>，它接受一个输入句子并在对比性目标中预测其本身，仅使用标准的dropout作为噪声。这种简单的方法出奇的好，与以前的有监督方法相当。我们发现，dropout作为最小的数据扩充，删除它会导致representation崩溃。</p><p>然后我们提出了一种有<strong>监督学习方法</strong>，将来自自然语言推理数据集的注释对合并到我们的对比表示学习框架中，使用“entailment（蕴含，这里翻译成<strong>相近</strong>比较好）”对代表positive并使用“contradiction（<strong>矛盾</strong>）”对代表negative。</p><p>我们在标准语义文本相似性（STS）任务上评估了SimCSE，我们使用BERT-base的无监督和有监督模型分别实现了76.3和81.6%的Spearman相关性，与之前的最佳结果相比，分别提高了4.2%和2.2%。我们还从理论和经验上证明，对比学习目标将预训练嵌入的各向异性空间正则化为更单一的形式，并且当有监督信号可用时，它可以更好地对齐正对。</p><p><font color='red'>在这里翻了下后面的ablation，似乎没有对比发表在ACL2021上的那篇韩国团队用BERT-CLS搞的，看起来实验结果比那篇好一些，然后也比较广泛流传，而且对比来说那一篇从可信性和换数据集的脆弱性上也不一定</font> </p><p><font color='red'>这个作者说的“将预训练embedding的各向异性空间正则化为更单一的形式，并且当有监督信号可用时，它可以更好地对齐正对”不理解，这里可能有一些数学原理在里面</font> </p><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>学习通用的句子嵌入是自然语言过程中的一个基本问题，在一些文献中已经得到了广泛的研究。在这项工作中，我们提出了最先进的句子嵌入方法，并证明了对比目标与预训练的语言模型如BERT和RoBERTa相结合可以非常有效。我们提出了一个简单的对比句子嵌入框架SimCSE，它可以从未标记或标记的数据中生成更好的句子嵌入。</p><ul><li>我们的<strong>无监督SimCSE</strong>简单的预测输入句子本身，只将dropout作为噪声（Figure1-a），换句话说我们将<strong>同一个句子</strong>传递给预训练的编码器两次，通过应用两次的dropout，我们可以获得两个不同的embedding作为positive pair。<font color='red'>这个还是真的很巧妙，中间多层dropout确实提供了同一个句子不同embedding表示相对的不同差异？</font> 然后我们在同一个mini-batch中选择其他句子作为negative sample， and the model predicts the positive one among negatives.<font color='red'>这句英文有点没看懂</font> ；；虽然他可能看起来非常简单，但这种方法大大优于训练目标，例如预测下一个句子和离散数据增强（例如单词删除和替换），甚至与以前的有监督方法相媲美。*<em>通过仔细分析，我们发现dropout作为隐藏表示的最小数据增强，而删除他会导致表示崩溃。</em></li><li>我们的有监督SimCSE在最近成功使用自然语言推理（Natural Language Inference, NLI）的基础上，并将带注释句子对纳入对比学习中（Figure1-b，图中<font color='green'>entailment意思是蕴含，Two dogs are running和There are animals outdoors两句话是一种蕴含关系？</font> ，<font color='red'>contradiction的意思是矛盾，Two dogs are running和The pets are sitting on a couch是矛盾的关系</font> ）。与之前将其转化为三向分类任务（蕴含、中立和矛盾）的工作不同，我们利用了蕴含对可以自然地用作positive pairs的事实。我们还发现，添加对应的矛盾对作为hard negative进一步提高了性能。与以前使用相同数据集的方法相比，这种简单使用NLI数据集的方法实现了实质性的改进。我们还与其他标记句子对数据集进行了比较，发现NLI数据集对于学习句子嵌入特别有效。</li></ul><p>为了更好地理解SimCSE强大的性能，我们借用他人的分析工具，该工具采用语义相关正对之间的对齐和整个representation空间的一致性来衡量学习embedding的质量。通过实证分析，我们发现我们的无监督SimCSE从本质上提高了一致性，同时通过dropout噪声避免了退化对齐，从而提高了表示的表达能力。同样的分析还表明，NLI训练信号可以进一步改善positive pair之间的对齐并产生更好的句子嵌入，我们还与最近的研究结果联系起来，即预训练的词嵌入存在各向异性，并通过光谱的角度证明了对比学习目标“压平”了奇异值分布 句子嵌入空间，从而提高一致性。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220715004056053.png" alt="image-20220715004056053"></p><p>我们对七个标准语义文本相似性 (STS) 任务和七个transfer task进行测试。在STS任务上，我们的无监督和有监督模型使用BERT-base分别实现了76.3和81.6的平均spearman相关性，与之前的最佳结果相比提高了4.2%和2.2%。我们还在transfer任务上取得了有竞争力的表现。最后，我们在文献中确定了一个不连贯的评估问题，并整合了不同设置的结果，以用于评估未来的句子嵌入评估工作。</p><h2 id="2-Background-Contrastive-Learning"><a href="#2-Background-Contrastive-Learning" class="headerlink" title="2. Background: Contrastive Learning"></a>2. Background: Contrastive Learning</h2><p><font color='red'>这里主要介绍的是CL方面的相关工作，和其他一些paper有可能还介绍一些fine-tuneBERT、sentence embedding什么的还不太一样 </font> </p><p>对比学习旨在通过将语义上相近的邻域聚在一起并将非邻域分开来学习有效的表征。它设置了一组成对的示例 $D &#x3D; {(x_i, x_{i}^{+})}<em>{i&#x3D;1}^{m}$，其中$x_i$与$x</em>{i}^{+}$具有语义相关的性质。我们遵循Chen等人提出的contrastive framework <font color='red'>（SimCLR）</font>，并使用cross-entropy损失函数作为训练目标with in-batch negatives <font color='red'>后面这个with in-batch negatives有点没理解，下面这个公式来说像是softmax的感觉又好像不包含positive pair在式子中。</font> $h_i$和$h_{i}^{+}$代表$x_i$与$x_{i}^{+}$的representation，一个训练的mini-batch中有N对$(x_i, x_{i}^{+})$组合，公式如下：</p><p><font color='red'><strong>自己理解这个公式来说，positive pair应该还是包含在分母中的吧，要不怎么来像是softmax衡量那个感觉？另外没有写j!&#x3D;i</strong>，另注这个公式是针对每单个样本的！对于所有样本一般先求和后再平均</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220716223355098.png" alt="image-20220716223355098"></p><p>$\tau$代表一个温度超参数<font color='red'>（个人理解有点像MHSA那块除一个根号dk，这样来放缩softmax的指数大小）</font> ，${\rm sim(h_1,h_2)}$用来衡量相似性，作者这里使用的是cosine similarity $\frac{h_{1}^{Τ}h_{2}}{\left| h_{1} \right| \cdot \left| h_{2} \right|}$<font color='red'>向量点乘除以模长乘在一起，这个应该就是$cos \theta$吧，这个数值是1代表两个向量十分接近，即完全能投影在另外一个向量上，夹角为0度；而如果是0则代表两个向量正交90°</font> 。在这项工作中，我们使用预训练的语言模型（如BERT或RoBERTa）对输入句子进行编码：h&#x3D;fθ(x)，然后使用对比学习目标（式1）。</p><h3 id="2-1-positive-instances-正实例"><a href="#2-1-positive-instances-正实例" class="headerlink" title="2.1 positive instances 正实例"></a>2.1 positive instances 正实例</h3><p>对比学习中的一个关键问题是如何构建$(x_i, x_{i}^{+})$对（positive pair）。在视觉表示中，一个有效的解决方案是对同一图像进行两次随机变换（例如，裁剪、翻转、失真和旋转）来获取$x_i$与$x_{i}^{+}$。最近在语言表示中采用了类似的数据增强技术（如单词删除、重新排序和替换）。然而由于其离散性，非线性规划中的数据扩充本质上是困难的。在第3节中我们将看到，在中间层的表征中使用标准的dropout优于这些离散的算子。<font color='red'>离散算子discrete operators大概指的就是这些传统数据增强操作。</font> </p><p>在自然语言处理中，人们在不同的语境中探索了相似的对比学习目标。在这些情况下，$x_i$与$x_{i}^{+}$是从有监督数据集例如question-passage pair中获取的。由于$x_i$与$x_{i}^{+}$的不同性质，这些方法总是使用双编码器框架，例如为$(x_i, x_{i}^{+})$使用两个独立的encoder$f_{\theta_1}$和$f_{\theta_2}$。对于句子embedding，Logeswaran和Lee（2018）也使用了双编码器方法的对比学习，将当前句子和下一个句子形成为$(x_i, x_{i}^{+})$。</p><h3 id="2-2-Aligenment-and-uniformity-同向性和均匀性"><a href="#2-2-Aligenment-and-uniformity-同向性和均匀性" class="headerlink" title="2.2 Aligenment and uniformity 同向性和均匀性"></a>2.2 Aligenment and uniformity 同向性和均匀性</h3><p>最近，Wang和Isola（[ICML2020](Understanding Contrastive Representation Learning through Alignment and Uniformity on the Hypersphere)）确定了对比学习两个重要的属性，<strong>alignment（对齐、结盟） and uniformity（均匀性、单调）</strong>，并建议使用它们来衡量表征的质量。给定positive pair的distribution$p_{pos}$，alignment计算成对实例embedding之间的预期距离（假设representation已经过规范化）：</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220716234655559.png" alt="image-20220716234655559"></p><p>从另一方面来说，uniformity衡量嵌入表征的均匀分布如何：</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220716234735352.png" alt="image-20220716234735352"></p><p>其中$p_{data}$代表data distribution。这两个指标与对比学习的目标很好的一致：positive实例应该保持紧密，随机实例的embedding应分散在hypersphere。在以下部分中，我们还将使用这两个指标证明我们方法的内部工作。</p><p><font color='red'>关于这块数学的推导还没有研究太深，还需要之后深入研究一下</font> </p><h2 id="3-Unsupervised-SimCSE"><a href="#3-Unsupervised-SimCSE" class="headerlink" title="3. Unsupervised SimCSE"></a>3. Unsupervised SimCSE</h2><p>无监督SimCSE的思想非常简单：我们收集了一些句子${x_{i}}<em>{i&#x3D;1}^{m}$并且使用$x</em>{i}^{+}&#x3D;x_{i}$。对于本项工作的关键因素是通过完全相同的获取方法获取positive pair，通过对于$x_i$和$x_{i}^{+}$独立的使用采样dropout mask。在Transformer的标准训练过程中，在fully-connected layers和attention probabilities层中使用了dropout mask（默认的p&#x3D;0.1）。</p><p>我们表示$h_{i}^{z}&#x3D;f_{\theta}(x_i,z)$，其中$z$是一个dropout的random mask。我们只需要将相同的输入送入编码器两次，就能得到两个具有不同dropout mask $z，z’$的embedding嵌入表征。而SimCSE的训练目标变成了：</p><p><font color='red'>这个公式就是上面式1那个感觉，同样和上面的一样，这单个公式是对于单个样本的！然后因为分母那边没有写j!&#x3D;i，所以positive pair也是包含在分母中的</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220717230453790.png" alt="image-20220717230453790"></p><p>对于一个包含N句话的mini-batch。注意$z$只是一个标准的包含在Transformer中的dropout mask，我们没有添加其他的dropout。</p><h3 id="3-1-Dropout-noise-as-data-augmentation"><a href="#3-1-Dropout-noise-as-data-augmentation" class="headerlink" title="3.1 Dropout noise as data augmentation"></a>3.1 Dropout noise as data augmentation</h3><p><font color='red'>这种论文写作的方法是不是不太常见？感觉还在method章节就把实验拿进来了，也可能是因为这个章节方法太简单了没什么说的，就要多写一些实验分析相关的？</font> </p><p>我们把dropout看做一种最小形式的数据增强：positive pairs采用完全相同的句子，它们的嵌入只在dropout mask上有所不同。我们将这种方法与STS-B development set上的其他训练目标进行比较[角标注释2：我们从Englist Wikipedia中随机采样了10^6的句子，并且使用lr&#x3D;3e-5 N&#x3D;64的参数来进行BERT-base的fine-tune，没有STS 的training sets被使用]。表1将我们的方法与常见的数据增强技术进行了比较，如裁剪、单词删除和替换，这些技术可以被视为$h&#x3D;f_\theta(g(x),z)$，其中$g$是一个作用于$x$的随机离散运算符<font color='red'>（理解为数据增强法）</font> 。我们注意到，即使是删除<strong>一个词one word</strong>也会损害性能，而且没有一个离散的数据增强方法能超过dropout噪声。<font color='red'>是不是如果使用其他方法的话，如果不是作者这种简单的dropout方法，那么其他方法的dropout是固定住的吗？</font> </p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220717231336252.png" alt="image-20220717231336252" style="zoom:75%;" /><p>Table1：不同数据增强方法在STS-B develoment set上的比较（Spearman’s correlation）。Crop k%代表保留了100-k%的长度；word deletion k%代表删除掉k%的词；Synonym replacement同义词替换使用了nlpaug（Ma2019）来随机替换同义词；MLM k%代表使用BERT_base替换k%的words。</p><p>我们还将这个self-prediction的自我训练目标与Logeswaran和Lee使用的下一句话目标进行比较，采取一个编码器或两个独立的编码器。我们发现SimCSE的表现比next-sentence目标好得多（在STS-B上为82.5vs67.4），使用一个编码器而不是两个编码器使我们的方法有了很大的不同。<font color='red'>对于使用两个编码器做dropout的话，那么最终是丢弃一个？</font> </p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220717233524850.png" alt="image-20220717233524850" style="zoom:75%;" /><p>Table2：不同无监督学习目标的比较（STS-B development set，Spearman’s correlation）。两列标识了我们使用同一个encoder还是两个独立的encoder。Next 3 sentences：随机从下面3句话中采样一句话；delete one word：随机从句子中删除一个词。</p><h3 id="3-2-Why-does-it-work？"><a href="#3-2-Why-does-it-work？" class="headerlink" title="3.2 Why does it work？"></a>3.2 Why does it work？</h3><p>为了进一步了解dropout在无监督SimCSE中发挥的作用，我们在表3中尝试了不同的dropout rate，发现所有的变体都低于Transformer中默认设置的p&#x3D;0.1。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220717235551898.png" alt="image-20220717235551898" style="zoom:75%;" /><p>我们发现两个极端case特别有趣：“no dropout”(p&#x3D;0)和“fixed 0.1”(使用默认的dropout p&#x3D;0.1但是在一对中使用同样的mask)。在这两个case中，所产生的pair的embedding完全相同，这导致了性能的急剧下降。在训练过程中，我们每个10个step对这些模型取checkpoint，并在Figure2中展示了alignment和uniformity指标，以及一个简单的数据增强模型“delete one word”。**[角标注释3：我们将STS-B指标score大于4的pair作为$p_{pos}$，并把所有STS-B中的sentences作为$p_{data}$]**</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718001916184.png" alt="image-20220718001916184" style="zoom:75%;" /><p>如图所示，从预训练的checkpoint开始，所有模型都大大改善了uniformity。然而，两个特殊变体的alignment也急剧下降，而我们的无监督SimCSE则保持了稳定的aligment，这主要归功于dropout噪声的使用。这也表明，从预先训练好的checkpoint开始是至关重要的，因为它提供了良好的初始aligment。最后，“delete one word”提供了良好的初始aligment，但在uniformilty指标上取得了较小的收益，并最终低于无监督SimCSE的表现。</p><h2 id="4-Supervised-SimCSE"><a href="#4-Supervised-SimCSE" class="headerlink" title="4. Supervised SimCSE"></a>4. Supervised SimCSE</h2><p>我们已经证明，添加dropout噪声能够使得positive pair保持良好的aligment $(x, x^+)～p_{pos}$。在本节中，我们研究是否可以利用监督数据集来提供更好的训练信号，以优化我们方法的alignment一致性。前人的研究工作已经证明，有监督的自然语言推理（Natural Language Inference, NLI）数据集对于学习句子embedding是有效的，它可以预测两个句子之间的关系是相近的（entailment）、中性的（neutral）、还是矛盾（contradiction）关系。</p><p>在我们的对比性学习框架中，我们直接把从有监督数据集中拿到的$(x_{i}^{+},x_{i})$对，然后用他们优化公式1。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718003428911.png" alt="image-20220718003428911"></p><h3 id="4-1-Choices-of-labeled-data"><a href="#4-1-Choices-of-labeled-data" class="headerlink" title="4.1 Choices of labeled data"></a>4.1 Choices of labeled data</h3><p>我们首先探究哪些监督数据集特别适合构建positive pair$(x_{i}^{+},x_{i})$。我们在一些带有句对示例的数据集进行实验，包括</p><ul><li>QQP：Quora questions pairs；</li><li>Flickr30k：每张图片都有5个人工撰写的标题，我们认为同一张图片的任何两个标题都是正面的一对；</li><li>ParaNMT：一个大规模的back-translation的dataset；</li><li>NLI：SNLI和MNLI；</li></ul><p>我们在不同的数据集通过公式1训练对比学习模型，并在table4中比较结果。为了进行公平的比较，我们还用相同的#训练对进行训练。在所有的选项中，使用NLI（SNLI+MNLI）数据集的表现最好。我们认为这是合理的，因为NLI数据集包括高质量的、来自crowd-sourced pairs。另外，人类注释者要根据前提手动写出假设，而且两个句子的词汇重叠度往往较低。例如，我们发现entailment（相关）对的词汇重叠度（两个word bag之间的F1）为39%，而QQP和ParaNMT的词汇重叠率为60%和55%。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718004244885.png" alt="image-20220718004244885" style="zoom:67%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718004254481.png" alt="image-20220718004254481" style="zoom:67%;" /></p><h3 id="4-2-Contradiction-as-hard-negatives-对于hard-negatives的矛盾"><a href="#4-2-Contradiction-as-hard-negatives-对于hard-negatives的矛盾" class="headerlink" title="4.2 Contradiction as hard negatives 对于hard-negatives的矛盾"></a>4.2 Contradiction as hard negatives 对于hard-negatives的矛盾</h3><p>最后，我们进一步利用NLI数据集的优势，将其矛盾（contradiction）对作为硬性否定句。在NLI数据集中，给定一个前提，注视着需要首先出一个绝对真实的句子（entailment），一个可能是真实的句子（neutral），以及一个绝对错误的句子（contradiction）。因此，对于每个前提和它的entailment假设，都有一个伴随的contradiction假设。[脚注7：事实上，一个前提可以有多个矛盾的假设。在我们的实施中，我们<strong>只抽出一个作为硬性否定</strong>，我们没有发现使用更多的会带来区别]</p><p><font color='red'>再次把这个图给贴过来，一个前提对应的entailment和contradiction</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718005843191.png" alt="image-20220718005843191"></p><p>形式上，我们将$(x_{i}^{+},x_{i})$扩展为$(x_{i}, x_{i}^{+}, x_{i}^{-})$,分别代表前提（premise）蕴含（entailment）和矛盾（contradiction）。训练目标被表示为如下的：</p><p><font color='red'>这个式5和其他地方还是不太一样的，我们希望hi和hi+尽量接近，分母那边意会上也是说，hi不仅需要与hj+相远离、也需要与hj-相远离，<strong>这里j可以等于i</strong></font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718011359827.png" alt="image-20220718011359827"></p><p>如table4所示，添加hard negatives可以进一步提高性能（84.2-&gt;86.2），这就是我们最终有监督的SimCSE。我们还试图加入ANLI数据集或将其与我们的无监督SimCSE方法相结合，但没有发现有意义的改进。我们还考虑在有监督的SimCSE中采用双编码器框架，但它损害了性能（86.2-&gt;84.2）。</p><p><font color='red'>为什么两个encoder就会有问题，这个地方背后获取存在着什么解释吗？</font> </p><h2 id="5-Connection-to-Anisotropy-与各向异性的联系"><a href="#5-Connection-to-Anisotropy-与各向异性的联系" class="headerlink" title="5. Connection to Anisotropy 与各向异性的联系"></a>5. Connection to Anisotropy 与各向异性的联系</h2><p>这个章节相对数学内容比较多，暂时跳过，如果需要看的话可能还要再理解一下ICML2020那篇</p><h2 id="6-Experiment"><a href="#6-Experiment" class="headerlink" title="6. Experiment"></a>6. Experiment</h2><p><font color='red'>这里记录一些Experiment中比较关键的内容，也为之后看代码积累下</font> </p><h3 id="6-1-Evaluation-Setup"><a href="#6-1-Evaluation-Setup" class="headerlink" title="6.1 Evaluation Setup"></a>6.1 Evaluation Setup</h3><p>我们对7项语义文本相似性（Semantic Textual Similarity）任务进行了实验。请注意，我们所有的STS实验都是无监督的，没有使用STS的训练集。即使是有监督的SimCSE，我们也只是意味着我们采取额外的标记数据集进行训练，遵循以前的工作。我们还评估了7个Transfer学习任务，并在附录E中提供了详细的结果。我们与Reimers和Gurevych（2019）有类似的看法，即句子嵌入的主要目标是将语义相似的句子聚在一起，因此将STS作为主要结果。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718114930149.png" alt="image-20220718114930149"></p><h4 id="6-1-1-Semantic-textual-similarity-tasks"><a href="#6-1-1-Semantic-textual-similarity-tasks" class="headerlink" title="6.1.1 Semantic textual similarity tasks"></a>6.1.1 Semantic textual similarity tasks</h4><p>We evaluate on 7 STS tasks: STS 2012–2016、STS Benchmark（STS-B）、SICK- Relatedness（SICK-R）</p><p>这里还说了一些和别人公平比较的设置：</p><p>(a) whether to use an additional regressor -&gt; 选择no additional regressor </p><p>(b) Spearman’s vs Pearson’s correlation -&gt; 选择Spearman corrleation</p><p>(c) how the results are aggregated -&gt; “all” aggregation</p><h4 id="6-1-2-Training-details"><a href="#6-1-2-Training-details" class="headerlink" title="6.1.2 Training details"></a>6.1.2 Training details</h4><p>我们从BERT(uncased)或者RoBERTa(cased)的checkpoint开始训练<font color='red'>（作者之前在method中的实验也提到了：It also demonstrates that starting from a pre-trained checkpoint is crucial, for it provides good initial alignment）</font> ，并将[CLS]表示法作为句子嵌入的方法（后续实验中有提到不同pooling method的对比）。我们在英语维基百科中随机抽样的10^6个句子上训练无监督的SimCSE <font color='red'>这里的10^6就是1M，前面有个表格写到了</font> 。并在MNLI和SNLI数据集的组合上（314k）训练有监督的SimCSE。**[脚注9：在BERT原版的实现中[CLS]token后有MLP layer，我们保持并将保持随机初始化]**</p><p>Appendix A：</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718144746875.png" alt="image-20220718144746875"></p><p>这里除了表格里写的实验设置之外，还说了下面这段话：我们再引入一个可选的变体，它增加了一个Mask Language Modeling目标作为辅助损失添加到式1中，$\ell + \lambda·\ell^{mlm}$。这有助于SImCSE避免对token级别的知识的灾难性遗忘。正如我们在表D.2这种显示的，我们发现增加这个词可以帮助提高transfer任务的性能（而不是句子级sts任务）。</p><p><font color='red'>因为是修改[CLS]token这种感觉，CL大多数的任务都是专注于句子级别的？比如句子分类还有句子情感分析相似度计算等，但是对于NER那类的任务会不会就不适用了？</font> </p><h3 id="6-2-Main-Results"><a href="#6-2-Main-Results" class="headerlink" title="6.2 Main Results"></a>6.2 Main Results</h3><p>主要介绍和哪些前人的工作进行了对比和Main Results</p><h3 id="6-3-Abalation-Studies-※"><a href="#6-3-Abalation-Studies-※" class="headerlink" title="6.3 Abalation Studies ※"></a>6.3 Abalation Studies ※</h3><p>我们研究了不同的pooling方法和hard negative的影响。本节中所有报告的结果都是基于STS-B development集合。我们在附录D中提供了更多的消融研究（normalization、temperature、MLM objectives）。</p><h4 id="6-3-1-Pooling-methods"><a href="#6-3-1-Pooling-methods" class="headerlink" title="6.3.1 Pooling methods"></a>6.3.1 Pooling methods</h4><p>一些研究者表明采取预训练模型的平均embedding（特别是来自第一层和最后一层的embedding）会导致比[CLS]更好的性能。<font color='red'>（这里一方面自己想记录一下[CLS]token的理解，我觉得[CLS]token就是一个指定上的内容，我们希望这个token学习到整个句子的特征表示，在self-attention中聚合了来自其他token的表示。另外来说这里好像写的不是很清楚，取的是第一层和最后一层的[CLS]？）</font> Table6显示了再无监督和有监督的SimCSE中不同集合方法的比较。对于[CLS]的表示，原始的BERT实现在其之上采取了一个额外的MLP层。</p><p>在此，我们考虑了[CLS]的三种不同设置</p><ul><li>保持MLP层</li><li>没有MLP层</li><li>在训练时候保留MLP，在测试时删除它</li></ul><p>我们发现，对于无监督的SimCSE，在训练过程中只用MLP的[CLS]表征效果最好（上述设置3）。对于有监督的SimCSE，不同的pooling方法并不重要。默认的情况下，对于无监督的SimCSE我们使用[CLS]+MLP（train），对于有监督的SimCSE使用[CLS]+MLP。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718151624346.png" alt="image-20220718151624346" style="zoom:75%;" /><h4 id="6-3-2-Hard-negatives"><a href="#6-3-2-Hard-negatives" class="headerlink" title="6.3.2 Hard negatives"></a>6.3.2 Hard negatives</h4><p>直观的说，将hard negatives与其他in-batch的negatives区分开来可能是有益的<font color='red'>（这里背后的motivation是x x+ x-三个组成一组的时候，那么xi和xi-是最应该原理的，而且应当比xi和xj+ xi和xj-都更远）</font> 。因此，我们扩展了公式5中定义的训练目标，以纳入不同的负面因素的权重。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718152452658.png" alt="image-20220718152452658"></p><p>其中$1_{i}^{j}$是一个指示器，只有当i&#x3D;j的时候会是1。<font color='red'>其他情况是0，那么$\alpha$的0次方永远都是1，和alpha就没什么关系了，而只有对hard-negatives才会有关系</font> </p><p>我们用不同的α值训练SimCSE，并在STS-B的开发集上评估训练好的模型。我们还考虑将中性假设作为硬性否定。如表7所示，α&#x3D;1的表现最好，中性假设不会带来进一步的收益。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718152715348.png" alt="image-20220718152715348" style="zoom:75%;" /><p><font color='red'>这里有个问题，这么微小的波动，实验是真的会训练多次然后取平均吗，如果seed不一样就很容易造成这样的误差吧</font> </p><h4 id="6-3-3-different-temperatures（Appendix-D）"><a href="#6-3-3-different-temperatures（Appendix-D）" class="headerlink" title="6.3.3 different temperatures（Appendix D）"></a>6.3.3 different temperatures（Appendix D）</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718153034975.png" alt="image-20220718153034975" style="zoom:75%;" /><h4 id="6-3-4-MLM-training-objective"><a href="#6-3-4-MLM-training-objective" class="headerlink" title="6.3.4 MLM training objective"></a>6.3.4 MLM training objective</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718153131888.png" alt="image-20220718153131888" style="zoom:75%;" /><p>在Transfer任务上使用MLM会好一点点</p><p><font color='blue'>这个paper，写的introduction，前导理论，还有一些实验什么的写的比较到位。学一下人家提出来一个想法的时候，一步步引出来这个问题，再加上ablation</font> </p><p><font color='blue'>方法比较简单但是细节比较多：dropout起到了作用，同一条数据进模型两次，但是用不同的dropoutmask的，用了dropout后一种子网络的感觉，用了两个完整网络的不同子网络，同一条文本数据的embedding</font> </p><p><font color='blue'>为什么dropout取两个子网络，就好？ 另外一种方法比如取1357层、2468层，效果不如这个好？用dropout就相对于剪枝了一些的，随机mask，0.1 0.2 ；；；一条数据经过dropout一定是一样的？—— dropout为什么起作用hinton：dropout在训练的时候起作用，原来神经元10个，现在0.1随机mask掉一个9个，训练过程的时候<strong>任意</strong>9个神经元完成一个任务，强制的使得模型对特征的表达更好，但即使这样还是随机的，剪枝是一个有向的希望剪枝前后尽可能相近的；；；worddropout？；；；，</font> </p><p>dropout-随机化的剪枝 有偏的，说不定把最重要的mask掉了，无向</p><p>正常的剪枝：梯度比较小了，不重要了，就剪枝掉；；希望剪枝前后尽可能相近的，剪枝后略有精度损失；；</p><p><font color='red'>是不是可以用剪枝的思路也实现一下，从剪枝的角度梳理了一下思路；；BERT-base-12层，12层的特征，比如取出来每一层的[CLS]，每一层提到了不同的特征，底层句法特征，上层语义特征，12个CLS赋权重，textCNN网络，每个CLS给个权重，映射层后面加dropout，映射层参数小于encoder，大大降低参数量，不同层不同权重 dropout加在encoder层&#x2F;dropout加在后面层</font> </p><p><font color='blue'>※用CLS作为默认的，但是其他有很多思路认为用CLS不一定是效果最好；；；[CLS] token的理解，用CLS做sentence embedding只是一个经验主义，但是可解释性不强；；；sift hog；；；<strong>token embedding</strong>加起来做平均&#x2F;第一层和最后一层加起来更好&#x2F;…</font> </p><p>调整embedding space，使得sentence embedding更好，<strong>sentence representation</strong></p><p><font color='blue'>加一些思考，有没有什么可改进的；</font> </p><h2 id="9-Conclusion"><a href="#9-Conclusion" class="headerlink" title="9. Conclusion"></a>9. Conclusion</h2><p>在这项工作中，我们提出了SImCSE，一个简单的对比学习框架，它大大改善了最先进的句子嵌入的语义文本相似性任务。</p><p>我们提出了一种无监督的方法，该方法预测输入的句子本身有dropout噪声。还有一种有监督的方法，利用NLI数据集。</p><p>我们通过分析SimCSE与其他baseline模型的一致性和统一性，进一步证明了我们方法的内部工作原理。</p><p>我们相信，我们的对比目标，特别是无监督的目标，在NLP中可能有更广泛的应用。它为文本输入的数据扩充提供了一个新的视角，并且可以扩展到其他的连续representations，并整合到语言模型的预训练中。</p><h2 id="部分代码"><a href="#部分代码" class="headerlink" title="部分代码"></a>部分代码</h2><p>模型的主要代码在这个相对路径下， SimCSE-main&#x2F;simcse&#x2F;models.py</p><p><a href="https://github.com/princeton-nlp/SimCSE/blob/main/simcse/models.py">https://github.com/princeton-nlp/SimCSE/blob/main/simcse/models.py</a></p><p><a href="https://github.com/princeton-nlp/SimCSE/blob/00cfc7a3c496e46c132dfc0d0d79e926af03947b/simcse/models.py#L156">https://github.com/princeton-nlp/SimCSE/blob/00cfc7a3c496e46c132dfc0d0d79e926af03947b/simcse/models.py#L156</a></p><p>156行经过pooler后，得到一个[batchsize, num_sentence, hidden]长度的tensor，[0] [1]之间是一个positive pair，[2]是在有监督学习场景下给进去的hard-negative（意思可能最为离谱相反的）</p><p><a href="https://github.com/princeton-nlp/SimCSE/blob/00cfc7a3c496e46c132dfc0d0d79e926af03947b/simcse/models.py#L168%E8%BF%99%E9%87%8C%E6%8B%86%E6%88%90z1">https://github.com/princeton-nlp/SimCSE/blob/00cfc7a3c496e46c132dfc0d0d79e926af03947b/simcse/models.py#L168这里拆成z1</a> z2 z3</p><p><font color='blue'>代码结构，看到主要模块在什么地方，什么地方怎么改：比如负例的权重，实现原始结果：可能google drive；；；数据规模缩小一点</font> </p><h3 id="有个中文版的对于unsupervised写了一版，看起来比较好理解些？"><a href="#有个中文版的对于unsupervised写了一版，看起来比较好理解些？" class="headerlink" title="有个中文版的对于unsupervised写了一版，看起来比较好理解些？"></a>有个中文版的对于unsupervised写了一版，看起来比较好理解些？</h3><p><a href="https://github.com/KwangKa/SIMCSE_unsup/blob/6d4b20b2f02640a62ea6241a4fbb8133dd7711b4/CSECollator.py#L19">https://github.com/KwangKa/SIMCSE_unsup/blob/6d4b20b2f02640a62ea6241a4fbb8133dd7711b4/CSECollator.py#L19</a></p><p>这里每句话重复了两次，构建一句话输入进去两次bert，然后在这里算损失函数</p><p><a href="https://github.com/KwangKa/SIMCSE_unsup/blob/6d4b20b2f02640a62ea6241a4fbb8133dd7711b4/train_unsup.py#L52">https://github.com/KwangKa/SIMCSE_unsup/blob/6d4b20b2f02640a62ea6241a4fbb8133dd7711b4/train_unsup.py#L52</a></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">compute_loss</span>(<span class="hljs-params">y_pred, tao=<span class="hljs-number">0.05</span>, device=<span class="hljs-string">&quot;cuda&quot;</span></span>):<br>    idxs = torch.arange(<span class="hljs-number">0</span>, y_pred.shape[<span class="hljs-number">0</span>], device=device)  <span class="hljs-comment"># </span><br>    y_true = idxs + <span class="hljs-number">1</span> - idxs % <span class="hljs-number">2</span> * <span class="hljs-number">2</span>  <span class="hljs-comment"># tensor([1, 0, 3, 2, 5])，这样构建pair还是比较巧妙</span><br>    similarities = F.cosine_similarity(y_pred.unsqueeze(<span class="hljs-number">1</span>), y_pred.unsqueeze(<span class="hljs-number">0</span>), dim=<span class="hljs-number">2</span>)<br>    similarities = similarities - torch.eye(y_pred.shape[<span class="hljs-number">0</span>], device=device) * <span class="hljs-number">1e12</span><br>    similarities = similarities / tao<br>    loss = F.cross_entropy(similarities, y_true)<br>    <span class="hljs-keyword">return</span> torch.mean(loss)<br></code></pre></td></tr></table></figure>]]></content>
     
     
     <categories>
@@ -1447,33 +1501,6 @@
     <url>/2022/07/21/research/papers/contrastive-learning/emnlp2021_Raise%20a%20Child%20in%20Large%20Language%20Model%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</url>
     
     <content type="html"><![CDATA[<h1 id="emnlp2021-Raise-a-Child-in-Large-Language-Model论文阅读"><a href="#emnlp2021-Raise-a-Child-in-Large-Language-Model论文阅读" class="headerlink" title="emnlp2021_Raise a Child in Large Language Model论文阅读"></a>emnlp2021_Raise a Child in Large Language Model论文阅读</h1><p>Raise a Child in Large Language Model: Towards Effective and Generalizable Fine-tuning</p><p>中文翻译为：在大型语言模型中培养Child：实现有效且通用的fine-tune</p><p>个人总结贡献如下：</p><ul><li>一种有些即插即用感觉的fine-tune操作，称为CHILD-TUNING技术，基本原理是在back propagation的时候随机mask掉一些，这个方法与之前的其他tuning方法是正交的，如果用在一起可能可以进一步提升性能；</li><li>CHILD-TUNING_F：task-free的方法，与任务无关，伯努利分布每个W按照p_F mask掉一些；</li><li>CHILD-TUNING_D：task-driven方法，任务相关，Fisher信息来选择任务最关键的，此外只在最开始初始化一次；</li><li>和模型剪枝还是有区别的，这种保留了模型的全部前向能力，motivation是不希望大幅度改变bert那种预训练模型的表征从而导致的灾难性遗忘；</li></ul><h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul><li>知乎论文解读：<a href="https://zhuanlan.zhihu.com/p/433636342">https://zhuanlan.zhihu.com/p/433636342</a></li><li>github code：<a href="https://github.com/alibaba/AliceMind/tree/main/ChildTuning%EF%BC%8C%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E7%AE%80%E5%8D%95">https://github.com/alibaba/AliceMind/tree/main/ChildTuning，代码结构为什么这么简单</a></li></ul><h2 id="TODO-list"><a href="#TODO-list" class="headerlink" title="TODO-list"></a>TODO-list</h2><ul><li>backward过程中，掩码掉一部分的梯度是如何被决定的？<font color='blue'>作者有两种方式，CHILD-TUNING_F和CHILD-TUNING_D，分别代表task-free和task-driven的方式，</font> </li><li>从理论上或者说感官上这种方法为什么能起到作用？</li><li>读下来abstract后感觉在下游fine-tune是一个即插即用的方法？但是目标场景是什么，是所有fine-tune的任务都可以，还是说只针对少量数据微调那种gap比较大的？</li><li>作者提出来的这个mask，在实现上是怎么做的？每个nn.Linear都要配上一个mask？</li><li>CHILD-TUNING_D在代码上那个Fisher信息是怎么搞出来的？</li></ul><h2 id="0-Abstract"><a href="#0-Abstract" class="headerlink" title="0. Abstract"></a>0. Abstract</h2><p>近期的预训练语言模型从数百万个参数扩展到数十亿个参数。因此，在各种下游任务中，需要使用有限的训练语料对超大预训练模型进行微调。<font color='red'>2022.7 BigScience Large Open-science Open-access Multilingual Language Model（BLOOM）：<a href="https://huggingface.co/bigscience/bloom">https://huggingface.co/bigscience/bloom</a></font> </p><p>在本文中，我们提出了一种直接且有效的微调技术，CHILD-TUNING，它通过在backward process中策略性的掩码非子网络的梯度来更新大型预训练模型的参数子集（称为子网络）<font color='red'>（这里指的应该是back-propagation？这个地方掩码掉一些部分是被如何决定的，从理论上或者感官上来说为什么这种方法能起到作用？）</font> 。在GLUE基准测试中的各种下游任务上的实验表明，在四种不同的预训练模型中，CHILD- TUNING始终以1.5 ∼ 8.6的平均分超越了vanilla微调，并以0.6 ∼ 1.3分超越了先前的微调技术。</p><p>此外，关于领域转移和任务转移的实证结果表明，CHILD-TUNING能够以较大的幅度获得更好的泛化性能。</p><p><font color='red'>读下来abstract后感觉在下游fine-tune是一个即插即用的方法？但是目标场景是什么，是所有fine-tune的任务都可以，还是说只针对少量数据微调那种gap比较大的？一些博客中提到可以作为trick使用</font> </p><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p><font color='red'>一般来说</font> </p><p>最近，预训练语言模型PLM对自然语言处理NLP领域产生了显著影响。预训练和微调已经成为NLP的一个范式，主导了大量的任务，</p><p>尽管它取得了巨大的成功，但如何将这种具有百万到数十亿参数的大规模预训练语言模型适应于各种场景，尤其是训练数据有限的情况下，仍然是一个挑战。由于容量极大，标注数据有限，传统的迁移学习倾向于积极的微调（aggressive fine-tuning），导致</p><ul><li><p>1）由于过拟合，测试数据的结果退化了；</p></li><li><p>2）转移到域外数据或者其他相关任务中的概括能力差；</p></li></ul><p>防止fine-tune后的模型偏离预训练的权重太多（即较少的知识遗忘）被证明是有效的，以减轻上述挑战<font color='red'>（这里见过的方法是把bert那些层和后面fine-tune那些层设置不同的学习率，bert那边设小一点慢调，后面设大一点开始快调）</font> 。例如RecAdam在微调权重和预训练权重之间引入了L2距离惩罚。此外，Mixout在微调过程中使用预训练的权重随机替换了部分模型参数，他们背后的核心思想是利用预训练的权重来规范微调模型。</p><p>在本文中，我们提出从一个新的角度来缓解积极微调的问题。**<font color='green'>基于在微调过程中没有必要更新大尺度模型中的所有参数这一观察</font> **，我们提出了一种有效的微调技术，CHILD-TUNING，他通过战略性的掩码掉非子网络的梯度，直接更新一个参数子集（称为子网络），如图1所示。请注意，他与模型修剪不同，因为他仍然在整个模型上进行前向传播，从而充分利用了隐藏在预训练权重中的知识。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718200422323.png" alt="image-20220718200422323" style="zoom:67%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718200434301.png" alt="image-20220718200434301" style="zoom:50%;" /></p><p>Figure1：CHILD-TUNING的示意图。左图：在前向传播forward的时候在整个网络上，然而在backward反向传播的时候在网络的一个子集上（举例：child network）。右图：为了实现这一点，对非子网络的梯度进行无任务或者任务驱动的mask，将其重置为0（灰色网格）。<font color='red'>（自己理解上面这个图来说的话，delta就是那个梯度，w&#x3D;w+lr*deltaw，于是把其中一些的梯度设置为0，他们的参数在反向传播的过程中则不会更新）</font> </p><p>具体来说，我们提出了两个变体，CHILD-TURNING_F和CHILD-TURNING_D，分别以无任务（<strong>task-free</strong>）和任务驱动(<strong>task-driven</strong>)的方式检测子网络。CHILD-TURNING_F在没有任务数据的情况下，通过伯努利分布选择出子网络。它为全部梯度引入了噪声，起到了正则化的作用，从而防止了对小数据集的过度拟合，导致了更好的泛化<font color='red'>（更好泛化是因为一定程度上保留了pretrainmodel的能力？）</font> 。进一步的，CHILD-TUNING_D利用下游任务数据<strong>检测与任务最相关的参数作为子网络</strong>，并将非子网络的参数冻结在其预训练的权重上。它通过应用于全梯度的特定任务掩码减少了模型的假设空间，有助于有效地使大规模预训练模型适应各种任务，同时极大地保留了其原有的泛化能力。<font color='red'>选择性的梯度裁剪？目前从这段文字还暂时有点不清楚这两个的区别和具体是怎么实现的</font> </p><p>我们在GLUE基准上的大量实验表明，CHILD-TUNING在微调不同的PLM方面可以更加出色，与vanilla微调相比，在CoLA&#x2F;RTE&#x2F;MRPC&#x2F;STS-B任务上平均得分提高了8.60分（将在3.3节进一步详述）。此外，它在转移到域外数据和其他相关任务中实现了更好的泛化能力（将在3.4节进一步详述）。实验结果还表明，CHILD-TUNING产生的改进始终比最先进的微调方法大。更重要的是，由于CHILD-TUNING与这些先前的方法是正交的，将CHILD-TUNING与它们整合在一起甚至可以导致进一步的改进（将在4.1节进一步详述）。总而言之，我们的贡献有以下三个方面：</p><ul><li>我们提出了CHILD-TUNING，这是一种直接而有效的微调技术，只更新子网络的参数。我们探索以无任务和任务驱动的方式检测自网络。<font color='red'>从motivation解释来说，好像就是在fine-tune过程中没有必要更新所有的，选一部分子网来更新，同时也保证了泛化能力，增强fine-tune效果，并且与之前的方法是正交的</font> ；</li><li>CHILD-TUNING可以有效地使大规模训练模型适应各种下游场景，从域内到域外，以及跨任务transfer学习；</li><li>由于CHILD-TUNING与先前的微调方法是正交的，将CHILD-TUNING与它们整合在一起可以进一步提高微调性能；</li></ul><h2 id="2-Methodology"><a href="#2-Methodology" class="headerlink" title="2. Methodology"></a>2. Methodology</h2><p><font color='red'>作者选择把methodology放在第二章来写了，这章公式比较多也比较硬核</font> </p><p>为了使大规模预训练的语言模型更好的适应各种下游任务，我们提出了一种简单而有效的微调技术，即CHILD-TUNING。我们首先在backward过程中引入梯度掩码，以达到更新一个参数子集的目的（i.e. child network），伴随着在前向forward过程中仍然利用整个大模型的知识（将在2.1节详述）。然后，我们探讨了两种检测CHILD-NETWORK的方法（i.e. 生成不同的梯度掩码），CHILD-TUNING_F是一种task-free的方式（将在2.2节详述），CHILD-TUNING_D是一种task-driven的方式（将在2.3节详述）。</p><h3 id="2-1-Overview-of-CHILD-TUNING"><a href="#2-1-Overview-of-CHILD-TUNING" class="headerlink" title="2.1 Overview of CHILD-TUNING"></a>2.1 Overview of CHILD-TUNING</h3><p>在介绍CHILD-TUNING的时候，我们首先给出了一个vanilla微调过程中反向传播的一般表述。我们把第t次迭代时的参数模型表示为w_t（w_0代表预训练模型的weights）。vanilla微调计算损失函数L(w_t)的梯度，然后对所有参数应用梯度下降法，可以表述为：</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718211446950.png"></p><p>其中<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718211506998.png" alt="image-20220718211506998">代表模型针对参数w_t的梯度， $\eta$代表学习率。<font color='red'>这里就是普通的梯度下降</font> </p><p>CHILD-TUNING也像标准微调一样，反向的计算所有可训练学习参数的梯度。然而，关键的区别在于，CHILD-TUNING在第t次迭代时确定了一个子网络C_t，并且只更新这部分参数。为了实现这一点，我们首先定义一个与w大小相同的0-1掩码，如下所示：</p><p><font color='red'>这个从代码上是怎么实现的，看起来还挺好懂的，每个nn.Linear都配上一个M？</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718212223623.png" alt="image-20220718212223623"></p><p>其中$M_{t}^{(i)}$和$w_{t}^{(i)}$分别代表mask M_t的第i个元素和第t轮次训练迭代的参数w_t。<font color='red'>在第t个turn时，w这个向量的第i个位置是否属于C_t，注意W是向量，比如nn.Linear()这样的一个矩阵</font> 。然后，我们通过简单地用以下等式替换等式1来正式定义CHILD-TUNING技术：</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718212817411.png" alt="image-20220718212817411"></p><p>当应用于广泛使用的Adam优化器时，Algorithm1提供了CHILD-TUNING的伪代码。主要区别在于插入了第5-7行。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718214146788.png" alt="image-20220718214146788" style="zoom:80%;" /><p><font color='red'>这里也是说CHILD-TUNING_F是每次初始化一个新的C？每次optimizer.optimize的时候的时候初始化一个C！这样干掉一些梯度</font> </p><h3 id="2-2-Task-Free-Variant-rm-CHILD-TUNING-F"><a href="#2-2-Task-Free-Variant-rm-CHILD-TUNING-F" class="headerlink" title="2.2 Task-Free Variant: ${\rm CHILD-TUNING}_{F}$"></a>2.2 Task-Free Variant: ${\rm CHILD-TUNING}_{F}$</h3><p>在本节中，我们首先探讨不需要任何下游任务数据的子网络选择，即称为CHILD-TUNING的task-free技术。具体来说，CHILD-TUNING_F在第t次迭代时候生成一个0-1mask M_t，该mask M_t来自概率为p_F的伯努利分布<font color='red'>按照下面的定义，是1的概率就是p_F，即mask掉了1-p_F的</font> 。**<font color='red'>p_F是保留下来的！！！</font> **</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718220720471.png" alt="image-20220718220720471"></p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718214948850.png" alt="image-20220718214948850"></p><p>p_F越高，子网络规模越大，因此更新的参数也就更多。当p_F&#x3D;1时，CHILD-TUNING_F退化为vanilla的微调方法。<strong>请注意，我们还将剩余的梯度扩大了1&#x2F;p_F，其保持梯度的期望值。</strong></p><p><strong>我们<font color='red'>从理论上证明了</font> CHILD-TUNING_F的有效性。我们用∆w代表每次迭代的更新量。</strong></p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718221148353.png" alt="image-20220718221148353"></p><p>直观的说，定理1表明梯度的方差是p_F的严格递减函数。因此CHILD-TUNING_F改善了梯度的方差，探索和开发之间的权衡可以通过调整p_F来控制。<font color='red'>p_F扩大，梯度的方差减小，即保留下来的越多，梯度方差越小</font> </p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718221804896.png" alt="image-20220718221804896" style="zoom:50%;" /><p>定理2所示，随着方差的增大，模型可以收敛到更平坦的局部最小值（定理2中的ρ较小）。受到研究表明平坦的最小值倾向于更好的泛化的启发，我们可以进一步证明CHILD-TUNINGF降低了泛化误差的界限。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718222212497.png" alt="image-20220718222212497" style="zoom:50%;" /><p><strong>因此，CHILD-TUNINGF可以被看作是优化过程的一个强大的正则化。它使模型能够跳过损失景观中的鞍点，并鼓励模型收敛到一个更平坦的局部最小值。有关所述定理和证明的更多细节，请参考附录E。</strong></p><p><font color='blue'>每次都是一个地方梯度最大，但是每次把那个地方都mask掉，就不收敛；；；证明了能收敛，然后能收敛到更平滑的，实现了一个无监督的剪枝？</font> </p><p><font color='blue'>训练时：前向的时候走了所有的，反向的时候只把子网络的参数更新；预测推理时？</font> </p><h3 id="2-3-Task-Driven-Variant-rm-CHILD-TUNING-D"><a href="#2-3-Task-Driven-Variant-rm-CHILD-TUNING-D" class="headerlink" title="2.3 Task-Driven Variant: ${\rm CHILD-TUNING}_{D}$"></a>2.3 Task-Driven Variant: ${\rm CHILD-TUNING}_{D}$</h3><p>考虑到下游的标记数据，我们提出了CHILD-TUNING_D，它可以检测出对目标任务最重要的子网络。具体来说，我们采用Fisher信息估计法来寻找与特定下游任务高度相关的参数子集。Fisher信息是一个很好的方法，可以提供一个随机变量携带多少关于分布参数的信息的估计。对于一个预训练模型，Fisher信息可以用来衡量网络中的参数对下游任务的相对重要性。</p><p><font color='red'>这里也是对其中的数学原理不太了解，</font> </p><p>形式上，模型参数w的Fisher信息矩阵（Fisher Information Matrix, FIM）定义如下：</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718223445719.png" alt="image-20220718223445719"></p><p>其中x和y分别代表input和output <font color='red'>这里E是期望的意思</font> 。它也可以被看作是对数似然的梯度相对于参数w的协方差。按照Kirkpatrick等人（2016）的说法，给定特定任务的训练数据数据D，我们使用经验FIM的对角线元素来点估参数的任务相关重要性。从形式上看，我们得出第i个参数的Fisher信息如下<font color='red'>这里第i个参数，就是w这个向量中的第i个位置</font> ：</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718223845598.png" alt="image-20220718223845598"></p><p><font color='red'>自己再尝试理解下这个公式：在已知xj和w的情况下，获取yj的概率越大，那么代表wi可能有没有都无所谓了？</font> </p><p><font color='red'>换句话说，当已知xj和w的时候，获取yj的概率很小，那么wi的梯度会很大，求和后平均，认为wi是很关键的？</font> </p><p><font color='red'>这个CHILD-TUNING_D不知道在代码上的大概是怎么实现的</font> </p><p>我们认为，参数对目标任务越重要，它所传递的Fisher信息就越高。因此，子网络C是由信息量最大的参数组成的。子网络的比例<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718223951021.png" alt="image-20220718223951021">$\in (0, 1]$，其中<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718224016406.png" alt="image-20220718224016406">代表non-child网络（非子网络部分)。随着pD的上升，子网络的规模也在增加，当pD&#x3D;1时，它就退化为vanilla的微调策略。</p><p><strong>由于获得任务驱动（task-driven）的子网络的开销比无任务（task-free）的子网络的开销要大，我们在微调开始时简单地得出CHILD-TUNING_D的子网络，并在微调期间保持不变。（i.e. <img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718224209488.png" alt="image-20220718224209488">)</strong> <font color='red'>这里也是说CHILD-TUNING_F是每次初始化一个新的C？每次optimizer.optimize的时候的时候初始化一个C！这样干掉一些梯度</font> </p><p>通过这种方式，CHILD- TUNINGD极大地减少了大规模模型的假设空间，从而缓解了过拟合。同时，将非子网冻结在预训练的权重上，可以从根本上保持泛化能力。</p><h2 id="3-Experiments"><a href="#3-Experiments" class="headerlink" title="3.Experiments"></a>3.Experiments</h2><h3 id="3-1-Datasets"><a href="#3-1-Datasets" class="headerlink" title="3.1 Datasets"></a>3.1 Datasets</h3><p><strong>GLUE benchmark</strong>：跟随以前的研究，我们在GLUE排行榜的各种数据集上进行了实验，包括语言上的可接受性（Linguisitc Acceptability任务，CoLA数据集）、自然语言推理（Natural Language Inference任务，RTE、QNLI、MNLI数据集）、释义和相似性（Paraphrase and similarity任务，MRPC、STS-B、QQP数据集）、情感分类（Sentiment Classification任务，SST-2数据集）。</p><p>CoLA和SST-2是单句分类任务，其他任务涉及一对句子。详细可见附录A中的说明。</p><p>按照大多数以前的工作，我们在训练集上对预训练模型进行微调，并使用最后一个检查点直接报告设计集的结果，因为测试结果只能通过排行榜访问，有提交数量的限制。</p><p><strong>NLI datasets</strong>：在本文中，我们还进行了实验以探索基于几个自然语言推理任务的微调模型的概括能力。<font color='red'>在阅读SimCSE论文的时候对这个数据集有一些了解，一句前提对应蕴含、中立、矛盾的多句话，但是对评价指标还没什么了解，应该是给两句推理他们之间的关系吧</font> </p><p>我们额外介绍了三个NLI数据集，即SICK（Marelli等人，2014）、SNLI（Bowman等人，2015）和SciTail（Khot等人，2018）。我们还报告了与GLUE一致的dev集的结果</p><p><font color='purple'>其他章节的experiment暂时跳过，粗读着重读一下方法</font> </p><h2 id="4-Analysis-and-Discussion"><a href="#4-Analysis-and-Discussion" class="headerlink" title="4. Analysis and Discussion"></a>4. Analysis and Discussion</h2><p><font color='red'>这个部分挑一些自己觉得重点的记录一下，背后有一种motivation的感觉；</font> </p><h3 id="4-1-Comparison-with-Prior-Methods"><a href="#4-1-Comparison-with-Prior-Methods" class="headerlink" title="4.1 Comparison with Prior Methods"></a>4.1 Comparison with Prior Methods</h3><p>不仅超过了vanilla fine-tune，还超过了一些专门的fine-tune方法；</p><h3 id="4-2-Result-in-Low-resource-Scenarios"><a href="#4-2-Result-in-Low-resource-Scenarios" class="headerlink" title="4.2 Result in Low-resource Scenarios"></a>4.2 Result in Low-resource Scenarios</h3><p>we explore the effect of CHILD- TUNING with only a few training examples，还是比vanilla效果好</p><p>这表明，尽管当训练数据处于极端低资源的情况下，过拟合现象相当严重，但CHILD-TUNING仍然可以有效地改善模型的性能，特别是对于CHILD-TUNINGD，因为它减少了模型的假设空间</p><p>It suggests that although overfitting is quite severe when the training data is in extreme low-resource scenarios, CHILD-TUNING can still effectively improve the model performance, especially for CHILD-TUNINGD since it decreases the hypothesis space of the model</p><h3 id="4-3-What-is-the-Difference-Between-CHILD-TUNING-and-Model-Pruning？"><a href="#4-3-What-is-the-Difference-Between-CHILD-TUNING-and-Model-Pruning？" class="headerlink" title="4.3 What is the Difference Between CHILD-TUNING and Model Pruning？"></a>4.3 What is the Difference Between CHILD-TUNING and Model Pruning？</h3><p> <font color='red'>Model Pruning有一种模型剪枝，或者缩减模型大小那个感觉，这个原理上还是很不一样的</font> </p><p>CHILD-TUNINGD以任务驱动的方式检测最重要的子网络，在微调过程中只更新子网络中的这个参数，其他参数冻结。它很可能与模型修剪相混淆，后者也是检测模型中的子网络（但随后删除其他参数）。</p><p>实际上，”CHILD-TUNING “和模型修剪 在目标和方法上都是不同的。就目标而言，模型修剪的目的是提高推理效率，同时保持性能，而CHILD-TUNING的提出是为了解决过拟合问题，并在微调时提高大规模语言模型的泛化能力。根据不同的方法，模型修剪在推理过程中放弃了不重要的参数，而不属于子网络的参数在训练和推理过程中仍然保留给CHILD-TUNING。通过这种方式，隐藏在预训练权重中的非子网络的知识将得到充分的利用。<font color='red'>模型裁剪可能性能就降下来了？而这里的CHILD-TUNING更像是一个regulazation方法</font> </p><p>为了更好地说明CHILD-TUNINGD与模型修剪相比的有效性。TUNINGD与模型修剪相比，我们将所有不属于子网络的参数设置为零，这在表5中被称为Prune。表中显示，一旦我们放弃了子网络中的参数，在四个任务（CoLA&#x2F;RTE&#x2F;MRPC&#x2F;STS-B）上的得分就急剧下降了33.89分，模型甚至在CoLA任务上崩溃了。这也表明，在儿童网络中的参数，非儿童网络中的参数也是必要的，因为它们可以提供在预训练中学习到的一般知识。</p><h3 id="4-4-Is-the-Task-Driven-Child-Network-Really-that-Important-to-the-Target-Task？"><a href="#4-4-Is-the-Task-Driven-Child-Network-Really-that-Important-to-the-Target-Task？" class="headerlink" title="4.4 Is the Task Driven Child Network Really that Important to the Target Task？"></a>4.4 Is the Task Driven Child Network Really that Important to the Target Task？</h3><p>CHILD-TUNINGD通过选择对下游任务数据具有最高Fisher信息的参数来检测特定任务的子网络。在本节中，我们将探讨检测到的任务驱动的子网络对任务是否真的那么重要。</p><p>为此，我们介绍了<strong>两项消融研究 为CHILD-TUNINGD：1）随机。我们随机选择一个子网络，在微调期间保持不变；2）最低信息。我们选择那些具有最低Fisher信息的参数作为子网络，与CHILD TUNINGD中采用的最高Fisher信息形成对比。</strong></p><p>如表5所示，随机选择子网络甚至可以胜过vanilla微调，平均得分提高0.18。这支持了我们的主张，即没有必要更新大型PLM的所有参数，减少假设空间可以减少过拟合的风险。然而，仍然值得寻找一个合适的子网络来进一步提高性能。如果我们选择Fisher信息最低的参数（Lowest Fisher），与选择CHILD-TUNINGD中采用的Fisher信息最高的参数相比，平均得分急剧下降6.65。因此，我们可以得出结论，CHILD-TUNINGD检测到的Child net对下游任务确实很重要。</p><h3 id="4-5-What-is-the-Relationship-among-Child-Networks-for-Different-Tasks？"><a href="#4-5-What-is-the-Relationship-among-Child-Networks-for-Different-Tasks？" class="headerlink" title="4.5 What is the Relationship among Child Networks for Different Tasks？"></a>4.5 What is the Relationship among Child Networks for Different Tasks？</h3><p>如我们所料，类似的任务往往有较高的子网络重叠率。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220719110533227.png" alt="image-20220719110533227"></p><p>GLUE任务中任务驱动的子网络之间的重叠率。</p><h2 id="6-Conclusion"><a href="#6-Conclusion" class="headerlink" title="6. Conclusion"></a>6. Conclusion</h2><p>为了缓解过拟合问题并提高微调大规模PLM的通用性，我们提出了一种简单而有效的微调技术–CHILD-TUNING，它在微调过程中只通过战略性地掩盖非子网络的梯度来更新子网络。引入了两个变体：CHILD-TUNING_F和CHILD-TUNING_D，它们分别以无任务和任务驱动的方式检测子网络。在各种下游任务上的大量实验表明，在四种不同的预训练语言模型中，这两种方法都能以较大的收益超过vanilla微调和先前的工作，同时在很大程度上提高了微调模型的泛化能力。由于CHILD-TUNING与大多数先前的微调技术是正交的，因此将CHILD-TUNING与它们结合起来可以进一步提高性能。</p><h2 id="代码学习"><a href="#代码学习" class="headerlink" title="代码学习"></a>代码学习</h2><p>对于CHILD-TUNRING_F应该在optimizer那块简单换一下就可以直接用</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># =================== HACK BEGIN =======================         </span><br><span class="hljs-keyword">if</span> self.mode <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>    <span class="hljs-keyword">if</span> self.mode == <span class="hljs-string">&#x27;ChildTuning-D&#x27;</span>:<br>        <span class="hljs-keyword">if</span> p <span class="hljs-keyword">in</span> self.gradient_mask:<br>            grad *= self.gradient_mask[p]<br>    <span class="hljs-keyword">else</span>: <br>        <span class="hljs-comment"># ChildTuning-F</span><br>        grad_mask = Bernoulli(grad.new_full(size=grad.size(), fill_value=self.reserve_p))<br>        grad *= grad_mask.sample() / self.reserve_p<br><span class="hljs-comment"># =================== HACK END =======================</span><br></code></pre></td></tr></table></figure><p>可以和如下的对比，但这里感觉有些不一样的，作者把一个functional中的for i, params in enumerate(params):合并到一块写了的感觉</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch.optim <span class="hljs-keyword">import</span> AdamW  <span class="hljs-comment"># 和 AdamW对比，感觉还是有一些不一样的</span><br></code></pre></td></tr></table></figure><p><a href="https://pytorch.org/docs/1.8.0/_modules/torch/optim/adamw.html#AdamW">https://pytorch.org/docs/1.8.0/_modules/torch/optim/adamw.html#AdamW</a></p><p><font color='blue'>每次只更新固定的参数，因为CHILD在一开始固定住了</font> </p><p><font color='blue'>taskfree的时候，为什么这样做就能让更好？task-driven的时候还可以用bert学习率要小一些那套理论来解释</font> </p><p><font color='blue'>取出来12个CLS，接一个映射层 &#x2F;&#x2F;&#x2F; 模型蒸馏，12层-&gt;6层，fast-BERT，横着剪枝；；drop纵着减</font> </p><p>对于CHILD-TUNING_D，看起来像是在开始的时候跑了一遍，然后给到了一个gradient_mask</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_fisher</span>(<span class="hljs-params">self</span>):<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    Calculate Fisher Information for different parameters</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    gradient_mask = <span class="hljs-built_in">dict</span>()<br>    model = self.model<br>    model.train()<br><br>    <span class="hljs-keyword">for</span> name, params <span class="hljs-keyword">in</span> model.named_parameters():<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;layer&#x27;</span> <span class="hljs-keyword">in</span> name:<br>            gradient_mask[params] = params.new_zeros(params.size())<br><br>    <span class="hljs-comment"># Now begin</span><br>    train_dataloader = DataLoader(<br>        self.train_dataset,<br>        batch_size=self.args.per_device_train_batch_size,<br>        shuffle=<span class="hljs-literal">True</span>,<br>        collate_fn=self.data_collator,<br>        drop_last=self.args.dataloader_drop_last,<br>        num_workers=self.args.dataloader_num_workers,<br>        pin_memory=self.args.dataloader_pin_memory,<br>    )<br>    <br>    N = <span class="hljs-built_in">len</span>(train_dataloader)<br><br>    <span class="hljs-keyword">for</span> inputs <span class="hljs-keyword">in</span> tqdm(train_dataloader):<br>        inputs.pop(<span class="hljs-string">&#x27;idx&#x27;</span>)<br>        inputs = self._prepare_inputs(inputs)<br>        outputs = model(**inputs)<br>        loss = outputs[<span class="hljs-string">&quot;loss&quot;</span>] <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(outputs, <span class="hljs-built_in">dict</span>) <span class="hljs-keyword">else</span> outputs[<span class="hljs-number">0</span>]<br>        loss.backward()<br><br>        <span class="hljs-keyword">for</span> name, params <span class="hljs-keyword">in</span> model.named_parameters():<br>            <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;layer&#x27;</span> <span class="hljs-keyword">in</span> name:<br>                torch.nn.utils.clip_grad_norm_(params, self.args.max_grad_norm)<br>                gradient_mask[params] += (params.grad ** <span class="hljs-number">2</span>) / N<br>        model.zero_grad()<br><br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Calculate Fisher Information&#x27;</span>)<br><br>    <span class="hljs-comment"># Numpy</span><br>    r = <span class="hljs-literal">None</span><br>    <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> gradient_mask.items():<br>        v = v.view(-<span class="hljs-number">1</span>).cpu().numpy()<br>        <span class="hljs-keyword">if</span> r <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            r = v<br>        <span class="hljs-keyword">else</span>:<br>            r = np.append(r, v)<br>    polar = np.percentile(r, (<span class="hljs-number">1</span>-self.reserve_p)*<span class="hljs-number">100</span>)  <span class="hljs-comment"># r是一个多维数组，后面是一个几分位，比如50%那个50</span><br>    <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> gradient_mask:<br>        gradient_mask[k] = gradient_mask[k] &gt;= polar  <span class="hljs-comment"># 对下游任务比较重要的参数给保留下来</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Polar =&gt; &#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(polar))<br><br>    <span class="hljs-comment"># <span class="hljs-doctag">TODO:</span> pytorch: torch.kthvalue</span><br>    <br>    <span class="hljs-keyword">return</span> gradient_mask<br></code></pre></td></tr></table></figure><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220719152140654.png" alt="image-20220719152140654"></p><p>整体感觉上应该还是相对比较即插即用的</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>research</category>
-      
-      <category>contrastive learning</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>contrastive learning</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>emnlp2021_SimCSE论文阅读</title>
-    <link href="/2022/07/21/research/papers/contrastive-learning/emnlp2021_SimCSE%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
-    <url>/2022/07/21/research/papers/contrastive-learning/emnlp2021_SimCSE%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</url>
-    
-    <content type="html"><![CDATA[<h1 id="emnlp2021-SimCSE论文阅读"><a href="#emnlp2021-SimCSE论文阅读" class="headerlink" title="emnlp2021_SimCSE论文阅读"></a>emnlp2021_SimCSE论文阅读</h1><p>**SimCSE: Simple Contrastive Learning of Sentence Embeddings **普林斯顿&amp;清华大学</p><p>SimCSE，个人总结文章的亮点如下：</p><p>1）一种无监督的方法，只简单使用BERT中的dropout，一句话过同一个bert两次，生成的两种representation之间构成positive pair；</p><p>2）一种有监督的方法，使用NLI数据集内部包含的一个前提，以及前提对应的蕴含文本、中立文本、矛盾文本，其中和蕴含文本构成positive pair，和矛盾文本构成negative pair，还可以通过权重额外增强negative pair；</p><p>3）提出了从理论分析的角度，alignment和uniformity证明这种简单dropout有效的；</p><p>4）进行了多项ablation实验，寻求细节处的最有设置</p><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul><li><p><a href="https://zhuanlan.zhihu.com/p/462763973">https://zhuanlan.zhihu.com/p/462763973</a></p></li><li><p><a href="https://zhuanlan.zhihu.com/p/476429545">https://zhuanlan.zhihu.com/p/476429545</a></p></li><li><p>文本语义相似度：<a href="https://www.zhihu.com/question/22004262/answer/2565474940">https://www.zhihu.com/question/22004262/answer/2565474940</a></p></li><li><p>文本语义相似度：<a href="https://zhuanlan.zhihu.com/p/539418586">https://zhuanlan.zhihu.com/p/539418586</a></p></li><li><p>github 代码：<a href="https://github.com/princeton-nlp/SimCSE">https://github.com/princeton-nlp/SimCSE</a></p></li></ul><h2 id="TODO-list"><a href="#TODO-list" class="headerlink" title="TODO-list"></a>TODO-list</h2><ul><li>公式（1）中positive pair是否包含在分母中？个人感觉应该是包含的吧，没有写j!&#x3D;i；<font color='blue'>包含</font> </li><li>对 Aligenment and uniformity的理解还不是很到位，可能需要去看下ICML2020那篇Understanding Contrastive Representation Learning through Alignment and Uniformity on the Hypersphere，不过有些过于数学了；</li><li>还是有些不理解使用一个而不是两个Encoder的motivation是什么，如果使用两个那么后面是要丢弃掉一个吗？除了从实验效果上来说，两个编码器的为什么相较于共用一个表现不好？；</li><li>因为是修改[CLS]token这种感觉，CL大多数的任务都是专注于句子级别的？比如句子分类还有句子情感分析相似度计算等，但是对于NER那类的任务会不会就不适用了？</li><li>[CLS]token这块的含义：</li></ul><h2 id="0-Abstract"><a href="#0-Abstract" class="headerlink" title="0. Abstract"></a>0. Abstract</h2><p>本文介绍了SimCSE（simple contrastive learning framework for sentence embedding ），一个简单的对比性学习框架，大大推进了最先进的句子嵌入技术。</p><p>我们首先描述了一种<strong>无监督的方法</strong>，它接受一个输入句子并在对比性目标中预测其本身，仅使用标准的dropout作为噪声。这种简单的方法出奇的好，与以前的有监督方法相当。我们发现，dropout作为最小的数据扩充，删除它会导致representation崩溃。</p><p>然后我们提出了一种有<strong>监督学习方法</strong>，将来自自然语言推理数据集的注释对合并到我们的对比表示学习框架中，使用“entailment（蕴含，这里翻译成<strong>相近</strong>比较好）”对代表positive并使用“contradiction（<strong>矛盾</strong>）”对代表negative。</p><p>我们在标准语义文本相似性（STS）任务上评估了SimCSE，我们使用BERT-base的无监督和有监督模型分别实现了76.3和81.6%的Spearman相关性，与之前的最佳结果相比，分别提高了4.2%和2.2%。我们还从理论和经验上证明，对比学习目标将预训练嵌入的各向异性空间正则化为更单一的形式，并且当有监督信号可用时，它可以更好地对齐正对。</p><p><font color='red'>在这里翻了下后面的ablation，似乎没有对比发表在ACL2021上的那篇韩国团队用BERT-CLS搞的，看起来实验结果比那篇好一些，然后也比较广泛流传，而且对比来说那一篇从可信性和换数据集的脆弱性上也不一定</font> </p><p><font color='red'>这个作者说的“将预训练embedding的各向异性空间正则化为更单一的形式，并且当有监督信号可用时，它可以更好地对齐正对”不理解，这里可能有一些数学原理在里面</font> </p><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>学习通用的句子嵌入是自然语言过程中的一个基本问题，在一些文献中已经得到了广泛的研究。在这项工作中，我们提出了最先进的句子嵌入方法，并证明了对比目标与预训练的语言模型如BERT和RoBERTa相结合可以非常有效。我们提出了一个简单的对比句子嵌入框架SimCSE，它可以从未标记或标记的数据中生成更好的句子嵌入。</p><ul><li>我们的<strong>无监督SimCSE</strong>简单的预测输入句子本身，只将dropout作为噪声（Figure1-a），换句话说我们将<strong>同一个句子</strong>传递给预训练的编码器两次，通过应用两次的dropout，我们可以获得两个不同的embedding作为positive pair。<font color='red'>这个还是真的很巧妙，中间多层dropout确实提供了同一个句子不同embedding表示相对的不同差异？</font> 然后我们在同一个mini-batch中选择其他句子作为negative sample， and the model predicts the positive one among negatives.<font color='red'>这句英文有点没看懂</font> ；；虽然他可能看起来非常简单，但这种方法大大优于训练目标，例如预测下一个句子和离散数据增强（例如单词删除和替换），甚至与以前的有监督方法相媲美。*<em>通过仔细分析，我们发现dropout作为隐藏表示的最小数据增强，而删除他会导致表示崩溃。</em></li><li>我们的有监督SimCSE在最近成功使用自然语言推理（Natural Language Inference, NLI）的基础上，并将带注释句子对纳入对比学习中（Figure1-b，图中<font color='green'>entailment意思是蕴含，Two dogs are running和There are animals outdoors两句话是一种蕴含关系？</font> ，<font color='red'>contradiction的意思是矛盾，Two dogs are running和The pets are sitting on a couch是矛盾的关系</font> ）。与之前将其转化为三向分类任务（蕴含、中立和矛盾）的工作不同，我们利用了蕴含对可以自然地用作positive pairs的事实。我们还发现，添加对应的矛盾对作为hard negative进一步提高了性能。与以前使用相同数据集的方法相比，这种简单使用NLI数据集的方法实现了实质性的改进。我们还与其他标记句子对数据集进行了比较，发现NLI数据集对于学习句子嵌入特别有效。</li></ul><p>为了更好地理解SimCSE强大的性能，我们借用他人的分析工具，该工具采用语义相关正对之间的对齐和整个representation空间的一致性来衡量学习embedding的质量。通过实证分析，我们发现我们的无监督SimCSE从本质上提高了一致性，同时通过dropout噪声避免了退化对齐，从而提高了表示的表达能力。同样的分析还表明，NLI训练信号可以进一步改善positive pair之间的对齐并产生更好的句子嵌入，我们还与最近的研究结果联系起来，即预训练的词嵌入存在各向异性，并通过光谱的角度证明了对比学习目标“压平”了奇异值分布 句子嵌入空间，从而提高一致性。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220715004056053.png" alt="image-20220715004056053"></p><p>我们对七个标准语义文本相似性 (STS) 任务和七个transfer task进行测试。在STS任务上，我们的无监督和有监督模型使用BERT-base分别实现了76.3和81.6的平均spearman相关性，与之前的最佳结果相比提高了4.2%和2.2%。我们还在transfer任务上取得了有竞争力的表现。最后，我们在文献中确定了一个不连贯的评估问题，并整合了不同设置的结果，以用于评估未来的句子嵌入评估工作。</p><h2 id="2-Background-Contrastive-Learning"><a href="#2-Background-Contrastive-Learning" class="headerlink" title="2. Background: Contrastive Learning"></a>2. Background: Contrastive Learning</h2><p><font color='red'>这里主要介绍的是CL方面的相关工作，和其他一些paper有可能还介绍一些fine-tuneBERT、sentence embedding什么的还不太一样 </font> </p><p>对比学习旨在通过将语义上相近的邻域聚在一起并将非邻域分开来学习有效的表征。它设置了一组成对的示例 $D &#x3D; {(x_i, x_{i}^{+})}<em>{i&#x3D;1}^{m}$，其中$x_i$与$x</em>{i}^{+}$具有语义相关的性质。我们遵循Chen等人提出的contrastive framework <font color='red'>（SimCLR）</font>，并使用cross-entropy损失函数作为训练目标with in-batch negatives <font color='red'>后面这个with in-batch negatives有点没理解，下面这个公式来说像是softmax的感觉又好像不包含positive pair在式子中。</font> $h_i$和$h_{i}^{+}$代表$x_i$与$x_{i}^{+}$的representation，一个训练的mini-batch中有N对$(x_i, x_{i}^{+})$组合，公式如下：</p><p><font color='red'><strong>自己理解这个公式来说，positive pair应该还是包含在分母中的吧，要不怎么来像是softmax衡量那个感觉？另外没有写j!&#x3D;i</strong>，另注这个公式是针对每单个样本的！对于所有样本一般先求和后再平均</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220716223355098.png" alt="image-20220716223355098"></p><p>$\tau$代表一个温度超参数<font color='red'>（个人理解有点像MHSA那块除一个根号dk，这样来放缩softmax的指数大小）</font> ，${\rm sim(h_1,h_2)}$用来衡量相似性，作者这里使用的是cosine similarity $\frac{h_{1}^{Τ}h_{2}}{\left| h_{1} \right| \cdot \left| h_{2} \right|}$<font color='red'>向量点乘除以模长乘在一起，这个应该就是$cos \theta$吧，这个数值是1代表两个向量十分接近，即完全能投影在另外一个向量上，夹角为0度；而如果是0则代表两个向量正交90°</font> 。在这项工作中，我们使用预训练的语言模型（如BERT或RoBERTa）对输入句子进行编码：h&#x3D;fθ(x)，然后使用对比学习目标（式1）。</p><h3 id="2-1-positive-instances-正实例"><a href="#2-1-positive-instances-正实例" class="headerlink" title="2.1 positive instances 正实例"></a>2.1 positive instances 正实例</h3><p>对比学习中的一个关键问题是如何构建$(x_i, x_{i}^{+})$对（positive pair）。在视觉表示中，一个有效的解决方案是对同一图像进行两次随机变换（例如，裁剪、翻转、失真和旋转）来获取$x_i$与$x_{i}^{+}$。最近在语言表示中采用了类似的数据增强技术（如单词删除、重新排序和替换）。然而由于其离散性，非线性规划中的数据扩充本质上是困难的。在第3节中我们将看到，在中间层的表征中使用标准的dropout优于这些离散的算子。<font color='red'>离散算子discrete operators大概指的就是这些传统数据增强操作。</font> </p><p>在自然语言处理中，人们在不同的语境中探索了相似的对比学习目标。在这些情况下，$x_i$与$x_{i}^{+}$是从有监督数据集例如question-passage pair中获取的。由于$x_i$与$x_{i}^{+}$的不同性质，这些方法总是使用双编码器框架，例如为$(x_i, x_{i}^{+})$使用两个独立的encoder$f_{\theta_1}$和$f_{\theta_2}$。对于句子embedding，Logeswaran和Lee（2018）也使用了双编码器方法的对比学习，将当前句子和下一个句子形成为$(x_i, x_{i}^{+})$。</p><h3 id="2-2-Aligenment-and-uniformity-同向性和均匀性"><a href="#2-2-Aligenment-and-uniformity-同向性和均匀性" class="headerlink" title="2.2 Aligenment and uniformity 同向性和均匀性"></a>2.2 Aligenment and uniformity 同向性和均匀性</h3><p>最近，Wang和Isola（[ICML2020](Understanding Contrastive Representation Learning through Alignment and Uniformity on the Hypersphere)）确定了对比学习两个重要的属性，<strong>alignment（对齐、结盟） and uniformity（均匀性、单调）</strong>，并建议使用它们来衡量表征的质量。给定positive pair的distribution$p_{pos}$，alignment计算成对实例embedding之间的预期距离（假设representation已经过规范化）：</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220716234655559.png" alt="image-20220716234655559"></p><p>从另一方面来说，uniformity衡量嵌入表征的均匀分布如何：</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220716234735352.png" alt="image-20220716234735352"></p><p>其中$p_{data}$代表data distribution。这两个指标与对比学习的目标很好的一致：positive实例应该保持紧密，随机实例的embedding应分散在hypersphere。在以下部分中，我们还将使用这两个指标证明我们方法的内部工作。</p><p><font color='red'>关于这块数学的推导还没有研究太深，还需要之后深入研究一下</font> </p><h2 id="3-Unsupervised-SimCSE"><a href="#3-Unsupervised-SimCSE" class="headerlink" title="3. Unsupervised SimCSE"></a>3. Unsupervised SimCSE</h2><p>无监督SimCSE的思想非常简单：我们收集了一些句子${x_{i}}<em>{i&#x3D;1}^{m}$并且使用$x</em>{i}^{+}&#x3D;x_{i}$。对于本项工作的关键因素是通过完全相同的获取方法获取positive pair，通过对于$x_i$和$x_{i}^{+}$独立的使用采样dropout mask。在Transformer的标准训练过程中，在fully-connected layers和attention probabilities层中使用了dropout mask（默认的p&#x3D;0.1）。</p><p>我们表示$h_{i}^{z}&#x3D;f_{\theta}(x_i,z)$，其中$z$是一个dropout的random mask。我们只需要将相同的输入送入编码器两次，就能得到两个具有不同dropout mask $z，z’$的embedding嵌入表征。而SimCSE的训练目标变成了：</p><p><font color='red'>这个公式就是上面式1那个感觉，同样和上面的一样，这单个公式是对于单个样本的！然后因为分母那边没有写j!&#x3D;i，所以positive pair也是包含在分母中的</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220717230453790.png" alt="image-20220717230453790"></p><p>对于一个包含N句话的mini-batch。注意$z$只是一个标准的包含在Transformer中的dropout mask，我们没有添加其他的dropout。</p><h3 id="3-1-Dropout-noise-as-data-augmentation"><a href="#3-1-Dropout-noise-as-data-augmentation" class="headerlink" title="3.1 Dropout noise as data augmentation"></a>3.1 Dropout noise as data augmentation</h3><p><font color='red'>这种论文写作的方法是不是不太常见？感觉还在method章节就把实验拿进来了，也可能是因为这个章节方法太简单了没什么说的，就要多写一些实验分析相关的？</font> </p><p>我们把dropout看做一种最小形式的数据增强：positive pairs采用完全相同的句子，它们的嵌入只在dropout mask上有所不同。我们将这种方法与STS-B development set上的其他训练目标进行比较[角标注释2：我们从Englist Wikipedia中随机采样了10^6的句子，并且使用lr&#x3D;3e-5 N&#x3D;64的参数来进行BERT-base的fine-tune，没有STS 的training sets被使用]。表1将我们的方法与常见的数据增强技术进行了比较，如裁剪、单词删除和替换，这些技术可以被视为$h&#x3D;f_\theta(g(x),z)$，其中$g$是一个作用于$x$的随机离散运算符<font color='red'>（理解为数据增强法）</font> 。我们注意到，即使是删除<strong>一个词one word</strong>也会损害性能，而且没有一个离散的数据增强方法能超过dropout噪声。<font color='red'>是不是如果使用其他方法的话，如果不是作者这种简单的dropout方法，那么其他方法的dropout是固定住的吗？</font> </p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220717231336252.png" alt="image-20220717231336252" style="zoom:75%;" /><p>Table1：不同数据增强方法在STS-B develoment set上的比较（Spearman’s correlation）。Crop k%代表保留了100-k%的长度；word deletion k%代表删除掉k%的词；Synonym replacement同义词替换使用了nlpaug（Ma2019）来随机替换同义词；MLM k%代表使用BERT_base替换k%的words。</p><p>我们还将这个self-prediction的自我训练目标与Logeswaran和Lee使用的下一句话目标进行比较，采取一个编码器或两个独立的编码器。我们发现SimCSE的表现比next-sentence目标好得多（在STS-B上为82.5vs67.4），使用一个编码器而不是两个编码器使我们的方法有了很大的不同。<font color='red'>对于使用两个编码器做dropout的话，那么最终是丢弃一个？</font> </p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220717233524850.png" alt="image-20220717233524850" style="zoom:75%;" /><p>Table2：不同无监督学习目标的比较（STS-B development set，Spearman’s correlation）。两列标识了我们使用同一个encoder还是两个独立的encoder。Next 3 sentences：随机从下面3句话中采样一句话；delete one word：随机从句子中删除一个词。</p><h3 id="3-2-Why-does-it-work？"><a href="#3-2-Why-does-it-work？" class="headerlink" title="3.2 Why does it work？"></a>3.2 Why does it work？</h3><p>为了进一步了解dropout在无监督SimCSE中发挥的作用，我们在表3中尝试了不同的dropout rate，发现所有的变体都低于Transformer中默认设置的p&#x3D;0.1。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220717235551898.png" alt="image-20220717235551898" style="zoom:75%;" /><p>我们发现两个极端case特别有趣：“no dropout”(p&#x3D;0)和“fixed 0.1”(使用默认的dropout p&#x3D;0.1但是在一对中使用同样的mask)。在这两个case中，所产生的pair的embedding完全相同，这导致了性能的急剧下降。在训练过程中，我们每个10个step对这些模型取checkpoint，并在Figure2中展示了alignment和uniformity指标，以及一个简单的数据增强模型“delete one word”。**[角标注释3：我们将STS-B指标score大于4的pair作为$p_{pos}$，并把所有STS-B中的sentences作为$p_{data}$]**</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718001916184.png" alt="image-20220718001916184" style="zoom:75%;" /><p>如图所示，从预训练的checkpoint开始，所有模型都大大改善了uniformity。然而，两个特殊变体的alignment也急剧下降，而我们的无监督SimCSE则保持了稳定的aligment，这主要归功于dropout噪声的使用。这也表明，从预先训练好的checkpoint开始是至关重要的，因为它提供了良好的初始aligment。最后，“delete one word”提供了良好的初始aligment，但在uniformilty指标上取得了较小的收益，并最终低于无监督SimCSE的表现。</p><h2 id="4-Supervised-SimCSE"><a href="#4-Supervised-SimCSE" class="headerlink" title="4. Supervised SimCSE"></a>4. Supervised SimCSE</h2><p>我们已经证明，添加dropout噪声能够使得positive pair保持良好的aligment $(x, x^+)～p_{pos}$。在本节中，我们研究是否可以利用监督数据集来提供更好的训练信号，以优化我们方法的alignment一致性。前人的研究工作已经证明，有监督的自然语言推理（Natural Language Inference, NLI）数据集对于学习句子embedding是有效的，它可以预测两个句子之间的关系是相近的（entailment）、中性的（neutral）、还是矛盾（contradiction）关系。</p><p>在我们的对比性学习框架中，我们直接把从有监督数据集中拿到的$(x_{i}^{+},x_{i})$对，然后用他们优化公式1。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718003428911.png" alt="image-20220718003428911"></p><h3 id="4-1-Choices-of-labeled-data"><a href="#4-1-Choices-of-labeled-data" class="headerlink" title="4.1 Choices of labeled data"></a>4.1 Choices of labeled data</h3><p>我们首先探究哪些监督数据集特别适合构建positive pair$(x_{i}^{+},x_{i})$。我们在一些带有句对示例的数据集进行实验，包括</p><ul><li>QQP：Quora questions pairs；</li><li>Flickr30k：每张图片都有5个人工撰写的标题，我们认为同一张图片的任何两个标题都是正面的一对；</li><li>ParaNMT：一个大规模的back-translation的dataset；</li><li>NLI：SNLI和MNLI；</li></ul><p>我们在不同的数据集通过公式1训练对比学习模型，并在table4中比较结果。为了进行公平的比较，我们还用相同的#训练对进行训练。在所有的选项中，使用NLI（SNLI+MNLI）数据集的表现最好。我们认为这是合理的，因为NLI数据集包括高质量的、来自crowd-sourced pairs。另外，人类注释者要根据前提手动写出假设，而且两个句子的词汇重叠度往往较低。例如，我们发现entailment（相关）对的词汇重叠度（两个word bag之间的F1）为39%，而QQP和ParaNMT的词汇重叠率为60%和55%。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718004244885.png" alt="image-20220718004244885" style="zoom:67%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718004254481.png" alt="image-20220718004254481" style="zoom:67%;" /></p><h3 id="4-2-Contradiction-as-hard-negatives-对于hard-negatives的矛盾"><a href="#4-2-Contradiction-as-hard-negatives-对于hard-negatives的矛盾" class="headerlink" title="4.2 Contradiction as hard negatives 对于hard-negatives的矛盾"></a>4.2 Contradiction as hard negatives 对于hard-negatives的矛盾</h3><p>最后，我们进一步利用NLI数据集的优势，将其矛盾（contradiction）对作为硬性否定句。在NLI数据集中，给定一个前提，注视着需要首先出一个绝对真实的句子（entailment），一个可能是真实的句子（neutral），以及一个绝对错误的句子（contradiction）。因此，对于每个前提和它的entailment假设，都有一个伴随的contradiction假设。[脚注7：事实上，一个前提可以有多个矛盾的假设。在我们的实施中，我们<strong>只抽出一个作为硬性否定</strong>，我们没有发现使用更多的会带来区别]</p><p><font color='red'>再次把这个图给贴过来，一个前提对应的entailment和contradiction</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718005843191.png" alt="image-20220718005843191"></p><p>形式上，我们将$(x_{i}^{+},x_{i})$扩展为$(x_{i}, x_{i}^{+}, x_{i}^{-})$,分别代表前提（premise）蕴含（entailment）和矛盾（contradiction）。训练目标被表示为如下的：</p><p><font color='red'>这个式5和其他地方还是不太一样的，我们希望hi和hi+尽量接近，分母那边意会上也是说，hi不仅需要与hj+相远离、也需要与hj-相远离，<strong>这里j可以等于i</strong></font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718011359827.png" alt="image-20220718011359827"></p><p>如table4所示，添加hard negatives可以进一步提高性能（84.2-&gt;86.2），这就是我们最终有监督的SimCSE。我们还试图加入ANLI数据集或将其与我们的无监督SimCSE方法相结合，但没有发现有意义的改进。我们还考虑在有监督的SimCSE中采用双编码器框架，但它损害了性能（86.2-&gt;84.2）。</p><p><font color='red'>为什么两个encoder就会有问题，这个地方背后获取存在着什么解释吗？</font> </p><h2 id="5-Connection-to-Anisotropy-与各向异性的联系"><a href="#5-Connection-to-Anisotropy-与各向异性的联系" class="headerlink" title="5. Connection to Anisotropy 与各向异性的联系"></a>5. Connection to Anisotropy 与各向异性的联系</h2><p>这个章节相对数学内容比较多，暂时跳过，如果需要看的话可能还要再理解一下ICML2020那篇</p><h2 id="6-Experiment"><a href="#6-Experiment" class="headerlink" title="6. Experiment"></a>6. Experiment</h2><p><font color='red'>这里记录一些Experiment中比较关键的内容，也为之后看代码积累下</font> </p><h3 id="6-1-Evaluation-Setup"><a href="#6-1-Evaluation-Setup" class="headerlink" title="6.1 Evaluation Setup"></a>6.1 Evaluation Setup</h3><p>我们对7项语义文本相似性（Semantic Textual Similarity）任务进行了实验。请注意，我们所有的STS实验都是无监督的，没有使用STS的训练集。即使是有监督的SimCSE，我们也只是意味着我们采取额外的标记数据集进行训练，遵循以前的工作。我们还评估了7个Transfer学习任务，并在附录E中提供了详细的结果。我们与Reimers和Gurevych（2019）有类似的看法，即句子嵌入的主要目标是将语义相似的句子聚在一起，因此将STS作为主要结果。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718114930149.png" alt="image-20220718114930149"></p><h4 id="6-1-1-Semantic-textual-similarity-tasks"><a href="#6-1-1-Semantic-textual-similarity-tasks" class="headerlink" title="6.1.1 Semantic textual similarity tasks"></a>6.1.1 Semantic textual similarity tasks</h4><p>We evaluate on 7 STS tasks: STS 2012–2016、STS Benchmark（STS-B）、SICK- Relatedness（SICK-R）</p><p>这里还说了一些和别人公平比较的设置：</p><p>(a) whether to use an additional regressor -&gt; 选择no additional regressor </p><p>(b) Spearman’s vs Pearson’s correlation -&gt; 选择Spearman corrleation</p><p>(c) how the results are aggregated -&gt; “all” aggregation</p><h4 id="6-1-2-Training-details"><a href="#6-1-2-Training-details" class="headerlink" title="6.1.2 Training details"></a>6.1.2 Training details</h4><p>我们从BERT(uncased)或者RoBERTa(cased)的checkpoint开始训练<font color='red'>（作者之前在method中的实验也提到了：It also demonstrates that starting from a pre-trained checkpoint is crucial, for it provides good initial alignment）</font> ，并将[CLS]表示法作为句子嵌入的方法（后续实验中有提到不同pooling method的对比）。我们在英语维基百科中随机抽样的10^6个句子上训练无监督的SimCSE <font color='red'>这里的10^6就是1M，前面有个表格写到了</font> 。并在MNLI和SNLI数据集的组合上（314k）训练有监督的SimCSE。**[脚注9：在BERT原版的实现中[CLS]token后有MLP layer，我们保持并将保持随机初始化]**</p><p>Appendix A：</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718144746875.png" alt="image-20220718144746875"></p><p>这里除了表格里写的实验设置之外，还说了下面这段话：我们再引入一个可选的变体，它增加了一个Mask Language Modeling目标作为辅助损失添加到式1中，$\ell + \lambda·\ell^{mlm}$。这有助于SImCSE避免对token级别的知识的灾难性遗忘。正如我们在表D.2这种显示的，我们发现增加这个词可以帮助提高transfer任务的性能（而不是句子级sts任务）。</p><p><font color='red'>因为是修改[CLS]token这种感觉，CL大多数的任务都是专注于句子级别的？比如句子分类还有句子情感分析相似度计算等，但是对于NER那类的任务会不会就不适用了？</font> </p><h3 id="6-2-Main-Results"><a href="#6-2-Main-Results" class="headerlink" title="6.2 Main Results"></a>6.2 Main Results</h3><p>主要介绍和哪些前人的工作进行了对比和Main Results</p><h3 id="6-3-Abalation-Studies-※"><a href="#6-3-Abalation-Studies-※" class="headerlink" title="6.3 Abalation Studies ※"></a>6.3 Abalation Studies ※</h3><p>我们研究了不同的pooling方法和hard negative的影响。本节中所有报告的结果都是基于STS-B development集合。我们在附录D中提供了更多的消融研究（normalization、temperature、MLM objectives）。</p><h4 id="6-3-1-Pooling-methods"><a href="#6-3-1-Pooling-methods" class="headerlink" title="6.3.1 Pooling methods"></a>6.3.1 Pooling methods</h4><p>一些研究者表明采取预训练模型的平均embedding（特别是来自第一层和最后一层的embedding）会导致比[CLS]更好的性能。<font color='red'>（这里一方面自己想记录一下[CLS]token的理解，我觉得[CLS]token就是一个指定上的内容，我们希望这个token学习到整个句子的特征表示，在self-attention中聚合了来自其他token的表示。另外来说这里好像写的不是很清楚，取的是第一层和最后一层的[CLS]？）</font> Table6显示了再无监督和有监督的SimCSE中不同集合方法的比较。对于[CLS]的表示，原始的BERT实现在其之上采取了一个额外的MLP层。</p><p>在此，我们考虑了[CLS]的三种不同设置</p><ul><li>保持MLP层</li><li>没有MLP层</li><li>在训练时候保留MLP，在测试时删除它</li></ul><p>我们发现，对于无监督的SimCSE，在训练过程中只用MLP的[CLS]表征效果最好（上述设置3）。对于有监督的SimCSE，不同的pooling方法并不重要。默认的情况下，对于无监督的SimCSE我们使用[CLS]+MLP（train），对于有监督的SimCSE使用[CLS]+MLP。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718151624346.png" alt="image-20220718151624346" style="zoom:75%;" /><h4 id="6-3-2-Hard-negatives"><a href="#6-3-2-Hard-negatives" class="headerlink" title="6.3.2 Hard negatives"></a>6.3.2 Hard negatives</h4><p>直观的说，将hard negatives与其他in-batch的negatives区分开来可能是有益的<font color='red'>（这里背后的motivation是x x+ x-三个组成一组的时候，那么xi和xi-是最应该原理的，而且应当比xi和xj+ xi和xj-都更远）</font> 。因此，我们扩展了公式5中定义的训练目标，以纳入不同的负面因素的权重。</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718152452658.png" alt="image-20220718152452658"></p><p>其中$1_{i}^{j}$是一个指示器，只有当i&#x3D;j的时候会是1。<font color='red'>其他情况是0，那么$\alpha$的0次方永远都是1，和alpha就没什么关系了，而只有对hard-negatives才会有关系</font> </p><p>我们用不同的α值训练SimCSE，并在STS-B的开发集上评估训练好的模型。我们还考虑将中性假设作为硬性否定。如表7所示，α&#x3D;1的表现最好，中性假设不会带来进一步的收益。</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718152715348.png" alt="image-20220718152715348" style="zoom:75%;" /><p><font color='red'>这里有个问题，这么微小的波动，实验是真的会训练多次然后取平均吗，如果seed不一样就很容易造成这样的误差吧</font> </p><h4 id="6-3-3-different-temperatures（Appendix-D）"><a href="#6-3-3-different-temperatures（Appendix-D）" class="headerlink" title="6.3.3 different temperatures（Appendix D）"></a>6.3.3 different temperatures（Appendix D）</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718153034975.png" alt="image-20220718153034975" style="zoom:75%;" /><h4 id="6-3-4-MLM-training-objective"><a href="#6-3-4-MLM-training-objective" class="headerlink" title="6.3.4 MLM training objective"></a>6.3.4 MLM training objective</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20220718153131888.png" alt="image-20220718153131888" style="zoom:75%;" /><p>在Transfer任务上使用MLM会好一点点</p><p><font color='blue'>这个paper，写的introduction，前导理论，还有一些实验什么的写的比较到位。学一下人家提出来一个想法的时候，一步步引出来这个问题，再加上ablation</font> </p><p><font color='blue'>方法比较简单但是细节比较多：dropout起到了作用，同一条数据进模型两次，但是用不同的dropoutmask的，用了dropout后一种子网络的感觉，用了两个完整网络的不同子网络，同一条文本数据的embedding</font> </p><p><font color='blue'>为什么dropout取两个子网络，就好？ 另外一种方法比如取1357层、2468层，效果不如这个好？用dropout就相对于剪枝了一些的，随机mask，0.1 0.2 ；；；一条数据经过dropout一定是一样的？—— dropout为什么起作用hinton：dropout在训练的时候起作用，原来神经元10个，现在0.1随机mask掉一个9个，训练过程的时候<strong>任意</strong>9个神经元完成一个任务，强制的使得模型对特征的表达更好，但即使这样还是随机的，剪枝是一个有向的希望剪枝前后尽可能相近的；；；worddropout？；；；，</font> </p><p>dropout-随机化的剪枝 有偏的，说不定把最重要的mask掉了，无向</p><p>正常的剪枝：梯度比较小了，不重要了，就剪枝掉；；希望剪枝前后尽可能相近的，剪枝后略有精度损失；；</p><p><font color='red'>是不是可以用剪枝的思路也实现一下，从剪枝的角度梳理了一下思路；；BERT-base-12层，12层的特征，比如取出来每一层的[CLS]，每一层提到了不同的特征，底层句法特征，上层语义特征，12个CLS赋权重，textCNN网络，每个CLS给个权重，映射层后面加dropout，映射层参数小于encoder，大大降低参数量，不同层不同权重 dropout加在encoder层&#x2F;dropout加在后面层</font> </p><p><font color='blue'>※用CLS作为默认的，但是其他有很多思路认为用CLS不一定是效果最好；；；[CLS] token的理解，用CLS做sentence embedding只是一个经验主义，但是可解释性不强；；；sift hog；；；<strong>token embedding</strong>加起来做平均&#x2F;第一层和最后一层加起来更好&#x2F;…</font> </p><p>调整embedding space，使得sentence embedding更好，<strong>sentence representation</strong></p><p><font color='blue'>加一些思考，有没有什么可改进的；</font> </p><h2 id="9-Conclusion"><a href="#9-Conclusion" class="headerlink" title="9. Conclusion"></a>9. Conclusion</h2><p>在这项工作中，我们提出了SImCSE，一个简单的对比学习框架，它大大改善了最先进的句子嵌入的语义文本相似性任务。</p><p>我们提出了一种无监督的方法，该方法预测输入的句子本身有dropout噪声。还有一种有监督的方法，利用NLI数据集。</p><p>我们通过分析SimCSE与其他baseline模型的一致性和统一性，进一步证明了我们方法的内部工作原理。</p><p>我们相信，我们的对比目标，特别是无监督的目标，在NLP中可能有更广泛的应用。它为文本输入的数据扩充提供了一个新的视角，并且可以扩展到其他的连续representations，并整合到语言模型的预训练中。</p><h2 id="部分代码"><a href="#部分代码" class="headerlink" title="部分代码"></a>部分代码</h2><p>模型的主要代码在这个相对路径下， SimCSE-main&#x2F;simcse&#x2F;models.py</p><p><a href="https://github.com/princeton-nlp/SimCSE/blob/main/simcse/models.py">https://github.com/princeton-nlp/SimCSE/blob/main/simcse/models.py</a></p><p><a href="https://github.com/princeton-nlp/SimCSE/blob/00cfc7a3c496e46c132dfc0d0d79e926af03947b/simcse/models.py#L156">https://github.com/princeton-nlp/SimCSE/blob/00cfc7a3c496e46c132dfc0d0d79e926af03947b/simcse/models.py#L156</a></p><p>156行经过pooler后，得到一个[batchsize, num_sentence, hidden]长度的tensor，[0] [1]之间是一个positive pair，[2]是在有监督学习场景下给进去的hard-negative（意思可能最为离谱相反的）</p><p><a href="https://github.com/princeton-nlp/SimCSE/blob/00cfc7a3c496e46c132dfc0d0d79e926af03947b/simcse/models.py#L168%E8%BF%99%E9%87%8C%E6%8B%86%E6%88%90z1">https://github.com/princeton-nlp/SimCSE/blob/00cfc7a3c496e46c132dfc0d0d79e926af03947b/simcse/models.py#L168这里拆成z1</a> z2 z3</p><p><font color='blue'>代码结构，看到主要模块在什么地方，什么地方怎么改：比如负例的权重，实现原始结果：可能google drive；；；数据规模缩小一点</font> </p><h3 id="有个中文版的对于unsupervised写了一版，看起来比较好理解些？"><a href="#有个中文版的对于unsupervised写了一版，看起来比较好理解些？" class="headerlink" title="有个中文版的对于unsupervised写了一版，看起来比较好理解些？"></a>有个中文版的对于unsupervised写了一版，看起来比较好理解些？</h3><p><a href="https://github.com/KwangKa/SIMCSE_unsup/blob/6d4b20b2f02640a62ea6241a4fbb8133dd7711b4/CSECollator.py#L19">https://github.com/KwangKa/SIMCSE_unsup/blob/6d4b20b2f02640a62ea6241a4fbb8133dd7711b4/CSECollator.py#L19</a></p><p>这里每句话重复了两次，构建一句话输入进去两次bert，然后在这里算损失函数</p><p><a href="https://github.com/KwangKa/SIMCSE_unsup/blob/6d4b20b2f02640a62ea6241a4fbb8133dd7711b4/train_unsup.py#L52">https://github.com/KwangKa/SIMCSE_unsup/blob/6d4b20b2f02640a62ea6241a4fbb8133dd7711b4/train_unsup.py#L52</a></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">compute_loss</span>(<span class="hljs-params">y_pred, tao=<span class="hljs-number">0.05</span>, device=<span class="hljs-string">&quot;cuda&quot;</span></span>):<br>    idxs = torch.arange(<span class="hljs-number">0</span>, y_pred.shape[<span class="hljs-number">0</span>], device=device)  <span class="hljs-comment"># </span><br>    y_true = idxs + <span class="hljs-number">1</span> - idxs % <span class="hljs-number">2</span> * <span class="hljs-number">2</span>  <span class="hljs-comment"># tensor([1, 0, 3, 2, 5])，这样构建pair还是比较巧妙</span><br>    similarities = F.cosine_similarity(y_pred.unsqueeze(<span class="hljs-number">1</span>), y_pred.unsqueeze(<span class="hljs-number">0</span>), dim=<span class="hljs-number">2</span>)<br>    similarities = similarities - torch.eye(y_pred.shape[<span class="hljs-number">0</span>], device=device) * <span class="hljs-number">1e12</span><br>    similarities = similarities / tao<br>    loss = F.cross_entropy(similarities, y_true)<br>    <span class="hljs-keyword">return</span> torch.mean(loss)<br></code></pre></td></tr></table></figure>]]></content>
     
     
     <categories>
@@ -1613,9 +1640,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -1650,11 +1677,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>矩阵</tag>
-      
       <tag>动态规划</tag>
       
       <tag>位运算</tag>
+      
+      <tag>矩阵</tag>
       
       <tag>回溯</tag>
       
@@ -1724,9 +1751,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>数学</tag>
       
       <tag>几何</tag>
       
@@ -1767,11 +1794,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>HARD</tag>
       
       <tag>位运算</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>计数</tag>
       
@@ -1808,19 +1835,19 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
-      <tag>哈希表</tag>
-      
-      <tag>HARD</tag>
-      
-      <tag>矩阵</tag>
-      
-      <tag>动态规划</tag>
-      
       <tag>树</tag>
       
       <tag>深度优先搜索</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>HARD</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>矩阵</tag>
+      
+      <tag>数学</tag>
       
       <tag>二叉搜索树</tag>
       
@@ -1915,19 +1942,19 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>哈希表</tag>
-      
-      <tag>HARD</tag>
-      
       <tag>贪心</tag>
       
       <tag>动态规划</tag>
       
+      <tag>HARD</tag>
+      
+      <tag>字典树</tag>
+      
+      <tag>哈希表</tag>
+      
       <tag>滑动窗口</tag>
       
       <tag>枚举</tag>
-      
-      <tag>字典树</tag>
       
       <tag>哈希函数</tag>
       
@@ -2018,15 +2045,15 @@
     
     <tags>
       
-      <tag>HARD</tag>
-      
-      <tag>动态规划</tag>
-      
       <tag>树</tag>
       
       <tag>深度优先搜索</tag>
       
       <tag>二叉树</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>HARD</tag>
       
     </tags>
     
@@ -2129,13 +2156,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>哈希表</tag>
+      <tag>贪心</tag>
       
-      <tag>前缀和</tag>
+      <tag>哈希表</tag>
       
       <tag>矩阵</tag>
       
-      <tag>贪心</tag>
+      <tag>前缀和</tag>
       
       <tag>计数</tag>
       
@@ -2211,13 +2238,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
-      <tag>哈希表</tag>
-      
       <tag>贪心</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -2298,9 +2325,9 @@
       
       <tag>位运算</tag>
       
-      <tag>枚举</tag>
-      
       <tag>栈</tag>
+      
+      <tag>枚举</tag>
       
       <tag>递归</tag>
       
@@ -2502,9 +2529,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2640,12 +2667,6 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
-      <tag>哈希表</tag>
-      
-      <tag>贪心</tag>
-      
       <tag>树</tag>
       
       <tag>深度优先搜索</tag>
@@ -2653,6 +2674,12 @@
       <tag>广度优先搜索</tag>
       
       <tag>二叉树</tag>
+      
+      <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -2714,9 +2741,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>计数</tag>
-      
       <tag>二分查找</tag>
+      
+      <tag>计数</tag>
       
     </tags>
     
@@ -2755,13 +2782,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>链表</tag>
       
       <tag>计数</tag>
       
-      <tag>链表</tag>
+      <tag>数学</tag>
       
     </tags>
     
@@ -2932,15 +2959,15 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
+      <tag>贪心</tag>
       
       <tag>哈希表</tag>
       
       <tag>前缀和</tag>
       
-      <tag>贪心</tag>
-      
       <tag>计数</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -2975,11 +3002,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>哈希表</tag>
       
       <tag>设计</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -3016,17 +3043,17 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>哈希表</tag>
+      <tag>双指针</tag>
       
       <tag>HARD</tag>
       
       <tag>位运算</tag>
       
-      <tag>双指针</tag>
-      
-      <tag>计数</tag>
+      <tag>哈希表</tag>
       
       <tag>回溯</tag>
+      
+      <tag>计数</tag>
       
       <tag>枚举</tag>
       
@@ -3218,13 +3245,13 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>位运算</tag>
+      
       <tag>哈希表</tag>
       
       <tag>矩阵</tag>
       
       <tag>滑动窗口</tag>
-      
-      <tag>位运算</tag>
       
     </tags>
     
@@ -3261,11 +3288,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>贪心</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -3383,9 +3410,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>矩阵</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>矩阵</tag>
       
     </tags>
     
@@ -3414,9 +3441,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>数学</tag>
       
       <tag>组合数学</tag>
       
@@ -3447,9 +3474,9 @@
       
       <tag>EASY</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>链表</tag>
       
@@ -3515,9 +3542,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>矩阵</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -3610,11 +3637,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
+      <tag>贪心</tag>
       
       <tag>矩阵</tag>
       
-      <tag>贪心</tag>
+      <tag>数学</tag>
       
     </tags>
     
@@ -3651,11 +3678,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>哈希表</tag>
       
       <tag>前缀和</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -3713,13 +3740,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>矩阵</tag>
-      
       <tag>深度优先搜索</tag>
       
       <tag>广度优先搜索</tag>
       
       <tag>并查集</tag>
+      
+      <tag>矩阵</tag>
       
     </tags>
     
@@ -3748,9 +3775,9 @@
       
       <tag>数组</tag>
       
-      <tag>HARD</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>HARD</tag>
       
     </tags>
     
@@ -3779,9 +3806,9 @@
       
       <tag>字符串</tag>
       
-      <tag>HARD</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>HARD</tag>
       
     </tags>
     
@@ -3878,9 +3905,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>设计</tag>
-      
       <tag>链表</tag>
+      
+      <tag>设计</tag>
       
       <tag>双向链表</tag>
       
@@ -3944,13 +3971,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>动态规划</tag>
       
       <tag>字典树</tag>
       
       <tag>记忆化搜索</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -4039,11 +4066,11 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>字典树</tag>
+      
       <tag>哈希表</tag>
       
       <tag>设计</tag>
-      
-      <tag>字典树</tag>
       
     </tags>
     
@@ -4273,11 +4300,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>哈希表</tag>
       
       <tag>TODO优化</tag>
+      
+      <tag>数学</tag>
       
       <tag>水塘抽样</tag>
       
@@ -4409,9 +4436,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
