@@ -1,5 +1,5 @@
 ---
-   title: 二、MySQL索引
+title: 二、MySQL索引
 date: 2022-12-08 19:26:24
 tags:
 	- mysql

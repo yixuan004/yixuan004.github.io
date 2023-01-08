@@ -9,8 +9,8 @@ tags:
     - EASY
     - MEDIUM
 categories:
-	- LeetCode-python
-	- LeetCode周赛
+	- algorithms
+	- leetcode-weekly-contest
 ---
 
 周赛综述&总结：

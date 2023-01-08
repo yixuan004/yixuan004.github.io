@@ -2,12 +2,11 @@
 title: 298场LeetCode周赛
 date: 2022-06-19 14:58:33
 tags:
-    - 
-    - EASY
-    - MEDIUM
+	- EASY
+	- MEDIUM
 categories:
-	- LeetCode-python
-	- LeetCode周赛
+	- algorithms
+	- leetcode-weekly-contest
 ---
 
 周赛综述&总结：

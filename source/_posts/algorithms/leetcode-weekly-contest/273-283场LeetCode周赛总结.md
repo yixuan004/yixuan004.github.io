@@ -6,8 +6,8 @@ tags:
     - MEDIUM
     - HARD
 categories:
-	- LeetCode-python
-	- LeetCode周赛
+	- algorithms
+	- leetcode-weekly-contest
 ---
 273-283场LeetCode周赛综述&总结：
 

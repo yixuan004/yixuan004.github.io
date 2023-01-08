@@ -666,6 +666,8 @@ redis除了上文提到的5种基础数据类型（String，List，Set，Zset，
 
 ### 3.1 HyperLogLogs（基数统计）
 
+<font color='red'>补基数排序的知识</font> 
+
 Redis2.8.9更新了这个数据结构
 
 - **什么是基数？**
