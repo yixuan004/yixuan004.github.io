@@ -1,0 +1,961 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="k8s快速入门-3基于智能114项目的自己实战1. 项目设计结构 2023.1.26：h9 h7 h1部署后的整体图  2. 阿里云容器镜像服务https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_23034755&#x2F;article&#x2F;details&#x2F;126646493 2.1 创建镜像仓库  2.1 操作指南（注意，一个服务搞到一个里面去） 2.2 按照操作指南进行操作2.2.1 redis推送到Reg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="K8S快速入门-3基于智能114项目的自己实战">
+<meta property="og:url" content="http://example.com/2023/01/25/develop/k8s/K8S%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8-3%E5%9F%BA%E4%BA%8E%E6%99%BA%E8%83%BD114%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%87%AA%E5%B7%B1%E5%AE%9E%E6%88%98/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="k8s快速入门-3基于智能114项目的自己实战1. 项目设计结构 2023.1.26：h9 h7 h1部署后的整体图  2. 阿里云容器镜像服务https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_23034755&#x2F;article&#x2F;details&#x2F;126646493 2.1 创建镜像仓库  2.1 操作指南（注意，一个服务搞到一个里面去） 2.2 按照操作指南进行操作2.2.1 redis推送到Reg">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/ttt.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230126210032378.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230125230901447.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230125215819092.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230125215853559.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230125222919312.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230126001239642.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230125234120241.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230126194131659.png">
+<meta property="article:published_time" content="2023-01-25T06:31:15.000Z">
+<meta property="article:modified_time" content="2023-01-27T14:51:33.215Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="k8s">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/ttt.png">
+  
+  
+  
+  <title>K8S快速入门-3基于智能114项目的自己实战 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Curious;的个人划水博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="K8S快速入门-3基于智能114项目的自己实战"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-25 14:31" pubdate>
+          2023年1月25日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          22k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          187 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">K8S快速入门-3基于智能114项目的自己实战</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="k8s快速入门-3基于智能114项目的自己实战"><a href="#k8s快速入门-3基于智能114项目的自己实战" class="headerlink" title="k8s快速入门-3基于智能114项目的自己实战"></a>k8s快速入门-3基于智能114项目的自己实战</h1><h2 id="1-项目设计结构"><a href="#1-项目设计结构" class="headerlink" title="1. 项目设计结构"></a>1. 项目设计结构</h2><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/ttt.png" srcset="/img/loading.gif" lazyload alt="ttt"></p>
+<p>2023.1.26：h9 h7 h1部署后的整体图</p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230126210032378.png" srcset="/img/loading.gif" lazyload alt="image-20230126210032378"></p>
+<h2 id="2-阿里云容器镜像服务"><a href="#2-阿里云容器镜像服务" class="headerlink" title="2. 阿里云容器镜像服务"></a>2. 阿里云容器镜像服务</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_23034755/article/details/126646493">https://blog.csdn.net/qq_23034755/article/details/126646493</a></p>
+<h3 id="2-1-创建镜像仓库"><a href="#2-1-创建镜像仓库" class="headerlink" title="2.1 创建镜像仓库"></a>2.1 创建镜像仓库</h3><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230125230901447.png" srcset="/img/loading.gif" lazyload alt="image-20230125230901447"></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230125215819092.png" srcset="/img/loading.gif" lazyload alt="image-20230125215819092"></p>
+<h3 id="2-1-操作指南（注意，一个服务搞到一个里面去）"><a href="#2-1-操作指南（注意，一个服务搞到一个里面去）" class="headerlink" title="2.1 操作指南（注意，一个服务搞到一个里面去）"></a>2.1 操作指南（注意，一个服务搞到一个里面去）</h3><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230125215853559.png" srcset="/img/loading.gif" lazyload alt="image-20230125215853559"></p>
+<h3 id="2-2-按照操作指南进行操作"><a href="#2-2-按照操作指南进行操作" class="headerlink" title="2.2 按照操作指南进行操作"></a>2.2 按照操作指南进行操作</h3><h4 id="2-2-1-redis推送到Registry"><a href="#2-2-1-redis推送到Registry" class="headerlink" title="2.2.1 redis推送到Registry"></a>2.2.1 redis推送到Registry</h4><ul>
+<li>docker images查看redis</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">REPOSITORY                                                        TAG        IMAGE ID       CREATED         SIZE<br>114_redis                                                         v1         614e3bc05a87   8 weeks ago     169MB<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>将镜像推送到Registry</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker login --username=curiousliu registry.cn-hangzhou.aliyuncs.com</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker tag 614e3bc05a87 registry.cn-hangzhou.aliyuncs.com/curious/114_redis:v1</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker push registry.cn-hangzhou.aliyuncs.com/curious/114_redis:v1</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>推送成功后查看一下</li>
+</ul>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230125222919312.png" srcset="/img/loading.gif" lazyload alt="image-20230125222919312"></p>
+<h4 id="2-2-2-nginx推送到Registry"><a href="#2-2-2-nginx推送到Registry" class="headerlink" title="2.2.2 nginx推送到Registry"></a>2.2.2 nginx推送到Registry</h4><p><font color='red'>注意，这里需要预定一下后端的一个clusterIP，很多配置可能要根据这里的clusterIP来进行配置</font> </p>
+<p><font color='red'>之前redis的clusterIP定义为10.109.179.231，于是这里后端（nginx、uwsgi+django的clusterIP定义为10.109.179.232）</font> </p>
+<p><font color='red'>注意nginx配置文件中相应条目的修改</font> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs conf">server &#123;<br>        listen       8082;<br>        server_name  10.109.179.232;<br><br>        #charset koi8-r;<br><br>        #access_log  logs/host.access.log  main;<br>        proxy_buffer_size 64k;<br>        proxy_buffers 4 32k;<br>        proxy_busy_buffers_size 64k;<br>        proxy_temp_file_write_size 64k;<br><br>        location / &#123;<br>            include uwsgi_params;<br>            uwsgi_pass 10.109.179.232:5002;  # 用这个表示<br>            # uwsgi_pass unix:/tmp/_114.sock;<br>            # uwsgi_send_timeout 600;<br>            # uwsgi_read_timeout 600;<br>            # uwsgi_connect_timeout 600;<br>            # uwsgi_buffer_size 32k;<br>            # uwsgi_buffers 4 32k;<br>            # uwsgi_busy_buffers_size 64k;<br>            # uwsgi_temp_file_write_size 64k;<br>        &#125;<br><br>        #error_page  404              /404.html;<br><br>        # redirect server error pages to the static page /50x.html<br>        error_page   500 502 503 504  /50x.html;<br>        location = /50x.html &#123;<br>            root   html;<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>重新build一遍（请参考以前的内容）</p>
+<ul>
+<li>docker images查看nginx</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~$ sudo docker images | grep nginx<br>114_nginx                                                         v1         ea5c03878541   3 minutes ago   198MB<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>将镜像推送到Registry</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker login --username=curiousliu registry.cn-hangzhou.aliyuncs.com</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker tag ea5c03878541 registry.cn-hangzhou.aliyuncs.com/curious/114_nginx:v1</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker push registry.cn-hangzhou.aliyuncs.com/curious/114_nginx:v1</span><br></code></pre></td></tr></table></figure>
+
+<p>WARNING! Your password will be stored unencrypted in &#x2F;root&#x2F;.docker&#x2F;config.json.</p>
+<h4 id="2-2-3-django-uwsgi推送到Registry"><a href="#2-2-3-django-uwsgi推送到Registry" class="headerlink" title="2.2.3 django+uwsgi推送到Registry"></a>2.2.3 django+uwsgi推送到Registry</h4><p><font color='red'>注意，这里需要预定一下后端的一个clusterIP，很多配置可能要根据这里的clusterIP来进行配置</font> </p>
+<p><font color='red'>之前redis的clusterIP定义为10.109.179.231，于是这里后端（nginx、uwsgi+django的clusterIP定义为10.109.179.232）</font> </p>
+<p><font color='red'>注意好几个地方相应条目的修改</font> </p>
+<ul>
+<li>redis（views.py，Entrance.py）</li>
+</ul>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230126001239642.png" srcset="/img/loading.gif" lazyload alt="image-20230126001239642"></p>
+<ul>
+<li>uwsgi.ini</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">socket</span> = <span class="hljs-number">10.109</span>.<span class="hljs-number">179.231</span>:<span class="hljs-number">5002</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>docker images查看114_uwsgi_django</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~$ sudo docker images | grep 114_uwsgi_django<br>114_uwsgi_django                                                  v1         64992d7a2790   About a minute ago   8.62GB<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>将镜像推送到Registry</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker login --username=curiousliu registry.cn-hangzhou.aliyuncs.com</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker tag 64992d7a2790 registry.cn-hangzhou.aliyuncs.com/curious/114_uwsgi_django:v1</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">docker push registry.cn-hangzhou.aliyuncs.com/curious/114_uwsgi_django:v1</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="3-缓存部分（redis）"><a href="#3-缓存部分（redis）" class="headerlink" title="3. 缓存部分（redis）"></a>3. 缓存部分（redis）</h2><p>先不要忘记创建namespace（114dev）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ sudo kubectl create ns 114dev<br>namespace/114dev created<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-1-deployment（注意私有镜像的权限问题）"><a href="#3-1-deployment（注意私有镜像的权限问题）" class="headerlink" title="3.1 deployment（注意私有镜像的权限问题）"></a>3.1 deployment（注意私有镜像的权限问题）</h3><ul>
+<li>私有镜像权限问题</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/winterfeng123/article/details/113752887">https://blog.csdn.net/winterfeng123/article/details/113752887</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs SHELL">kubectl create secret docker-registry 114devsecret \<br>    --docker-server=registry.cn-hangzhou.aliyuncs.com \<br>    --docker-username=curiousliu \<br>    --docker-password=&lt;passwd，需要根据自己的来输入&gt; \<br>    --docker-email= \<br>    -n 114dev<br><span class="hljs-meta prompt_">&gt; </span><span class="language-bash">secret/114devsecret created</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>deploy-114_redis.yaml（注：yaml文件不能用下划线<code>_</code>）</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-number">114</span><span class="hljs-string">-redis</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">114dev</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">run:</span> <span class="hljs-number">114</span><span class="hljs-string">-redis</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">run:</span> <span class="hljs-number">114</span><span class="hljs-string">-redis</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">registry.cn-hangzhou.aliyuncs.com/curious/114_redis:v1</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-number">114</span><span class="hljs-string">-redis</span><br>        <span class="hljs-attr">ports:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">6380</span><br>          <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>      <span class="hljs-attr">imagePullSecrets:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">114devsecret</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>创建&amp;验证（等待一段时间，查看）</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ sudo kubectl create -f deploy-114_redis.yaml<br>deployment.apps/114-redis created<br>bupt@h9:~/k8s$ sudo kubectl get deploy -n 114dev<br>NAME        READY   UP-TO-DATE   AVAILABLE   AGE<br>114-redis   3/3     3            3           17s<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>删除</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ sudo kubectl delete -f deploy-114_redis.yaml<br>deployment.apps &quot;114-redis&quot; deleted<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>迟迟不redis的调试报错方法</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">deploy状态不ok</span><br>bupt@h9:~/k8s$ sudo kubectl get deploy -n 114dev<br>NAME        READY   UP-TO-DATE   AVAILABLE   AGE<br>114-redis   0/3     3            0           17m<br><span class="hljs-meta prompt_"># </span><span class="language-bash">pod状态显示ImagePullBackOff</span><br>bupt@h9:~/k8s$ sudo kubectl get pod -o wide -n 114dev<br>NAME                         READY   STATUS             RESTARTS   AGE   IP           NODE   NOMINATED NODE   READINESS GATES<br>114-redis-6f6dc67f59-c4qzm   0/1     ImagePullBackOff   0          17m   10.244.1.5   h7     &lt;none&gt;           &lt;none&gt;<br>114-redis-6f6dc67f59-cw2zk   0/1     ImagePullBackOff   0          17m   10.244.1.6   h7     &lt;none&gt;           &lt;none&gt;<br>114-redis-6f6dc67f59-stpqv   0/1     ImagePullBackOff   0          17m   10.244.1.4   h7     &lt;none&gt;           &lt;none&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-2-service（附debug过程和解决，主要是私有镜像库的权限问题）"><a href="#3-2-service（附debug过程和解决，主要是私有镜像库的权限问题）" class="headerlink" title="3.2 service（附debug过程和解决，主要是私有镜像库的权限问题）"></a>3.2 service（附debug过程和解决，主要是私有镜像库的权限问题）</h3><p>svc-114_redis.yaml（注：这里NodePort是向外部暴露端口的方式，然后clusterIP就随便写一个内部的IP）</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">svc-114-redis</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">114dev</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">clusterIP:</span> <span class="hljs-number">10.109</span><span class="hljs-number">.179</span><span class="hljs-number">.231</span><br>  <span class="hljs-attr">ports:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">6380</span><br>    <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">6380</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">run:</span> <span class="hljs-number">114</span><span class="hljs-string">-redis</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">NodePort</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>创建&amp;验证</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ sudo kubectl create -f svc-114_redis.yaml <br>service/svc-114-redis created<br>bupt@h9:~/k8s$ sudo kubectl get svc svc-114-redis -n 114dev -o wide<br>NAME            TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE   SELECTOR<br>svc-114-redis   NodePort   10.109.179.231   &lt;none&gt;        6380:31190/TCP   9s    run=114-redis<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>删除</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ sudo kubectl delete -f svc-114_redis.yaml<br>service &quot;svc-114-redis&quot; deleted<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-3-使用curl命令进行redis的测试"><a href="#3-3-使用curl命令进行redis的测试" class="headerlink" title="3.3 使用curl命令进行redis的测试"></a>3.3 使用curl命令进行redis的测试</h3><p>好像有些问题，因为这里redis也有些鉴权操作：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/33243121/abuse-curl-to-communicate-with-redis">https://stackoverflow.com/questions/33243121/abuse-curl-to-communicate-with-redis</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ curl --http0.9 -w &quot;\n&quot; -i -X GET http://10.109.246.xxx:31190<br>-ERR wrong number of arguments for &#x27;get&#x27; command<br>-NOAUTH Authentication required.<br>-ERR unknown command `User-Agent:`, with args beginning with: `curl/7.68.0`, <br>-ERR unknown command `Accept:`, with args beginning with: `*/*`,<br></code></pre></td></tr></table></figure>
+
+<p>至少不是普通的报错了，说明这里还是有些内容的</p>
+<h3 id="3-4-整体查看"><a href="#3-4-整体查看" class="headerlink" title="3.4 整体查看"></a>3.4 整体查看</h3><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230125234120241.png" srcset="/img/loading.gif" lazyload alt="image-20230125234120241"></p>
+<h2 id="4-后端部分（nginx、uwsgi-django）"><a href="#4-后端部分（nginx、uwsgi-django）" class="headerlink" title="4. 后端部分（nginx、uwsgi+django）"></a>4. 后端部分（nginx、uwsgi+django）</h2><p>首先对于nginx、uwsgi+django这个部分，需要记住clusterIP的一个自定义的配置，之后会在主图上有体现</p>
+<h3 id="4-1-deployment"><a href="#4-1-deployment" class="headerlink" title="4.1 deployment"></a>4.1 deployment</h3><ul>
+<li>deploy-114_backend.yaml（注：yaml文件不能用下划线<code>_</code>）</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs shell">apiVersion: apps/v1<br>kind: Deployment<br>metadata:<br>  name: 114-backend<br>  namespace: 114dev<br>spec:<br>  replicas: 3<br>  selector:<br>    matchLabels:<br>      run: 114-backend<br>  template:<br>    metadata:<br>      labels:<br>        run: 114-backend<br>    spec:<br>      containers:<br>      - image: registry.cn-hangzhou.aliyuncs.com/curious/114_uwsgi_django:v1<br>        name: 114-uwsgi-django<br>        ports:<br>        - containerPort: 5002<br>          protocol: TCP<br>      - image: registry.cn-hangzhou.aliyuncs.com/curious/114_nginx:v1<br>        name: 114-nginx<br>        ports:<br>        - containerPort: 8082<br>          protocol: TCP<br>      imagePullSecrets:<br>      - name: 114devsecret<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>创建&amp;验证（等待一段时间，查看）</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ sudo kubectl create -f deploy-114_backend.yaml<br>deployment.apps/114-backend created<br>bupt@h9:~/k8s$ sudo kubectl get deploy -n 114dev<br>NAME          READY   UP-TO-DATE   AVAILABLE   AGE<br>114-backend   3/3     3            3           14m<br>114-redis     3/3     3            3           94m<br>bupt@h9:~/k8s$ sudo kubectl describe pod -n 114dev<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>删除</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ sudo kubectl delete -f deploy-114_backend.yaml<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-2-service"><a href="#4-2-service" class="headerlink" title="4.2 service"></a>4.2 service</h3><p>svc-114_backend.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">svc-114-backend</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">114dev</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">clusterIP:</span> <span class="hljs-number">10.109</span><span class="hljs-number">.179</span><span class="hljs-number">.232</span><br>  <span class="hljs-attr">ports:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">8082</span><br>    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">8082</span><br>    <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">uwsgi</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">5002</span><br>    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">5002</span><br>    <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">run:</span> <span class="hljs-number">114</span><span class="hljs-string">-backend</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">NodePort</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>创建&amp;验证</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ sudo kubectl create -f svc-114_backend.yaml<br>service/svc-114-backend created<br>bupt@h9:~/k8s$ sudo kubectl get svc svc-114-backend -n 114dev -o wide<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>删除</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ sudo kubectl delete -f svc-114_backend.yaml<br>service &quot;svc-114_backend&quot; deleted<br></code></pre></td></tr></table></figure>
+
+<h2 id="5-整体查看-curl测试"><a href="#5-整体查看-curl测试" class="headerlink" title="5. 整体查看+curl测试"></a>5. 整体查看+curl测试</h2><h3 id="5-1-整体查看"><a href="#5-1-整体查看" class="headerlink" title="5.1 整体查看"></a>5.1 整体查看</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ sudo kubectl get pod,deploy,svc -n 114dev -o wide<br>NAME                             READY   STATUS    RESTARTS   AGE   IP            NODE   NOMINATED NODE   READINESS GATES<br>pod/114-backend-78f69c78-2vlgq   2/2     Running   0          9h    10.244.1.10   h7     &lt;none&gt;           &lt;none&gt;<br>pod/114-backend-78f69c78-hw5h7   2/2     Running   0          9h    10.244.1.12   h7     &lt;none&gt;           &lt;none&gt;<br>pod/114-backend-78f69c78-lz6ds   2/2     Running   0          9h    10.244.1.11   h7     &lt;none&gt;           &lt;none&gt;<br>pod/114-redis-fffd7f8b-282hn     1/1     Running   0          10h   10.244.1.9    h7     &lt;none&gt;           &lt;none&gt;<br>pod/114-redis-fffd7f8b-59hpw     1/1     Running   0          10h   10.244.1.7    h7     &lt;none&gt;           &lt;none&gt;<br>pod/114-redis-fffd7f8b-6gf7d     1/1     Running   0          10h   10.244.1.8    h7     &lt;none&gt;           &lt;none&gt;<br><br>NAME                          READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS                   IMAGES                                                                                                                 SELECTOR<br>deployment.apps/114-backend   3/3     3            3           9h    114-uwsgi-django,114-nginx   registry.cn-hangzhou.aliyuncs.com/curious/114_uwsgi_django:v1,registry.cn-hangzhou.aliyuncs.com/curious/114_nginx:v1   run=114-backend<br>deployment.apps/114-redis     3/3     3            3           10h   114-redis                    registry.cn-hangzhou.aliyuncs.com/curious/114_redis:v1                                                                 run=114-redis<br><br>NAME                      TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)                         AGE   SELECTOR<br>service/svc-114-backend   NodePort   10.109.179.232   &lt;none&gt;        8082:30860/TCP,5002:31894/TCP   9h    run=114-backend<br>service/svc-114-redis     NodePort   10.109.179.231   &lt;none&gt;        6380:31137/TCP                  9h    run=114-redis<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-2-curl测试"><a href="#5-2-curl测试" class="headerlink" title="5.2 curl测试"></a>5.2 curl测试</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ curl --location --request POST &#x27;http://10.109.246.xxx(h9):30860/_114/&#x27; --header &#x27;Content-Type: text/plain&#x27; --data &#x27;&#123; &quot;commonVersion&quot;: &quot;1.0&quot;, &quot;taskId&quot;: 1, &quot;callId&quot;: &quot;20220126_0055&quot;, &quot;dialog&quot;: &quot;begin&quot;, &quot;message&quot;: &quot;上海科技大学。&quot;, &quot;called&quot;: &quot;12345678&quot;, &quot;origcall&quot;: &quot;87654321&quot; &#125;&#x27;<br>&#123;&quot;resultTag&quot;: &quot;确认查号结果&quot;, &quot;resultInfo&quot;: &#123;&quot;name&quot;: &quot;上海科技大学&quot;, &quot;number&quot;: &quot;test12345678&quot;&#125;&#125;<br>bupt@h9:~/k8s$ <br>bupt@h9:~/k8s$ curl --location --request POST &#x27;http://10.109.246.yyy(h7):30860/_114/&#x27; --header &#x27;Content-Type: text/plain&#x27; --data &#x27;&#123; &quot;commonVersion&quot;: &quot;1.0&quot;, &quot;taskId&quot;: 1, &quot;callId&quot;: &quot;20220126_0055&quot;, &quot;dialog&quot;: &quot;continue&quot;, &quot;message&quot;: &quot;可以。&quot;, &quot;called&quot;: &quot;12345678&quot;, &quot;origcall&quot;: &quot;87654321&quot; &#125;&#x27;<br>&#123;&quot;resultTag&quot;: &quot;播放查号结果&quot;, &quot;resultInfo&quot;: &#123;&quot;name&quot;: &quot;上海科技大学&quot;, &quot;number&quot;: &quot;test12345678&quot;&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="6-挂载-amp-升级（挂载还有些问题）"><a href="#6-挂载-amp-升级（挂载还有些问题）" class="headerlink" title="6. 挂载&amp;升级（挂载还有些问题）"></a>6. 挂载&amp;升级（挂载还有些问题）</h2><p>原来的114_uwsgi_django需要挂载这些内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run \<br>    -p 5002:5002 \<br>    -v /data/sdb2/lyx/mount-files-202211270941/_114config.json:/home/lyx/_114/zfx-114-query-system/_114django/_114config.json \<br>    -v /data/sdb2/lyx/mount-files-202211270941/Configs:/home/lyx/_114/zfx-114-query-system/_114django/Configs \<br>    -v /data/sdb2/lyx/mount-files-202211270941/debug-logs:/home/lyx/_114/zfx-114-query-system/_114django/debug-logs \<br>    -v /data/sdb2/lyx/mount-files-202211270941/logs:/home/lyx/_114/zfx-114-query-system/_114django/logs \<br>    -v /data/sdb2/lyx/mount-files-202211270941/wsgi_logs:/home/lyx/_114/zfx-114-query-system/_114django/wsgi_logs \<br>    -v /data/sdb2/lyx/mount-files-202211270941/stopwords.txt:/usr/local/lib/python3.6/site-packages/pyhanlp/static/data/dictionary/stopwords.txt \<br>    -v /data/sdb2/lyx/mount-files-202211270941/CustomDictionary1.txt:/usr/local/lib/python3.6/site-packages/pyhanlp/static/data/dictionary/custom/CustomDictionary1.txt \<br>    -d 114_uwsgi_django:v1<br></code></pre></td></tr></table></figure>
+
+<p>现在要想办法把这些在k8s的方式下进行挂载，需要创建configMap，并修改：deploy-114_backend.yaml</p>
+<p><font color='red'>尝试使用configMap和直接mount的方式，感觉都有各种各样奇怪的报错，包括下面chatGPT给出的解释：</font> </p>
+<p>Q：k8s挂载包含文件夹的文件夹会有问题吗</p>
+<p>chatGPT A：在 Kubernetes 中使用 ConfigMap 或者 Secrets 挂载包含文件夹的文件夹时，可能会出现问题。ConfigMap 和 Secrets 都是将文件夹中的文件映射到容器中的文件系统中，如果文件夹中包含文件夹，可能会导致文件夹结构不完整或者文件丢失。为了避免这些问题，建议只在文件夹中挂载单个文件。</p>
+<h3 id="6-1-使用configMap挂载所有配置文件（外部-gt-内部）"><a href="#6-1-使用configMap挂载所有配置文件（外部-gt-内部）" class="headerlink" title="6.1 使用configMap挂载所有配置文件（外部-&gt;内部）"></a>6.1 使用configMap挂载所有配置文件（外部-&gt;内部）</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lizexiong/p/14990537.html">https://www.cnblogs.com/lizexiong/p/14990537.html</a></p>
+<ul>
+<li><code>/data/sdb2/lyx/mount-files-202211270941/_114config.json</code>（单独文件就用configmap）</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo kubectl create configmap 114config --from-file=/home/bupt/k8s/mount-files-202211270941/_114config.json -n 114dev<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>/data/sdb2/lyx/mount-files-202211270941/stopwords.txt</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo kubectl create configmap stopword --from-file=/home/bupt/k8s/mount-files-202211270941/stopwords.txt -n 114dev<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>/data/sdb2/lyx/mount-files-202211270941/CustomDictionary1.txt</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo kubectl create configmap customdictionary1 --from-file=/home/bupt/k8s/mount-files-202211270941/CustomDictionary1.txt -n 114dev<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Configs目录下的内容</p>
+<ul>
+<li><code>/home/bupt/k8s/mount-files-202211270941/Configs/COMMON_QUERY_WORD.json</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo kubectl create configmap commonqueryword --from-file=/home/bupt/k8s/mount-files-202211270941/Configs/COMMON_QUERY_WORD.json -n 114dev<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>/home/bupt/k8s/mount-files-202211270941/Configs/INTENT_CLASSIFICATION_CONFIGS.json</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo kubectl create configmap intentconfig --from-file=/home/bupt/k8s/mount-files-202211270941/Configs/INTENT_CLASSIFICATION_CONFIGS.json -n 114dev<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>/home/bupt/k8s/mount-files-202211270941/Configs/QUERY_PHONENUMBER_CONFIGS.json</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo kubectl create configmap queryconfig --from-file=/home/bupt/k8s/mount-files-202211270941/Configs/QUERY_PHONENUMBER_CONFIGS.json -n 114dev<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>/home/bupt/k8s/mount-files-202211270941/Configs/HeteromorphicCharacters.txt</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo kubectl create configmap heteromorphic --from-file=/home/bupt/k8s/mount-files-202211270941/Configs/HeteromorphicCharacters.txt -n 114dev<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>/home/bupt/k8s/mount-files-202211270941/Configs/IntentClassificationKeywords/doctor.txt</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo kubectl create configmap doctor --from-file=/home/bupt/k8s/mount-files-202211270941/Configs/IntentClassificationKeywords/doctor.txt -n 114dev<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>/home/bupt/k8s/mount-files-202211270941/Configs/IntentClassificationKeywords/move.txt</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo kubectl create configmap move --from-file=/home/bupt/k8s/mount-files-202211270941/Configs/IntentClassificationKeywords/move.txt -n 114dev<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>/home/bupt/k8s/mount-files-202211270941/Configs/IntentClassificationKeywords/priority.txt</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo kubectl create configmap priority --from-file=/home/bupt/k8s/mount-files-202211270941/Configs/IntentClassificationKeywords/priority.txt -n 114dev<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>更新</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ sudo kubectl create configmap queryconfig --from-file /home/bupt/k8s/mount-files-202211270941/Configs/QUERY_PHONENUMBER_CONFIGS.json -o yaml --dry-run -n 114dev | sudo kubectl replace -f -<br>W0127 01:20:11.550767 2883207 helpers.go:555] --dry-run is deprecated and can be replaced with --dry-run=client.<br>configmap/queryconfig replaced<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>展示</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ sudo kubectl get configmap -n 114dev<br>NAME                           DATA   AGE<br>114config                      1      7h28m<br>configs                        4      6h20m<br>customdictionary1              1      7h28m<br>intentclassificationkeywords   3      3s<br>kube-root-ca.crt               1      23h<br>stopword                       1      7h28m<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-2-使用PV和PVC挂载日志输出（内部-gt-外部）"><a href="#6-2-使用PV和PVC挂载日志输出（内部-gt-外部）" class="headerlink" title="6.2 使用PV和PVC挂载日志输出（内部-&gt;外部）"></a>6.2 使用PV和PVC挂载日志输出（内部-&gt;外部）</h3><p><font color='red'>TODO 待尝试</font> </p>
+<h3 id="6-3-修改deploy（加入了热更新configMap）"><a href="#6-3-修改deploy（加入了热更新configMap）" class="headerlink" title="6.3 修改deploy（加入了热更新configMap）"></a>6.3 修改deploy（加入了热更新configMap）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><code class="hljs shell">apiVersion: apps/v1<br>kind: Deployment<br>metadata:<br>  name: 114-backend<br>  namespace: 114dev<br>spec:<br>  replicas: 5<br>  selector:<br>    matchLabels:<br>      run: 114-backend<br>  template:<br>    metadata:<br>      labels:<br>        run: 114-backend<br>      annotations:<br>        reloader.stakater.com/auto: &quot;true&quot;<br>    spec:<br>      containers:<br>      - image: registry.cn-hangzhou.aliyuncs.com/curious/114_uwsgi_django:v1<br>        name: 114-uwsgi-django<br>        volumeMounts:<br>        # 文件夹类型的挂载<br>        # TODO<br>        # 文件类型的挂载<br>        - mountPath: /home/lyx/_114/zfx-114-query-system/_114django/_114config.json<br>          name: 114config<br>          subPath: _114config.json<br>        - mountPath: /usr/local/lib/python3.6/site-packages/pyhanlp/static/data/dictionary/stopwords.txt<br>          name: stopword<br>          subPath: stopwords.txt<br>        - mountPath: /usr/local/lib/python3.6/site-packages/pyhanlp/static/data/dictionary/custom/CustomDictionary1.txt<br>          name: customdictionary1<br>          subPath: CustomDictionary1.txt<br>        - mountPath: /home/lyx/_114/zfx-114-query-system/_114django/Configs/COMMON_QUERY_WORD.json<br>          name: commonqueryword<br>          subPath: COMMON_QUERY_WORD.json<br>        - mountPath: /home/lyx/_114/zfx-114-query-system/_114django/Configs/INTENT_CLASSIFICATION_CONFIGS.json<br>          name: intentconfig<br>          subPath: INTENT_CLASSIFICATION_CONFIGS.json<br>        - mountPath: /home/lyx/_114/zfx-114-query-system/_114django/Configs/QUERY_PHONENUMBER_CONFIGS.json<br>          name: queryconfig<br>          subPath: QUERY_PHONENUMBER_CONFIGS.json<br>        - mountPath: /home/lyx/_114/zfx-114-query-system/_114django/Configs/HeteromorphicCharacters.txt<br>          name: heteromorphic<br>          subPath: HeteromorphicCharacters.txt<br>        - mountPath: /home/lyx/_114/zfx-114-query-system/_114django/Configs/IntentClassificationKeywords/doctor.txt<br>          name: doctor<br>          subPath: doctor.txt<br>        - mountPath: /home/lyx/_114/zfx-114-query-system/_114django/Configs/IntentClassificationKeywords/move.txt<br>          name: move<br>          subPath: move.txt<br>        - mountPath: /home/lyx/_114/zfx-114-query-system/_114django/Configs/IntentClassificationKeywords/priority.txt<br>          name: priority<br>          subPath: priority.txt<br>        ports:<br>        - containerPort: 5002<br>          protocol: TCP<br>      - image: registry.cn-hangzhou.aliyuncs.com/curious/114_nginx:v1<br>        name: 114-nginx<br>        ports:<br>        - containerPort: 8082<br>          protocol: TCP<br>      volumes:<br>      # 文件夹类型的挂载<br>      # TODO<br>      # 文件类型的挂载<br>      - name: 114config<br>        configMap:<br>          name: 114config<br>      - name: stopword<br>        configMap:<br>          name: stopword<br>      - name: customdictionary1<br>        configMap:<br>          name: customdictionary1<br>      - name: commonqueryword<br>        configMap:<br>          name: commonqueryword<br>      - name: intentconfig<br>        configMap:<br>          name: intentconfig<br>      - name: queryconfig<br>        configMap:<br>          name: queryconfig<br>      - name: heteromorphic<br>        configMap:<br>          name: heteromorphic<br>      - name: doctor<br>        configMap:<br>          name: doctor<br>      - name: move<br>        configMap:<br>          name: move<br>      - name: priority<br>        configMap:<br>          name: priority<br>      imagePullSecrets:<br>      - name: 114devsecret<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>apply</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo kubectl apply -f deploy-114_backend.yaml<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>查看</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo kubectl get pod,deploy,svc -n 114dev -o wide<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-4-热更新（注意deploy中的配置）"><a href="#6-4-热更新（注意deploy中的配置）" class="headerlink" title="6.4 热更新（注意deploy中的配置）"></a>6.4 热更新（注意deploy中的配置）</h3><p><code>/home/bupt/k8s/reloader.yaml</code>替换掉其中的default为自己的这个namespace（114dev）</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-comment"># Source: reloader/templates/serviceaccount.yaml</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ServiceAccount</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">annotations:</span><br>    <span class="hljs-attr">meta.helm.sh/release-namespace:</span> <span class="hljs-string">&quot;114dev&quot;</span><br>    <span class="hljs-attr">meta.helm.sh/release-name:</span> <span class="hljs-string">&quot;reloader&quot;</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">reloader-reloader</span><br>    <span class="hljs-attr">chart:</span> <span class="hljs-string">&quot;reloader-v1.0.2&quot;</span><br>    <span class="hljs-attr">release:</span> <span class="hljs-string">&quot;reloader&quot;</span><br>    <span class="hljs-attr">heritage:</span> <span class="hljs-string">&quot;Helm&quot;</span><br>    <span class="hljs-attr">app.kubernetes.io/managed-by:</span> <span class="hljs-string">&quot;Helm&quot;</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">reloader-reloader</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">114dev</span><br><span class="hljs-meta">---</span><br><span class="hljs-comment"># Source: reloader/templates/clusterrole.yaml</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">rbac.authorization.k8s.io/v1</span><br><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRole</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">annotations:</span><br>    <span class="hljs-attr">meta.helm.sh/release-namespace:</span> <span class="hljs-string">&quot;114dev&quot;</span><br>    <span class="hljs-attr">meta.helm.sh/release-name:</span> <span class="hljs-string">&quot;reloader&quot;</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">reloader-reloader</span><br>    <span class="hljs-attr">chart:</span> <span class="hljs-string">&quot;reloader-v1.0.2&quot;</span><br>    <span class="hljs-attr">release:</span> <span class="hljs-string">&quot;reloader&quot;</span><br>    <span class="hljs-attr">heritage:</span> <span class="hljs-string">&quot;Helm&quot;</span><br>    <span class="hljs-attr">app.kubernetes.io/managed-by:</span> <span class="hljs-string">&quot;Helm&quot;</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">reloader-reloader-role</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">114dev</span><br><span class="hljs-attr">rules:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">apiGroups:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-attr">resources:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">secrets</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">configmaps</span><br>    <span class="hljs-attr">verbs:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">list</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">get</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">watch</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">apiGroups:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;apps&quot;</span><br>    <span class="hljs-attr">resources:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">deployments</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">daemonsets</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">statefulsets</span><br>    <span class="hljs-attr">verbs:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">list</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">get</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">update</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">patch</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">apiGroups:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;extensions&quot;</span><br>    <span class="hljs-attr">resources:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">deployments</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">daemonsets</span><br>    <span class="hljs-attr">verbs:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">list</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">get</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">update</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">patch</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">apiGroups:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-attr">resources:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">events</span><br>    <span class="hljs-attr">verbs:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">create</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">patch</span><br><span class="hljs-meta">---</span><br><span class="hljs-comment"># Source: reloader/templates/clusterrolebinding.yaml</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">rbac.authorization.k8s.io/v1</span><br><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRoleBinding</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">annotations:</span><br>    <span class="hljs-attr">meta.helm.sh/release-namespace:</span> <span class="hljs-string">&quot;114dev&quot;</span><br>    <span class="hljs-attr">meta.helm.sh/release-name:</span> <span class="hljs-string">&quot;reloader&quot;</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">reloader-reloader</span><br>    <span class="hljs-attr">chart:</span> <span class="hljs-string">&quot;reloader-v1.0.2&quot;</span><br>    <span class="hljs-attr">release:</span> <span class="hljs-string">&quot;reloader&quot;</span><br>    <span class="hljs-attr">heritage:</span> <span class="hljs-string">&quot;Helm&quot;</span><br>    <span class="hljs-attr">app.kubernetes.io/managed-by:</span> <span class="hljs-string">&quot;Helm&quot;</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">reloader-reloader-role-binding</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">114dev</span><br><span class="hljs-attr">roleRef:</span><br>  <span class="hljs-attr">apiGroup:</span> <span class="hljs-string">rbac.authorization.k8s.io</span><br>  <span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRole</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">reloader-reloader-role</span><br><span class="hljs-attr">subjects:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">kind:</span> <span class="hljs-string">ServiceAccount</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">reloader-reloader</span><br>    <span class="hljs-attr">namespace:</span> <span class="hljs-string">114dev</span><br><span class="hljs-meta">---</span><br><span class="hljs-comment"># Source: reloader/templates/deployment.yaml</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">annotations:</span><br>    <span class="hljs-attr">meta.helm.sh/release-namespace:</span> <span class="hljs-string">&quot;114dev&quot;</span><br>    <span class="hljs-attr">meta.helm.sh/release-name:</span> <span class="hljs-string">&quot;reloader&quot;</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">reloader-reloader</span><br>    <span class="hljs-attr">chart:</span> <span class="hljs-string">&quot;reloader-v1.0.2&quot;</span><br>    <span class="hljs-attr">release:</span> <span class="hljs-string">&quot;reloader&quot;</span><br>    <span class="hljs-attr">heritage:</span> <span class="hljs-string">&quot;Helm&quot;</span><br>    <span class="hljs-attr">app.kubernetes.io/managed-by:</span> <span class="hljs-string">&quot;Helm&quot;</span><br>    <span class="hljs-attr">group:</span> <span class="hljs-string">com.stakater.platform</span><br>    <span class="hljs-attr">provider:</span> <span class="hljs-string">stakater</span><br>    <span class="hljs-attr">version:</span> <span class="hljs-string">v1.0.2</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">reloader-reloader</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">114dev</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>  <span class="hljs-attr">revisionHistoryLimit:</span> <span class="hljs-number">2</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">app:</span> <span class="hljs-string">reloader-reloader</span><br>      <span class="hljs-attr">release:</span> <span class="hljs-string">&quot;reloader&quot;</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">reloader-reloader</span><br>        <span class="hljs-attr">chart:</span> <span class="hljs-string">&quot;reloader-v1.0.2&quot;</span><br>        <span class="hljs-attr">release:</span> <span class="hljs-string">&quot;reloader&quot;</span><br>        <span class="hljs-attr">heritage:</span> <span class="hljs-string">&quot;Helm&quot;</span><br>        <span class="hljs-attr">app.kubernetes.io/managed-by:</span> <span class="hljs-string">&quot;Helm&quot;</span><br>        <span class="hljs-attr">group:</span> <span class="hljs-string">com.stakater.platform</span><br>        <span class="hljs-attr">provider:</span> <span class="hljs-string">stakater</span><br>        <span class="hljs-attr">version:</span> <span class="hljs-string">v1.0.2</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">&quot;stakater/reloader:v1.0.2&quot;</span><br>        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">IfNotPresent</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">reloader-reloader</span><br><br>        <span class="hljs-attr">ports:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">http</span><br>          <span class="hljs-attr">containerPort:</span> <span class="hljs-number">9091</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">metrics</span><br>          <span class="hljs-attr">containerPort:</span> <span class="hljs-number">9090</span><br>        <span class="hljs-attr">livenessProbe:</span><br>          <span class="hljs-attr">httpGet:</span><br>            <span class="hljs-attr">path:</span> <span class="hljs-string">/live</span><br>            <span class="hljs-attr">port:</span> <span class="hljs-string">http</span><br>          <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">5</span><br>          <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">5</span><br>          <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">10</span><br>          <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">1</span><br>        <span class="hljs-attr">readinessProbe:</span><br>          <span class="hljs-attr">httpGet:</span><br>            <span class="hljs-attr">path:</span> <span class="hljs-string">/metrics</span><br>            <span class="hljs-attr">port:</span> <span class="hljs-string">metrics</span><br>          <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">5</span><br>          <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">5</span><br>          <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">10</span><br>          <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">securityContext:</span> <br>        <span class="hljs-attr">runAsNonRoot:</span> <span class="hljs-literal">true</span><br>        <span class="hljs-attr">runAsUser:</span> <span class="hljs-number">65534</span><br>      <span class="hljs-attr">serviceAccountName:</span> <span class="hljs-string">reloader-reloader</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo kubectl apply -f /home/bupt/k8s/reloader.yaml<br>sudo kubectl get pod,deploy,svc -n 114dev -o wide<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">更新了配置文件后，用这个更新configmap，建议扩容缩容操作不要和这个一起干，会自动生成pods来滚动更新</span><br>bupt@h9:~/k8s$ sudo kubectl create configmap queryconfig --from-file /home/bupt/k8s/mount-files-202211270941/Configs/QUERY_PHONENUMBER_CONFIGS.json -o yaml --dry-run -n 114dev | sudo kubectl replace -f -<br>W0127 01:20:11.550767 2883207 helpers.go:555] --dry-run is deprecated and can be replaced with --dry-run=client.<br>configmap/queryconfig replaced<br></code></pre></td></tr></table></figure>
+
+<h2 id="7-横向扩展（把h1加进来，变成1master2node）"><a href="#7-横向扩展（把h1加进来，变成1master2node）" class="headerlink" title="7. 横向扩展（把h1加进来，变成1master2node）"></a>7. 横向扩展（把h1加进来，变成1master2node）</h2><h3 id="7-1-操作"><a href="#7-1-操作" class="headerlink" title="7.1 操作"></a>7.1 操作</h3><p>按照之前的博客先把h1的k8s环境配置好，然后</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ kubeadm token generate<br>fxh9yt.a2j49jxw31a9lt1x<br>bupt@h9:~/k8s$ sudo kubeadm token create fxh9yt.a2j49jxw31a9lt1x --print-join-command --ttl=0<br>kubeadm join 10.109.246.xxx:6443 --token fxh9yt.a2j49jxw31a9lt1x --discovery-token-ca-cert-hash sha256:f49123e158401fae72d6419f19942cd2b5919f0786e74de3702989c264046b17<br></code></pre></td></tr></table></figure>
+
+<p>查看：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ sudo kubectl get nodes<br>NAME   STATUS   ROLES                  AGE     VERSION<br>h1     Ready    &lt;none&gt;                 5m22s   v1.22.15<br>h7     Ready    &lt;none&gt;                 42h     v1.22.15<br>h9     Ready    control-plane,master   43h     v1.22.15<br></code></pre></td></tr></table></figure>
+
+<p>把deploy中的replicas从3改成4，会发现自动在h1上创建中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ sudo kubectl get pod,deploy,svc -n 114dev -o wide<br>NAME                               READY   STATUS              RESTARTS   AGE   IP            NODE   NOMINATED NODE   READINESS GATES<br>pod/114-backend-6d5c4bc967-9mtrt   2/2     Running             0          78m   10.244.1.38   h7     &lt;none&gt;           &lt;none&gt;<br>pod/114-backend-6d5c4bc967-fxnzb   2/2     Running             0          78m   10.244.1.37   h7     &lt;none&gt;           &lt;none&gt;<br>pod/114-backend-6d5c4bc967-t98mn   0/2     ContainerCreating   0          3s    &lt;none&gt;        h1     &lt;none&gt;           &lt;none&gt;<br>pod/114-backend-6d5c4bc967-vgm8h   2/2     Running             0          78m   10.244.1.39   h7     &lt;none&gt;           &lt;none&gt;<br>pod/114-redis-fffd7f8b-282hn       1/1     Running             0          18h   10.244.1.9    h7     &lt;none&gt;           &lt;none&gt;<br>pod/114-redis-fffd7f8b-59hpw       1/1     Running             0          18h   10.244.1.7    h7     &lt;none&gt;           &lt;none&gt;<br>pod/114-redis-fffd7f8b-6gf7d       1/1     Running             0          18h   10.244.1.8    h7     &lt;none&gt;           &lt;none&gt;<br><br>NAME                          READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS                   IMAGES                                                                                                                 SELECTOR<br>deployment.apps/114-backend   3/4     4            3           16h   114-uwsgi-django,114-nginx   registry.cn-hangzhou.aliyuncs.com/curious/114_uwsgi_django:v1,registry.cn-hangzhou.aliyuncs.com/curious/114_nginx:v1   run=114-backend<br>deployment.apps/114-redis     3/3     3            3           18h   114-redis                    registry.cn-hangzhou.aliyuncs.com/curious/114_redis:v1                                                                 run=114-redis<br><br>NAME                      TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)                         AGE   SELECTOR<br>service/svc-114-backend   NodePort   10.109.179.232   &lt;none&gt;        8082:30860/TCP,5002:31894/TCP   16h   run=114-backend<br>service/svc-114-redis     NodePort   10.109.179.231   &lt;none&gt;        6380:31137/TCP                  16h   run=114-redis<br></code></pre></td></tr></table></figure>
+
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230126194131659.png" srcset="/img/loading.gif" lazyload alt="image-20230126194131659"></p>
+<h3 id="7-2-h1的空间不足问题，对照如下解决"><a href="#7-2-h1的空间不足问题，对照如下解决" class="headerlink" title="7.2 h1的空间不足问题，对照如下解决"></a>7.2 h1的空间不足问题，对照如下解决</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39865737/article/details/126717900">https://blog.csdn.net/weixin_39865737/article/details/126717900</a></p>
+<h2 id="8-常用命令"><a href="#8-常用命令" class="headerlink" title="8. 常用命令"></a>8. 常用命令</h2><h3 id="8-1-查看所有的状态"><a href="#8-1-查看所有的状态" class="headerlink" title="8.1 查看所有的状态"></a>8.1 查看所有的状态</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">bupt@h9:~/k8s$ sudo kubectl get pod,deploy,svc -n 114dev -o wide<br></code></pre></td></tr></table></figure>
+
+<h3 id="8-2-DEBUG查看（可以重定向）"><a href="#8-2-DEBUG查看（可以重定向）" class="headerlink" title="8.2 DEBUG查看（可以重定向）"></a>8.2 DEBUG查看（可以重定向）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo kubectl describe pod -n 114dev<br></code></pre></td></tr></table></figure>
+
+<h3 id="8-3-批量删除k8s中的异常pod信息（Evicted等）"><a href="#8-3-批量删除k8s中的异常pod信息（Evicted等）" class="headerlink" title="8.3 批量删除k8s中的异常pod信息（Evicted等）"></a>8.3 批量删除k8s中的异常pod信息（Evicted等）</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Victory_Lei/article/details/126946508">https://blog.csdn.net/Victory_Lei/article/details/126946508</a></p>
+<ul>
+<li>Evicted可使用kubectl中的强制删除命令</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">打印指定命名空间下的所有Evicted  的 pod</span><br>kubectl get pods -n  namespace | grep Evicted | awk &#x27;&#123;print $1&#125;&#x27;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-comment"># 发现有很多 “Evicted” 状态的pod</span></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-comment"># 问题原因：这是由于node节点的磁盘或内存资源不够后将现有的pod进行了驱赶。</span></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">批量删掉pod</span><br>kubectl get pods -n  namespace  | grep Evicted | awk &#x27;&#123;print $1&#125;&#x27; | xargs kubectl delete pods  -n  namespace<br></code></pre></td></tr></table></figure>
+
+<p>批量删除所有”Evicted“状态的pod即可</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">执行完成后，检查是否删除所有Evicted状态的pod</span><br>kubectl   get pods   -n  namespace<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Terminating可使用kubectl中的强制删除命令</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs SHELL"><span class="hljs-meta prompt_"># </span><span class="language-bash">删除POD</span><br>kubectl delete pod PODNAME  -n  namespace --force --grace-period=0 <br><span class="hljs-meta prompt_"> </span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">删除NAMESPACE</span><br>kubectl delete namespace NAMESPACENAME --force --grace-period=0<br></code></pre></td></tr></table></figure>
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/k8s/" class="category-chain-item">k8s</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/k8s/">#k8s</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>K8S快速入门-3基于智能114项目的自己实战</div>
+      <div>http://example.com/2023/01/25/develop/k8s/K8S快速入门-3基于智能114项目的自己实战/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/24/develop/k8s/K8S%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8-2%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E4%BB%8B%E7%BB%8D%E5%AE%9E%E6%88%98%E5%85%A5%E9%97%A8/" title="K8S快速入门-2资源管理介绍实战入门">
+                        <span class="hidden-mobile">K8S快速入门-2资源管理介绍实战入门</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,890 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="K8S快速入门-1基础介绍环境搭建1. kubnernetes介绍1.1 从容器到容器编排问题，背景目前已经发展到容器化部署时代，docker等。但是容器化的部署方式带来了问题的出现，称之为容器编排问题 横向扩展是一个非常重要且实用的分支，在业务场景非常常见   1.2 k8s简介    1.3 组件一组服务器集群，可以在集群的每个节点上运行特定的程序，来对节点进行容器管理 一个k8s集群主要是由">
+<meta property="og:type" content="article">
+<meta property="og:title" content="K8S快速入门-1基础介绍环境搭建">
+<meta property="og:url" content="http://example.com/2023/01/23/develop/k8s/K8S%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8-1%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="K8S快速入门-1基础介绍环境搭建1. kubnernetes介绍1.1 从容器到容器编排问题，背景目前已经发展到容器化部署时代，docker等。但是容器化的部署方式带来了问题的出现，称之为容器编排问题 横向扩展是一个非常重要且实用的分支，在业务场景非常常见   1.2 k8s简介    1.3 组件一组服务器集群，可以在集群的每个节点上运行特定的程序，来对节点进行容器管理 一个k8s集群主要是由">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230123235917545.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230123235958781.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124003953517.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124004048821.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124005253931.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124010032538.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124005136380.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124005208572.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124010154266.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124115059708.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124115209601.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124115245427.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124164527295.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124183721556.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124222114480.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124223628227.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124224734454.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124225622858.png">
+<meta property="article:published_time" content="2023-01-23T13:38:16.000Z">
+<meta property="article:modified_time" content="2023-01-27T14:49:27.857Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="k8s">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230123235917545.png">
+  
+  
+  
+  <title>K8S快速入门-1基础介绍环境搭建 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Curious;的个人划水博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="K8S快速入门-1基础介绍环境搭建"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-23 21:38" pubdate>
+          2023年1月23日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          58 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">K8S快速入门-1基础介绍环境搭建</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="K8S快速入门-1基础介绍环境搭建"><a href="#K8S快速入门-1基础介绍环境搭建" class="headerlink" title="K8S快速入门-1基础介绍环境搭建"></a>K8S快速入门-1基础介绍环境搭建</h1><h2 id="1-kubnernetes介绍"><a href="#1-kubnernetes介绍" class="headerlink" title="1. kubnernetes介绍"></a>1. kubnernetes介绍</h2><h3 id="1-1-从容器到容器编排问题，背景"><a href="#1-1-从容器到容器编排问题，背景" class="headerlink" title="1.1 从容器到容器编排问题，背景"></a>1.1 从容器到容器编排问题，背景</h3><p>目前已经发展到容器化部署时代，docker等。但是容器化的部署方式带来了问题的出现，称之为<strong>容器编排</strong>问题</p>
+<p><strong>横向扩展是一个非常重要且实用的分支，在业务场景非常常见</strong></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230123235917545.png" srcset="/img/loading.gif" lazyload alt="image-20230123235917545"></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230123235958781.png" srcset="/img/loading.gif" lazyload alt="image-20230123235958781"></p>
+<h3 id="1-2-k8s简介"><a href="#1-2-k8s简介" class="headerlink" title="1.2 k8s简介"></a>1.2 k8s简介</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124003953517.png" srcset="/img/loading.gif" lazyload alt="image-20230124003953517" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124004048821.png" srcset="/img/loading.gif" lazyload alt="image-20230124004048821" style="zoom:33%;" />
+
+<h3 id="1-3-组件"><a href="#1-3-组件" class="headerlink" title="1.3 组件"></a>1.3 组件</h3><p>一组服务器集群，可以在集群的每个节点上运行特定的程序，来对节点进行容器管理</p>
+<p><strong>一个k8s集群主要是由控制节点（master）、工作节点（node）组成，每个节点上都会安装不同的组件</strong></p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124005253931.png" srcset="/img/loading.gif" lazyload alt="image-20230124005253931" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124010032538.png" srcset="/img/loading.gif" lazyload alt="image-20230124010032538" style="zoom:50%;" />
+
+<h4 id="1-3-1-控制节点（master）"><a href="#1-3-1-控制节点（master）" class="headerlink" title="1.3.1 控制节点（master）"></a>1.3.1 控制节点（master）</h4><p>集群的控制平面，负责集群的决策</p>
+<p><strong>ApiServer是控制的访问入口</strong></p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124005136380.png" srcset="/img/loading.gif" lazyload alt="image-20230124005136380" style="zoom:50%;" />
+
+<h4 id="1-3-2-工作节点（node）"><a href="#1-3-2-工作节点（node）" class="headerlink" title="1.3.2 工作节点（node）"></a>1.3.2 工作节点（node）</h4><p><strong>KubeProxy是服务的访问入口</strong></p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124005208572.png" srcset="/img/loading.gif" lazyload alt="image-20230124005208572" style="zoom:50%;" />
+
+
+
+<h3 id="1-4-概念"><a href="#1-4-概念" class="headerlink" title="1.4 概念"></a>1.4 概念</h3><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124010154266.png" srcset="/img/loading.gif" lazyload alt="image-20230124010154266"></p>
+<h2 id="2-k8s集群环境搭建"><a href="#2-k8s集群环境搭建" class="headerlink" title="2. k8s集群环境搭建"></a>2. k8s集群环境搭建</h2><h3 id="2-1-环境规划"><a href="#2-1-环境规划" class="headerlink" title="2.1 环境规划"></a>2.1 环境规划</h3><h4 id="2-1-1-集群类型"><a href="#2-1-1-集群类型" class="headerlink" title="2.1.1 集群类型"></a>2.1.1 集群类型</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124115059708.png" srcset="/img/loading.gif" lazyload alt="image-20230124115059708" style="zoom:50%;" />
+
+<p><strong>本次搭建的是一主两从类型的集群</strong></p>
+<h4 id="2-1-2-安装方式"><a href="#2-1-2-安装方式" class="headerlink" title="2.1.2 安装方式"></a>2.1.2 安装方式</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124115209601.png" srcset="/img/loading.gif" lazyload alt="image-20230124115209601" style="zoom:50%;" />
+
+<p><strong>使用kubeadm方式！</strong></p>
+<h4 id="2-1-3-主机规划"><a href="#2-1-3-主机规划" class="headerlink" title="2.1.3 主机规划"></a>2.1.3 主机规划</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124115245427.png" srcset="/img/loading.gif" lazyload alt="image-20230124115245427" style="zoom:50%;" />
+
+<p>在自己的学习方式里，使用实验室服务器的h5, h6, h9来进行搭建，其中h9作为master节点！</p>
+<p>查看操作系统的命令：<code>uname -a</code></p>
+<table>
+<thead>
+<tr>
+<th>作用</th>
+<th>IP地址</th>
+<th>操作系统</th>
+<th>配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Node2</td>
+<td>h1</td>
+<td>Ubuntu16.04</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Node1</td>
+<td>h7</td>
+<td>Ubuntu16.04</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Master</td>
+<td>h9</td>
+<td>Ubuntu20.04</td>
+<td>None</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-环境搭建"><a href="#2-2-环境搭建" class="headerlink" title="2.2 环境搭建"></a>2.2 环境搭建</h3><p>在每台linux中分别安装<strong>docker、kubeadm、kubelet、kubectl</strong>程序</p>
+<p>环境配置的那些网络步骤就不搞了，正好实验室服务器已经搞好了</p>
+<h4 id="2-2-1-主机安装"><a href="#2-2-1-主机安装" class="headerlink" title="2.2.1 主机安装"></a>2.2.1 主机安装</h4><p>跳过</p>
+<h4 id="2-2-2-环境初始化"><a href="#2-2-2-环境初始化" class="headerlink" title="2.2.2 环境初始化"></a>2.2.2 环境初始化</h4><p>主机解析已经h5 h7 h9了</p>
+<p>企业内部建议开启自己的时间同步服务器，要么就是从网上同步，肯定是有方式的</p>
+<p><strong>其他一些操作，比如iptables那些的就不操作了，怕把机器搞坏了，主要还是在实际操作过程中看看会不会有什么问题</strong></p>
+<h4 id="2-2-3-安装docker（参考以前的博客）"><a href="#2-2-3-安装docker（参考以前的博客）" class="headerlink" title="2.2.3 安装docker（参考以前的博客）"></a>2.2.3 安装docker（参考以前的博客）</h4><p>教程中用的是centos，自己服务器用ubuntu</p>
+<p>docker安装参考自己的另外一篇博客：</p>
+<p><a target="_blank" rel="noopener" href="https://yixuan004.github.io/2022/11/25/develop/docker/docker%E4%BD%BF%E7%94%A8/Docker%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/">https://yixuan004.github.io/2022/11/25/develop/docker/docker%E4%BD%BF%E7%94%A8/Docker%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85/</a></p>
+<p>链接: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1EpX_W_l3lPtXrXIoi_KPPg">https://pan.baidu.com/s/1EpX_W_l3lPtXrXIoi_KPPg</a> 提取码: 4xmc</p>
+<p>docker安装完成后，要添加docker的配置文件，这个之前没有用到过，反正就是按照教程里的修改一下了，以防之后有什么奇葩问题</p>
+<p><font color='red'>暂时没有操作这么一步，看看后续会不会有什么问题再来说</font> </p>
+<p>新建<code>/etc/docker/daemon.json</code>目录，然后编辑文件<code>daemon.json</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>	<span class="hljs-attr">&quot;exec-opts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;native.cgroupdriver=systemd&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;registry-mirrors&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;https://kn0t2bca.mirror.aliyuns.com&quot;</span><span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="2-2-4-安装kubernetes组件（kubeadm，kubelet，kubectl）"><a href="#2-2-4-安装kubernetes组件（kubeadm，kubelet，kubectl）" class="headerlink" title="2.2.4 安装kubernetes组件（kubeadm，kubelet，kubectl）"></a>2.2.4 安装kubernetes组件（kubeadm，kubelet，kubectl）</h4><ul>
+<li>添加镜像源</li>
+</ul>
+<p>1.首先备份原始下载源文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo cp /etc/apt/sources.list /etc/apt/sources.list.bk<br></code></pre></td></tr></table></figure>
+
+<p>2.然后写入新的下载源地址：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">vi /etc/apt/sources.list<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">阿里云</span><br>deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse<br>deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse<br>deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse<br>deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse<br>deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse<br>deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse<br>deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse<br>deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse<br>deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse<br>deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse<br></code></pre></td></tr></table></figure>
+
+<p>3.更新源那些的操作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo apt-get update<br>sudo apt-get dist-upgrade<br>sudo apt-get upgrade<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>apt-get update报错</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124164527295.png" srcset="/img/loading.gif" lazyload alt="image-20230124164527295" style="zoom:50%;" />
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">root@h6:~# sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FCAE110B1118213C<br>Executing: /tmp/tmp.coV1HT36ly/gpg.1.sh --keyserver<br>keyserver.ubuntu.com<br>--recv-keys<br>FCAE110B1118213C<br>gpg: 下载密钥‘1118213C’，从 hkp 服务器 keyserver.ubuntu.com<br>gpg: 密钥 1118213C：公钥“Launchpad PPA for Graphics Drivers Team”已导入<br>gpg: 合计被处理的数量：1<br>gpg:               已导入：1  (RSA: 1)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>apt-get 依赖: cri-tools (&gt;&#x3D; 1.26.0) 但是它将不会被安装</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo apt-get --fix-broken install<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>安装命令和过程参考<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?type=content&amp;q=ubuntu%E4%B8%8A%E5%AE%89%E8%A3%85k8s">https://www.zhihu.com/search?type=content&amp;q=ubuntu%E4%B8%8A%E5%AE%89%E8%A3%85k8s</a></li>
+</ul>
+<p>kubelet: k8s 的核心服务</p>
+<p>kubeadm: 这个是用于快速安装 k8s 的一个集成工具，我们在master1和worker1上的 k8s 部署都将使用它来完成。</p>
+<p>kubectl: k8s 的命令行工具，部署完成之后后续的操作都要用它来执行</p>
+<p>其实这三个的下载很简单，直接用apt-get就好了，但是因为某些原因，它们的下载地址不存在了。所以我们需要用国内的镜像站来下载，也很简单，依次执行下面五条命令即可</p>
+<p>1.使得 apt 支持 ssl 传输</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">apt-get update &amp;&amp; apt-get install -y apt-transport-https<br></code></pre></td></tr></table></figure>
+
+<p>2.下载 gpg 密钥</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add -<br></code></pre></td></tr></table></figure>
+
+<p>3.添加 k8s 镜像源</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">cat &lt;&lt;EOF &gt;/etc/apt/sources.list.d/kubernetes.list<br>deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main<br>EOF<br></code></pre></td></tr></table></figure>
+
+<p>4.更新源列表</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">apt-get update<br></code></pre></td></tr></table></figure>
+
+<p>5.安装 kubectl，kubeadm以及 kubelet</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">apt-get install -y kubelet kubeadm kubectl<br>apt install kubelet=1.22.15-00 kubectl=1.22.15-00 kubeadm=1.22.15-00（降级会好一些，新版本老有奇怪问题）<br></code></pre></td></tr></table></figure>
+
+<p>6.运行systemctl start命令启动kubelet服务,并设置为开机自动启动</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">root@master01:/app# systemctl start kubelet<br>root@master01:/app# systemctl enable kubelet<br></code></pre></td></tr></table></figure>
+
+<p><font color='red'>这里又省略掉了一些安装内容，暂时不知道是不是需要，比如上面那个systemd的</font> </p>
+<h3 id="2-3-准备集群镜像"><a href="#2-3-准备集群镜像" class="headerlink" title="2.3 准备集群镜像"></a>2.3 准备集群镜像</h3><p>该步骤不是必须的，可以在下面直接准备</p>
+<h3 id="2-4-集群初始化"><a href="#2-4-集群初始化" class="headerlink" title="2.4 集群初始化"></a>2.4 集群初始化</h3><h4 id="2-4-1-master"><a href="#2-4-1-master" class="headerlink" title="2.4.1 master"></a>2.4.1 master</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124183721556.png" srcset="/img/loading.gif" lazyload alt="image-20230124183721556" style="zoom:50%;" />
+
+<p>几个值的含义分别是：版本、pod网络（默认）、service网络（默认）、master节点ip</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">kubeadm init \<br>--image-repository=registry.aliyuncs.com/google_containers \<br>--apiserver-advertise-address=10.109.246.188 \<br>--pod-network-cidr=10.244.0.0/16 \<br>--kubernetes-version=v1.22.15<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_53014769/article/details/127809159">https://blog.csdn.net/qq_53014769/article/details/127809159</a></p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124222114480.png" srcset="/img/loading.gif" lazyload alt="image-20230124222114480" style="zoom:50%;" />
+
+<p>如果搞错了，不要忘记先<code>kubeadm reset</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs shell">Your Kubernetes control-plane has initialized successfully!<br><br>To start using your cluster, you need to run the following as a regular user:<br><br>  mkdir -p $HOME/.kube<br>  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config<br>  sudo chown $(id -u):$(id -g) $HOME/.kube/config<br><br>Alternatively, if you are the root user, you can run:<br><br>  export KUBECONFIG=/etc/kubernetes/admin.conf<br><br>You should now deploy a pod network to the cluster.<br>Run &quot;kubectl apply -f [podnetwork].yaml&quot; with one of the options listed at:<br>  https://kubernetes.io/docs/concepts/cluster-administration/addons/<br><br>Then you can join any number of worker nodes by running the following on each as root:<br><br>kubeadm join 10.109.246.188:6443 --token c1enxk.6gi521ananpf4h0h \<br>        --discovery-token-ca-cert-hash sha256:f49123e158401fae72d6419f19942cd2b5919f0786e74de3702989c264046b17 <br></code></pre></td></tr></table></figure>
+
+<p>执行一下上面那几个mkdir</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">mkdir -p $HOME/.kube<br>sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config<br>sudo chown $(id -u):$(id -g) $HOME/.kube/config<br></code></pre></td></tr></table></figure>
+
+<p>查看</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">kubectl get nodes<br>root@h9:~# kubectl get nodes<br>NAME   STATUS     ROLES                  AGE    VERSION<br>h9     NotReady   control-plane,master   3m2s   v1.22.15<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-4-2-node"><a href="#2-4-2-node" class="headerlink" title="2.4.2 node"></a>2.4.2 node</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo swapoff -a<br>sudo kubeadm join 10.109.246.188:6443 --token c1enxk.6gi521ananpf4h0h \<br>        --discovery-token-ca-cert-hash sha256:f49123e158401fae72d6419f19942cd2b5919f0786e74de3702989c264046b17 <br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">[kubelet-start] Starting the kubelet<br>[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...<br><br>This node has joined the cluster:<br>* Certificate signing request was sent to apiserver and a response was received.<br>* The Kubelet was informed of the new secure connection details.<br><br>Run &#x27;kubectl get nodes&#x27; on the control-plane to see this node join the cluster.<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">root@h9:~# kubectl get nodes<br>NAME   STATUS     ROLES                  AGE     VERSION<br>h7     NotReady   &lt;none&gt;                 2m23s   v1.22.15<br>h9     NotReady   control-plane,master   8m36s   v1.22.15<br><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>[kubelet-check] The HTTP call equal to ‘curl -sSL <a target="_blank" rel="noopener" href="http://localhost:10248/healthz&#39;">http://localhost:10248/healthz&#39;</a> failed with error: Get “<a target="_blank" rel="noopener" href="http://localhost:10248/">http://localhost:10248</a></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43762191/article/details/125567365">https://blog.csdn.net/qq_43762191/article/details/125567365</a></p>
+<p>修改docker的daemon，和上面是一样的</p>
+<p><strong>截止目前，网络插件没有安装，所以都是NotReady</strong></p>
+<h3 id="2-5-安装网络插件（master）"><a href="#2-5-安装网络插件（master）" class="headerlink" title="2.5 安装网络插件（master）"></a>2.5 安装网络插件（master）</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124223628227.png" srcset="/img/loading.gif" lazyload alt="image-20230124223628227" style="zoom:50%;" />
+
+<p>原封不动运行好像就行了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">wget https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml<br>root@h9:~# kubectl apply -f kube-flannel.yml<br>namespace/kube-flannel created<br>clusterrole.rbac.authorization.k8s.io/flannel created<br>clusterrolebinding.rbac.authorization.k8s.io/flannel created<br>serviceaccount/flannel created<br>configmap/kube-flannel-cfg created<br>daemonset.apps/kube-flannel-ds created<br></code></pre></td></tr></table></figure>
+
+<p>稍等一下，就都变成ready状态了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">root@h9:~# kubectl get nodes<br>NAME   STATUS   ROLES                  AGE   VERSION<br>h7     Ready    &lt;none&gt;                 17m   v1.22.15<br>h9     Ready    control-plane,master   23m   v1.22.15<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-6-环境测试"><a href="#2-6-环境测试" class="headerlink" title="2.6 环境测试"></a>2.6 环境测试</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124224734454.png" srcset="/img/loading.gif" lazyload alt="image-20230124224734454" style="zoom:50%;" />
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">root@h9:~# kubectl create deployment nginx --image=nginx:1.14-alpine<br>deployment.apps/nginx created<br>root@h9:~# kubectl expose deployment nginx --port=80 --type=NodePort<br>service/nginx exposed<br>root@h9:~# kubectl get pods,svc<br>NAME                         READY   STATUS    RESTARTS   AGE<br>pod/nginx-65c4bffcb6-d7dgf   1/1     Running   0          100s<br><br>NAME                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE<br>service/kubernetes   ClusterIP   10.96.0.1      &lt;none&gt;        443/TCP        27m<br>service/nginx        NodePort    10.104.66.35   &lt;none&gt;        80:31934/TCP   49s<br></code></pre></td></tr></table></figure>
+
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230124225622858.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>这里31934是暴露给外界的端口号</strong></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/k8s/" class="category-chain-item">k8s</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/k8s/">#k8s</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>K8S快速入门-1基础介绍环境搭建</div>
+      <div>http://example.com/2023/01/23/develop/k8s/K8S快速入门-1基础介绍环境搭建/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/24/develop/k8s/K8S%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8-2%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E4%BB%8B%E7%BB%8D%E5%AE%9E%E6%88%98%E5%85%A5%E9%97%A8/" title="K8S快速入门-2资源管理介绍实战入门">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">K8S快速入门-2资源管理介绍实战入门</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/23/%E9%9A%8F%E4%BE%BF%E5%86%99%E5%86%99/%E6%98%8E%E6%97%A5%E6%96%B9%E8%88%9F-%E4%BF%9D%E5%85%A8%E6%B4%BE%E9%A9%BB-%E5%A4%9A%E7%B4%A2%E9%9B%B7%E6%96%AF%E5%9C%A8%E5%BB%BA%E5%9C%B0%E5%9D%97LT%E6%8C%82%E6%9C%BA/" title="明日方舟-保全派驻-多索雷斯在建地块LT挂机">
+                        <span class="hidden-mobile">明日方舟-保全派驻-多索雷斯在建地块LT挂机</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,932 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="JavaWeb-3MyBatis相关1. MyBatis简介（很多要配置的）1.1 简介    1.2 JDBC缺点  1.3 MyBatis简化  2. MyBatis快速入门 —— 以一个需求为例2.1 MyBatis快速入门，查询user表中所有数据        官网继续复制代码，编写一个MyBatisDemo类   2.2 解决SQL映射文件的告警提示  3. Mapper代理开发3.1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaWeb-3MyBatis相关">
+<meta property="og:url" content="http://example.com/2023/01/08/develop/java/javaweb/JavaWeb-3MyBatis%E7%9B%B8%E5%85%B3/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="JavaWeb-3MyBatis相关1. MyBatis简介（很多要配置的）1.1 简介    1.2 JDBC缺点  1.3 MyBatis简化  2. MyBatis快速入门 —— 以一个需求为例2.1 MyBatis快速入门，查询user表中所有数据        官网继续复制代码，编写一个MyBatisDemo类   2.2 解决SQL映射文件的告警提示  3. Mapper代理开发3.1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109212111130.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109212151210.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109212453710.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109212610077.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109212758182.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109213222252.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109213341970.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109213632831.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109213950468.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109214131442.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109214453381.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109214540470.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109214807815.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109214854671.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109214948487.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109215013064.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109215111333.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109215355994.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109215633629.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109215843771.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109215902431.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109215949688.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109220117240.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109220157900.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109220348723.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109220518125.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109220545321.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109220854395.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109222537678.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109222829494.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109223401615.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109223816259.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109223823534.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109230054484.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109231005222.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109231117250.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109231335033.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109232113419.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109232626129.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109223648652.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109232848325.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109233603598.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109234530680.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109234627841.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109234725994.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109234926110.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109235405755.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109235531403.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109235709967.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230110000258548.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230110000949230.png">
+<meta property="article:published_time" content="2023-01-08T15:57:00.000Z">
+<meta property="article:modified_time" content="2023-01-09T16:09:51.897Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="javaweb">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109212111130.png">
+  
+  
+  
+  <title>JavaWeb-3MyBatis相关 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Curious;的个人划水博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JavaWeb-3MyBatis相关"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-08 23:57" pubdate>
+          2023年1月8日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JavaWeb-3MyBatis相关</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="JavaWeb-3MyBatis相关"><a href="#JavaWeb-3MyBatis相关" class="headerlink" title="JavaWeb-3MyBatis相关"></a>JavaWeb-3MyBatis相关</h1><h2 id="1-MyBatis简介（很多要配置的）"><a href="#1-MyBatis简介（很多要配置的）" class="headerlink" title="1. MyBatis简介（很多要配置的）"></a>1. MyBatis简介（很多要配置的）</h2><h3 id="1-1-简介"><a href="#1-1-简介" class="headerlink" title="1.1 简介"></a>1.1 简介</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109212111130.png" srcset="/img/loading.gif" lazyload alt="image-20230109212111130" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109212151210.png" srcset="/img/loading.gif" lazyload alt="image-20230109212151210" style="zoom:50%;" />
+
+<h3 id="1-2-JDBC缺点"><a href="#1-2-JDBC缺点" class="headerlink" title="1.2 JDBC缺点"></a>1.2 JDBC缺点</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109212453710.png" srcset="/img/loading.gif" lazyload alt="image-20230109212453710" style="zoom:50%;" />
+
+<h3 id="1-3-MyBatis简化"><a href="#1-3-MyBatis简化" class="headerlink" title="1.3 MyBatis简化"></a>1.3 MyBatis简化</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109212610077.png" srcset="/img/loading.gif" lazyload alt="image-20230109212610077" style="zoom:50%;" />
+
+<h2 id="2-MyBatis快速入门-——-以一个需求为例"><a href="#2-MyBatis快速入门-——-以一个需求为例" class="headerlink" title="2. MyBatis快速入门 —— 以一个需求为例"></a>2. MyBatis快速入门 —— 以一个需求为例</h2><h3 id="2-1-MyBatis快速入门，查询user表中所有数据"><a href="#2-1-MyBatis快速入门，查询user表中所有数据" class="headerlink" title="2.1 MyBatis快速入门，查询user表中所有数据"></a>2.1 MyBatis快速入门，查询user表中所有数据</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109212758182.png" srcset="/img/loading.gif" lazyload alt="image-20230109212758182" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109213222252.png" srcset="/img/loading.gif" lazyload alt="image-20230109213222252" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109213341970.png" srcset="/img/loading.gif" lazyload alt="image-20230109213341970" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109213632831.png" srcset="/img/loading.gif" lazyload alt="image-20230109213632831" style="zoom:50%;" />
+
+<p>官网继续复制代码，编写一个<code>MyBatisDemo</code>类</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109213950468.png" srcset="/img/loading.gif" lazyload alt="image-20230109213950468" style="zoom:50%;" />
+
+<h3 id="2-2-解决SQL映射文件的告警提示"><a href="#2-2-解决SQL映射文件的告警提示" class="headerlink" title="2.2 解决SQL映射文件的告警提示"></a>2.2 解决SQL映射文件的告警提示</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109214131442.png" srcset="/img/loading.gif" lazyload alt="image-20230109214131442" style="zoom:50%;" />
+
+<h2 id="3-Mapper代理开发"><a href="#3-Mapper代理开发" class="headerlink" title="3. Mapper代理开发"></a>3. Mapper代理开发</h2><h3 id="3-1-目的"><a href="#3-1-目的" class="headerlink" title="3.1 目的"></a>3.1 目的</h3><p>上面的那种快速入门方式，还是要解决硬编码的一些问题</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109214453381.png" srcset="/img/loading.gif" lazyload alt="image-20230109214453381" style="zoom:50%;" />
+
+<h3 id="3-2-使用Mapper代理"><a href="#3-2-使用Mapper代理" class="headerlink" title="3.2 使用Mapper代理"></a>3.2 使用Mapper代理</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109214540470.png" srcset="/img/loading.gif" lazyload alt="image-20230109214540470" style="zoom:50%;" />
+
+<ul>
+<li>第一步</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109214807815.png" srcset="/img/loading.gif" lazyload alt="image-20230109214807815" style="zoom:50%;" />
+
+<ul>
+<li>第二步</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109214854671.png" srcset="/img/loading.gif" lazyload alt="image-20230109214854671" style="zoom:50%;" />
+
+<ul>
+<li>第三步（参数和返回值类型一样）</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109214948487.png" srcset="/img/loading.gif" lazyload alt="image-20230109214948487" style="zoom:50%;" />
+
+<ul>
+<li>第四步，小改路径</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109215013064.png" srcset="/img/loading.gif" lazyload alt="image-20230109215013064" style="zoom:50%;" />
+
+<h3 id="3-3-编码（重点，实现接口）"><a href="#3-3-编码（重点，实现接口）" class="headerlink" title="3.3 编码（重点，实现接口）"></a>3.3 编码（重点，实现接口）</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109215111333.png" srcset="/img/loading.gif" lazyload alt="image-20230109215111333" style="zoom:50%;" />
+
+<h3 id="3-4-简化映射文件的加载"><a href="#3-4-简化映射文件的加载" class="headerlink" title="3.4 简化映射文件的加载"></a>3.4 简化映射文件的加载</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109215355994.png" srcset="/img/loading.gif" lazyload alt="image-20230109215355994" style="zoom:50%;" />
+
+<h2 id="4-MyBatis核心配置文件mybatis-config-xml"><a href="#4-MyBatis核心配置文件mybatis-config-xml" class="headerlink" title="4. MyBatis核心配置文件mybatis-config.xml"></a>4. MyBatis核心配置文件<code>mybatis-config.xml</code></h2><ul>
+<li>配置多个，可以链接不同的数据库，default切换</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109215633629.png" srcset="/img/loading.gif" lazyload alt="image-20230109215633629" style="zoom:50%;" />
+
+<ul>
+<li>别名（可以包扫描）</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109215843771.png" srcset="/img/loading.gif" lazyload alt="image-20230109215843771" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109215902431.png" srcset="/img/loading.gif" lazyload alt="image-20230109215902431" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109215949688.png" srcset="/img/loading.gif" lazyload alt="image-20230109215949688" style="zoom:50%;" />
+
+<ul>
+<li><strong>xml的顺序约束！！！！！</strong></li>
+</ul>
+<h2 id="5-配置文件完成增删改查"><a href="#5-配置文件完成增删改查" class="headerlink" title="5. 配置文件完成增删改查"></a>5. 配置文件完成增删改查</h2><h3 id="5-1-需求说明"><a href="#5-1-需求说明" class="headerlink" title="5.1 需求说明"></a>5.1 需求说明</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109220117240.png" srcset="/img/loading.gif" lazyload alt="image-20230109220117240" style="zoom:50%;" />
+
+<p>条件查询，删除多个（批量删除）</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109220157900.png" srcset="/img/loading.gif" lazyload alt="image-20230109220157900" style="zoom:50%;" />
+
+<h3 id="5-2-MyBatisX插件"><a href="#5-2-MyBatisX插件" class="headerlink" title="5.2 MyBatisX插件"></a>5.2 MyBatisX插件</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109220348723.png" srcset="/img/loading.gif" lazyload alt="image-20230109220348723" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109220518125.png" srcset="/img/loading.gif" lazyload alt="image-20230109220518125" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109220545321.png" srcset="/img/loading.gif" lazyload alt="image-20230109220545321" style="zoom:50%;" />
+
+<h3 id="5-3-查询所有-amp-结果映射（数据库列名和属性名不一致）"><a href="#5-3-查询所有-amp-结果映射（数据库列名和属性名不一致）" class="headerlink" title="5.3 查询所有&amp;结果映射（数据库列名和属性名不一致）"></a>5.3 查询所有&amp;结果映射（数据库列名和属性名不一致）</h3><h4 id="5-3-1-查询所有数据"><a href="#5-3-1-查询所有数据" class="headerlink" title="5.3.1 查询所有数据"></a>5.3.1 查询所有数据</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109220854395.png" srcset="/img/loading.gif" lazyload alt="image-20230109220854395" style="zoom:50%;" />
+
+<p>sql语句怎么写、有没有参数、完成了后返回什么值</p>
+<h4 id="5-3-2-数据库的名称，和类的名称可能对不上，比如hello-world和helloWorld"><a href="#5-3-2-数据库的名称，和类的名称可能对不上，比如hello-world和helloWorld" class="headerlink" title="5.3.2 数据库的名称，和类的名称可能对不上，比如hello_world和helloWorld"></a>5.3.2 数据库的名称，和类的名称可能对不上，比如hello_world和helloWorld</h4><ul>
+<li><p>起别名，太麻烦了</p>
+</li>
+<li><p>灵活解决方案，resultMap</p>
+</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109222537678.png" srcset="/img/loading.gif" lazyload alt="image-20230109222537678" style="zoom:50%;" />
+
+<h3 id="5-4-查看详情（根据id来进行查询）"><a href="#5-4-查看详情（根据id来进行查询）" class="headerlink" title="5.4 查看详情（根据id来进行查询）"></a>5.4 查看详情（根据id来进行查询）</h3><h4 id="5-4-1-设置参数（参数占位符、parameterType可选、特殊字符处理CDATA区和转义字符）"><a href="#5-4-1-设置参数（参数占位符、parameterType可选、特殊字符处理CDATA区和转义字符）" class="headerlink" title="5.4.1 设置参数（参数占位符、parameterType可选、特殊字符处理CDATA区和转义字符）"></a>5.4.1 设置参数（参数占位符、parameterType可选、特殊字符处理CDATA区和转义字符）</h4><p>查看某一条数据的详细信息，根据id来进行查询</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109222829494.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+
+<p>parameterType好像不用写？</p>
+<p>参数占位符，使用<code>#&#123;&#125;</code>替代<code>$&#123;&#125;</code>，可以避免sql注入问题</p>
+<h4 id="5-4-2-特殊字符处理"><a href="#5-4-2-特殊字符处理" class="headerlink" title="5.4.2 特殊字符处理"></a>5.4.2 特殊字符处理</h4><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109223401615.png" srcset="/img/loading.gif" lazyload alt="image-20230109223401615"></p>
+<h3 id="5-5-查询-条件查询"><a href="#5-5-查询-条件查询" class="headerlink" title="5.5 查询-条件查询"></a>5.5 查询-条件查询</h3><h4 id="5-5-1-查询-多条件查询"><a href="#5-5-1-查询-多条件查询" class="headerlink" title="5.5.1 查询-多条件查询"></a>5.5.1 查询-多条件查询</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109223816259.png" srcset="/img/loading.gif" lazyload alt="image-20230109223816259" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109223823534.png" srcset="/img/loading.gif" lazyload alt="image-20230109223823534" style="zoom:50%;" />
+
+<p>参数有三种不同的接收方式</p>
+<ul>
+<li>第一种方式</li>
+</ul>
+<p>注意需要手工处理一下这个百分号的地方</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109230054484.png" srcset="/img/loading.gif" lazyload alt="image-20230109230054484" style="zoom:50%;" />
+
+<ul>
+<li>第二种方式</li>
+</ul>
+<p>对象的属性的名称，要和参数占位符都一样</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109231005222.png" srcset="/img/loading.gif" lazyload alt="image-20230109231005222" style="zoom:50%;" />
+
+<ul>
+<li>第三种方式</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109231117250.png" srcset="/img/loading.gif" lazyload alt="image-20230109231117250" style="zoom:50%;" />
+
+<h4 id="5-5-2-查询-多条件-动态条件查询（关键，假设3个条件，用户可以输入0-1-2-3个，if-where标签）"><a href="#5-5-2-查询-多条件-动态条件查询（关键，假设3个条件，用户可以输入0-1-2-3个，if-where标签）" class="headerlink" title="5.5.2 查询-多条件-动态条件查询（关键，假设3个条件，用户可以输入0 1 2 3个，if where标签）"></a>5.5.2 查询-多条件-动态条件查询（关键，假设3个条件，用户可以输入0 1 2 3个，if where标签）</h4><p>用户有可能只输入一个条件，因为拼接条件的时候用的是and，程序太不灵活了</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109231335033.png" srcset="/img/loading.gif" lazyload alt="image-20230109231335033" style="zoom:50%;" />
+
+<ul>
+<li>if的强大使用，然而有and拼接问题</li>
+</ul>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109232113419.png" srcset="/img/loading.gif" lazyload alt="image-20230109232113419" style="zoom:50%;" />
+
+<p>然而，如果只根据companyName进行查询，那么这个and就给拼上去了，SQL语法就直接错了</p>
+<p>解决：</p>
+<ol>
+<li>恒等式，where 1&#x3D;1 and xxxx and xxxx，这样格式就全一样了</li>
+<li>where标签</li>
+</ol>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109232626129.png" srcset="/img/loading.gif" lazyload alt="image-20230109232626129" style="zoom:50%;" />
+
+<h4 id="5-5-3-查询-单条件-动态条件查询（多个条件中选择一个）"><a href="#5-5-3-查询-单条件-动态条件查询（多个条件中选择一个）" class="headerlink" title="5.5.3 查询-单条件-动态条件查询（多个条件中选择一个）"></a>5.5.3 查询-单条件-动态条件查询（多个条件中选择一个）</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109223648652.png" srcset="/img/loading.gif" lazyload alt="image-20230109223648652" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109232848325.png" srcset="/img/loading.gif" lazyload alt="image-20230109232848325" style="zoom:50%;" />
+
+<p><strong>多个条件，只能用其中一种！！！！！！！！！！</strong></p>
+<h3 id="5-6-添加"><a href="#5-6-添加" class="headerlink" title="5.6 添加"></a>5.6 添加</h3><h4 id="5-6-1-最基础的添加"><a href="#5-6-1-最基础的添加" class="headerlink" title="5.6.1 最基础的添加"></a>5.6.1 最基础的添加</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109233603598.png" srcset="/img/loading.gif" lazyload alt="image-20230109233603598" style="zoom:50%;" />
+
+<p><strong>增删改的时候，要commit</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">sqlSession.commit()<br></code></pre></td></tr></table></figure>
+
+<h4 id="5-6-2-添加——主键返回（TODO多主键怎么办？）"><a href="#5-6-2-添加——主键返回（TODO多主键怎么办？）" class="headerlink" title="5.6.2 添加——主键返回（TODO多主键怎么办？）"></a>5.6.2 添加——主键返回（TODO多主键怎么办？）</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109234530680.png" srcset="/img/loading.gif" lazyload alt="image-20230109234530680" style="zoom:50%;" />
+
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109234627841.png" srcset="/img/loading.gif" lazyload alt="image-20230109234627841" style="zoom:50%;" />
+
+<h3 id="5-7-修改（update）"><a href="#5-7-修改（update）" class="headerlink" title="5.7 修改（update）"></a>5.7 修改（update）</h3><h4 id="5-7-1-修改全部字段"><a href="#5-7-1-修改全部字段" class="headerlink" title="5.7.1 修改全部字段"></a>5.7.1 修改全部字段</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109234725994.png" srcset="/img/loading.gif" lazyload alt="image-20230109234725994" style="zoom:50%;" />
+
+<p>可以返回影响的行数</p>
+<h4 id="5-7-2-动态修改"><a href="#5-7-2-动态修改" class="headerlink" title="5.7.2 动态修改"></a>5.7.2 动态修改</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109234926110.png" srcset="/img/loading.gif" lazyload alt="image-20230109234926110" style="zoom:50%;" />
+
+<p>set也可以用标签，一个update功能就很通用</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109235405755.png" srcset="/img/loading.gif" lazyload alt="image-20230109235405755" style="zoom:50%;" />
+
+<h3 id="5-8-删除"><a href="#5-8-删除" class="headerlink" title="5.8 删除"></a>5.8 删除</h3><h4 id="5-8-1-删除一个"><a href="#5-8-1-删除一个" class="headerlink" title="5.8.1 删除一个"></a>5.8.1 删除一个</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109235531403.png" srcset="/img/loading.gif" lazyload alt="image-20230109235531403" style="zoom:50%;" />
+
+<h4 id="5-8-2-批量删除（复选删除）"><a href="#5-8-2-批量删除（复选删除）" class="headerlink" title="5.8.2 批量删除（复选删除）"></a>5.8.2 批量删除（复选删除）</h4><p>id数组，一次性的接收过来</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230109235709967.png" srcset="/img/loading.gif" lazyload alt="image-20230109235709967" style="zoom:50%;" />
+
+<h2 id="6-MyBatis参数传递"><a href="#6-MyBatis参数传递" class="headerlink" title="6. MyBatis参数传递"></a>6. MyBatis参数传递</h2><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230110000258548.png" srcset="/img/loading.gif" lazyload alt="image-20230110000258548" style="zoom:50%;" />
+
+<p>多个参数，param注解</p>
+<h2 id="7-注解，只适合简单语句"><a href="#7-注解，只适合简单语句" class="headerlink" title="7. 注解，只适合简单语句"></a>7. 注解，只适合简单语句</h2><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230110000949230.png" srcset="/img/loading.gif" lazyload alt="image-20230110000949230" style="zoom:50%;" />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/java/" class="category-chain-item">java</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/java/javaweb/" class="category-chain-item">javaweb</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/javaweb/">#javaweb</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>JavaWeb-3MyBatis相关</div>
+      <div>http://example.com/2023/01/08/develop/java/javaweb/JavaWeb-3MyBatis相关/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/08/develop/java/javaweb/JavaWeb-4WebTomcatServlet/" title="JavaWeb-4WebTomcatServlet">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JavaWeb-4WebTomcatServlet</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/08/develop/java/javaweb/JavaWeb-2Maven%E7%9B%B8%E5%85%B3/" title="JavaWeb-2Maven相关">
+                        <span class="hidden-mobile">JavaWeb-2Maven相关</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
