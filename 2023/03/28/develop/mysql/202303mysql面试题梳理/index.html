@@ -1,0 +1,756 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="202303mysql面试题梳理1. 索引篇 MySQL 支持哪些存储引擎，这些存储引擎之间的区别是什么  存储引擎就是存储数据，建立索引，更新查询数据等技术的实现方式。存储引擎是基于表的，不是基于数据库的，所以存储引擎也可以看作表类型。主要支持并且比较常用的存储引擎是InnoDB和MyISAM，比较一下两者：  MyISAM不支持事务（transaction），也不支持外键：  事务的作用主要就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="202303mysql面试题梳理">
+<meta property="og:url" content="http://example.com/2023/03/28/develop/mysql/202303mysql%E9%9D%A2%E8%AF%95%E9%A2%98%E6%A2%B3%E7%90%86/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="202303mysql面试题梳理1. 索引篇 MySQL 支持哪些存储引擎，这些存储引擎之间的区别是什么  存储引擎就是存储数据，建立索引，更新查询数据等技术的实现方式。存储引擎是基于表的，不是基于数据库的，所以存储引擎也可以看作表类型。主要支持并且比较常用的存储引擎是InnoDB和MyISAM，比较一下两者：  MyISAM不支持事务（transaction），也不支持外键：  事务的作用主要就">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230328172217291.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230328172229817.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230328173235965.png">
+<meta property="article:published_time" content="2023-03-28T08:01:22.000Z">
+<meta property="article:modified_time" content="2023-03-30T02:12:34.381Z">
+<meta property="article:author" content="Curious;">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230328172217291.png">
+  
+  
+  
+  <title>202303mysql面试题梳理 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Curious;的个人划水博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="202303mysql面试题梳理"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-28 16:01" pubdate>
+          2023年3月28日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">202303mysql面试题梳理</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="202303mysql面试题梳理"><a href="#202303mysql面试题梳理" class="headerlink" title="202303mysql面试题梳理"></a>202303mysql面试题梳理</h1><h2 id="1-索引篇"><a href="#1-索引篇" class="headerlink" title="1. 索引篇"></a>1. 索引篇</h2><ol>
+<li><strong>MySQL 支持哪些存储引擎，这些存储引擎之间的区别是什么</strong></li>
+</ol>
+<p>存储引擎就是存储数据，建立索引，更新查询数据等技术的实现方式。存储引擎是基于表的，不是基于数据库的，所以存储引擎也可以看作表类型。主要支持并且比较常用的存储引擎是InnoDB和MyISAM，比较一下两者：</p>
+<ul>
+<li><p>MyISAM不支持<strong>事务</strong>（transaction），也不支持<strong>外键</strong>：</p>
+<ul>
+<li>事务的作用主要就是保证一系列的语句封装到一块，共同成功还是共同失败，一般就是start transaction，然后最后commit；</li>
+<li>外键的作用主要就是保持数据一致性 完整性，比如example1里面包含student_id、course_id、grade，example2里面包含id、student_id、course_id这几个，example2里面的stu_id和course_id就可以称为example2表的外键，1表是父表，2表是子表，这两个表形成关联，必须子表数据删除后，才能删除父表。然后还可以约束数据完整性，比如：事件触发器类型：RESTRIC（限制在子表有关联的情况下，父表不能更新）；CASCAD（父表在更新或者删除的时候，同时更新或者删除子表中对应的记录）；SET NULL（父表在更新删除的时候，子表中对应字段设置为NULL）</li>
+</ul>
+</li>
+<li><p>锁上，InnoDB使用<strong>行级锁</strong>，MyISAM使用<strong>表级锁</strong>：</p>
+<ul>
+<li>行级锁就是说，对数据库表中的每一行数据进行锁定，从而实现对该行数据的独占访问：当一个用户正在使用某一行数据的时候，其他用户只能等待该用户完成操作，才能对该行数据进行操作，能更好支持并发操作</li>
+<li>表级锁就是对整张表进行锁定，从而对整张表进行独占访问，这个系统资源消耗更小，但是就无法支持并发操作了</li>
+<li>行级锁比表级锁更适合高并发的场景，但是也相应的增加了开销</li>
+</ul>
+</li>
+<li><p>一些老版本mysql的InnoDB存储引擎不支持全文索引，这个全文索引我的理解就是类似倒排索引那种</p>
+</li>
+</ul>
+<ol start="2">
+<li><strong>聚簇索引，非聚簇索引是什么</strong></li>
+</ol>
+<p>mysql中innodb存储引擎数据结构是B+树，聚簇索引叶子结点的值就是Mysql的数据行，普通索引叶子节点的值存的就是主键值</p>
+<p>B+树是存储结构，聚簇索引和非聚簇索引则是存储的方式</p>
+<ul>
+<li>很简单一句话：找到了索引就找到了需要的数据，这个索引就是聚簇索引</li>
+<li>非聚簇索引：索引的存储和数据是分离的，找到了索引，要根据索引上的值再次回表查询</li>
+</ul>
+<p><font color='red'>只有主键是聚簇索引</font> </p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230328172217291.png" srcset="/img/loading.gif" lazyload alt="image-20230328172217291"></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230328172229817.png" srcset="/img/loading.gif" lazyload alt="image-20230328172229817"></p>
+<ol start="3">
+<li><strong>非聚簇索引不一定会回表查询</strong></li>
+</ol>
+<p>不一定，这涉及到查询语句所要求的字段是否全部命中了索引，如果全部命中了索引，那么就不必再进行回表查询。</p>
+<p>举个简单的例子，假设我们在员工表的年龄上建立了索引，那么当进行<code>select age from employee where age &lt; 20</code>的查询时，在索引的叶子节点上，已经包含了age信息，不会再次进行回表查询。</p>
+<ol start="4">
+<li><strong>建立联合索引(a,b,c)，where c&#x3D;5是否会用到索引，为什么？索引有哪些失效场景？</strong></li>
+</ol>
+<p>用不到，联合索引有最左匹配原则，(a) (a,b) (a,b,c)</p>
+<p>索引失效的场景：模 型 数 空 运 最 快</p>
+<p>模糊查询：like查询’%’以通配符开头这样的，索引失效</p>
+<p>型：对于varchar类型的字段，查询的时候用number，</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230328173235965.png" srcset="/img/loading.gif" lazyload alt="image-20230328173235965" style="zoom:50%;" />
+
+<p>数：函数的意思，比如DATE这些的，或者就是建立函数的索引</p>
+<p>空：null，要限制索引的列是not null</p>
+<p>运：运算 + - * &#x2F;这样的</p>
+<p>最：最左匹配</p>
+<ol start="5">
+<li><strong>对于性别字段是否需要建立索引？</strong></li>
+</ol>
+<p>性别字段重复性很强，只能建立非聚簇索引 -&gt; 查到索引值和聚簇索引值 -&gt; 需要回表查询，由于回表查询的存在，反而比较慢，维护索引也有额外的开销</p>
+<p>这个地方是非绝对的，如果比如三类[1,2,3]非均衡分布，1% 2% 97%，经常查看那1% 2%的数据，建立索引来回表就比较值得了</p>
+<ol start="6">
+<li><p><strong>索引的区分度问题，可以计算字段的区分度，来不把全部的这个长度建立索引</strong></p>
+</li>
+<li><p>mysql中非聚簇索</p>
+</li>
+</ol>
+<h2 id="2-事务篇"><a href="#2-事务篇" class="headerlink" title="2. 事务篇"></a>2. 事务篇</h2><ol>
+<li><strong>什么是数据库的事务？</strong></li>
+</ol>
+<p>数据库的事务是指一组数据库操作语句，它们被视为一个不可分割的工作单元，要么全部执行成功，要么全部执行失败。</p>
+<ol start="2">
+<li><strong>数据库的四个特性是什么，举个例子</strong></li>
+</ol>
+<p><strong>原子性A、一致性C、隔离性I、持续性D</strong></p>
+<p>原子性：一个事务中的所有操作，要么全部完成，要么全部不完成，不会结束在中间的某个环节，如果执行失败，会被回滚到事务开始前的状态，就像事务从来没被执行过一样</p>
+<p>一致性：事务数据操作前后满足完整性约束，A B开始各有1000块钱，A转给B200块钱，这时候A800 B1200，加起来还是一样的</p>
+<p>隔离性：数据库允许多个并发事务同时数据进行读写和修改，隔离性则是有几个隔离等级</p>
+<p>持续性：一旦事务处理结束后，数据修改永久的，即使系统故障也不会丢失</p>
+<ol start="3">
+<li><strong>事务的并行执行，会带来的问题？以及Mysql默认的隔离级别是什么？</strong></li>
+</ol>
+<p>三大问题：<strong>脏读、不可重复读、幻读</strong>，严重性也是脏读&gt;不可重复读&gt;幻读</p>
+<p>1）脏读：一个事务「读到」了另一个「未提交事务修改过的数据」，就脏读了</p>
+<p>假设AB两个事务同时处理，A事务先读到余额然后再执行更新，但是A事务还没有提交，这个时候B来读读到了A这个未提交状态的，这个时候A回滚了，B读到的数据就是过期的或者说未被提交的数据，也就是脏读</p>
+<p>2）不可重复读：在一个事务内多次读同一个数据，前后两次读到数据不一样的情况，就是发生了「不可重复读」</p>
+<p>在A事务的期间，B事务修改了一个值并提交，这个时候A事务前后两次读了同一个</p>
+<p>3）幻读<font color='red'>（主要是针对记录数量）</font> ：在一个事务内多次查询符合一个条件的记录数量，前后两次记录数量不一样，就意味着产生了幻读，A操作着操作着，B改了并提交了</p>
+<p>以上问题引出事务的隔离级别：</p>
+<ul>
+<li>串行化：会对记录加上读写锁，在多个事务对这条记录惊醒操作的时候，如果冲突了，后访问的事务必须等前一个事务完成了再操作</li>
+<li>可重复读：一个事务执行过程中看到的数据，一直跟这个事务启动的时候看到的数据是一致的</li>
+<li>读已提交：一个事务提交之后，变更才能被其他事务看到</li>
+<li>读未提交：一个事务还没被提交的时候，他做的变更就能被其他事务看到</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>202303mysql面试题梳理</div>
+      <div>http://example.com/2023/03/28/develop/mysql/202303mysql面试题梳理/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/04/10/develop/java/springboot/SpringBoot-2%E6%95%B4%E5%90%88Swagger/" title="SpringBoot-2整合Swagger">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SpringBoot-2整合Swagger</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/13/mixed/cicd/CICD%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" title="CICD基础概念">
+                        <span class="hidden-mobile">CICD基础概念</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

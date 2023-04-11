@@ -4,6 +4,152 @@
   
   
   <entry>
+    <title>SpringBoot-6使用docker启动一些数据服务并完成整合</title>
+    <link href="/2023/04/10/develop/java/springboot/SpringBoot-6%E4%BD%BF%E7%94%A8docker%E5%90%AF%E5%8A%A8%E4%B8%80%E4%BA%9B%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E5%B9%B6%E5%AE%8C%E6%88%90%E6%95%B4%E5%90%88/"/>
+    <url>/2023/04/10/develop/java/springboot/SpringBoot-6%E4%BD%BF%E7%94%A8docker%E5%90%AF%E5%8A%A8%E4%B8%80%E4%BA%9B%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E5%B9%B6%E5%AE%8C%E6%88%90%E6%95%B4%E5%90%88/</url>
+    
+    <content type="html"><![CDATA[<h1 id="SpringBoot-6使用docker启动一些数据服务并完成整合"><a href="#SpringBoot-6使用docker启动一些数据服务并完成整合" class="headerlink" title="SpringBoot-6使用docker启动一些数据服务并完成整合"></a>SpringBoot-6使用docker启动一些数据服务并完成整合</h1><p>mysql、redis、elasticsearch，都去使用h9上的服务？</p><h2 id="1-mysql"><a href="#1-mysql" class="headerlink" title="1. mysql"></a>1. mysql</h2><h3 id="1-1-docker拉取镜像（m1架构没有这个）"><a href="#1-1-docker拉取镜像（m1架构没有这个）" class="headerlink" title="1.1 docker拉取镜像（m1架构没有这个）"></a>1.1 docker拉取镜像（m1架构没有这个）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">(base) ➜ /Users/curious ✻ docker pull mysql:5.7                      [23:13:44]<br>5.7: Pulling from library/mysql<br>no matching manifest for linux/arm64/v8 in the manifest list entries<br></code></pre></td></tr></table></figure><h3 id="1-2-使用SpringBoot整合MyBatisPlus完成标准Dao开发"><a href="#1-2-使用SpringBoot整合MyBatisPlus完成标准Dao开发" class="headerlink" title="1.2 使用SpringBoot整合MyBatisPlus完成标准Dao开发"></a>1.2 使用SpringBoot整合MyBatisPlus完成标准Dao开发</h3><p><a href="https://www.bilibili.com/video/BV12T4y1B7C3/?spm_id_from=333.337.search-card.all.click&amp;vd_source=2654875159ed89b917fffce42a65196d%EF%BC%8C%E7%9B%B4%E6%8E%A5%E5%8E%BB%E8%BF%9Eh9%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84">https://www.bilibili.com/video/BV12T4y1B7C3/?spm_id_from=333.337.search-card.all.click&amp;vd_source=2654875159ed89b917fffce42a65196d，直接去连h9服务器的</a></p><ol><li>导入MyBatisPlus的依赖pom.xml，还需要一个Druid</li></ol><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--mybatisplus--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.baomidou<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.4.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-comment">&lt;!--druid--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>druid<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.1.16<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure><ol start="2"><li>在application.yml中写内容</li></ol><h2 id="2-redis"><a href="#2-redis" class="headerlink" title="2. redis"></a>2. redis</h2>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>SpringBoot-4项目架构理解</title>
+    <link href="/2023/04/10/develop/java/springboot/SpringBoot-4%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/"/>
+    <url>/2023/04/10/develop/java/springboot/SpringBoot-4%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3/</url>
+    
+    <content type="html"><![CDATA[<h1 id="SpringBoot-4项目架构理解"><a href="#SpringBoot-4项目架构理解" class="headerlink" title="SpringBoot-4项目架构理解"></a>SpringBoot-4项目架构理解</h1><p>chatgpt给了下面这样一个输出，</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs shell">.<br>├── controller<br>│   ├── UserController.java<br>│   └── ...<br>├── service<br>│   ├── UserService.java<br>│   ├── UserServiceImpl.java<br>│   └── ...<br>├── repository<br>│   ├── UserRepository.java<br>│   ├── UserRepositoryImpl.java<br>│   └── ...<br>├── model<br>│   ├── User.java<br>│   ├── Order.java<br>│   └── ...<br>├── view<br>│   ├── index.html<br>│   ├── error.html<br>│   └── ...<br>├── configuration<br>│   ├── AppConfig.java<br>│   └── ...<br>├── Application.java<br>├── resources<br>│   ├── application.properties<br>│   ├── static<br>│   │   ├── css<br>│   │   ├── js<br>│   │   ├── img<br>│   │   └── ...<br>│   └── templates<br>│       ├── index.html<br>│       ├── error.html<br>│       └── ...<br>└── ...<br><br></code></pre></td></tr></table></figure><p>一般来说</p><ul><li>controller层就像是定义一个输入输出，然后把PostMapping啥的设置在这一层</li><li>service层是具体业务的处理，需要在controller层自动注入service层的内容，通过@Autowired的方式</li><li>repository层一般就算是数据访问层（Dao层），放和数据库交互的内容</li><li>model一般就是实体类的层，面向对象变成，可以定义一些接口的输入然后配合swagger放在这里</li><li>configuration一般就写一些配置的类，比如说SwaggerConfig类这样的</li><li>外层的Application.java像是一个全局的入口，有点像python里面views.py和server.py那样的理解？</li></ul>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>SpringBoot-5整合JUnit</title>
+    <link href="/2023/04/10/develop/java/springboot/SpringBoot-5%E6%95%B4%E5%90%88JUnit/"/>
+    <url>/2023/04/10/develop/java/springboot/SpringBoot-5%E6%95%B4%E5%90%88JUnit/</url>
+    
+    <content type="html"><![CDATA[<h1 id="SpringBoot-5整合JUnit"><a href="#SpringBoot-5整合JUnit" class="headerlink" title="SpringBoot-5整合JUnit"></a>SpringBoot-5整合JUnit</h1><p>JUnit是执行单元测试使用的，导入坐标，写测试类，并在测试类加一些注解</p><ol><li>导入JUnit的坐标（可能如果是高版本的SpringBoot就把这个集成了，这样会Junit4）</li></ol><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--junit--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>junit<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>junit<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure><ol start="2"><li>首先在这里创建一个test类，和Service名称前缀一样<code>src/test/java/cn/edu/bupt/aiswitchboard/NameFinderServiceTest.java</code></li></ol><p>在里面可以测Service，也可以测Controller，自动装配相对应的</p><p><font color='red'>除了预期的输入输出，可能非预期的输入输出也要给写上，包括报出来的错误类型是什么</font> </p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.edu.bupt.aiswitchboard;<br><br><span class="hljs-keyword">import</span> cn.edu.bupt.aiswitchboard.common.Response;<br><span class="hljs-keyword">import</span> cn.edu.bupt.aiswitchboard.controller.NameFinderController;<br><span class="hljs-keyword">import</span> cn.edu.bupt.aiswitchboard.service.NameFinderService;<br><span class="hljs-keyword">import</span> org.junit.Test;<br><span class="hljs-keyword">import</span> org.junit.runner.RunWith;<br><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;<br><span class="hljs-keyword">import</span> org.springframework.boot.test.context.SpringBootTest;<br><span class="hljs-keyword">import</span> org.springframework.test.context.junit4.SpringRunner;<br><br><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> org.junit.Assert.assertEquals;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * NameFinder的测试类，可以测Service也可以测Controller</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@RunWith(SpringRunner.class)</span><br><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">NameFinderServiceTest</span> &#123;<br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> NameFinderService nameFinderService;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> NameFinderController nameFinderController;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testNameFinderService</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 除了预期的输入输出，非预期的也要写上，报什么错返回什么，如果能传的话</span><br>        <span class="hljs-type">Integer</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> nameFinderService.test(<span class="hljs-number">5</span>);<br>        assertEquals((Integer) <span class="hljs-number">5</span>, a);<br><br>        a = nameFinderService.test(<span class="hljs-number">4</span>);<br>        assertEquals((Integer) <span class="hljs-number">4</span>, a);<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testNameFinderController</span><span class="hljs-params">()</span> &#123;<br>        Response&lt;Object&gt; resp = nameFinderController.postJsonInput();<br>        Response&lt;Object&gt; tmp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>&lt;&gt;();<br>        tmp.update(<span class="hljs-number">200</span>, <span class="hljs-string">&quot;SUCCESS&quot;</span>, <span class="hljs-literal">null</span>);<br>        assertEquals(tmp, resp);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>SpringBoot-3整合HanLP1.x</title>
+    <link href="/2023/04/10/develop/java/springboot/SpringBoot-3%E6%95%B4%E5%90%88HanLP1-x/"/>
+    <url>/2023/04/10/develop/java/springboot/SpringBoot-3%E6%95%B4%E5%90%88HanLP1-x/</url>
+    
+    <content type="html"><![CDATA[<h1 id="SpringBoot-3整合HanLP1-x"><a href="#SpringBoot-3整合HanLP1-x" class="headerlink" title="SpringBoot-3整合HanLP1.x"></a>SpringBoot-3整合HanLP1.x</h1><h2 id="1-配置（hanlp把程序和数据分离，可以提供一些自定义的操作）"><a href="#1-配置（hanlp把程序和数据分离，可以提供一些自定义的操作）" class="headerlink" title="1. 配置（hanlp把程序和数据分离，可以提供一些自定义的操作）"></a>1. 配置（hanlp把程序和数据分离，可以提供一些自定义的操作）</h2><p>参考：<a href="https://github.com/hankcs/HanLP/tree/1.x">https://github.com/hankcs/HanLP/tree/1.x</a></p><p><a href="https://blog.csdn.net/u010992313/article/details/104224712?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166322073416782395373625%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=166322073416782395373625&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~baidu_landing_v2~default-3-104224712-null-null.142%5Ev47%5Epc_rank_34_default_23,201%5Ev3%5Econtrol_1&amp;utm_term=hanlp%20jar&amp;spm=1018.2226.3001.418">https://blog.csdn.net/u010992313/article/details/104224712?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166322073416782395373625%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=166322073416782395373625&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~baidu_landing_v2~default-3-104224712-null-null.142^v47^pc_rank_34_default_23,201^v3^control_1&amp;utm_term=hanlp%20jar&amp;spm=1018.2226.3001.418</a></p><ol><li>首先导入坐标pom.xml</li></ol><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--hanlp1.x--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.hankcs<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>hanlp<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>portable-1.7.8<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure><ol start="2"><li>下载data和release</li></ol><p><a href="http://nlp.hankcs.com/download.php?file=data">http://nlp.hankcs.com/download.php?file=data</a></p><p><a href="http://nlp.hankcs.com/download.php?file=jar">http://nlp.hankcs.com/download.php?file=jar</a></p><p>把hanlp.properties移动到：src&#x2F;main&#x2F;resources&#x2F;hanlp.properties</p><p>把data移动到：src&#x2F;main&#x2F;resources&#x2F;static&#x2F;data</p><p>修改hanlp.properties中的root路径，是data的父目录：</p><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle">root=src<span class="hljs-regexp">/main/</span>resources/<span class="hljs-keyword">static</span><br></code></pre></td></tr></table></figure><ol start="3"><li>jar包如果使用了坐标的方式导入，就不再需要移动了</li></ol><h2 id="2-测试"><a href="#2-测试" class="headerlink" title="2. 测试"></a>2. 测试</h2><p>随便找一个接口加入，即可查看到输入</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Term&gt; lst = HanLP.segment(<span class="hljs-string">&quot;你好，欢迎使用HanLP汉语处理包！&quot;</span>);<br>或者<br>System.out.println(HanLP.segment(<span class="hljs-string">&quot;你好，欢迎使用HanLP汉语处理包！&quot;</span>));<br></code></pre></td></tr></table></figure><blockquote><p>[你好&#x2F;l, ，&#x2F;w, 欢迎&#x2F;v, 使用&#x2F;v, HanLP&#x2F;nx, 汉语&#x2F;nz, 处理&#x2F;v, 包&#x2F;v, ！&#x2F;w]</p></blockquote><h2 id="3-TODO-这里他默认下载下来的data和和hanlp-properties还是配置比较简单的，如果能根据业务场景不断优化数据，将能够达到更好的效果"><a href="#3-TODO-这里他默认下载下来的data和和hanlp-properties还是配置比较简单的，如果能根据业务场景不断优化数据，将能够达到更好的效果" class="headerlink" title="3. TODO 这里他默认下载下来的data和和hanlp.properties还是配置比较简单的，如果能根据业务场景不断优化数据，将能够达到更好的效果"></a>3. TODO 这里他默认下载下来的data和和hanlp.properties还是配置比较简单的，如果能根据业务场景不断优化数据，将能够达到更好的效果</h2>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>SpringBoot-2整合Swagger</title>
+    <link href="/2023/04/10/develop/java/springboot/SpringBoot-2%E6%95%B4%E5%90%88Swagger/"/>
+    <url>/2023/04/10/develop/java/springboot/SpringBoot-2%E6%95%B4%E5%90%88Swagger/</url>
+    
+    <content type="html"><![CDATA[<h1 id="SpringBoot-2整合Swagger"><a href="#SpringBoot-2整合Swagger" class="headerlink" title="SpringBoot-2整合Swagger"></a>SpringBoot-2整合Swagger</h1><h2 id="1-配置"><a href="#1-配置" class="headerlink" title="1. 配置"></a>1. 配置</h2><ol><li>在pom.xml中导入swagger的坐标</li></ol><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--swagger--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.springfox<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>springfox-swagger2<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.9.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.springfox<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>springfox-swagger-ui<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.9.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.projectlombok<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>lombok<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure><ol start="2"><li>由于一些显示问题或者说扫描问题，在application.yml中编写一段匹配规则</li></ol><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># SpringBoot2.7.8 + Swagger2.9.2</span><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">mvc:</span><br>    <span class="hljs-attr">pathmatch:</span><br>      <span class="hljs-attr">matching-strategy:</span> <span class="hljs-string">ant_path_matcher</span><br></code></pre></td></tr></table></figure><h2 id="2-代码编写"><a href="#2-代码编写" class="headerlink" title="2. 代码编写"></a>2. 代码编写</h2><p>整体项目结构如图所示（红色是因为暂时还没有推到git）</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230410192018814.png" alt="image-20230410192018814" style="zoom:50%;" /><h3 id="2-1-SwaggerConfig类"><a href="#2-1-SwaggerConfig类" class="headerlink" title="2.1 SwaggerConfig类"></a>2.1 SwaggerConfig类</h3><p>这个类里面主要是配置一些接口文档的规则，文档信息什么的，类似于一个模板写法直接把别人的抄过来</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.edu.bupt.aiswitchboard.config;<br><br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br><span class="hljs-keyword">import</span> springfox.documentation.builders.ApiInfoBuilder;<br><span class="hljs-keyword">import</span> springfox.documentation.builders.PathSelectors;<br><span class="hljs-keyword">import</span> springfox.documentation.builders.RequestHandlerSelectors;<br><span class="hljs-keyword">import</span> springfox.documentation.service.ApiInfo;<br><span class="hljs-keyword">import</span> springfox.documentation.service.Contact;<br><span class="hljs-keyword">import</span> springfox.documentation.spi.DocumentationType;<br><span class="hljs-keyword">import</span> springfox.documentation.spring.web.plugins.Docket;<br><span class="hljs-keyword">import</span> springfox.documentation.swagger2.annotations.EnableSwagger2;<br><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@EnableSwagger2</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SwaggerConfig</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 配置接口文档生成规则</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> Docket <span class="hljs-title function_">getDocket</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 设置文档生成规则</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Docket</span>(DocumentationType.SWAGGER_2)<br>                .useDefaultResponseMessages(<span class="hljs-literal">false</span>) <span class="hljs-comment">// 禁用自动生成的状态码</span><br>                .apiInfo(apiInfo()) <span class="hljs-comment">// 设置文档信息</span><br>                .select()<br>                <span class="hljs-comment">// 设置哪个包下的类需要生成文档</span><br>                .apis(RequestHandlerSelectors.basePackage(<span class="hljs-string">&quot;cn.edu.bupt.aiswitchboard.controller&quot;</span>))<br>                .paths(PathSelectors.any()) <span class="hljs-comment">// 定义哪些路径的接口需要生成文档</span><br>                .build();<br><br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 设置文档信息</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> ApiInfo <span class="hljs-title function_">apiInfo</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ApiInfoBuilder</span>()<br>                .title(<span class="hljs-string">&quot;智能总机接口文档&quot;</span>)<br>                .description(<span class="hljs-string">&quot;2023.4.6 将智能总机重构一份java版本，用于自己的java学习并使得项目更加灵活&quot;</span>)<br>                .version(<span class="hljs-string">&quot;1.0&quot;</span>)<br>                .contact(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Contact</span>(<span class="hljs-string">&quot;CuriousLiu;&quot;</span>,<br>                        <span class="hljs-string">&quot;https://yixuan004.github.io/&quot;</span>,<br>                        <span class="hljs-string">&quot;liuyixuan@bupt.edu.cn&quot;</span>))<br>                .build();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="2-2-common下的返回值：Response类和ResponseCode-ResponseMessage两个Enum"><a href="#2-2-common下的返回值：Response类和ResponseCode-ResponseMessage两个Enum" class="headerlink" title="2.2 common下的返回值：Response类和ResponseCode ResponseMessage两个Enum"></a>2.2 common下的返回值：Response类和ResponseCode ResponseMessage两个Enum</h3><p><font color='red'>java中的enum是一种特殊的数据类型，用于表示一组常常量。返回值和响应状态码正好适合这种场景</font> </p><p><font color='red'>进一步通过静态变量private final的方式来定义这两个，并且提供getCode和getMessage方法，防止了代码中的错误和不安全行为</font> </p><p><font color='red'>private代表只能类内访问，final代表是个一旦初始化就不能修改的</font> </p><p>ResponseCode.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.edu.bupt.aiswitchboard.common;<br><br><span class="hljs-keyword">import</span> java.io.Serializable;<br><br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">ResponseCode</span> &#123;<br>    SUCCESS(<span class="hljs-number">200</span>),<br>    UNKNOWNERROR(<span class="hljs-number">500</span>);<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> code;<br><br>    ResponseCode(<span class="hljs-type">int</span> code) &#123;<br>        <span class="hljs-built_in">this</span>.code = code;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getCode</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> code;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>ResponseMessage.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.edu.bupt.aiswitchboard.common;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">ResponseMessage</span> &#123;<br>    SUCCESS(<span class="hljs-string">&quot;SUCCESS&quot;</span>),<br>    UNKNOWNERROR(<span class="hljs-string">&quot;UNKNOWN ERROR&quot;</span>);<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String message;<br><br>    ResponseMessage(String message) &#123;<br>        <span class="hljs-built_in">this</span>.message = message;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getMessage</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> message;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>Response.java</p><p>使用泛型类来定义Response，这里的data被泛型类修饰，可以接收各种类型的，在上层初始化Response类的时候，可以用Object这个大类，就使得data可以返回任何类型的，然后提供一个update方法，这个方法可以更新code message和data的数据，用来进行返回值的设计</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.edu.bupt.aiswitchboard.common;<br><br><span class="hljs-keyword">import</span> io.swagger.annotations.ApiModel;<br><span class="hljs-keyword">import</span> io.swagger.annotations.ApiModelProperty;<br><span class="hljs-keyword">import</span> io.swagger.annotations.Example;<br><span class="hljs-keyword">import</span> io.swagger.annotations.ExampleProperty;<br><span class="hljs-keyword">import</span> lombok.Data;<br><br><span class="hljs-keyword">import</span> java.io.Serializable;<br><br><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Response</span>&lt;T&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;响应状态码&quot;, example = &quot;200, 500&quot;)</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> code;<br>    <span class="hljs-keyword">private</span> String message;<br>    <span class="hljs-keyword">private</span> T data;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Response</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">this</span>.code = ResponseCode.SUCCESS.getCode();<br>        <span class="hljs-built_in">this</span>.message = ResponseMessage.SUCCESS.getMessage();<br>        <span class="hljs-built_in">this</span>.data = <span class="hljs-literal">null</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">update</span><span class="hljs-params">(<span class="hljs-type">int</span> code, String message, T data)</span> &#123;<br>        <span class="hljs-built_in">this</span>.code = code;<br>        <span class="hljs-built_in">this</span>.message = message;<br>        <span class="hljs-built_in">this</span>.data = data;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="2-3-controller中加入一些api和doc的操作，对于json格式的请求来说可以与model-HelloJsonInputRequest进行对应，对于form-data类型的输入可以直接加在输入的修饰中"><a href="#2-3-controller中加入一些api和doc的操作，对于json格式的请求来说可以与model-HelloJsonInputRequest进行对应，对于form-data类型的输入可以直接加在输入的修饰中" class="headerlink" title="2.3 controller中加入一些api和doc的操作，对于json格式的请求来说可以与model.HelloJsonInputRequest进行对应，对于form-data类型的输入可以直接加在输入的修饰中"></a>2.3 controller中加入一些api和doc的操作，对于json格式的请求来说可以与model.HelloJsonInputRequest进行对应，对于form-data类型的输入可以直接加在输入的修饰中</h3><p>HelloController.java个人理解可以对应到python那边Swagger的一个namespace下，这个下面可以使用RESTful风格进行接口的定义，然后特别注意接口输入这里，对于json可以对应一下</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.edu.bupt.aiswitchboard.controller;<br><br><span class="hljs-keyword">import</span> cn.edu.bupt.aiswitchboard.common.Response;<br><span class="hljs-keyword">import</span> cn.edu.bupt.aiswitchboard.common.ResponseCode;<br><span class="hljs-keyword">import</span> cn.edu.bupt.aiswitchboard.common.ResponseMessage;<br><span class="hljs-keyword">import</span> cn.edu.bupt.aiswitchboard.model.HelloJsonInputRequest;<br><span class="hljs-keyword">import</span> io.swagger.annotations.*;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.*;<br><span class="hljs-keyword">import</span> org.springframework.web.multipart.MultipartFile;<br><br><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@Api(&quot;hello接口用来进行测试&quot;)</span><br><span class="hljs-meta">@RequestMapping(&quot;/hello&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloController</span> &#123;<br>    <span class="hljs-meta">@ApiOperation(&quot;测试post中json-body类型的数据输入&quot;)</span><br>    <span class="hljs-meta">@PostMapping(&quot;/json-input&quot;)</span><br>    <span class="hljs-keyword">public</span> Response&lt;Object&gt; <span class="hljs-title function_">postJsonInput</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> HelloJsonInputRequest helloJsonInputRequest)</span> &#123;<br>        Response&lt;Object&gt; resp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>&lt;&gt;();<br>        System.out.println(helloJsonInputRequest.toString());<br>        resp.update(ResponseCode.SUCCESS.getCode(), ResponseMessage.SUCCESS.getMessage(), <span class="hljs-literal">null</span>);<br>        <span class="hljs-keyword">return</span> resp;<br>    &#125;<br><br>    <span class="hljs-meta">@ApiOperation(&quot;测试post中form-data类型的数据输入&quot;)</span><br>    <span class="hljs-meta">@PostMapping(&quot;/form-input&quot;)</span><br>    <span class="hljs-keyword">public</span> Response&lt;Object&gt; <span class="hljs-title function_">postFormInput</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam(&quot;name&quot;)</span> String name,</span><br><span class="hljs-params">                                          <span class="hljs-meta">@RequestParam(&quot;age&quot;)</span> Integer age,</span><br><span class="hljs-params">                                          <span class="hljs-meta">@RequestPart(&quot;file&quot;)</span> MultipartFile file)</span> &#123;<br>        Response&lt;Object&gt; resp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>&lt;&gt;();<br>        System.out.println(<span class="hljs-string">&quot;name: &quot;</span> + name);<br>        System.out.println(<span class="hljs-string">&quot;age: &quot;</span> + age);<br>        System.out.println(<span class="hljs-string">&quot;file: &quot;</span> + file);<br>        <span class="hljs-keyword">return</span> resp;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230410193608585.png" alt="image-20230410193608585"></p><h2 id="3-前端效果（返回值的定义还存在一些问题，留待未来解决）"><a href="#3-前端效果（返回值的定义还存在一些问题，留待未来解决）" class="headerlink" title="3. 前端效果（返回值的定义还存在一些问题，留待未来解决）"></a>3. 前端效果（返回值的定义还存在一些问题，留待未来解决）</h2><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230410193729163.png" alt="image-20230410193729163"></p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230410193743333.png" alt="image-20230410193743333"></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>202303mysql面试题梳理</title>
+    <link href="/2023/03/28/develop/mysql/202303mysql%E9%9D%A2%E8%AF%95%E9%A2%98%E6%A2%B3%E7%90%86/"/>
+    <url>/2023/03/28/develop/mysql/202303mysql%E9%9D%A2%E8%AF%95%E9%A2%98%E6%A2%B3%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<h1 id="202303mysql面试题梳理"><a href="#202303mysql面试题梳理" class="headerlink" title="202303mysql面试题梳理"></a>202303mysql面试题梳理</h1><h2 id="1-索引篇"><a href="#1-索引篇" class="headerlink" title="1. 索引篇"></a>1. 索引篇</h2><ol><li><strong>MySQL 支持哪些存储引擎，这些存储引擎之间的区别是什么</strong></li></ol><p>存储引擎就是存储数据，建立索引，更新查询数据等技术的实现方式。存储引擎是基于表的，不是基于数据库的，所以存储引擎也可以看作表类型。主要支持并且比较常用的存储引擎是InnoDB和MyISAM，比较一下两者：</p><ul><li><p>MyISAM不支持<strong>事务</strong>（transaction），也不支持<strong>外键</strong>：</p><ul><li>事务的作用主要就是保证一系列的语句封装到一块，共同成功还是共同失败，一般就是start transaction，然后最后commit；</li><li>外键的作用主要就是保持数据一致性 完整性，比如example1里面包含student_id、course_id、grade，example2里面包含id、student_id、course_id这几个，example2里面的stu_id和course_id就可以称为example2表的外键，1表是父表，2表是子表，这两个表形成关联，必须子表数据删除后，才能删除父表。然后还可以约束数据完整性，比如：事件触发器类型：RESTRIC（限制在子表有关联的情况下，父表不能更新）；CASCAD（父表在更新或者删除的时候，同时更新或者删除子表中对应的记录）；SET NULL（父表在更新删除的时候，子表中对应字段设置为NULL）</li></ul></li><li><p>锁上，InnoDB使用<strong>行级锁</strong>，MyISAM使用<strong>表级锁</strong>：</p><ul><li>行级锁就是说，对数据库表中的每一行数据进行锁定，从而实现对该行数据的独占访问：当一个用户正在使用某一行数据的时候，其他用户只能等待该用户完成操作，才能对该行数据进行操作，能更好支持并发操作</li><li>表级锁就是对整张表进行锁定，从而对整张表进行独占访问，这个系统资源消耗更小，但是就无法支持并发操作了</li><li>行级锁比表级锁更适合高并发的场景，但是也相应的增加了开销</li></ul></li><li><p>一些老版本mysql的InnoDB存储引擎不支持全文索引，这个全文索引我的理解就是类似倒排索引那种</p></li></ul><ol start="2"><li><strong>聚簇索引，非聚簇索引是什么</strong></li></ol><p>mysql中innodb存储引擎数据结构是B+树，聚簇索引叶子结点的值就是Mysql的数据行，普通索引叶子节点的值存的就是主键值</p><p>B+树是存储结构，聚簇索引和非聚簇索引则是存储的方式</p><ul><li>很简单一句话：找到了索引就找到了需要的数据，这个索引就是聚簇索引</li><li>非聚簇索引：索引的存储和数据是分离的，找到了索引，要根据索引上的值再次回表查询</li></ul><p><font color='red'>只有主键是聚簇索引</font> </p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230328172217291.png" alt="image-20230328172217291"></p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230328172229817.png" alt="image-20230328172229817"></p><ol start="3"><li><strong>非聚簇索引不一定会回表查询</strong></li></ol><p>不一定，这涉及到查询语句所要求的字段是否全部命中了索引，如果全部命中了索引，那么就不必再进行回表查询。</p><p>举个简单的例子，假设我们在员工表的年龄上建立了索引，那么当进行<code>select age from employee where age &lt; 20</code>的查询时，在索引的叶子节点上，已经包含了age信息，不会再次进行回表查询。</p><ol start="4"><li><strong>建立联合索引(a,b,c)，where c&#x3D;5是否会用到索引，为什么？索引有哪些失效场景？</strong></li></ol><p>用不到，联合索引有最左匹配原则，(a) (a,b) (a,b,c)</p><p>索引失效的场景：模 型 数 空 运 最 快</p><p>模糊查询：like查询’%’以通配符开头这样的，索引失效</p><p>型：对于varchar类型的字段，查询的时候用number，</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230328173235965.png" alt="image-20230328173235965" style="zoom:50%;" /><p>数：函数的意思，比如DATE这些的，或者就是建立函数的索引</p><p>空：null，要限制索引的列是not null</p><p>运：运算 + - * &#x2F;这样的</p><p>最：最左匹配</p><ol start="5"><li><strong>对于性别字段是否需要建立索引？</strong></li></ol><p>性别字段重复性很强，只能建立非聚簇索引 -&gt; 查到索引值和聚簇索引值 -&gt; 需要回表查询，由于回表查询的存在，反而比较慢，维护索引也有额外的开销</p><p>这个地方是非绝对的，如果比如三类[1,2,3]非均衡分布，1% 2% 97%，经常查看那1% 2%的数据，建立索引来回表就比较值得了</p><ol start="6"><li><p><strong>索引的区分度问题，可以计算字段的区分度，来不把全部的这个长度建立索引</strong></p></li><li><p>mysql中非聚簇索</p></li></ol><h2 id="2-事务篇"><a href="#2-事务篇" class="headerlink" title="2. 事务篇"></a>2. 事务篇</h2><ol><li><strong>什么是数据库的事务？</strong></li></ol><p>数据库的事务是指一组数据库操作语句，它们被视为一个不可分割的工作单元，要么全部执行成功，要么全部执行失败。</p><ol start="2"><li><strong>数据库的四个特性是什么，举个例子</strong></li></ol><p><strong>原子性A、一致性C、隔离性I、持续性D</strong></p><p>原子性：一个事务中的所有操作，要么全部完成，要么全部不完成，不会结束在中间的某个环节，如果执行失败，会被回滚到事务开始前的状态，就像事务从来没被执行过一样</p><p>一致性：事务数据操作前后满足完整性约束，A B开始各有1000块钱，A转给B200块钱，这时候A800 B1200，加起来还是一样的</p><p>隔离性：数据库允许多个并发事务同时数据进行读写和修改，隔离性则是有几个隔离等级</p><p>持续性：一旦事务处理结束后，数据修改永久的，即使系统故障也不会丢失</p><ol start="3"><li><strong>事务的并行执行，会带来的问题？以及Mysql默认的隔离级别是什么？</strong></li></ol><p>三大问题：<strong>脏读、不可重复读、幻读</strong>，严重性也是脏读&gt;不可重复读&gt;幻读</p><p>1）脏读：一个事务「读到」了另一个「未提交事务修改过的数据」，就脏读了</p><p>假设AB两个事务同时处理，A事务先读到余额然后再执行更新，但是A事务还没有提交，这个时候B来读读到了A这个未提交状态的，这个时候A回滚了，B读到的数据就是过期的或者说未被提交的数据，也就是脏读</p><p>2）不可重复读：在一个事务内多次读同一个数据，前后两次读到数据不一样的情况，就是发生了「不可重复读」</p><p>在A事务的期间，B事务修改了一个值并提交，这个时候A事务前后两次读了同一个</p><p>3）幻读<font color='red'>（主要是针对记录数量）</font> ：在一个事务内多次查询符合一个条件的记录数量，前后两次记录数量不一样，就意味着产生了幻读，A操作着操作着，B改了并提交了</p><p>以上问题引出事务的隔离级别：</p><ul><li>串行化：会对记录加上读写锁，在多个事务对这条记录惊醒操作的时候，如果冲突了，后访问的事务必须等前一个事务完成了再操作</li><li>可重复读：一个事务执行过程中看到的数据，一直跟这个事务启动的时候看到的数据是一致的</li><li>读已提交：一个事务提交之后，变更才能被其他事务看到</li><li>读未提交：一个事务还没被提交的时候，他做的变更就能被其他事务看到</li></ul>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>CICD基础概念</title>
+    <link href="/2023/03/13/mixed/cicd/CICD%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/"/>
+    <url>/2023/03/13/mixed/cicd/CICD%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</url>
+    
+    <content type="html"><![CDATA[<h1 id="CI-x2F-CD基础概念"><a href="#CI-x2F-CD基础概念" class="headerlink" title="CI&#x2F;CD基础概念"></a>CI&#x2F;CD基础概念</h1><h2 id="1-什么是CI-x2F-CD"><a href="#1-什么是CI-x2F-CD" class="headerlink" title="1. 什么是CI&#x2F;CD"></a>1. 什么是CI&#x2F;CD</h2><p>Reference：<a href="https://blog.csdn.net/Z1404686551/article/details/126629428">https://blog.csdn.net/Z1404686551/article/details/126629428</a></p><p>持续集成CI（Continuous Integration），持续交付CD（Continuous Delivery）</p><p><strong>理想目标：自动化流程、一次配置多次使用、补充自动测试的case、精力花在怎么把代码写好，代码部署的就自动完成</strong></p><p>上线操作：</p><p>第一步：从一个项目git clone到本地，修改几行代码，本地测试后，git commit &amp; git push到代码仓库；</p><p>第二步：push的过程会触发CI流水线，比如gitlab CI，这样会去执行一些测试，编译 测试 扫描等，过一阵会收到case测试失败还是执行通过的消息，这个过程可能还触发一些比如docker镜像的打包，然后docker镜像向镜像库的推送等；</p><p>第三步：将功能交给测试&amp;产品验收，发现问题或者收到建议，重新修改，当没有问题，手动触发预发部署流水线，自动生成部署交付产物，后面就不用管了；</p><p>第四步：持续部署流水线每几分钟自动检测交付产物包，发现更新后，自动将产物部署到线上；</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/clip_image001.png" alt="在这里插入图片描述"></p><h2 id="2-CI-x2F-CD自己的实践"><a href="#2-CI-x2F-CD自己的实践" class="headerlink" title="2. CI&#x2F;CD自己的实践"></a>2. CI&#x2F;CD自己的实践</h2><p>没有太执行过其他的流程，只执行过一个自动打包的流程，</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Docker常用命令记录</title>
+    <link href="/2023/03/13/develop/docker/docker%E4%BD%BF%E7%94%A8/Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/"/>
+    <url>/2023/03/13/develop/docker/docker%E4%BD%BF%E7%94%A8/Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/</url>
+    
+    <content type="html"><![CDATA[<p>记录常用的docker命令，作为一个自己积累的手册未来自己进行查阅</p><span id="more"></span><h1 id="Docker常用命令记录"><a href="#Docker常用命令记录" class="headerlink" title="Docker常用命令记录"></a>Docker常用命令记录</h1><h2 id="1-docker-tag-标记本地镜像"><a href="#1-docker-tag-标记本地镜像" class="headerlink" title="1. docker tag 标记本地镜像"></a>1. docker tag 标记本地镜像</h2><p>标记本地镜像在推送到远程库的时候比较常用？</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker tag xxxx:v1.4 docker.xxx.io/xxxx:v1.4<br></code></pre></td></tr></table></figure><h2 id="2-docker-save-镜像导出"><a href="#2-docker-save-镜像导出" class="headerlink" title="2. docker save 镜像导出"></a>2. docker save 镜像导出</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker save -o image.tar image:tag<br>docker save &gt; image.tar image:tag<br>docker save image:tag &gt; image.tar<br></code></pre></td></tr></table></figure><h2 id="3-docker-load-镜像导入"><a href="#3-docker-load-镜像导入" class="headerlink" title="3. docker load 镜像导入"></a>3. docker load 镜像导入</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker load -i image.tar<br>docker load &lt; image.tar<br></code></pre></td></tr></table></figure><h2 id="4-删除镜像"><a href="#4-删除镜像" class="headerlink" title="4. 删除镜像"></a>4. 删除镜像</h2><p>为了避免把该镜像的一些被其他库也依赖的依赖层删掉，需要加入<code>--no-prune</code>参数，不移除该镜像的过程镜像</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker rmi -f image:tag --no-prune<br></code></pre></td></tr></table></figure><h2 id="5-docker-exec-it-CONTAINED-ID-x2F-bin-x2F-bash-进入正在执行的容器"><a href="#5-docker-exec-it-CONTAINED-ID-x2F-bin-x2F-bash-进入正在执行的容器" class="headerlink" title="5. docker exec -it [CONTAINED_ID] &#x2F;bin&#x2F;bash 进入正在执行的容器"></a>5. docker exec -it [CONTAINED_ID] &#x2F;bin&#x2F;bash 进入正在执行的容器</h2><p>有些情况下，一个正在运行的容器使用后台的方式进行挂载，这样的话可以使用这条命令挂载进去来调试</p><p>调试如果比较顺利的话，可以docker commit提交上去（类似于多安装了一些库什么的），不过还是不太推荐docker commit，这种基本会越堆越大的，还是推荐再返回来修改一下Dockerfile</p><h2 id="6-docker-ps-a-grep-image-tag-和-docker-images-grep-image-tag"><a href="#6-docker-ps-a-grep-image-tag-和-docker-images-grep-image-tag" class="headerlink" title="6. docker ps -a | grep image:tag 和 docker images | grep image:tag"></a>6. docker ps -a | grep image:tag 和 docker images | grep image:tag</h2><p>查看正在启动的container和已经创建过的image，再配合上<code>grep -v grep</code>等命令可以进行删除</p><h2 id="7-docker-logs-CONTAINER-ID"><a href="#7-docker-logs-CONTAINER-ID" class="headerlink" title="7. docker logs [CONTAINER_ID]"></a>7. docker logs [CONTAINER_ID]</h2><p>如果有些docker出现了不知道什么情况的终止，比如通过ps看不到但是通过ps -a 可以看到，就可以通过这个docker logs，看到docker内部的一些错误输出</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>develop</category>
+      
+      <category>docker</category>
+      
+      <category>docker使用</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>docker</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>SpringBoot-1快速入门初始化工程</title>
+    <link href="/2023/02/18/develop/java/springboot/SpringBoot-1%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E7%A8%8B/"/>
+    <url>/2023/02/18/develop/java/springboot/SpringBoot-1%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E7%A8%8B/</url>
+    
+    <content type="html"><![CDATA[<h1 id="SpringBoot-1快速入门初始化工程"><a href="#SpringBoot-1快速入门初始化工程" class="headerlink" title="SpringBoot-1快速入门初始化工程"></a>SpringBoot-1快速入门初始化工程</h1><p>简化Spring应用的初始搭建以及开发过程，Spring已经很简化了，再进一步简化下</p><h2 id="1-开始配置一个项目-入门案例"><a href="#1-开始配置一个项目-入门案例" class="headerlink" title="1. 开始配置一个项目 入门案例"></a>1. 开始配置一个项目 入门案例</h2><h3 id="1-1-初始化项目"><a href="#1-1-初始化项目" class="headerlink" title="1.1 初始化项目"></a>1.1 初始化项目</h3><p>使用IDEA创建一个SpringBoot工程，new project这边选择到Spring Initialzr，里面的各项选项注意和这里对应到</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230218162829422.png" alt="image-20230218162829422" style="zoom:50%;" /><p><font color='red'>这里注意一下SpringBoot的版本，3.x需要jdk17的支持，所以这里实际降级一下选到jdk8去</font> </p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230218163022842.png" alt="image-20230218163022842" style="zoom:50%;" /><p>至此工程加载完毕，删掉除了.idea，src，pom.xml的其他文件，保留到下面的这些</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230218164013570.png" alt="image-20230218164013570" style="zoom:50%;" /><p>项目结构整体如下</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230218164804916.png" alt="image-20230218164804916"></p><h3 id="1-2-创建controller"><a href="#1-2-创建controller" class="headerlink" title="1.2 创建controller"></a>1.2 创建controller</h3><p>创建如下的Java类，并把这个RestController和RequestMapping给写上</p><p>&#x2F;Users&#x2F;curious&#x2F;Desktop&#x2F;Engineering&#x2F;java&#x2F;demo&#x2F;src&#x2F;main&#x2F;java&#x2F;cn&#x2F;edu&#x2F;bupt&#x2F;controller&#x2F;SwitchBoardController.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.edu.bupt.controller;<br><br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RestController;<br><br><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/switchboard&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SwitchBoardController</span> &#123;<br>    <br>&#125;<br></code></pre></td></tr></table></figure><p>进一步完善一个getById功能，这样写好后SpringBoot程序就已经开发完了，Tomcat服务器那些都不需要了</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.edu.bupt.controller;<br><br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.PathVariable;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RestController;<br><br><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/switchboard&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SwitchBoardController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/&#123;id&#125;&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getById</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span>  Integer id)</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;id: &quot;</span> + id);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello, SpringBoot!&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>右键点击src&#x2F;main&#x2F;java&#x2F;cn&#x2F;edu&#x2F;bupt&#x2F;DemoApplication.java，选择Run Application，直接启动起来了</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">  .   ____          _            __ _ _<br> /\\ / ___&#x27;_ __ _ _(_)_ __  __ _ \ \ \ \<br>( ( )\___ | &#x27;_ | &#x27;_| | &#x27;_ \/ _` | \ \ \ \<br> \\/  ___)| |_)| | | | | || (_| |  ) ) ) )<br>  &#x27;  |____| .__|_| |_|_| |_\__, | / / / /<br> =========|_|==============|___/=/_/_/_/<br> :: Spring Boot ::                (v2.7.8)<br></code></pre></td></tr></table></figure><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">2023-02-18 17:05:28.221  INFO 18715 --- [           main] cn.edu.bupt.DemoApplication              : Starting DemoApplication using Java 1.8.0_312 on CuriousdeMacBook-Pro.local with PID 18715 (/Users/curious/Desktop/Engineering/java/demo/target/classes started by curious in /Users/curious/Desktop/Engineering/java/demo)<br>2023-02-18 17:05:28.222  INFO 18715 --- [           main] cn.edu.bupt.DemoApplication              : No active profile set, falling back to 1 default profile: &quot;default&quot;<br>2023-02-18 17:05:28.569  INFO 18715 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)<br>2023-02-18 17:05:28.572  INFO 18715 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]<br>2023-02-18 17:05:28.572  INFO 18715 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]<br>2023-02-18 17:05:28.598  INFO 18715 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext<br>2023-02-18 17:05:28.599  INFO 18715 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 356 ms<br>2023-02-18 17:05:28.714  INFO 18715 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path &#x27;&#x27;<br>2023-02-18 17:05:28.718  INFO 18715 --- [           main] cn.edu.bupt.DemoApplication              : Started DemoApplication in 0.661 seconds (JVM running for 0.901)<br></code></pre></td></tr></table></figure><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230218170912366.png" alt="image-20230218170912366"></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">curl --location --request GET &#x27;http://localhost:8080/switchboard/1&#x27;<br></code></pre></td></tr></table></figure><h3 id="1-3-原理分析"><a href="#1-3-原理分析" class="headerlink" title="1.3 原理分析"></a>1.3 原理分析</h3><p>不是pom.xml干的活就是DemoApplication干的活</p><h2 id="N-报错解决"><a href="#N-报错解决" class="headerlink" title="N. 报错解决"></a>N. 报错解决</h2><h3 id="N-1-java-错误-无效的源发行版：17"><a href="#N-1-java-错误-无效的源发行版：17" class="headerlink" title="N.1 java: 错误: 无效的源发行版：17"></a>N.1 java: 错误: 无效的源发行版：17</h3><p>报错源于点击run application的时候，解决办法是Module这里面也要跟着改</p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230218165818077.png" alt="image-20230218165818077"></p><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230218165951940.png" alt="image-20230218165951940"></p><p>这样还是没有解决，最后发现是SpringBoot3.x版本需要jdk17作为支撑，这里选用比较简单的方法，重新创建一个项目，降低SpringBoot版本；</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>JavaSSM-1Spring入门</title>
+    <link href="/2023/02/08/develop/java/javassm/JavaSSM-1Spring%E5%85%A5%E9%97%A8/"/>
+    <url>/2023/02/08/develop/java/javassm/JavaSSM-1Spring%E5%85%A5%E9%97%A8/</url>
+    
+    <content type="html"><![CDATA[<h1 id="JavaSSM-1Spring入门"><a href="#JavaSSM-1Spring入门" class="headerlink" title="JavaSSM-1Spring入门"></a>JavaSSM-1Spring入门</h1><p>Spring Framework、Spring Boot、Spring Cloud</p><h2 id="1-Spring-Framework-系统架构"><a href="#1-Spring-Framework-系统架构" class="headerlink" title="1. Spring Framework 系统架构"></a>1. Spring Framework 系统架构</h2><p>是Spring生态圈中最基础的项目，是其他项目的根基。从Core Container（装对象的）开始学习</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230208231043515.png" alt="image-20230208231043515" style="zoom:50%;" /><h2 id="2-核心概念——IoC"><a href="#2-核心概念——IoC" class="headerlink" title="2. 核心概念——IoC"></a>2. 核心概念——IoC</h2><h3 id="2-1-IoC概念"><a href="#2-1-IoC概念" class="headerlink" title="2.1 IoC概念"></a>2.1 IoC概念</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230208231323058.png" alt="image-20230208231323058" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230208231532222.png" alt="image-20230208231532222" style="zoom:50%;" /><p>IoC管Bean，IoC内部的Bean绑定！</p><h3 id="2-2-IoC入门案例（还没有充分做到解耦的效果）"><a href="#2-2-IoC入门案例（还没有充分做到解耦的效果）" class="headerlink" title="2.2 IoC入门案例（还没有充分做到解耦的效果）"></a>2.2 IoC入门案例（还没有充分做到解耦的效果）</h3><p>业务层接口、业务层实现类。数据层接口，数据层实现类</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230208235707824.png" alt="image-20230208235707824" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230209000429812.png" alt="image-20230209000429812" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230209000615859.png" alt="image-20230209000615859" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230209000644195.png" alt="image-20230209000644195" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230209000655197.png" alt="image-20230209000655197" style="zoom:50%;" /><h2 id="3-DI入门案例"><a href="#3-DI入门案例" class="headerlink" title="3. DI入门案例"></a>3. DI入门案例</h2><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230209001833780.png" alt="image-20230209001833780" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230209001844419.png" alt="image-20230209001844419" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230209001914032.png" alt="image-20230209001914032" style="zoom:50%;" /><h2 id="4-bean"><a href="#4-bean" class="headerlink" title="4. bean"></a>4. bean</h2><h3 id="4-1-bean配置"><a href="#4-1-bean配置" class="headerlink" title="4.1 bean配置"></a>4.1 bean配置</h3><h4 id="4-1-1-基础配置"><a href="#4-1-1-基础配置" class="headerlink" title="4.1.1 基础配置"></a>4.1.1 基础配置</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230209002649711.png" alt="image-20230209002649711" style="zoom:50%;" /><h4 id="4-1-2-别名name"><a href="#4-1-2-别名name" class="headerlink" title="4.1.2 别名name"></a>4.1.2 别名name</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230209002222940.png" alt="image-20230209002222940" style="zoom:50%;" /><h4 id="4-1-3-作用范围配置（默认单例）"><a href="#4-1-3-作用范围配置（默认单例）" class="headerlink" title="4.1.3 作用范围配置（默认单例）"></a>4.1.3 作用范围配置（默认单例）</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230209002510565.png" alt="image-20230209002510565" style="zoom:50%;" /><p>bean默认单例，有状态的不适合单例</p><h3 id="4-2-bean实例化"><a href="#4-2-bean实例化" class="headerlink" title="4.2 bean实例化"></a>4.2 bean实例化</h3><p>Spring创建bean的时候用的是<strong>无参的构造办法</strong></p><h4 id="4-2-1-构造方法实例化bean"><a href="#4-2-1-构造方法实例化bean" class="headerlink" title="4.2.1 构造方法实例化bean"></a>4.2.1 构造方法实例化bean</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230209003110520.png" alt="image-20230209003110520" style="zoom:50%;" /><h4 id="4-2-2-静态工厂实例化bean"><a href="#4-2-2-静态工厂实例化bean" class="headerlink" title="4.2.2 静态工厂实例化bean"></a>4.2.2 静态工厂实例化bean</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230209003315606.png" alt="image-20230209003315606" style="zoom:50%;" /><h4 id="4-2-3-实例工厂初始化bean（FactorBean）"><a href="#4-2-3-实例工厂初始化bean（FactorBean）" class="headerlink" title="4.2.3 实例工厂初始化bean（FactorBean）"></a>4.2.3 实例工厂初始化bean（FactorBean）</h4><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230209003917166.png" alt="image-20230209003917166" style="zoom:50%;" /><h3 id="4-3-bean生命周期"><a href="#4-3-bean生命周期" class="headerlink" title="4.3 bean生命周期"></a>4.3 bean生命周期</h3><p>第一种方式</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230209004615386.png" alt="image-20230209004615386" style="zoom:50%;" /><p>第二种方式（接口，了解）</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230209004632261.png" alt="image-20230209004632261" style="zoom:50%;" /><h2 id="5-依赖注入方式"><a href="#5-依赖注入方式" class="headerlink" title="5. 依赖注入方式"></a>5. 依赖注入方式</h2><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230210005955689.png" alt="image-20230210005955689" style="zoom:50%;" /><h3 id="5-1-Setter注入"><a href="#5-1-Setter注入" class="headerlink" title="5.1 Setter注入"></a>5.1 Setter注入</h3><p>引用类型</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230210005205774.png" alt="image-20230210005205774" style="zoom:50%;" /><p>简单类型</p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230210005311603.png" alt="image-20230210005311603" style="zoom:50%;" /><h3 id="5-2-构造器注入"><a href="#5-2-构造器注入" class="headerlink" title="5.2 构造器注入"></a>5.2 构造器注入</h3><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230210005906297.png" alt="image-20230210005906297" style="zoom:50%;" /><h2 id="6-自动装配"><a href="#6-自动装配" class="headerlink" title="6. 自动装配"></a>6. 自动装配</h2><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230210010527061.png" alt="image-20230210010527061" style="zoom:50%;" /><h2 id="7-集合注入"><a href="#7-集合注入" class="headerlink" title="7. 集合注入"></a>7. 集合注入</h2><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230210011317493.png" alt="image-20230210011317493" style="zoom:50%;" /><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230210011325668.png" alt="image-20230210011325668" style="zoom:50%;" /><p>…</p><h2 id="8-案例：数据源对象管理"><a href="#8-案例：数据源对象管理" class="headerlink" title="8. 案例：数据源对象管理"></a>8. 案例：数据源对象管理</h2><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230210012020423.png" alt="image-20230210012020423" style="zoom:50%;" />]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>K8S快速入门-3基于智能114项目的自己实战</title>
     <link href="/2023/01/25/develop/k8s/K8S%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8-3%E5%9F%BA%E4%BA%8E%E6%99%BA%E8%83%BD114%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%87%AA%E5%B7%B1%E5%AE%9E%E6%88%98/"/>
     <url>/2023/01/25/develop/k8s/K8S%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8-3%E5%9F%BA%E4%BA%8E%E6%99%BA%E8%83%BD114%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%87%AA%E5%B7%B1%E5%AE%9E%E6%88%98/</url>
@@ -1846,9 +1992,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -1883,11 +2029,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>矩阵</tag>
+      <tag>动态规划</tag>
       
       <tag>位运算</tag>
       
-      <tag>动态规划</tag>
+      <tag>矩阵</tag>
       
       <tag>回溯</tag>
       
@@ -1957,9 +2103,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>数学</tag>
       
       <tag>几何</tag>
       
@@ -2002,9 +2148,9 @@
       
       <tag>HARD</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>位运算</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>计数</tag>
       
@@ -2041,19 +2187,19 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>HARD</tag>
+      <tag>树</tag>
       
-      <tag>数学</tag>
+      <tag>深度优先搜索</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>HARD</tag>
       
       <tag>哈希表</tag>
       
       <tag>矩阵</tag>
       
-      <tag>动态规划</tag>
-      
-      <tag>树</tag>
-      
-      <tag>深度优先搜索</tag>
+      <tag>数学</tag>
       
       <tag>二叉搜索树</tag>
       
@@ -2148,19 +2294,19 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>HARD</tag>
-      
-      <tag>哈希表</tag>
-      
       <tag>贪心</tag>
-      
-      <tag>滑动窗口</tag>
       
       <tag>动态规划</tag>
       
-      <tag>枚举</tag>
+      <tag>HARD</tag>
       
       <tag>字典树</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>滑动窗口</tag>
+      
+      <tag>枚举</tag>
       
       <tag>哈希函数</tag>
       
@@ -2251,15 +2397,15 @@
     
     <tags>
       
-      <tag>HARD</tag>
-      
-      <tag>动态规划</tag>
-      
       <tag>树</tag>
       
       <tag>深度优先搜索</tag>
       
       <tag>二叉树</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>HARD</tag>
       
     </tags>
     
@@ -2362,13 +2508,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>哈希表</tag>
+      <tag>贪心</tag>
       
-      <tag>前缀和</tag>
+      <tag>哈希表</tag>
       
       <tag>矩阵</tag>
       
-      <tag>贪心</tag>
+      <tag>前缀和</tag>
       
       <tag>计数</tag>
       
@@ -2444,13 +2590,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
-      <tag>哈希表</tag>
-      
       <tag>贪心</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -2531,9 +2677,9 @@
       
       <tag>位运算</tag>
       
-      <tag>枚举</tag>
-      
       <tag>栈</tag>
+      
+      <tag>枚举</tag>
       
       <tag>递归</tag>
       
@@ -2735,9 +2881,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -2873,12 +3019,6 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
-      <tag>哈希表</tag>
-      
-      <tag>贪心</tag>
-      
       <tag>树</tag>
       
       <tag>深度优先搜索</tag>
@@ -2886,6 +3026,12 @@
       <tag>广度优先搜索</tag>
       
       <tag>二叉树</tag>
+      
+      <tag>贪心</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -2947,9 +3093,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>计数</tag>
-      
       <tag>二分查找</tag>
+      
+      <tag>计数</tag>
       
     </tags>
     
@@ -2988,13 +3134,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>贪心</tag>
       
-      <tag>计数</tag>
-      
       <tag>链表</tag>
+      
+      <tag>数学</tag>
+      
+      <tag>计数</tag>
       
     </tags>
     
@@ -3165,13 +3311,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
+      <tag>贪心</tag>
       
       <tag>哈希表</tag>
       
       <tag>前缀和</tag>
       
-      <tag>贪心</tag>
+      <tag>数学</tag>
       
       <tag>计数</tag>
       
@@ -3208,11 +3354,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>哈希表</tag>
       
       <tag>设计</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -3249,17 +3395,17 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>HARD</tag>
+      <tag>双指针</tag>
       
-      <tag>哈希表</tag>
+      <tag>HARD</tag>
       
       <tag>位运算</tag>
       
-      <tag>双指针</tag>
-      
-      <tag>计数</tag>
+      <tag>哈希表</tag>
       
       <tag>回溯</tag>
+      
+      <tag>计数</tag>
       
       <tag>枚举</tag>
       
@@ -3451,13 +3597,13 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>位运算</tag>
+      
       <tag>哈希表</tag>
       
       <tag>矩阵</tag>
       
       <tag>滑动窗口</tag>
-      
-      <tag>位运算</tag>
       
     </tags>
     
@@ -3494,11 +3640,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>贪心</tag>
       
       <tag>动态规划</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -3616,9 +3762,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>矩阵</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>矩阵</tag>
       
     </tags>
     
@@ -3647,9 +3793,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>数学</tag>
       
       <tag>组合数学</tag>
       
@@ -3680,9 +3826,9 @@
       
       <tag>EASY</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>哈希表</tag>
       
       <tag>链表</tag>
       
@@ -3748,9 +3894,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>矩阵</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -3843,11 +3989,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
+      <tag>贪心</tag>
       
       <tag>矩阵</tag>
       
-      <tag>贪心</tag>
+      <tag>数学</tag>
       
     </tags>
     
@@ -3884,11 +4030,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>哈希表</tag>
       
       <tag>前缀和</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
@@ -3946,13 +4092,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>矩阵</tag>
-      
       <tag>深度优先搜索</tag>
       
       <tag>广度优先搜索</tag>
       
       <tag>并查集</tag>
+      
+      <tag>矩阵</tag>
       
     </tags>
     
@@ -3981,9 +4127,9 @@
       
       <tag>数组</tag>
       
-      <tag>HARD</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>HARD</tag>
       
     </tags>
     
@@ -4012,9 +4158,9 @@
       
       <tag>字符串</tag>
       
-      <tag>HARD</tag>
-      
       <tag>动态规划</tag>
+      
+      <tag>HARD</tag>
       
     </tags>
     
@@ -4111,9 +4257,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>设计</tag>
-      
       <tag>链表</tag>
+      
+      <tag>设计</tag>
       
       <tag>双向链表</tag>
       
@@ -4177,13 +4323,13 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>动态规划</tag>
       
       <tag>字典树</tag>
       
       <tag>记忆化搜索</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
@@ -4272,11 +4418,11 @@
       
       <tag>MEDIUM</tag>
       
+      <tag>字典树</tag>
+      
       <tag>哈希表</tag>
       
       <tag>设计</tag>
-      
-      <tag>字典树</tag>
       
     </tags>
     
@@ -4506,11 +4652,11 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>哈希表</tag>
       
       <tag>TODO优化</tag>
+      
+      <tag>数学</tag>
       
       <tag>水塘抽样</tag>
       
@@ -4642,9 +4788,9 @@
       
       <tag>MEDIUM</tag>
       
-      <tag>数学</tag>
-      
       <tag>哈希表</tag>
+      
+      <tag>数学</tag>
       
     </tags>
     
