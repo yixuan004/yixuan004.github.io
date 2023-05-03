@@ -223,6 +223,74 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/12/07/develop/redis/%E4%B8%89%E3%80%81Redis%E6%8C%81%E4%B9%85%E5%8C%96/" target="_self">
+          三、Redis持久化
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/07/develop/redis/%E4%B8%89%E3%80%81Redis%E6%8C%81%E4%B9%85%E5%8C%96/" target="_self">
+        <div>
+          三、Redis持久化1. Redis如何实现数据不丢失Redis的读写操作都在内存中，所以Redis的性能才会高，但是当Redis重启后，内存中的数据就会丢失（服务器如果断电后，内存中的数据同样会丢失）。 那么为了保证内存中的数据不会丢失，Redis实现了数据持久化的机制，这个机制把数据存储到磁盘，这样redis重启就能够从磁盘中恢复原有的数据 Redis共有三种数据持久化的方式  AOF日志：每
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-07 23:53" pubdate>
+              2022-12-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/redis/" class="category-chain-item">redis</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/redis/">#redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/12/07/mixed/git/git%E9%A1%B9%E7%9B%AE%E5%8D%8F%E4%BD%9C%E8%A7%84%E8%8C%83/" target="_self">
           git项目协作规范
         </a>
@@ -864,81 +932,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/git/">#git</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/02/develop/docker/docker%E4%BD%BF%E7%94%A8/%E5%9F%BA%E4%BA%8EDockerCompose%E8%BF%9B%E8%A1%8C%E9%95%9C%E5%83%8F%E7%BB%84%E5%90%88%E9%83%A8%E7%BD%B2-%E4%BB%A5%E6%99%BA%E8%83%BD114%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B/" target="_self">
-          基于DockerCompose进行镜像组合部署-以智能114项目为例
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/02/develop/docker/docker%E4%BD%BF%E7%94%A8/%E5%9F%BA%E4%BA%8EDockerCompose%E8%BF%9B%E8%A1%8C%E9%95%9C%E5%83%8F%E7%BB%84%E5%90%88%E9%83%A8%E7%BD%B2-%E4%BB%A5%E6%99%BA%E8%83%BD114%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B/" target="_self">
-        <div>
-          背景：单独使用docker构建了多个镜像了，然而在项目的时候，这些镜像需要一个个启动，以智能114系统为例，依赖环境包括uWSGI+Django、NGINX、Redis、MySQL、ElasticSearch，如果是一个个启动docker镜像，感觉总还是有不方便的时候 docker-compose应该是提供了一种编排方法，具体还要在学习的使用细看
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-02 14:32" pubdate>
-              2022-12-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/develop/" class="category-chain-item">develop</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/develop/docker/" class="category-chain-item">docker</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/develop/docker/docker%E4%BD%BF%E7%94%A8/" class="category-chain-item">docker使用</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/docker/">#docker</a>
             
           </div>
         
