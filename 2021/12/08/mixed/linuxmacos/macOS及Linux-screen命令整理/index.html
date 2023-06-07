@@ -16,22 +16,22 @@
   <meta name="author" content="Curious;">
   <meta name="keywords" content="">
   
-    <meta name="description" content="背景：iterm2可以替代macOS自带的terminal，而ohmyzsh是基于zsh命令行的一个扩展工具集，在其上可以安装插件来丰富命令行的功能（何老板推荐的syntax highlighting和auto suggestion）">
+    <meta name="description" content="需求：例如在跑深度学习等程序的时候，需要让程序挂载在后台执行，这时候就可以使用screen命令进行后台的挂载">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iterm2+ohmyzsh安装及插件配置">
-<meta property="og:url" content="http://example.com/2021/12/06/iterm2+ohmyzsh%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:title" content="macOS及Linux-screen命令整理">
+<meta property="og:url" content="http://example.com/2021/12/08/mixed/linuxmacos/macOS%E5%8F%8ALinux-screen%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/index.html">
 <meta property="og:site_name" content="Curious;的个人划水博客">
-<meta property="og:description" content="背景：iterm2可以替代macOS自带的terminal，而ohmyzsh是基于zsh命令行的一个扩展工具集，在其上可以安装插件来丰富命令行的功能（何老板推荐的syntax highlighting和auto suggestion）">
+<meta property="og:description" content="需求：例如在跑深度学习等程序的时候，需要让程序挂载在后台执行，这时候就可以使用screen命令进行后台的挂载">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-12-06T04:04:41.000Z">
-<meta property="article:modified_time" content="2022-11-20T01:50:08.889Z">
+<meta property="article:published_time" content="2021-12-08T06:48:35.000Z">
+<meta property="article:modified_time" content="2023-06-07T15:59:44.143Z">
 <meta property="article:author" content="Curious;">
-<meta property="article:tag" content="macOS基础操作">
+<meta property="article:tag" content="linuxmacos">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>iterm2+ohmyzsh安装及插件配置 - Curious;的个人划水博客</title>
+  <title>macOS及Linux-screen命令整理 - Curious;的个人划水博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="iterm2+ohmyzsh安装及插件配置"></span>
+            <span id="subtitle" data-typed-text="macOS及Linux-screen命令整理"></span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2021-12-06 12:04" pubdate>
-          2021年12月6日 中午
+        <time datetime="2021-12-08 14:48" pubdate>
+          2021年12月8日 下午
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          559 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          10 分钟
+          5 分钟
         
       </span>
     
@@ -268,60 +268,22 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">iterm2+ohmyzsh安装及插件配置</h1>
+            <h1 style="display: none">macOS及Linux-screen命令整理</h1>
             
             
               <div class="markdown-body">
                 
-                <p>背景：iterm2可以替代macOS自带的terminal，而ohmyzsh是基于zsh命令行的一个扩展工具集，在其上可以安装插件来丰富命令行的功能（何老板推荐的syntax highlighting和auto suggestion）</p>
+                <p>需求：例如在跑深度学习等程序的时候，需要让程序挂载在后台执行，这时候就可以使用screen命令进行后台的挂载</p>
 <span id="more"></span>
 
-<h1 id="安装item2"><a href="#安装item2" class="headerlink" title="安装item2"></a>安装item2</h1><p>直接官网安装即可，安装后把其保留在程序坞中，手工替代terminal</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://iterm2.com/">https://iterm2.com/</a></p>
-</blockquote>
-<h1 id="安装ohmyzsh"><a href="#安装ohmyzsh" class="headerlink" title="安装ohmyzsh"></a>安装ohmyzsh</h1><p>直接执行官网的一句话命令安装：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sh -c &quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;<br></code></pre></td></tr></table></figure>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://ohmyz.sh/#install">https://ohmyz.sh/#install</a></p>
-</blockquote>
-<h1 id="安装ohmyzsh的插件syntax-highlighting和auto-suggestion"><a href="#安装ohmyzsh的插件syntax-highlighting和auto-suggestion" class="headerlink" title="安装ohmyzsh的插件syntax highlighting和auto suggestion"></a>安装ohmyzsh的插件syntax highlighting和auto suggestion</h1><p>Reference:</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2f2c09ebfb7f">https://www.jianshu.com/p/2f2c09ebfb7f</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38839744/article/details/90247628">https://blog.csdn.net/qq_38839744/article/details/90247628</a></p>
-</blockquote>
-<h2 id="zsh-syntax-highlighting安装"><a href="#zsh-syntax-highlighting安装" class="headerlink" title="zsh-syntax-highlighting安装"></a>zsh-syntax-highlighting安装</h2><p>官网：</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-syntax-highlighting">https://github.com/zsh-users/zsh-syntax-highlighting</a></p>
-</blockquote>
-<p>安装：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git <br>echo &quot;source $&#123;(q-)PWD&#125;/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh&quot; &gt;&gt; $&#123;ZDOTDIR:-$HOME&#125;/.zshrc<br></code></pre></td></tr></table></figure>
+<h1 id="screen-ls"><a href="#screen-ls" class="headerlink" title="screen -ls"></a>screen -ls</h1><p>查看：<code>screen -ls</code>可以查看当前有哪些Attached&#x2F;Detached的screen界面</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">(base) lyx@h5:~$ screen -ls<br>There is a screen on:<br>        12442.xxxxxxx       (12/08/2021 02:12:53 PM)        (Detached)<br>1 Socket in /var/run/screen/S-lyx.=<br></code></pre></td></tr></table></figure>
 
-<p>生效：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">source ~/.zshrc<br></code></pre></td></tr></table></figure>
-
-
-<h2 id="Auto-suggestion的安装"><a href="#Auto-suggestion的安装" class="headerlink" title="Auto suggestion的安装"></a>Auto suggestion的安装</h2><p>auto suggestion是ohmyzsh的一个插件，作用基本上是根据历史输入指令记录即使的提示，能够提高效率</p>
-<ol>
-<li>git clone项目，并与ZSH建立关联</li>
-</ol>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">git clone git:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/zsh-users/</span>zsh-autosuggestions <span class="hljs-variable">$ZSH_CUSTOM</span><span class="hljs-regexp">/plugins/</span>zsh-autosuggestions<br></code></pre></td></tr></table></figure>
-
-<p>其中通过echo查看$ZSH_CUSTOM</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">➜  ~ echo $ZSH_CUSTOM<br>/Users/curious/.oh-my-zsh/custom<br></code></pre></td></tr></table></figure>
-
-
-<ol start="2">
-<li>编辑~&#x2F;.zshrc文件</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">vim ~/.zshrc<br></code></pre></td></tr></table></figure>
-
-<p>按i 进入–INSERT–编辑模式，使用上下左右键找找到plugins&#x3D;(git)这一行添加</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">plugins=(git zsh-autosuggestions)<br></code></pre></td></tr></table></figure>
-
-
-
-
-
+<h1 id="screen-S-name"><a href="#screen-S-name" class="headerlink" title="screen -S [name]"></a>screen -S [name]</h1><p>新建：<code>screen -S [name]</code>可以打开一个新的名称为[name]的screen界面</p>
+<h1 id="screen-r-name"><a href="#screen-r-name" class="headerlink" title="screen -r [name]"></a>screen -r [name]</h1><p>返回：<code>screen -r [name]</code>可以返回名称为[name]的screen界面（例如之前暂时退出了，可通过此命令返回），名称可通过<code>screen -ls</code>查看</p>
+<h1 id="screen-X-S-id-quit"><a href="#screen-X-S-id-quit" class="headerlink" title="screen -X -S [id] quit"></a>screen -X -S [id] quit</h1><p>删除：<code>screen -X -S [id] quit</code>可以关闭挂载的一些screen，这里只用输入id号即可</p>
+<h1 id="screen-D-name"><a href="#screen-D-name" class="headerlink" title="screen -D [name]"></a>screen -D [name]</h1><p>有些情况下，如果finalshell等ssh窗口已经关闭，但是还显示在Attached的状态，就需要先D掉再进去</p>
+<p>&#96;&#96;&#96;screen -D [name]&#96;&#96;</p>
 
                 
               </div>
@@ -340,8 +302,22 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Crsenal/" class="category-chain-item">Crsenal</a>
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/develop/mixed/" class="category-chain-item">mixed</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/mixed/linuxmacos/" class="category-chain-item">linuxmacos</a>
+  
+  
+
+  
+
   
 
       </span>
@@ -355,7 +331,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">#macOS基础操作</a>
+        <a href="/tags/linuxmacos/">#linuxmacos</a>
       
     </div>
   
@@ -367,8 +343,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>iterm2+ohmyzsh安装及插件配置</div>
-      <div>http://example.com/2021/12/06/iterm2+ohmyzsh安装及插件配置/</div>
+      <div>macOS及Linux-screen命令整理</div>
+      <div>http://example.com/2021/12/08/mixed/linuxmacos/macOS及Linux-screen命令整理/</div>
     </div>
     <div class="license-meta">
       
@@ -380,7 +356,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2021年12月6日</div>
+          <div>2021年12月8日</div>
         </div>
       
       
@@ -412,9 +388,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/12/08/macOS%E5%8F%8ALinux-screen%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/" title="macOS及Linux-screen命令整理">
+                      <a href="/2021/12/12/algorithms/leetcode-python/438-%E6%89%BE%E5%88%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%89%80%E6%9C%89%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D-python/" title="438.找到字符串中所有字母异位词-python">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">macOS及Linux-screen命令整理</span>
+                        <span class="hidden-mobile">438.找到字符串中所有字母异位词-python</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -422,8 +398,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/12/06/develop/docker/docker%E5%AD%A6%E4%B9%A0/Docker-Learning/" title="Docker-Learning">
-                        <span class="hidden-mobile">Docker-Learning</span>
+                      <a href="/2021/12/06/mixed/linuxmacos/iterm2+ohmyzsh%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE/" title="iterm2+ohmyzsh安装及插件配置">
+                        <span class="hidden-mobile">iterm2+ohmyzsh安装及插件配置</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

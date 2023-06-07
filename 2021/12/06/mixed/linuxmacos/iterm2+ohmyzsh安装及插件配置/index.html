@@ -16,22 +16,22 @@
   <meta name="author" content="Curious;">
   <meta name="keywords" content="">
   
-    <meta name="description" content="需求：希望直接在命令行中统计文件夹下的文件、目录个数">
+    <meta name="description" content="背景：iterm2可以替代macOS自带的terminal，而ohmyzsh是基于zsh命令行的一个扩展工具集，在其上可以安装插件来丰富命令行的功能（何老板推荐的syntax highlighting和auto suggestion）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="macOS及Linux-统计文件夹下的文件目录个数">
-<meta property="og:url" content="http://example.com/2021/10/28/macOS%E5%8F%8ALinux-%E7%BB%9F%E8%AE%A1%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E4%B8%AA%E6%95%B0/index.html">
+<meta property="og:title" content="iterm2+ohmyzsh安装及插件配置">
+<meta property="og:url" content="http://example.com/2021/12/06/mixed/linuxmacos/iterm2+ohmyzsh%E5%AE%89%E8%A3%85%E5%8F%8A%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="Curious;的个人划水博客">
-<meta property="og:description" content="需求：希望直接在命令行中统计文件夹下的文件、目录个数">
+<meta property="og:description" content="背景：iterm2可以替代macOS自带的terminal，而ohmyzsh是基于zsh命令行的一个扩展工具集，在其上可以安装插件来丰富命令行的功能（何老板推荐的syntax highlighting和auto suggestion）">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-10-27T16:34:37.000Z">
-<meta property="article:modified_time" content="2022-11-20T01:50:08.889Z">
+<meta property="article:published_time" content="2021-12-06T04:04:41.000Z">
+<meta property="article:modified_time" content="2023-06-07T15:59:26.362Z">
 <meta property="article:author" content="Curious;">
-<meta property="article:tag" content="macOS基础操作">
+<meta property="article:tag" content="linuxmacos">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>macOS及Linux-统计文件夹下的文件目录个数 - Curious;的个人划水博客</title>
+  <title>iterm2+ohmyzsh安装及插件配置 - Curious;的个人划水博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="macOS及Linux-统计文件夹下的文件目录个数"></span>
+            <span id="subtitle" data-typed-text="iterm2+ohmyzsh安装及插件配置"></span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2021-10-28 00:34" pubdate>
-          2021年10月28日 凌晨
+        <time datetime="2021-12-06 12:04" pubdate>
+          2021年12月6日 中午
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          118 字
+          1.1k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          1 分钟
+          10 分钟
         
       </span>
     
@@ -268,21 +268,60 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">macOS及Linux-统计文件夹下的文件目录个数</h1>
+            <h1 style="display: none">iterm2+ohmyzsh安装及插件配置</h1>
             
             
               <div class="markdown-body">
                 
-                <p>需求：希望直接在命令行中统计文件夹下的文件、目录个数</p>
+                <p>背景：iterm2可以替代macOS自带的terminal，而ohmyzsh是基于zsh命令行的一个扩展工具集，在其上可以安装插件来丰富命令行的功能（何老板推荐的syntax highlighting和auto suggestion）</p>
 <span id="more"></span>
 
+<h1 id="安装item2"><a href="#安装item2" class="headerlink" title="安装item2"></a>安装item2</h1><p>直接官网安装即可，安装后把其保留在程序坞中，手工替代terminal</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://iterm2.com/">https://iterm2.com/</a></p>
+</blockquote>
+<h1 id="安装ohmyzsh"><a href="#安装ohmyzsh" class="headerlink" title="安装ohmyzsh"></a>安装ohmyzsh</h1><p>直接执行官网的一句话命令安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sh -c &quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://ohmyz.sh/#install">https://ohmyz.sh/#install</a></p>
+</blockquote>
+<h1 id="安装ohmyzsh的插件syntax-highlighting和auto-suggestion"><a href="#安装ohmyzsh的插件syntax-highlighting和auto-suggestion" class="headerlink" title="安装ohmyzsh的插件syntax highlighting和auto suggestion"></a>安装ohmyzsh的插件syntax highlighting和auto suggestion</h1><p>Reference:</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2f2c09ebfb7f">https://www.jianshu.com/p/2f2c09ebfb7f</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38839744/article/details/90247628">https://blog.csdn.net/qq_38839744/article/details/90247628</a></p>
+</blockquote>
+<h2 id="zsh-syntax-highlighting安装"><a href="#zsh-syntax-highlighting安装" class="headerlink" title="zsh-syntax-highlighting安装"></a>zsh-syntax-highlighting安装</h2><p>官网：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-syntax-highlighting">https://github.com/zsh-users/zsh-syntax-highlighting</a></p>
+</blockquote>
+<p>安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git <br>echo &quot;source $&#123;(q-)PWD&#125;/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh&quot; &gt;&gt; $&#123;ZDOTDIR:-$HOME&#125;/.zshrc<br></code></pre></td></tr></table></figure>
+
+<p>生效：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">source ~/.zshrc<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="Auto-suggestion的安装"><a href="#Auto-suggestion的安装" class="headerlink" title="Auto suggestion的安装"></a>Auto suggestion的安装</h2><p>auto suggestion是ohmyzsh的一个插件，作用基本上是根据历史输入指令记录即使的提示，能够提高效率</p>
 <ol>
-<li><p>统计文件夹下文件个数，包括子文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> -lR | grep <span class="hljs-string">&quot;^-&quot;</span>| <span class="hljs-built_in">wc</span> -l<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>统计文件夹下目录个数，包括子目录</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> -lR | grep <span class="hljs-string">&quot;^d&quot;</span>| <span class="hljs-built_in">wc</span> -l<br></code></pre></td></tr></table></figure></li>
+<li>git clone项目，并与ZSH建立关联</li>
 </ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">git clone git:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/zsh-users/</span>zsh-autosuggestions <span class="hljs-variable">$ZSH_CUSTOM</span><span class="hljs-regexp">/plugins/</span>zsh-autosuggestions<br></code></pre></td></tr></table></figure>
+
+<p>其中通过echo查看$ZSH_CUSTOM</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">➜  ~ echo $ZSH_CUSTOM<br>/Users/curious/.oh-my-zsh/custom<br></code></pre></td></tr></table></figure>
+
+
+<ol start="2">
+<li>编辑~&#x2F;.zshrc文件</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">vim ~/.zshrc<br></code></pre></td></tr></table></figure>
+
+<p>按i 进入–INSERT–编辑模式，使用上下左右键找找到plugins&#x3D;(git)这一行添加</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">plugins=(git zsh-autosuggestions)<br></code></pre></td></tr></table></figure>
+
+
+
+
+
 
                 
               </div>
@@ -301,8 +340,22 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Crsenal/" class="category-chain-item">Crsenal</a>
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/develop/mixed/" class="category-chain-item">mixed</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/mixed/linuxmacos/" class="category-chain-item">linuxmacos</a>
+  
+  
+
+  
+
   
 
       </span>
@@ -316,7 +369,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/macOS%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">#macOS基础操作</a>
+        <a href="/tags/linuxmacos/">#linuxmacos</a>
       
     </div>
   
@@ -328,8 +381,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>macOS及Linux-统计文件夹下的文件目录个数</div>
-      <div>http://example.com/2021/10/28/macOS及Linux-统计文件夹下的文件目录个数/</div>
+      <div>iterm2+ohmyzsh安装及插件配置</div>
+      <div>http://example.com/2021/12/06/mixed/linuxmacos/iterm2+ohmyzsh安装及插件配置/</div>
     </div>
     <div class="license-meta">
       
@@ -341,7 +394,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2021年10月28日</div>
+          <div>2021年12月6日</div>
         </div>
       
       
@@ -373,9 +426,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/10/30/research/code/NLP%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="NLP代码学习笔记">
+                      <a href="/2021/12/08/mixed/linuxmacos/macOS%E5%8F%8ALinux-screen%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/" title="macOS及Linux-screen命令整理">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">NLP代码学习笔记</span>
+                        <span class="hidden-mobile">macOS及Linux-screen命令整理</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -383,8 +436,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/10/11/macOS%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E7%9A%84-DS-Store/" title="macOS删除一个文件夹下的.DS_Store">
-                        <span class="hidden-mobile">macOS删除一个文件夹下的.DS_Store</span>
+                      <a href="/2021/12/06/develop/docker/docker%E5%AD%A6%E4%B9%A0/Docker-Learning/" title="Docker-Learning">
+                        <span class="hidden-mobile">Docker-Learning</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
