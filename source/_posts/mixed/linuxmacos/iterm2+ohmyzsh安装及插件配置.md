@@ -1,10 +1,12 @@
 ---
 title: iterm2+ohmyzsh安装及插件配置
 date: 2021-12-06 12:04:41
-tags:
-    - macOS基础操作
+tags: 
+    - linuxmacos
 categories:
-	- Crsenal
+	- develop
+	- mixed
+	- linuxmacos
 ---
 
 背景：iterm2可以替代macOS自带的terminal，而ohmyzsh是基于zsh命令行的一个扩展工具集，在其上可以安装插件来丰富命令行的功能（何老板推荐的syntax highlighting和auto suggestion）

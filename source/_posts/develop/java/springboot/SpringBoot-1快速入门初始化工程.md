@@ -120,24 +120,3 @@ curl --location --request GET 'http://localhost:8080/switchboard/1'
 ![image-20230218165951940](http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230218165951940.png)
 
 这样还是没有解决，最后发现是SpringBoot3.x版本需要jdk17作为支撑，这里选用比较简单的方法，重新创建一个项目，降低SpringBoot版本；
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

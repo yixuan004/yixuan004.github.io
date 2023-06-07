@@ -2,6 +2,11 @@
 title: CICD基础概念
 date: 2023-03-13 10:12:55
 tags:
+    - cicd
+categories:
+	- develop
+	- mixed
+	- cicd
 ---
 
 # CI/CD基础概念

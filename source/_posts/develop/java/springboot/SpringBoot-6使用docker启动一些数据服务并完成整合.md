@@ -2,6 +2,11 @@
 title: SpringBoot-6使用docker启动一些数据服务并完成整合
 date: 2023-04-10 23:14:35
 tags:
+	- springboot
+categories:
+	- develop
+	- java
+	- springboot
 ---
 
 # SpringBoot-6使用docker启动一些数据服务并完成整合

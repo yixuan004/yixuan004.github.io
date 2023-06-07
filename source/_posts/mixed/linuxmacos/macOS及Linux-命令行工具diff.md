@@ -1,10 +1,12 @@
 ---
 title: macOS及Linux-命令行工具diff
 date: 2021-09-16 20:22:05
-tags:
-    - macOS基础操作
+tags: 
+    - linuxmacos
 categories:
-	- Crsenal
+	- develop
+	- mixed
+	- linuxmacos
 ---
 
 需求：如果使用beyond compare等工具做diff还是有时候有些不方便的，或者说不够灵活。可以在macOS或者Linux系统中直接使用语句进行diff操作，并且在这里补充了一些关于zsh配置和colordiff的说明。

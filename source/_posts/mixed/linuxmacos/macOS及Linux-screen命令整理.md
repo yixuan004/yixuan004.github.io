@@ -1,10 +1,12 @@
 ---
 title: macOS及Linux-screen命令整理
 date: 2021-12-08 14:48:35
-tags:
-    - macOS基础操作
+tags: 
+    - linuxmacos
 categories:
-	- Crsenal
+	- develop
+	- mixed
+	- linuxmacos
 ---
 
 需求：例如在跑深度学习等程序的时候，需要让程序挂载在后台执行，这时候就可以使用screen命令进行后台的挂载

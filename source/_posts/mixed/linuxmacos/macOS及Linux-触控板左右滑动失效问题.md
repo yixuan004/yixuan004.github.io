@@ -1,10 +1,12 @@
 ---
 title: macOS及Linux-触控板左右滑动失效问题
 date: 2022-02-28 10:58:39
-tags:
-    - macOS基础操作
+tags: 
+    - linuxmacos
 categories:
-	- Crsenal
+	- develop
+	- mixed
+	- linuxmacos
 ---
 
 需求：某些场景下（其实感觉是插拔HDMI线外接显示器的时候），可能出现触控板手势左右滑动失效的问题；
