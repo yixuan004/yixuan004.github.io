@@ -2,6 +2,11 @@
 title: SpringBoot-1快速入门初始化工程
 date: 2023-02-18 16:16:58
 tags:
+	- springboot
+categories:
+	- develop
+	- java
+	- springboot
 ---
 
 # SpringBoot-1快速入门初始化工程

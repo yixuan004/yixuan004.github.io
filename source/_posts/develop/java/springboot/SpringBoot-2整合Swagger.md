@@ -2,6 +2,11 @@
 title: SpringBoot-2整合Swagger
 date: 2023-04-10 19:15:23
 tags:
+	- springboot
+categories:
+	- develop
+	- java
+	- springboot
 ---
 
 # SpringBoot-2整合Swagger

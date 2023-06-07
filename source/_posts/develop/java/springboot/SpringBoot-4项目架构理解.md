@@ -2,6 +2,11 @@
 title: SpringBoot-4项目架构理解
 date: 2023-04-10 21:59:17
 tags:
+	- springboot
+categories:
+	- develop
+	- java
+	- springboot
 ---
 
 # SpringBoot-4项目架构理解

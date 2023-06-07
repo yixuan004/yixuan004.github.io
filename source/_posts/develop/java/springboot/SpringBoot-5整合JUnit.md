@@ -2,6 +2,11 @@
 title: SpringBoot-5整合JUnit
 date: 2023-04-10 21:40:04
 tags:
+	- springboot
+categories:
+	- develop
+	- java
+	- springboot
 ---
 
 # SpringBoot-5整合JUnit

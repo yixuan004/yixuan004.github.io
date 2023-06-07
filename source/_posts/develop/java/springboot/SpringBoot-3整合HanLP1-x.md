@@ -2,8 +2,12 @@
 title: SpringBoot-3整合HanLP1.x
 date: 2023-04-10 19:49:12
 tags:
+	- springboot
+categories:
+	- develop
+	- java
+	- springboot
 ---
-
 # SpringBoot-3整合HanLP1.x
 
 ## 1. 配置（hanlp把程序和数据分离，可以提供一些自定义的操作）
