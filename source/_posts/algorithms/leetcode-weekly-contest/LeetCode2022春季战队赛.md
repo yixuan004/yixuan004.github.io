@@ -2,12 +2,11 @@
 title: LeetCode2022春季战队赛
 date: 2022-04-23 19:47:54
 tags:
-    - 
-    - EASY
-    - MEDIUM
+	- EASY
+	- MEDIUM
 categories:
-	- LeetCode-python
-	- LeetCode周赛
+	- algorithms
+	- leetcode-weekly-contest
 ---
 
 比赛综述&总结：

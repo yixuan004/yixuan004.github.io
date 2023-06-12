@@ -1,5 +1,5 @@
 ---
-title: SpringBoot-2整合Swagger
+title: SpringBoot-2整合Swagger+Response类
 date: 2023-04-10 19:15:23
 tags:
 	- springboot
@@ -9,7 +9,7 @@ categories:
 	- springboot
 ---
 
-# SpringBoot-2整合Swagger
+# SpringBoot-2整合Swagger+Response类
 
 ## 1. 配置
 
@@ -105,13 +105,36 @@ public class SwaggerConfig {
 
 ### 2.2 common下的返回值：Response类和ResponseCode ResponseMessage两个Enum
 
+在一个web项目中，把返回值统一成code message data这样一个Response返回类还是很关键的
+
+code：主要就是标识一个状态码，一般是200 500 这样的，或者自己根据类型定义
+
+message：主要就是状态码的解释，比如200对应成功，500对应失败这样的
+
+data：Object类，什么都可以
+
+```shell
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── cn
+│   │   │       └── edu
+│   │   │           └── bupt
+│   │   │               └── aiswitchboard
+│   │   │                   ├── ...
+│   │   │                   ├── common
+│   │   │                   │   ├── Response.java
+│   │   │                   │   ├── ResponseCode.java
+│   │   │                   │   └── ResponseMessage.java
+```
+
 <font color='red'>java中的enum是一种特殊的数据类型，用于表示一组常常量。返回值和响应状态码正好适合这种场景</font> 
 
 <font color='red'>进一步通过静态变量private final的方式来定义这两个，并且提供getCode和getMessage方法，防止了代码中的错误和不安全行为</font> 
 
 <font color='red'>private代表只能类内访问，final代表是个一旦初始化就不能修改的</font> 
 
-ResponseCode.java
+**ResponseCode.java**
 
 ```java
 package cn.edu.bupt.aiswitchboard.common;
@@ -135,7 +158,7 @@ public enum ResponseCode {
 }
 ```
 
-ResponseMessage.java
+**ResponseMessage.java**
 
 ```java
 package cn.edu.bupt.aiswitchboard.common;
@@ -156,7 +179,7 @@ public enum ResponseMessage {
 }
 ```
 
-Response.java
+**Response.java**
 
 使用泛型类来定义Response，这里的data被泛型类修饰，可以接收各种类型的，在上层初始化Response类的时候，可以用Object这个大类，就使得data可以返回任何类型的，然后提供一个update方法，这个方法可以更新code message和data的数据，用来进行返回值的设计
 

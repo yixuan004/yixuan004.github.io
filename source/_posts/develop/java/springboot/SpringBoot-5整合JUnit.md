@@ -13,7 +13,9 @@ categories:
 
 JUnit是执行单元测试使用的，导入坐标，写测试类，并在测试类加一些注解
 
-1. 导入JUnit的坐标（可能如果是高版本的SpringBoot就把这个集成了，这样会Junit4）
+## 1. JUnit坐标导入
+
+导入JUnit的坐标（可能如果是高版本的SpringBoot就把这个集成了，这样会Junit4）
 
 ```xml
 <!--junit-->
@@ -24,7 +26,9 @@ JUnit是执行单元测试使用的，导入坐标，写测试类，并在测试
 </dependency>
 ```
 
-2. 首先在这里创建一个test类，和Service名称前缀一样`src/test/java/cn/edu/bupt/aiswitchboard/NameFinderServiceTest.java`
+## 2. Test类里面测Service Controller
+
+首先在这里创建一个test类，和Service名称前缀一样`src/test/java/cn/edu/bupt/aiswitchboard/NameFinderServiceTest.java`
 
 在里面可以测Service，也可以测Controller，自动装配相对应的
 

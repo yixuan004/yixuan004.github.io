@@ -1,11 +1,12 @@
 ---
 title: Linux操作系统相关及命令分类总结
 date: 2022-11-25 00:38:55
-tags:
-    - linux
+tags: 
+    - linuxmacos
 categories:
 	- develop
-	- linux
+	- mixed
+	- linuxmacos
 ---
 
 该篇博客整理Linux操作系统相关的操作和命令，方便使用时查阅以及复习
