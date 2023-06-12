@@ -1,0 +1,751 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Curious;">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="SpringBoot-2整合Swagger+Response类1. 配置 在pom.xml中导入swagger的坐标  123456789101112131415&lt;!--swagger--&gt;&lt;dependency&gt;    &lt;groupId&gt;io.springfox&lt;&#x2F;groupId&gt;    &lt;artifactId&gt;springfox-sw">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot-2整合Swagger+Response类">
+<meta property="og:url" content="http://example.com/2023/04/10/develop/java/springboot/SpringBoot-2%E6%95%B4%E5%90%88Swagger+Response%E7%B1%BB/index.html">
+<meta property="og:site_name" content="Curious;的个人划水博客">
+<meta property="og:description" content="SpringBoot-2整合Swagger+Response类1. 配置 在pom.xml中导入swagger的坐标  123456789101112131415&lt;!--swagger--&gt;&lt;dependency&gt;    &lt;groupId&gt;io.springfox&lt;&#x2F;groupId&gt;    &lt;artifactId&gt;springfox-sw">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230410192018814.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230410193608585.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230410193729163.png">
+<meta property="og:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230410193743333.png">
+<meta property="article:published_time" content="2023-04-10T11:15:23.000Z">
+<meta property="article:modified_time" content="2023-06-08T16:17:39.451Z">
+<meta property="article:author" content="Curious;">
+<meta property="article:tag" content="springboot">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230410192018814.png">
+  
+  
+  
+  <title>SpringBoot-2整合Swagger+Response类 - Curious;的个人划水博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Curious;的个人划水博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="SpringBoot-2整合Swagger+Response类"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-10 19:15" pubdate>
+          2023年4月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          50 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SpringBoot-2整合Swagger+Response类</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="SpringBoot-2整合Swagger-Response类"><a href="#SpringBoot-2整合Swagger-Response类" class="headerlink" title="SpringBoot-2整合Swagger+Response类"></a>SpringBoot-2整合Swagger+Response类</h1><h2 id="1-配置"><a href="#1-配置" class="headerlink" title="1. 配置"></a>1. 配置</h2><ol>
+<li>在pom.xml中导入swagger的坐标</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--swagger--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.springfox<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>springfox-swagger2<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.9.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.springfox<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>springfox-swagger-ui<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.9.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.projectlombok<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>lombok<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>由于一些显示问题或者说扫描问题，在application.yml中编写一段匹配规则</li>
+</ol>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-comment"># SpringBoot2.7.8 + Swagger2.9.2</span><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">mvc:</span><br>    <span class="hljs-attr">pathmatch:</span><br>      <span class="hljs-attr">matching-strategy:</span> <span class="hljs-string">ant_path_matcher</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="2-代码编写"><a href="#2-代码编写" class="headerlink" title="2. 代码编写"></a>2. 代码编写</h2><p>整体项目结构如图所示（红色是因为暂时还没有推到git）</p>
+<img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230410192018814.png" srcset="/img/loading.gif" lazyload alt="image-20230410192018814" style="zoom:50%;" />
+
+<h3 id="2-1-SwaggerConfig类"><a href="#2-1-SwaggerConfig类" class="headerlink" title="2.1 SwaggerConfig类"></a>2.1 SwaggerConfig类</h3><p>这个类里面主要是配置一些接口文档的规则，文档信息什么的，类似于一个模板写法直接把别人的抄过来</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.edu.bupt.aiswitchboard.config;<br><br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br><span class="hljs-keyword">import</span> springfox.documentation.builders.ApiInfoBuilder;<br><span class="hljs-keyword">import</span> springfox.documentation.builders.PathSelectors;<br><span class="hljs-keyword">import</span> springfox.documentation.builders.RequestHandlerSelectors;<br><span class="hljs-keyword">import</span> springfox.documentation.service.ApiInfo;<br><span class="hljs-keyword">import</span> springfox.documentation.service.Contact;<br><span class="hljs-keyword">import</span> springfox.documentation.spi.DocumentationType;<br><span class="hljs-keyword">import</span> springfox.documentation.spring.web.plugins.Docket;<br><span class="hljs-keyword">import</span> springfox.documentation.swagger2.annotations.EnableSwagger2;<br><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@EnableSwagger2</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SwaggerConfig</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 配置接口文档生成规则</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> Docket <span class="hljs-title function_">getDocket</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 设置文档生成规则</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Docket</span>(DocumentationType.SWAGGER_2)<br>                .useDefaultResponseMessages(<span class="hljs-literal">false</span>) <span class="hljs-comment">// 禁用自动生成的状态码</span><br>                .apiInfo(apiInfo()) <span class="hljs-comment">// 设置文档信息</span><br>                .select()<br>                <span class="hljs-comment">// 设置哪个包下的类需要生成文档</span><br>                .apis(RequestHandlerSelectors.basePackage(<span class="hljs-string">&quot;cn.edu.bupt.aiswitchboard.controller&quot;</span>))<br>                .paths(PathSelectors.any()) <span class="hljs-comment">// 定义哪些路径的接口需要生成文档</span><br>                .build();<br><br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 设置文档信息</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> ApiInfo <span class="hljs-title function_">apiInfo</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ApiInfoBuilder</span>()<br>                .title(<span class="hljs-string">&quot;智能总机接口文档&quot;</span>)<br>                .description(<span class="hljs-string">&quot;2023.4.6 将智能总机重构一份java版本，用于自己的java学习并使得项目更加灵活&quot;</span>)<br>                .version(<span class="hljs-string">&quot;1.0&quot;</span>)<br>                .contact(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Contact</span>(<span class="hljs-string">&quot;CuriousLiu;&quot;</span>,<br>                        <span class="hljs-string">&quot;https://yixuan004.github.io/&quot;</span>,<br>                        <span class="hljs-string">&quot;liuyixuan@bupt.edu.cn&quot;</span>))<br>                .build();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-common下的返回值：Response类和ResponseCode-ResponseMessage两个Enum"><a href="#2-2-common下的返回值：Response类和ResponseCode-ResponseMessage两个Enum" class="headerlink" title="2.2 common下的返回值：Response类和ResponseCode ResponseMessage两个Enum"></a>2.2 common下的返回值：Response类和ResponseCode ResponseMessage两个Enum</h3><p>在一个web项目中，把返回值统一成code message data这样一个Response返回类还是很关键的</p>
+<p>code：主要就是标识一个状态码，一般是200 500 这样的，或者自己根据类型定义</p>
+<p>message：主要就是状态码的解释，比如200对应成功，500对应失败这样的</p>
+<p>data：Object类，什么都可以</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">├── src<br>│   ├── main<br>│   │   ├── java<br>│   │   │   └── cn<br>│   │   │       └── edu<br>│   │   │           └── bupt<br>│   │   │               └── aiswitchboard<br>│   │   │                   ├── ...<br>│   │   │                   ├── common<br>│   │   │                   │   ├── Response.java<br>│   │   │                   │   ├── ResponseCode.java<br>│   │   │                   │   └── ResponseMessage.java<br></code></pre></td></tr></table></figure>
+
+<p><font color='red'>java中的enum是一种特殊的数据类型，用于表示一组常常量。返回值和响应状态码正好适合这种场景</font> </p>
+<p><font color='red'>进一步通过静态变量private final的方式来定义这两个，并且提供getCode和getMessage方法，防止了代码中的错误和不安全行为</font> </p>
+<p><font color='red'>private代表只能类内访问，final代表是个一旦初始化就不能修改的</font> </p>
+<p><strong>ResponseCode.java</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.edu.bupt.aiswitchboard.common;<br><br><span class="hljs-keyword">import</span> java.io.Serializable;<br><br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">ResponseCode</span> &#123;<br>    SUCCESS(<span class="hljs-number">200</span>),<br>    UNKNOWNERROR(<span class="hljs-number">500</span>);<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> code;<br><br>    ResponseCode(<span class="hljs-type">int</span> code) &#123;<br>        <span class="hljs-built_in">this</span>.code = code;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getCode</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> code;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>ResponseMessage.java</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.edu.bupt.aiswitchboard.common;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">ResponseMessage</span> &#123;<br>    SUCCESS(<span class="hljs-string">&quot;SUCCESS&quot;</span>),<br>    UNKNOWNERROR(<span class="hljs-string">&quot;UNKNOWN ERROR&quot;</span>);<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String message;<br><br>    ResponseMessage(String message) &#123;<br>        <span class="hljs-built_in">this</span>.message = message;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getMessage</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> message;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>Response.java</strong></p>
+<p>使用泛型类来定义Response，这里的data被泛型类修饰，可以接收各种类型的，在上层初始化Response类的时候，可以用Object这个大类，就使得data可以返回任何类型的，然后提供一个update方法，这个方法可以更新code message和data的数据，用来进行返回值的设计</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.edu.bupt.aiswitchboard.common;<br><br><span class="hljs-keyword">import</span> io.swagger.annotations.ApiModel;<br><span class="hljs-keyword">import</span> io.swagger.annotations.ApiModelProperty;<br><span class="hljs-keyword">import</span> io.swagger.annotations.Example;<br><span class="hljs-keyword">import</span> io.swagger.annotations.ExampleProperty;<br><span class="hljs-keyword">import</span> lombok.Data;<br><br><span class="hljs-keyword">import</span> java.io.Serializable;<br><br><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Response</span>&lt;T&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Serializable</span> &#123;<br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;响应状态码&quot;, example = &quot;200, 500&quot;)</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> code;<br>    <span class="hljs-keyword">private</span> String message;<br>    <span class="hljs-keyword">private</span> T data;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Response</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">this</span>.code = ResponseCode.SUCCESS.getCode();<br>        <span class="hljs-built_in">this</span>.message = ResponseMessage.SUCCESS.getMessage();<br>        <span class="hljs-built_in">this</span>.data = <span class="hljs-literal">null</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">update</span><span class="hljs-params">(<span class="hljs-type">int</span> code, String message, T data)</span> &#123;<br>        <span class="hljs-built_in">this</span>.code = code;<br>        <span class="hljs-built_in">this</span>.message = message;<br>        <span class="hljs-built_in">this</span>.data = data;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-3-controller中加入一些api和doc的操作，对于json格式的请求来说可以与model-HelloJsonInputRequest进行对应，对于form-data类型的输入可以直接加在输入的修饰中"><a href="#2-3-controller中加入一些api和doc的操作，对于json格式的请求来说可以与model-HelloJsonInputRequest进行对应，对于form-data类型的输入可以直接加在输入的修饰中" class="headerlink" title="2.3 controller中加入一些api和doc的操作，对于json格式的请求来说可以与model.HelloJsonInputRequest进行对应，对于form-data类型的输入可以直接加在输入的修饰中"></a>2.3 controller中加入一些api和doc的操作，对于json格式的请求来说可以与model.HelloJsonInputRequest进行对应，对于form-data类型的输入可以直接加在输入的修饰中</h3><p>HelloController.java个人理解可以对应到python那边Swagger的一个namespace下，这个下面可以使用RESTful风格进行接口的定义，然后特别注意接口输入这里，对于json可以对应一下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.edu.bupt.aiswitchboard.controller;<br><br><span class="hljs-keyword">import</span> cn.edu.bupt.aiswitchboard.common.Response;<br><span class="hljs-keyword">import</span> cn.edu.bupt.aiswitchboard.common.ResponseCode;<br><span class="hljs-keyword">import</span> cn.edu.bupt.aiswitchboard.common.ResponseMessage;<br><span class="hljs-keyword">import</span> cn.edu.bupt.aiswitchboard.model.HelloJsonInputRequest;<br><span class="hljs-keyword">import</span> io.swagger.annotations.*;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.*;<br><span class="hljs-keyword">import</span> org.springframework.web.multipart.MultipartFile;<br><br><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@Api(&quot;hello接口用来进行测试&quot;)</span><br><span class="hljs-meta">@RequestMapping(&quot;/hello&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloController</span> &#123;<br>    <span class="hljs-meta">@ApiOperation(&quot;测试post中json-body类型的数据输入&quot;)</span><br>    <span class="hljs-meta">@PostMapping(&quot;/json-input&quot;)</span><br>    <span class="hljs-keyword">public</span> Response&lt;Object&gt; <span class="hljs-title function_">postJsonInput</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> HelloJsonInputRequest helloJsonInputRequest)</span> &#123;<br>        Response&lt;Object&gt; resp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>&lt;&gt;();<br>        System.out.println(helloJsonInputRequest.toString());<br>        resp.update(ResponseCode.SUCCESS.getCode(), ResponseMessage.SUCCESS.getMessage(), <span class="hljs-literal">null</span>);<br>        <span class="hljs-keyword">return</span> resp;<br>    &#125;<br><br>    <span class="hljs-meta">@ApiOperation(&quot;测试post中form-data类型的数据输入&quot;)</span><br>    <span class="hljs-meta">@PostMapping(&quot;/form-input&quot;)</span><br>    <span class="hljs-keyword">public</span> Response&lt;Object&gt; <span class="hljs-title function_">postFormInput</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam(&quot;name&quot;)</span> String name,</span><br><span class="hljs-params">                                          <span class="hljs-meta">@RequestParam(&quot;age&quot;)</span> Integer age,</span><br><span class="hljs-params">                                          <span class="hljs-meta">@RequestPart(&quot;file&quot;)</span> MultipartFile file)</span> &#123;<br>        Response&lt;Object&gt; resp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>&lt;&gt;();<br>        System.out.println(<span class="hljs-string">&quot;name: &quot;</span> + name);<br>        System.out.println(<span class="hljs-string">&quot;age: &quot;</span> + age);<br>        System.out.println(<span class="hljs-string">&quot;file: &quot;</span> + file);<br>        <span class="hljs-keyword">return</span> resp;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230410193608585.png" srcset="/img/loading.gif" lazyload alt="image-20230410193608585"></p>
+<h2 id="3-前端效果（返回值的定义还存在一些问题，留待未来解决）"><a href="#3-前端效果（返回值的定义还存在一些问题，留待未来解决）" class="headerlink" title="3. 前端效果（返回值的定义还存在一些问题，留待未来解决）"></a>3. 前端效果（返回值的定义还存在一些问题，留待未来解决）</h2><p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230410193729163.png" srcset="/img/loading.gif" lazyload alt="image-20230410193729163"></p>
+<p><img src="http://yixuan004.oss-cn-hangzhou.aliyuncs.com/img/image-20230410193743333.png" srcset="/img/loading.gif" lazyload alt="image-20230410193743333"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/develop/" class="category-chain-item">develop</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/java/" class="category-chain-item">java</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/develop/java/springboot/" class="category-chain-item">springboot</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/springboot/">#springboot</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>SpringBoot-2整合Swagger+Response类</div>
+      <div>http://example.com/2023/04/10/develop/java/springboot/SpringBoot-2整合Swagger+Response类/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Curious;</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/04/10/develop/java/springboot/SpringBoot-3%E6%95%B4%E5%90%88HanLP1-x/" title="SpringBoot-3整合HanLP1.x">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SpringBoot-3整合HanLP1.x</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/28/develop/mysql/202303mysql%E9%9D%A2%E8%AF%95%E9%A2%98%E6%A2%B3%E7%90%86/" title="202303mysql面试题梳理">
+                        <span class="hidden-mobile">202303mysql面试题梳理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
